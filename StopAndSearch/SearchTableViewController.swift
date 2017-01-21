@@ -13,7 +13,8 @@ class SearchTableViewController: UITableViewController {
   @IBOutlet weak var addressLabel: UILabel!
   @IBOutlet weak var dateLabel: UILabel!
   
-   var address: Address?
+  var address: Address?
+  var date: MonthYear?
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -32,8 +33,8 @@ class SearchTableViewController: UITableViewController {
       }
       
       if segue.identifier == "SetDate" {
-  //      let controller = segue.destination as! DateController
-     //   controller.delegate = self
+        let controller = segue.destination as! DateController
+        controller.delegate = self
       }
   }
 }
@@ -49,4 +50,15 @@ extension SearchTableViewController: AddressControllerDelegate {
       addressLabel.text! = a
     }
   }
+}
+
+extension SearchTableViewController: DateControllerDelegate {
+  
+  func didSetDate(date: MonthYear) {
+    
+    dateLabel.text!  = "\(date.monthName) \(date.yearAsString)"
+    
+    
+  }
+  
 }

@@ -230,10 +230,10 @@
             </objects>
             <point key="canvasLocation" x="2280" y="-730"/>
         </scene>
-        <!--View Controller-->
+        <!--Date Controller-->
         <scene sceneID="ri3-Xa-jpr">
             <objects>
-                <viewController id="Dbq-TE-K4Q" sceneMemberID="viewController">
+                <viewController id="Dbq-TE-K4Q" customClass="DateController" customModule="StopAndSearch" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="SFs-8P-o1P"/>
                         <viewControllerLayoutGuide type="bottom" id="u4L-32-0lv"/>
@@ -250,14 +250,20 @@
                                 <rect key="frame" x="132" y="445" width="56" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="set date"/>
+                                <connections>
+                                    <action selector="setDate:" destination="Dbq-TE-K4Q" eventType="touchUpInside" id="DSK-Qm-kml"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="datePicker" destination="Ev3-QU-UqQ" id="HXS-77-nmI"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cYG-mv-n8b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2280" y="13"/>
+            <point key="canvasLocation" x="2239" y="10"/>
         </scene>
         <!--Second-->
         <scene sceneID="wg7-f3-ORb">
