@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class SearchTableViewController: UITableViewController {
   
@@ -15,6 +16,9 @@ class SearchTableViewController: UITableViewController {
   
   var address: Address?
   var date: MonthYear?
+  lazy var geocoder = CLGeocoder()
+  var coordinate: CLLocationCoordinate2D?
+  
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -44,30 +48,76 @@ class SearchTableViewController: UITableViewController {
     
     if indexPath.section == 2 && indexPath.row == 0 {
       
-      print ("go button pressed")
+    //is there a valid location?
       
+      guard let coord  = coordinate else {
+       
+        // alert need valid location
+        return
+      }
+      submitSearch( coordinate: coord, date: date)
     }
-    
-    
   }
+  
+  func submitSearch (coordinate: CLLocationCoordinate2D, date: MonthYear? ) {
+    
+    // format search string
+    
+    var searchString = "https://data.police.uk/api/stops-street?lat=\(coordinate.latitude)&lng=\(coordinate.longitude)"
+  
+    if let d = date {
+      print("adding date")
+          searchString.append("&date="+d.dateFormattedForApiSearch)
+    }
+    print(searchString)
+  }
+  
+  
+  
+   func processResponse(withPlacemarks placemarks: [CLPlacemark]?, error: Error?) {
+    
+    if let error = error {
+      print("Unable to Forward Geocode Address (\(error))")
+      addressLabel.text! = "Unable to Find Location for Address"
+      
+    } else {
+      var location: CLLocation?
+      
+      if let placemarks = placemarks, placemarks.count > 0 {
+        location = placemarks.first?.location
+      }
+      
+      if let location = location {
+        coordinate = location.coordinate
+        print( "\(coordinate!.latitude), \(coordinate!.longitude)")
+      } else {
+        print ( "No Matching Location Found")      }
+    }
+  }
+  
   
 }
 
 extension SearchTableViewController: AddressControllerDelegate {
   
   func didSetAddress(address: Address) {
-    
+    coordinate = nil
+    let addressString: String
     self.address = address
-    print ("Address set", self.address!.addressAsString())
-    
-  addressLabel.text!  = self.address!.addressAsString()
+    addressString = self.address!.addressAsString()
+    addressLabel.text!  = addressString
+    geocoder.geocodeAddressString(addressString)  {
+      (placemarks, error) in
+      self.processResponse(withPlacemarks: placemarks, error: error)
+    }
+    //disable button and show activity monitor
   }
 }
 
 extension SearchTableViewController: DateControllerDelegate {
   
   func didSetDate(date: MonthYear) {
-    
+    self.date = date
     dateLabel.text!  = "\(date.monthName) \(date.yearAsString)"
     
     

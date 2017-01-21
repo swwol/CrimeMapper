@@ -13,8 +13,10 @@ struct MonthYear {
   let year: Int
   let monthName: String
   var yearAsString: String {
-    
     return "\(2014 + year)"
-    
+  }
+  var dateFormattedForApiSearch: String {
+      let paddedMonth  = String(format: "%02d", (month+1))
+      return yearAsString+"-"+paddedMonth
   }
 }
