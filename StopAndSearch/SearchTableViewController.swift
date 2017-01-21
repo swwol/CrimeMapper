@@ -37,6 +37,20 @@ class SearchTableViewController: UITableViewController {
         controller.delegate = self
       }
   }
+  
+  // did select go button
+  
+  override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    
+    if indexPath.section == 2 && indexPath.row == 0 {
+      
+      print ("go button pressed")
+      
+    }
+    
+    
+  }
+  
 }
 
 extension SearchTableViewController: AddressControllerDelegate {
@@ -44,11 +58,9 @@ extension SearchTableViewController: AddressControllerDelegate {
   func didSetAddress(address: Address) {
     
     self.address = address
-    print ("Address set", self.address!.fullAddress ?? "address not set")
+    print ("Address set", self.address!.addressAsString())
     
-    if let a  = self.address!.fullAddress {
-      addressLabel.text! = a
-    }
+  addressLabel.text!  = self.address!.addressAsString()
   }
 }
 

@@ -19,16 +19,14 @@ class AddressController: UIViewController {
   var address =  Address()
   var delegate: AddressControllerDelegate?
 //to do  - set a delegate back to main view controller
-  @IBOutlet weak var building: UITextField!
+
   @IBOutlet weak var street: UITextField!
   @IBOutlet weak var city: UITextField!
   @IBOutlet weak var postcode: UITextField!
   
   @IBAction func findAddresss(_ sender: UIButton) {
     
-    if building.text! != "" {
-      address.building = building.text!
-    }
+  
     if street.text! != "" {
       address.street = street.text!
     }

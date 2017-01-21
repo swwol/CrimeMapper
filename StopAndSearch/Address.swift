@@ -7,43 +7,70 @@
 //
 
 import Foundation
+import Contacts
 
 struct Address {
   
-  var building: String?
+
   var street: String?
   var city: String?
   var postcode: String?
-  var fullAddress : String? {
-    
-    if building == nil && street == nil && city == nil && postcode == nil {
-      return nil
-    }
-    
-    var address = ""
-    address  = address + (building ?? "")
+  
+  func encodedAddress() -> CNMutablePostalAddress  {
+
+    let address = CNMutablePostalAddress()
     
     if let s = street {
-    address = addStringOrSpacedString(firstString: address, secondString: s)
+      address.street = s
     }
-    
     if let c = city {
-    address = addStringOrSpacedString(firstString: address, secondString: c)
+      address.city = c
     }
-    
     if let p = postcode {
-      address = addStringOrSpacedString(firstString: address, secondString: p)
+      address.postalCode = p
     }
+    address.isoCountryCode = "GBR"
     return address
-  }
+     }
   
-  func addStringOrSpacedString (firstString: String, secondString: String) -> String {
-    var s: String
-    if   firstString != "" {
-      s = firstString + " " + secondString
-    } else {
-      s = secondString
-    }
-    return s
+  func addressAsString() -> String {
+    
+    return CNPostalAddressFormatter.string(from: encodedAddress(), style: .mailingAddress )
+    
   }
 }
+
+
+
+
+/*
+ if building == nil && street == nil && city == nil && postcode == nil {
+ return nil
+ }
+ 
+ var address = ""
+ address  = address + (building ?? "")
+ 
+ if let s = street {
+ address = addStringOrSpacedString(firstString: address, secondString: s)
+ }
+ 
+ if let c = city {
+ address = addStringOrSpacedString(firstString: address, secondString: c)
+ }
+ 
+ if let p = postcode {
+ address = addStringOrSpacedString(firstString: address, secondString: p)
+ }
+ return address
+ }
+ 
+ func addStringOrSpacedString (firstString: String, secondString: String) -> String {
+ var s: String
+ if   firstString != "" {
+ s = firstString + " " + secondString
+ } else {
+ s = secondString
+ }
+ return s*/
+
