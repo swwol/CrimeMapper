@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CD568C7E1E32CF9300DB0B9C /* AddressController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD568C7D1E32CF9300DB0B9C /* AddressController.swift */; };
+		CD568C801E32D1F600DB0B9C /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD568C7F1E32D1F600DB0B9C /* Address.swift */; };
+		CD65058F1E337F3100DF0C03 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD65058E1E337F3100DF0C03 /* SearchTableViewController.swift */; };
 		CD7FBCA61E32AE1500DA40F1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7FBCA51E32AE1500DA40F1 /* AppDelegate.swift */; };
 		CD7FBCA81E32AE1500DA40F1 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7FBCA71E32AE1500DA40F1 /* FirstViewController.swift */; };
 		CD7FBCAA1E32AE1500DA40F1 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7FBCA91E32AE1500DA40F1 /* SecondViewController.swift */; };
@@ -16,6 +19,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CD568C7D1E32CF9300DB0B9C /* AddressController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressController.swift; sourceTree = "<group>"; };
+		CD568C7F1E32D1F600DB0B9C /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
+		CD65058E1E337F3100DF0C03 /* SearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
 		CD7FBCA21E32AE1500DA40F1 /* StopAndSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StopAndSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD7FBCA51E32AE1500DA40F1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CD7FBCA71E32AE1500DA40F1 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -60,6 +66,9 @@
 				CD7FBCA71E32AE1500DA40F1 /* FirstViewController.swift */,
 				CD7FBCA91E32AE1500DA40F1 /* SecondViewController.swift */,
 				CD7FBCAB1E32AE1500DA40F1 /* Main.storyboard */,
+				CD65058E1E337F3100DF0C03 /* SearchTableViewController.swift */,
+				CD568C7F1E32D1F600DB0B9C /* Address.swift */,
+				CD568C7D1E32CF9300DB0B9C /* AddressController.swift */,
 				CD7FBCAE1E32AE1500DA40F1 /* Assets.xcassets */,
 				CD7FBCB01E32AE1500DA40F1 /* LaunchScreen.storyboard */,
 				CD7FBCB31E32AE1500DA40F1 /* Info.plist */,
@@ -140,9 +149,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD568C7E1E32CF9300DB0B9C /* AddressController.swift in Sources */,
+				CD65058F1E337F3100DF0C03 /* SearchTableViewController.swift in Sources */,
 				CD7FBCAA1E32AE1500DA40F1 /* SecondViewController.swift in Sources */,
 				CD7FBCA61E32AE1500DA40F1 /* AppDelegate.swift in Sources */,
 				CD7FBCA81E32AE1500DA40F1 /* FirstViewController.swift in Sources */,
+				CD568C801E32D1F600DB0B9C /* Address.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -306,6 +318,7 @@
 				CD7FBCB81E32AE1500DA40F1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
