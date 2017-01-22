@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		CD02F3931E34CF6200A5DD9C /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD02F3921E34CF6200A5DD9C /* SearchResult.swift */; };
-		CD251B021E352CE5004DACB7 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD251B011E352CE5004DACB7 /* Location.swift */; };
 		CD568C7E1E32CF9300DB0B9C /* AddressController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD568C7D1E32CF9300DB0B9C /* AddressController.swift */; };
 		CD568C801E32D1F600DB0B9C /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD568C7F1E32D1F600DB0B9C /* Address.swift */; };
 		CD65058F1E337F3100DF0C03 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD65058E1E337F3100DF0C03 /* SearchTableViewController.swift */; };
@@ -27,7 +26,6 @@
 		7356764FCF51E447F27ADD22 /* Pods-StopAndSearch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StopAndSearch.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StopAndSearch/Pods-StopAndSearch.debug.xcconfig"; sourceTree = "<group>"; };
 		BE7D707924925F6F16864114 /* Pods_StopAndSearch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StopAndSearch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD02F3921E34CF6200A5DD9C /* SearchResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
-		CD251B011E352CE5004DACB7 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		CD568C7D1E32CF9300DB0B9C /* AddressController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressController.swift; sourceTree = "<group>"; };
 		CD568C7F1E32D1F600DB0B9C /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		CD65058E1E337F3100DF0C03 /* SearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
@@ -83,7 +81,6 @@
 				CD7FBCAB1E32AE1500DA40F1 /* Main.storyboard */,
 				CDFC3E631E3396290065C9E2 /* DateController.swift */,
 				CD65058E1E337F3100DF0C03 /* SearchTableViewController.swift */,
-				CD251B011E352CE5004DACB7 /* Location.swift */,
 				CD02F3921E34CF6200A5DD9C /* SearchResult.swift */,
 				CDFC3E651E33AD530065C9E2 /* MonthYear.swift */,
 				CD568C7F1E32D1F600DB0B9C /* Address.swift */,
@@ -238,7 +235,6 @@
 			files = (
 				CD568C7E1E32CF9300DB0B9C /* AddressController.swift in Sources */,
 				CD02F3931E34CF6200A5DD9C /* SearchResult.swift in Sources */,
-				CD251B021E352CE5004DACB7 /* Location.swift in Sources */,
 				CDFC3E661E33AD530065C9E2 /* MonthYear.swift in Sources */,
 				CD65058F1E337F3100DF0C03 /* SearchTableViewController.swift in Sources */,
 				CD7FBCAA1E32AE1500DA40F1 /* SecondViewController.swift in Sources */,

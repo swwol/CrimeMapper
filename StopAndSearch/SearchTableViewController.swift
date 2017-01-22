@@ -62,12 +62,38 @@ class SearchTableViewController: UITableViewController {
       // clear search results array of old results
       searchResults = []
       
-      // get async queue
-      
-      let queue = DispatchQueue.global()
-      queue.async {
-        let url = self.getSearchURL( coordinate: coord, date: self.date)
-        if let jsonString = self.performSearch(with: url) {
+        let url = self.getSearchURL( coordinate: coord, date: date)
+        let session  = URLSession.shared
+      let dataTask  = session.dataTask(with: url, completionHandler: {
+        data, response, error in
+        
+        if let error = error {
+          print ("network error \(error)")
+        } else if let httpResponse = response as? HTTPURLResponse,httpResponse.statusCode == 200 {
+          
+          
+          print("Success! \(data!)")
+          
+          if let data = data, let jsonArray  = self.parse(json: data) {
+            for result in jsonArray {
+              if  let r = SearchResult(json: result as! JSON){
+                self.searchResults.append(r)
+              }
+            }
+            print (self.searchResults)
+          }
+        } else {
+          print ("failure \(response)")
+        }
+      })
+       dataTask.resume()
+    }
+  }
+  /*
+   
+   
+   
+   
           let jsonArray =   self.parse(json: jsonString)
           if let array = jsonArray {
             for result in array {
@@ -84,12 +110,10 @@ class SearchTableViewController: UITableViewController {
       }
     }
   }
+ */
   
-  func parse(json: String) -> [NSDictionary]? {
-    
-    guard let data = json.data(using: .utf8, allowLossyConversion: false)
-      else { return nil}
-    do {
+  func parse(json data: Data) -> [NSDictionary]? {
+       do {
       return try JSONSerialization.jsonObject(with: data, options: []) as? [NSDictionary]
     } catch {
       print("JSON Error: \(error)")

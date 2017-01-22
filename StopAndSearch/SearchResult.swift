@@ -14,14 +14,16 @@ struct SearchResult: Decodable {
   let type: String?
   let street: String?
   let gender: String?
-  let location: Location?
+  let latitude: String?
+  let longitude: String?
   let age: String?
   let ethnicity: String?
   let objectOfSearch: String?
   
   init?(json: JSON) {
     self.type = "type" <~~ json
-    self.location = "location"  <~~ json
+    self.latitude = "location.latitude" <~~ json
+    self.longitude  = "location.longitude" <~~ json
     self.street = "street" <~~ json
     self.ethnicity = "self_defined_ethnicity"  <~~ json
     self.gender = "gender" <~~ json
