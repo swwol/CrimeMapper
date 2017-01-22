@@ -26,6 +26,6 @@ struct SearchResult: Decodable {
     self.ethnicity = "self_defined_ethnicity"  <~~ json
     self.gender = "gender" <~~ json
     self.age = "age_range" <~~ json
-    self.objectOfSearch = "onject_of_seearch" <~~ json
+    self.objectOfSearch = "object_of_seearch" <~~ json
   }
 }

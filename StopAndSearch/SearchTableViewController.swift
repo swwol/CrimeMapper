@@ -59,19 +59,27 @@ class SearchTableViewController: UITableViewController {
         // alert need valid location
         return
       }
-     let url = getSearchURL( coordinate: coord, date: date)
+      // clear search results array of old results
+      searchResults = []
       
-      if let jsonString = performSearch(with: url) {
-        
-   let jsonArray =   parse(json: jsonString)
-       
-        if let array = jsonArray {
-          
-          for result in array {
-            if  let r = SearchResult(json: result as! JSON){
-            searchResults.append(r)
+      // get async queue
+      
+      let queue = DispatchQueue.global()
+      queue.async {
+        let url = self.getSearchURL( coordinate: coord, date: self.date)
+        if let jsonString = self.performSearch(with: url) {
+          let jsonArray =   self.parse(json: jsonString)
+          if let array = jsonArray {
+            for result in array {
+              if  let r = SearchResult(json: result as! JSON){
+                self.searchResults.append(r)
+              }
             }
+            print ("done")
+            print (self.searchResults)
+            return
           }
+          print ("error")
         }
       }
     }
