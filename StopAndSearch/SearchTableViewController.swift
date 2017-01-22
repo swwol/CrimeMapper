@@ -8,6 +8,9 @@
 
 import UIKit
 import CoreLocation
+import Gloss
+
+
 
 class SearchTableViewController: UITableViewController {
   
@@ -18,6 +21,7 @@ class SearchTableViewController: UITableViewController {
   var date: MonthYear?
   lazy var geocoder = CLGeocoder()
   var coordinate: CLLocationCoordinate2D?
+  var searchResults = [SearchResult]()
   
   
   override func viewDidLoad() {
@@ -55,11 +59,50 @@ class SearchTableViewController: UITableViewController {
         // alert need valid location
         return
       }
-      submitSearch( coordinate: coord, date: date)
+     let url = getSearchURL( coordinate: coord, date: date)
+      
+      if let jsonString = performSearch(with: url) {
+        
+   let jsonArray =   parse(json: jsonString)
+       
+        if let array = jsonArray {
+          
+          for result in array {
+            if  let r = SearchResult(json: result as! JSON){
+            searchResults.append(r)
+            }
+          }
+        }
+      }
     }
   }
   
-  func submitSearch (coordinate: CLLocationCoordinate2D, date: MonthYear? ) {
+  func parse(json: String) -> [NSDictionary]? {
+    
+    guard let data = json.data(using: .utf8, allowLossyConversion: false)
+      else { return nil}
+    do {
+      return try JSONSerialization.jsonObject(with: data, options: []) as? [NSDictionary]
+    } catch {
+      print("JSON Error: \(error)")
+      return nil
+    }
+  }
+   
+  func performSearch(with url: URL) -> String? {
+    
+    do {
+      return try String(contentsOf: url, encoding: .utf8)
+    } catch {
+      print("Download Error: \(error)")
+      return nil
+    }
+  }
+    
+    
+  
+  
+  func getSearchURL (coordinate: CLLocationCoordinate2D, date: MonthYear? ) -> URL {
     
     // format search string
     
@@ -70,6 +113,8 @@ class SearchTableViewController: UITableViewController {
           searchString.append("&date="+d.dateFormattedForApiSearch)
     }
     print(searchString)
+    let url = URL(string: searchString)
+    return url!
   }
   
   

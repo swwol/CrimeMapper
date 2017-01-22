@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CD02F3931E34CF6200A5DD9C /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD02F3921E34CF6200A5DD9C /* SearchResult.swift */; };
+		CD251B021E352CE5004DACB7 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD251B011E352CE5004DACB7 /* Location.swift */; };
 		CD568C7E1E32CF9300DB0B9C /* AddressController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD568C7D1E32CF9300DB0B9C /* AddressController.swift */; };
 		CD568C801E32D1F600DB0B9C /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD568C7F1E32D1F600DB0B9C /* Address.swift */; };
 		CD65058F1E337F3100DF0C03 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD65058E1E337F3100DF0C03 /* SearchTableViewController.swift */; };
@@ -18,9 +20,14 @@
 		CD7FBCB21E32AE1500DA40F1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD7FBCB01E32AE1500DA40F1 /* LaunchScreen.storyboard */; };
 		CDFC3E641E3396290065C9E2 /* DateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFC3E631E3396290065C9E2 /* DateController.swift */; };
 		CDFC3E661E33AD530065C9E2 /* MonthYear.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFC3E651E33AD530065C9E2 /* MonthYear.swift */; };
+		D5F139044ADA6C2A88BED4E1 /* Pods_StopAndSearch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE7D707924925F6F16864114 /* Pods_StopAndSearch.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7356764FCF51E447F27ADD22 /* Pods-StopAndSearch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StopAndSearch.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StopAndSearch/Pods-StopAndSearch.debug.xcconfig"; sourceTree = "<group>"; };
+		BE7D707924925F6F16864114 /* Pods_StopAndSearch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StopAndSearch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD02F3921E34CF6200A5DD9C /* SearchResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
+		CD251B011E352CE5004DACB7 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		CD568C7D1E32CF9300DB0B9C /* AddressController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressController.swift; sourceTree = "<group>"; };
 		CD568C7F1E32D1F600DB0B9C /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		CD65058E1E337F3100DF0C03 /* SearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
@@ -34,6 +41,7 @@
 		CD7FBCB31E32AE1500DA40F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CDFC3E631E3396290065C9E2 /* DateController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateController.swift; sourceTree = "<group>"; };
 		CDFC3E651E33AD530065C9E2 /* MonthYear.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthYear.swift; sourceTree = "<group>"; };
+		F9E2F30CB29004A374E4F4EF /* Pods-StopAndSearch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StopAndSearch.release.xcconfig"; path = "Pods/Target Support Files/Pods-StopAndSearch/Pods-StopAndSearch.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5F139044ADA6C2A88BED4E1 /* Pods_StopAndSearch.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,6 +61,8 @@
 			children = (
 				CD7FBCA41E32AE1500DA40F1 /* StopAndSearch */,
 				CD7FBCA31E32AE1500DA40F1 /* Products */,
+				DA2C11151DF7CF9B9AE59AA8 /* Pods */,
+				E6E409BAD6CDFC0367EC2C1E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -72,6 +83,8 @@
 				CD7FBCAB1E32AE1500DA40F1 /* Main.storyboard */,
 				CDFC3E631E3396290065C9E2 /* DateController.swift */,
 				CD65058E1E337F3100DF0C03 /* SearchTableViewController.swift */,
+				CD251B011E352CE5004DACB7 /* Location.swift */,
+				CD02F3921E34CF6200A5DD9C /* SearchResult.swift */,
 				CDFC3E651E33AD530065C9E2 /* MonthYear.swift */,
 				CD568C7F1E32D1F600DB0B9C /* Address.swift */,
 				CD568C7D1E32CF9300DB0B9C /* AddressController.swift */,
@@ -82,6 +95,23 @@
 			path = StopAndSearch;
 			sourceTree = "<group>";
 		};
+		DA2C11151DF7CF9B9AE59AA8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7356764FCF51E447F27ADD22 /* Pods-StopAndSearch.debug.xcconfig */,
+				F9E2F30CB29004A374E4F4EF /* Pods-StopAndSearch.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		E6E409BAD6CDFC0367EC2C1E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BE7D707924925F6F16864114 /* Pods_StopAndSearch.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -89,9 +119,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CD7FBCB61E32AE1500DA40F1 /* Build configuration list for PBXNativeTarget "StopAndSearch" */;
 			buildPhases = (
+				EF7C90AC003D3AC9035ABA29 /* [CP] Check Pods Manifest.lock */,
 				CD7FBC9E1E32AE1400DA40F1 /* Sources */,
 				CD7FBC9F1E32AE1400DA40F1 /* Frameworks */,
 				CD7FBCA01E32AE1400DA40F1 /* Resources */,
+				1EC9A7B4151D848FDC56B8C4 /* [CP] Embed Pods Frameworks */,
+				5908A245FA73DECDC17B46D0 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -150,12 +183,62 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1EC9A7B4151D848FDC56B8C4 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-StopAndSearch/Pods-StopAndSearch-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5908A245FA73DECDC17B46D0 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-StopAndSearch/Pods-StopAndSearch-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EF7C90AC003D3AC9035ABA29 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		CD7FBC9E1E32AE1400DA40F1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				CD568C7E1E32CF9300DB0B9C /* AddressController.swift in Sources */,
+				CD02F3931E34CF6200A5DD9C /* SearchResult.swift in Sources */,
+				CD251B021E352CE5004DACB7 /* Location.swift in Sources */,
 				CDFC3E661E33AD530065C9E2 /* MonthYear.swift in Sources */,
 				CD65058F1E337F3100DF0C03 /* SearchTableViewController.swift in Sources */,
 				CD7FBCAA1E32AE1500DA40F1 /* SecondViewController.swift in Sources */,
@@ -283,6 +366,7 @@
 		};
 		CD7FBCB71E32AE1500DA40F1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7356764FCF51E447F27ADD22 /* Pods-StopAndSearch.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 9793MLEXL9;
@@ -296,6 +380,7 @@
 		};
 		CD7FBCB81E32AE1500DA40F1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F9E2F30CB29004A374E4F4EF /* Pods-StopAndSearch.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 9793MLEXL9;
