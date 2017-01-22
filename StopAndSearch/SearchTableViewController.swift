@@ -10,8 +10,6 @@ import UIKit
 import CoreLocation
 import Gloss
 
-
-
 class SearchTableViewController: UITableViewController {
   
   @IBOutlet weak var addressLabel: UILabel!
@@ -22,6 +20,7 @@ class SearchTableViewController: UITableViewController {
   lazy var geocoder = CLGeocoder()
   var coordinate: CLLocationCoordinate2D?
   var searchResults = [SearchResult]()
+  var dataTask: URLSessionDataTask?
   
   
   override func viewDidLoad() {
@@ -61,10 +60,11 @@ class SearchTableViewController: UITableViewController {
       }
       // clear search results array of old results
       searchResults = []
+      dataTask?.cancel()
       
         let url = self.getSearchURL( coordinate: coord, date: date)
         let session  = URLSession.shared
-      let dataTask  = session.dataTask(with: url, completionHandler: {
+       dataTask  = session.dataTask(with: url, completionHandler: {
         data, response, error in
         
         if let error = error {
@@ -81,36 +81,15 @@ class SearchTableViewController: UITableViewController {
               }
             }
             print (self.searchResults)
+          //DispatchQueue.main.async {}
           }
         } else {
           print ("failure \(response)")
         }
       })
-       dataTask.resume()
+       dataTask?.resume()
     }
   }
-  /*
-   
-   
-   
-   
-          let jsonArray =   self.parse(json: jsonString)
-          if let array = jsonArray {
-            for result in array {
-              if  let r = SearchResult(json: result as! JSON){
-                self.searchResults.append(r)
-              }
-            }
-            print ("done")
-            print (self.searchResults)
-            return
-          }
-          print ("error")
-        }
-      }
-    }
-  }
- */
   
   func parse(json data: Data) -> [NSDictionary]? {
        do {
@@ -120,19 +99,6 @@ class SearchTableViewController: UITableViewController {
       return nil
     }
   }
-   
-  func performSearch(with url: URL) -> String? {
-    
-    do {
-      return try String(contentsOf: url, encoding: .utf8)
-    } catch {
-      print("Download Error: \(error)")
-      return nil
-    }
-  }
-    
-    
-  
   
   func getSearchURL (coordinate: CLLocationCoordinate2D, date: MonthYear? ) -> URL {
     
@@ -148,8 +114,6 @@ class SearchTableViewController: UITableViewController {
     let url = URL(string: searchString)
     return url!
   }
-  
-  
   
    func processResponse(withPlacemarks placemarks: [CLPlacemark]?, error: Error?) {
     
