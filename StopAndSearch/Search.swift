@@ -21,8 +21,7 @@ class Search {
     case noResults
     case results([SearchResult])
   }
-
-
+  
   private var dataTask: URLSessionDataTask? = nil
   private(set) var state: State = .notSearchedYet
   
@@ -60,10 +59,10 @@ class Search {
             }
             print (searchResults)
             self.state = .results(searchResults)
-          } // end else
+          }
         success = true
-        } //end parse
-      } // end if data
+        }
+      }
         DispatchQueue.main.async {
         completion(success)
       }
