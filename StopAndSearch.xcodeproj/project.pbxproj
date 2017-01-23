@@ -13,6 +13,7 @@
 		CD33D95D1E362C7100AB6E94 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD33D95C1E362C7100AB6E94 /* MapViewController.swift */; };
 		CD33D95F1E36405200AB6E94 /* MapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD33D95E1E36405200AB6E94 /* MapAnnotation.swift */; };
 		CD33D9651E3668E000AB6E94 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD33D9641E3668E000AB6E94 /* DetailViewController.swift */; };
+		CD33D96D1E366BC100AB6E94 /* StopAndSearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD33D96C1E366BC100AB6E94 /* StopAndSearchTests.swift */; };
 		CD568C7E1E32CF9300DB0B9C /* AddressController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD568C7D1E32CF9300DB0B9C /* AddressController.swift */; };
 		CD568C801E32D1F600DB0B9C /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD568C7F1E32D1F600DB0B9C /* Address.swift */; };
 		CD65058F1E337F3100DF0C03 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD65058E1E337F3100DF0C03 /* SearchTableViewController.swift */; };
@@ -26,6 +27,16 @@
 		D5F139044ADA6C2A88BED4E1 /* Pods_StopAndSearch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE7D707924925F6F16864114 /* Pods_StopAndSearch.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		CD33D96F1E366BC100AB6E94 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CD7FBC9A1E32AE1400DA40F1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CD7FBCA11E32AE1400DA40F1;
+			remoteInfo = StopAndSearch;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		7356764FCF51E447F27ADD22 /* Pods-StopAndSearch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StopAndSearch.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StopAndSearch/Pods-StopAndSearch.debug.xcconfig"; sourceTree = "<group>"; };
 		BE7D707924925F6F16864114 /* Pods_StopAndSearch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StopAndSearch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -35,6 +46,9 @@
 		CD33D95C1E362C7100AB6E94 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapViewController.swift; path = ../MapViewController.swift; sourceTree = "<group>"; };
 		CD33D95E1E36405200AB6E94 /* MapAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapAnnotation.swift; sourceTree = "<group>"; };
 		CD33D9641E3668E000AB6E94 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		CD33D96A1E366BC100AB6E94 /* StopAndSearchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StopAndSearchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD33D96C1E366BC100AB6E94 /* StopAndSearchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopAndSearchTests.swift; sourceTree = "<group>"; };
+		CD33D96E1E366BC100AB6E94 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CD568C7D1E32CF9300DB0B9C /* AddressController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressController.swift; sourceTree = "<group>"; };
 		CD568C7F1E32D1F600DB0B9C /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		CD65058E1E337F3100DF0C03 /* SearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
@@ -51,6 +65,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		CD33D9671E366BC100AB6E94 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CD7FBC9F1E32AE1400DA40F1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -63,10 +84,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CD33D96B1E366BC100AB6E94 /* StopAndSearchTests */ = {
+			isa = PBXGroup;
+			children = (
+				CD33D96C1E366BC100AB6E94 /* StopAndSearchTests.swift */,
+				CD33D96E1E366BC100AB6E94 /* Info.plist */,
+			);
+			path = StopAndSearchTests;
+			sourceTree = "<group>";
+		};
 		CD7FBC991E32AE1400DA40F1 = {
 			isa = PBXGroup;
 			children = (
 				CD7FBCA41E32AE1500DA40F1 /* StopAndSearch */,
+				CD33D96B1E366BC100AB6E94 /* StopAndSearchTests */,
 				CD7FBCA31E32AE1500DA40F1 /* Products */,
 				DA2C11151DF7CF9B9AE59AA8 /* Pods */,
 				E6E409BAD6CDFC0367EC2C1E /* Frameworks */,
@@ -77,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				CD7FBCA21E32AE1500DA40F1 /* StopAndSearch.app */,
+				CD33D96A1E366BC100AB6E94 /* StopAndSearchTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -125,6 +157,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		CD33D9691E366BC100AB6E94 /* StopAndSearchTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CD33D9711E366BC100AB6E94 /* Build configuration list for PBXNativeTarget "StopAndSearchTests" */;
+			buildPhases = (
+				CD33D9661E366BC100AB6E94 /* Sources */,
+				CD33D9671E366BC100AB6E94 /* Frameworks */,
+				CD33D9681E366BC100AB6E94 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CD33D9701E366BC100AB6E94 /* PBXTargetDependency */,
+			);
+			name = StopAndSearchTests;
+			productName = StopAndSearchTests;
+			productReference = CD33D96A1E366BC100AB6E94 /* StopAndSearchTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		CD7FBCA11E32AE1400DA40F1 /* StopAndSearch */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = CD7FBCB61E32AE1500DA40F1 /* Build configuration list for PBXNativeTarget "StopAndSearch" */;
@@ -155,6 +205,12 @@
 				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = edit;
 				TargetAttributes = {
+					CD33D9691E366BC100AB6E94 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 9793MLEXL9;
+						ProvisioningStyle = Automatic;
+						TestTargetID = CD7FBCA11E32AE1400DA40F1;
+					};
 					CD7FBCA11E32AE1400DA40F1 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 9793MLEXL9;
@@ -181,11 +237,19 @@
 			projectRoot = "";
 			targets = (
 				CD7FBCA11E32AE1400DA40F1 /* StopAndSearch */,
+				CD33D9691E366BC100AB6E94 /* StopAndSearchTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		CD33D9681E366BC100AB6E94 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CD7FBCA01E32AE1400DA40F1 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -247,6 +311,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		CD33D9661E366BC100AB6E94 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD33D96D1E366BC100AB6E94 /* StopAndSearchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CD7FBC9E1E32AE1400DA40F1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -268,6 +340,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		CD33D9701E366BC100AB6E94 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CD7FBCA11E32AE1400DA40F1 /* StopAndSearch */;
+			targetProxy = CD33D96F1E366BC100AB6E94 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		CD7FBCAB1E32AE1500DA40F1 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -288,6 +368,34 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		CD33D9721E366BC100AB6E94 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 9793MLEXL9;
+				INFOPLIST_FILE = StopAndSearchTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.samwoolf.StopAndSearchTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/StopAndSearch.app/StopAndSearch";
+			};
+			name = Debug;
+		};
+		CD33D9731E366BC100AB6E94 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 9793MLEXL9;
+				INFOPLIST_FILE = StopAndSearchTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.samwoolf.StopAndSearchTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/StopAndSearch.app/StopAndSearch";
+			};
+			name = Release;
+		};
 		CD7FBCB41E32AE1500DA40F1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -412,6 +520,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		CD33D9711E366BC100AB6E94 /* Build configuration list for PBXNativeTarget "StopAndSearchTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CD33D9721E366BC100AB6E94 /* Debug */,
+				CD33D9731E366BC100AB6E94 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		CD7FBC9D1E32AE1400DA40F1 /* Build configuration list for PBXProject "StopAndSearch" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

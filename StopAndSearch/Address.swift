@@ -35,9 +35,28 @@ class Address {
     return address
      }
   
-  func addressAsString() -> String {
-    return CNPostalAddressFormatter.string(from: encodedAddress(), style: .mailingAddress )
+  func appendWithSpaceifNotEmpty(a: String, b: String?) -> String {
+    var compString = a
+    if let secondString = b {
+      if compString != "" {
+        compString.append(" \(secondString)")
+      }else {
+        compString = secondString
+      }
+      return compString
+    }
+    return ""
   }
+  
+  func addressAsString() -> String {
+    
+   // var a = CNPostalAddressFormatter.string(from: encodedAddress(), style: .mailingAddress )
+     var a = ""
+     a = appendWithSpaceifNotEmpty(a: a, b: street)
+     a = appendWithSpaceifNotEmpty(a: a, b: city)
+     a = appendWithSpaceifNotEmpty(a: a, b: postcode)
+      return a
+    }
 }
 
 

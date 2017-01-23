@@ -93,8 +93,6 @@ class SearchTableViewController: UITableViewController {
   func resetGoLabel(){
     goLabel.text! = "GO"
   }
-  
-  
 }
 
 extension SearchTableViewController: AddressControllerDelegate {
@@ -110,7 +108,6 @@ extension SearchTableViewController: AddressControllerDelegate {
       (placemarks, error) in
       self.processResponse(withPlacemarks: placemarks, error: error)
     }
-    //disable button and show activity monitor
   }
 }
 
