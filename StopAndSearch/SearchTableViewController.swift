@@ -12,6 +12,7 @@ import Gloss
 
 class SearchTableViewController: UITableViewController {
   
+  
   @IBOutlet weak var addressLabel: UILabel!
   @IBOutlet weak var dateLabel: UILabel!
   
@@ -19,10 +20,8 @@ class SearchTableViewController: UITableViewController {
   var date: MonthYear?
   lazy var geocoder = CLGeocoder()
   var coordinate: CLLocationCoordinate2D?
-  var searchResults = [SearchResult]()
-  var dataTask: URLSessionDataTask?
-  
-  
+  let search = Search()
+
   override func viewDidLoad() {
     super.viewDidLoad()
   }
@@ -31,8 +30,8 @@ class SearchTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+  
+ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
       
       if segue.identifier == "SetAddress" {
         let controller = segue.destination as! AddressController
@@ -58,63 +57,18 @@ class SearchTableViewController: UITableViewController {
         // alert need valid location
         return
       }
-      // clear search results array of old results
-      searchResults = []
-      dataTask?.cancel()
       
-        let url = self.getSearchURL( coordinate: coord, date: date)
-        let session  = URLSession.shared
-       dataTask  = session.dataTask(with: url, completionHandler: {
-        data, response, error in
-        
-        if let error = error {
-          print ("network error \(error)")
-        } else if let httpResponse = response as? HTTPURLResponse,httpResponse.statusCode == 200 {
-          
-          
-          print("Success! \(data!)")
-          
-          if let data = data, let jsonArray  = self.parse(json: data) {
-            for result in jsonArray {
-              if  let r = SearchResult(json: result as! JSON){
-                self.searchResults.append(r)
-              }
-            }
-            print (self.searchResults)
-          //DispatchQueue.main.async {}
-          }
-        } else {
-          print ("failure \(response)")
-        }
-      })
-       dataTask?.resume()
-    }
+      search.performSearch(coord: coord, date: date) {success in
+      
+      print("done")
+      }
+      
+     }
   }
   
-  func parse(json data: Data) -> [NSDictionary]? {
-       do {
-      return try JSONSerialization.jsonObject(with: data, options: []) as? [NSDictionary]
-    } catch {
-      print("JSON Error: \(error)")
-      return nil
-    }
-  }
   
-  func getSearchURL (coordinate: CLLocationCoordinate2D, date: MonthYear? ) -> URL {
-    
-    // format search string
-    
-    var searchString = "https://data.police.uk/api/stops-street?lat=\(coordinate.latitude)&lng=\(coordinate.longitude)"
   
-    if let d = date {
-      print("adding date")
-          searchString.append("&date="+d.dateFormattedForApiSearch)
-    }
-    print(searchString)
-    let url = URL(string: searchString)
-    return url!
-  }
-  
+
    func processResponse(withPlacemarks placemarks: [CLPlacemark]?, error: Error?) {
     
     if let error = error {
