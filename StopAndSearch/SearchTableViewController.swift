@@ -15,6 +15,7 @@ class SearchTableViewController: UITableViewController {
   
   @IBOutlet weak var addressLabel: UILabel!
   @IBOutlet weak var dateLabel: UILabel!
+  @IBOutlet weak var goLabel: UILabel!
   
   var address: Address?
   var date: MonthYear?
@@ -49,26 +50,26 @@ class SearchTableViewController: UITableViewController {
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     
     if indexPath.section == 2 && indexPath.row == 0 {
-      
     //is there a valid location?
-      
       guard let coord  = coordinate else {
-       
         // alert need valid location
+        
         return
       }
       
       search.performSearch(coord: coord, date: date) {success in
       
-      print("done")
+        switch self.search.state {
+          
+        case .noResults:
+          self.goLabel.text! = "No results try again"
+        default:
+          self.parent?.performSegue(withIdentifier: "loadMap", sender: nil)
+        }
       }
-      
      }
   }
   
-  
-  
-
    func processResponse(withPlacemarks placemarks: [CLPlacemark]?, error: Error?) {
     
     if let error = error {
@@ -86,8 +87,13 @@ class SearchTableViewController: UITableViewController {
         coordinate = location.coordinate
         print( "\(coordinate!.latitude), \(coordinate!.longitude)")
       } else {
-        print ( "No Matching Location Found")      }
+        print ( "No Matching Location Found")
+      }
     }
+  }
+  
+  func resetGoLabel(){
+    goLabel.text! = "GO"
   }
   
   
@@ -101,6 +107,7 @@ extension SearchTableViewController: AddressControllerDelegate {
     self.address = address
     addressString = self.address!.addressAsString()
     addressLabel.text!  = addressString
+    resetGoLabel()
     geocoder.geocodeAddressString(addressString)  {
       (placemarks, error) in
       self.processResponse(withPlacemarks: placemarks, error: error)
@@ -114,8 +121,6 @@ extension SearchTableViewController: DateControllerDelegate {
   func didSetDate(date: MonthYear) {
     self.date = date
     dateLabel.text!  = "\(date.monthName) \(date.yearAsString)"
-    
-    
+    resetGoLabel()
   }
-  
 }
