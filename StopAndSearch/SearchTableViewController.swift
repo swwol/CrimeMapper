@@ -102,7 +102,7 @@ extension SearchTableViewController: AddressControllerDelegate {
     let addressString: String
     self.address = address
     addressString = self.address!.addressAsString()
-    addressLabel.text!  = addressString
+    addressLabel.text!  = self.address!.addressFormattedForLabel()
     resetGoLabel()
     geocoder.geocodeAddressString(addressString)  {
       (placemarks, error) in

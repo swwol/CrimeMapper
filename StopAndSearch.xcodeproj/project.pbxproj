@@ -13,7 +13,7 @@
 		CD33D95D1E362C7100AB6E94 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD33D95C1E362C7100AB6E94 /* MapViewController.swift */; };
 		CD33D95F1E36405200AB6E94 /* MapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD33D95E1E36405200AB6E94 /* MapAnnotation.swift */; };
 		CD33D9651E3668E000AB6E94 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD33D9641E3668E000AB6E94 /* DetailViewController.swift */; };
-		CD33D96D1E366BC100AB6E94 /* StopAndSearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD33D96C1E366BC100AB6E94 /* StopAndSearchTests.swift */; };
+		CD33D9751E36808400AB6E94 /* AddressTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD33D9741E36808400AB6E94 /* AddressTests.swift */; };
 		CD568C7E1E32CF9300DB0B9C /* AddressController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD568C7D1E32CF9300DB0B9C /* AddressController.swift */; };
 		CD568C801E32D1F600DB0B9C /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD568C7F1E32D1F600DB0B9C /* Address.swift */; };
 		CD65058F1E337F3100DF0C03 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD65058E1E337F3100DF0C03 /* SearchTableViewController.swift */; };
@@ -47,8 +47,8 @@
 		CD33D95E1E36405200AB6E94 /* MapAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapAnnotation.swift; sourceTree = "<group>"; };
 		CD33D9641E3668E000AB6E94 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		CD33D96A1E366BC100AB6E94 /* StopAndSearchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StopAndSearchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		CD33D96C1E366BC100AB6E94 /* StopAndSearchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopAndSearchTests.swift; sourceTree = "<group>"; };
 		CD33D96E1E366BC100AB6E94 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CD33D9741E36808400AB6E94 /* AddressTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressTests.swift; sourceTree = "<group>"; };
 		CD568C7D1E32CF9300DB0B9C /* AddressController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressController.swift; sourceTree = "<group>"; };
 		CD568C7F1E32D1F600DB0B9C /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		CD65058E1E337F3100DF0C03 /* SearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
@@ -87,8 +87,8 @@
 		CD33D96B1E366BC100AB6E94 /* StopAndSearchTests */ = {
 			isa = PBXGroup;
 			children = (
-				CD33D96C1E366BC100AB6E94 /* StopAndSearchTests.swift */,
 				CD33D96E1E366BC100AB6E94 /* Info.plist */,
+				CD33D9741E36808400AB6E94 /* AddressTests.swift */,
 			);
 			path = StopAndSearchTests;
 			sourceTree = "<group>";
@@ -208,6 +208,7 @@
 					CD33D9691E366BC100AB6E94 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 9793MLEXL9;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 						TestTargetID = CD7FBCA11E32AE1400DA40F1;
 					};
@@ -315,7 +316,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CD33D96D1E366BC100AB6E94 /* StopAndSearchTests.swift in Sources */,
+				CD33D9751E36808400AB6E94 /* AddressTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -372,11 +373,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 9793MLEXL9;
 				INFOPLIST_FILE = StopAndSearchTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.samwoolf.StopAndSearchTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/StopAndSearch.app/StopAndSearch";
 			};
@@ -386,6 +389,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 9793MLEXL9;
 				INFOPLIST_FILE = StopAndSearchTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

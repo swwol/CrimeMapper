@@ -9,15 +9,12 @@
 import Foundation
 import Contacts
 
-
 class Address {
   
-
   var street: String?
   var city: String?
   var postcode: String?
  
-  
   func encodedAddress() -> CNMutablePostalAddress  {
 
     let address = CNMutablePostalAddress()
@@ -35,27 +32,32 @@ class Address {
     return address
      }
   
-  func appendWithSpaceifNotEmpty(a: String, b: String?) -> String {
-    var compString = a
-    if let secondString = b {
-      if compString != "" {
-        compString.append(" \(secondString)")
-      }else {
-        compString = secondString
-      }
-      return compString
+  func addStringOrSpacedString (firstString: String, secondString: String) -> String {
+    var s: String
+    if   firstString != "" {
+      s = firstString + " " + secondString
+    } else {
+      s = secondString
     }
-    return ""
+    return s
+  }
+  
+  func addressFormattedForLabel()-> String {
+    var add = ""
+    if let s = street {
+    add = addStringOrSpacedString(firstString: add, secondString: s)
+    }
+    if let c = city {
+      add = addStringOrSpacedString(firstString: add, secondString: c)
+    }
+    if let p = postcode {
+      add = addStringOrSpacedString(firstString: add, secondString: p)
+    }
+    return add    
   }
   
   func addressAsString() -> String {
-    
-   // var a = CNPostalAddressFormatter.string(from: encodedAddress(), style: .mailingAddress )
-     var a = ""
-     a = appendWithSpaceifNotEmpty(a: a, b: street)
-     a = appendWithSpaceifNotEmpty(a: a, b: city)
-     a = appendWithSpaceifNotEmpty(a: a, b: postcode)
-      return a
+   return CNPostalAddressFormatter.string(from: encodedAddress(), style: .mailingAddress )
     }
 }
 
