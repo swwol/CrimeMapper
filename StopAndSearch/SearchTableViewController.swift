@@ -53,18 +53,16 @@ class SearchTableViewController: UITableViewController {
     //is there a valid location?
       guard let coord  = coordinate else {
         // alert need valid location
-        
         return
       }
-      
       search.performSearch(coord: coord, date: date) {success in
-      
         switch self.search.state {
-          
         case .noResults:
           self.goLabel.text! = "No results try again"
+        case .results(let resultArray):
+          self.parent?.performSegue(withIdentifier: "loadMap", sender: resultArray)
         default:
-          self.parent?.performSegue(withIdentifier: "loadMap", sender: nil)
+          return
         }
       }
      }

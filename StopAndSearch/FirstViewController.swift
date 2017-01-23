@@ -19,7 +19,13 @@ class FirstViewController: UIViewController {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
   }
-
-
+  
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    if segue.identifier == "loadMap" {
+      let resultsArray = sender as! [SearchResult]
+      let controller = segue.destination as! MapViewController
+      controller.searchResults = resultsArray
+    }
+  }
 }
 
