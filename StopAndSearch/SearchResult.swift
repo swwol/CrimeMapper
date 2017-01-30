@@ -5,35 +5,51 @@
 //  Created by edit on 22/01/2017.
 //  Copyright © 2017 edit. All rights reserved.
 //
-
+import Foundation
 import Gloss
 import CoreLocation
 import MapKit
-struct SearchResult: Decodable, Equatable {
+class SearchResult: NSObject,Decodable,MKAnnotation {
   
   let type: String?
   let street: String?
   let gender: String?
-  let latitude: String?
-  let longitude: String?
+  var latitudeString: String? = nil
+  var longitudeString: String? = nil
   let age: String?
   let ethnicity: String?
   let dateTime: String?
-  let mapAnnotation: MapAnnotation
   
-  init?(json: JSON) {
+  var latitude: CLLocationDegrees
+  var longitude: CLLocationDegrees
+  let title: String?
+  let subtitle: String?
+  var coordinate:CLLocationCoordinate2D{
+    return CLLocationCoordinate2DMake(latitude, longitude)
+  }
+
+//  let mapAnnotation: MapAnnotation
+  
+  required init?(json: JSON) {
     self.type = "type" <~~ json
-    self.latitude = "location.latitude" <~~ json
-    self.longitude  = "location.longitude" <~~ json
+    self.latitudeString = "location.latitude" <~~ json
+    self.longitudeString  = "location.longitude" <~~ json
     self.street = "street" <~~ json
     self.ethnicity = "self_defined_ethnicity"  <~~ json
     self.gender = "gender" <~~ json
     self.age = "age_range" <~~ json
     self.dateTime = "datetime" <~~ json
-    self.mapAnnotation = MapAnnotation(lat: latitude!, long: longitude!, title: type, subtitle: dateTime)
+    
+    self.latitude = Double(latitudeString!) ?? 0
+    self.longitude = Double(longitudeString!) ?? 0
+    self.title = self.type
+    self.subtitle =  self.dateTime
+    
+    
+  //  self.mapAnnotation = MapAnnotation(lat: latitude!, long: longitude!, title: type, subtitle: dateTime)
   }
 }
-
+/*
 func  == (lhs: SearchResult, rhs: SearchResult) -> Bool {
   
   if lhs.type == rhs.type &&
@@ -49,7 +65,7 @@ func  == (lhs: SearchResult, rhs: SearchResult) -> Bool {
     return false
   }
   
+  */
   
   
-  
-}
+

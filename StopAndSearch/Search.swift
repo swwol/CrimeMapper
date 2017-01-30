@@ -63,7 +63,7 @@ class Search {
               searchResults.append(r)
               }
             }
-            print (searchResults)
+
             self.state = .results(searchResults)
           }
         success = true

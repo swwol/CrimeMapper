@@ -16,7 +16,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
   
   
   var searchResults = [SearchResult]()
-  var mapAnnotations = [MapAnnotation]()
   let locationManager = CLLocationManager()
   var location: CLLocation?
   var updatingLocation = false
@@ -27,6 +26,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
   var localSearch:MKLocalSearch!
   var localSearchResponse:MKLocalSearchResponse!
   var error:NSError!
+  let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
   
  // perform local search
   
@@ -88,6 +88,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
   
   func findAndDisplayDataPointsInVisibleRegion() {
     
+    myActivityIndicator.startAnimating()
+    
     let region  = mapView.region
     let centre  =  region.center
     let span = region.span
@@ -104,17 +106,27 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
         print ("no results")
       case .results(let resultArray):
         
-        for result in resultArray {
+        print ("returned \(resultArray.count) results")
+       /*
+        for (i,result) in resultArray.enumerated() {
+          
+          print ("processing result \(i)")
           
           if !self.searchResults.contains(result) {
             self.searchResults.append(result)
             self.addAnnotation(annotation: result.mapAnnotation)
           }
         }
+ */
+        
+        // remove all anotations
+        
+        self.loadAnnotations(resultArray: resultArray)
 
       default:
         return
       }
+     self.myActivityIndicator.stopAnimating()
     }
   }
   
@@ -128,13 +140,30 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    mapAnnotations = []
- 
+
+    myActivityIndicator.hidesWhenStopped = true
+    myActivityIndicator.center = view.center
+    view.addSubview(myActivityIndicator)
    }
   
-  func addAnnotation( annotation: MapAnnotation) {
-    mapAnnotations.append(annotation)
-    mapView.addAnnotation(annotation)
+  func loadAnnotations(resultArray: [SearchResult]) {
+  
+    removeAllAnotations()
+    searchResults = resultArray
+    mapView.addAnnotations(searchResults)
+    
+    
+  }
+ /*
+  func addAnnotation( annotation: SearchResult) {
+     mapView.addAnnotation(annotation)
+    }
+  */
+  func removeAllAnotations() {
+   
+    mapView.removeAnnotations(searchResults)
+    searchResults = []
+    
   }
   
 }
@@ -149,7 +178,7 @@ extension MapViewController: MKMapViewDelegate {
 
   
   func mapView(_ mapView: MKMapView,viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-    guard annotation is MapAnnotation else {
+    guard annotation is SearchResult else {
       return nil
     }
     
@@ -163,16 +192,15 @@ extension MapViewController: MKMapViewDelegate {
       let rightButton = UIButton(type: .detailDisclosure)
       rightButton.addTarget(self,action: #selector(showDetails),for: .touchUpInside)
       pinView.rightCalloutAccessoryView = rightButton
-      pinView.image = UIImage(named: "mantest")
       annotationView = pinView
     }
-    if let annotationView = annotationView {
-      annotationView.annotation = annotation
-      let button = annotationView.rightCalloutAccessoryView as! UIButton
-      if let index = mapAnnotations.index(of: annotation as! MapAnnotation) {
+ //   if let annotationView = annotationView {
+ //     annotationView.annotation = annotation
+   //   _ = annotationView.rightCalloutAccessoryView as! UIButton
+     /* if let index = mapAnnotations.index(of: annotation as! MapAnnotation) {
         button.tag = index
-      }
-    }
+      }*/
+   // }
     return annotationView
   }
   
