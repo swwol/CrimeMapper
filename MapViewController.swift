@@ -84,43 +84,39 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
    startLocationManager()
   }
   
-  @IBAction func ItemPressed(_ sender: UIBarButtonItem) {
+  
+  func findAndDisplayDataPointsInVisibleRegion() {
     
-    print ("item button pressed")
-    
-    // get coordinates of the corners
+    // find  and display datapoints within viewable region
     
     let region  = mapView.region
     let centre  =  region.center
     let span = region.span
+    //get corners of region
     let ne = CLLocationCoordinate2DMake(centre.latitude + span.latitudeDelta / 2.0, centre.longitude - span.longitudeDelta / 2.0)
     let se = CLLocationCoordinate2DMake(centre.latitude - span.latitudeDelta / 2.0, centre.longitude - span.longitudeDelta / 2.0)
     let nw = CLLocationCoordinate2DMake(centre.latitude + span.latitudeDelta / 2.0, centre.longitude + span.longitudeDelta / 2.0)
     let sw = CLLocationCoordinate2DMake(centre.latitude - span.latitudeDelta / 2.0, centre.longitude + span.longitudeDelta / 2.0)
-    
-    
-    
     //now get data for region
-    
-    
     search.performSearch(coords: [ne,nw,sw,se], date: nil) {success in
       switch self.search.state {
       case .noResults:
-     //   self.goLabel.text! = "No results try again"
         print ("no results")
       case .results(let resultArray):
-      //  self.parent?.performSegue(withIdentifier: "loadMap", sender: resultArray)
         self.searchResults = resultArray
         self.loadAnnotations()
-        
       default:
         return
       }
     }
+  }
+  
+  
+  
+  @IBAction func ItemPressed(_ sender: UIBarButtonItem) {
     
-
-    
-    
+  findAndDisplayDataPointsInVisibleRegion()
+  
   }
   @IBOutlet weak var mapView: MKMapView!
   
