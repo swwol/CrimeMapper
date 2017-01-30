@@ -108,9 +108,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
           
           if !self.searchResults.contains(result) {
             self.searchResults.append(result)
+            self.addAnnotation(annotation: result.mapAnnotation)
           }
         }
-        self.loadAnnotations()
+
       default:
         return
       }
@@ -128,21 +129,15 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
   override func viewDidLoad() {
     super.viewDidLoad()
     mapAnnotations = []
-    loadAnnotations()
+ 
    }
   
-  func loadAnnotations() {
-    mapView.removeAnnotations(mapAnnotations)
-    mapAnnotations = []
-   
-    for s in searchResults {
-      mapAnnotations.append(s.mapAnnotation)
-      mapView.addAnnotation(s.mapAnnotation)
-    }
-
+  func addAnnotation( annotation: MapAnnotation) {
+    mapAnnotations.append(annotation)
+    mapView.addAnnotation(annotation)
   }
+  
 }
-
 extension MapViewController: MKMapViewDelegate {
   
   func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
@@ -150,6 +145,8 @@ extension MapViewController: MKMapViewDelegate {
     findAndDisplayDataPointsInVisibleRegion()
   }
   
+  
+
   
   func mapView(_ mapView: MKMapView,viewFor annotation: MKAnnotation) -> MKAnnotationView? {
     guard annotation is MapAnnotation else {
