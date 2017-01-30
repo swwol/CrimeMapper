@@ -84,10 +84,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
    startLocationManager()
   }
   
+  // find  and display datapoints within viewable region
   
   func findAndDisplayDataPointsInVisibleRegion() {
-    
-    // find  and display datapoints within viewable region
     
     let region  = mapView.region
     let centre  =  region.center
@@ -98,12 +97,19 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
     let nw = CLLocationCoordinate2DMake(centre.latitude + span.latitudeDelta / 2.0, centre.longitude + span.longitudeDelta / 2.0)
     let sw = CLLocationCoordinate2DMake(centre.latitude - span.latitudeDelta / 2.0, centre.longitude + span.longitudeDelta / 2.0)
     //now get data for region
+   
     search.performSearch(coords: [ne,nw,sw,se], date: nil) {success in
       switch self.search.state {
       case .noResults:
         print ("no results")
       case .results(let resultArray):
-        self.searchResults = resultArray
+        
+        for result in resultArray {
+          
+          if !self.searchResults.contains(result) {
+            self.searchResults.append(result)
+          }
+        }
         self.loadAnnotations()
       default:
         return
@@ -111,34 +117,38 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
     }
   }
   
-  
-  
   @IBAction func ItemPressed(_ sender: UIBarButtonItem) {
     
   findAndDisplayDataPointsInVisibleRegion()
   
   }
+  
   @IBOutlet weak var mapView: MKMapView!
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
-  
     mapAnnotations = []
     loadAnnotations()
    }
   
   func loadAnnotations() {
+    mapView.removeAnnotations(mapAnnotations)
+    mapAnnotations = []
+   
     for s in searchResults {
       mapAnnotations.append(s.mapAnnotation)
       mapView.addAnnotation(s.mapAnnotation)
     }
-    // zoom to fit all pins
-//    mapView.showAnnotations(mapView.annotations, animated: true)
+
   }
 }
 
 extension MapViewController: MKMapViewDelegate {
+  
+  func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+    print ("region changed")
+    findAndDisplayDataPointsInVisibleRegion()
+  }
   
   
   func mapView(_ mapView: MKMapView,viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -223,19 +233,15 @@ extension MapViewController: MKMapViewDelegate {
   }
   
   func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-    
     print ("here")
     let newLocation = locations.last!
-    
     if newLocation.timestamp.timeIntervalSinceNow < -5 {
-      
       print("too old")
       return
     }
     
     if newLocation.horizontalAccuracy < 0 {
       print ("less than 0")
-      
       return
     }
     
@@ -255,7 +261,5 @@ extension MapViewController: MKMapViewDelegate {
         stopLocationManager()
       }
     }
-    }
-  
-  
+  }
   }

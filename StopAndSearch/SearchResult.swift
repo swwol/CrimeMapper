@@ -9,7 +9,7 @@
 import Gloss
 import CoreLocation
 import MapKit
-struct SearchResult: Decodable {
+struct SearchResult: Decodable, Equatable {
   
   let type: String?
   let street: String?
@@ -32,4 +32,24 @@ struct SearchResult: Decodable {
     self.dateTime = "datetime" <~~ json
     self.mapAnnotation = MapAnnotation(lat: latitude!, long: longitude!, title: type, subtitle: dateTime)
   }
+}
+
+func  == (lhs: SearchResult, rhs: SearchResult) -> Bool {
+  
+  if lhs.type == rhs.type &&
+  lhs.street == rhs.street &&
+  lhs.gender == rhs.gender &&
+  lhs.latitude == rhs.latitude &&
+  lhs.longitude == rhs.longitude &&
+  lhs.age == rhs.age &&
+  lhs.ethnicity == rhs.ethnicity &&
+  lhs.dateTime == rhs.dateTime {
+    return true
+  } else {
+    return false
+  }
+  
+  
+  
+  
 }
