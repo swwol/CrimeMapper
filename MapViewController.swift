@@ -28,6 +28,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
   var localSearchResponse:MKLocalSearchResponse!
   var error:NSError!
   
+ // perform local search
+  
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar){
     
     searchBar.resignFirstResponder()
@@ -49,6 +51,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
     }
   }
   
+  //show search bar
+  
   @IBAction func searchMap(_ sender: UIBarButtonItem) {
     
     searchController = UISearchController(searchResultsController: nil)
@@ -57,8 +61,14 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
     present(searchController, animated: true, completion: nil)
     
   }
+  
+  // go to my location
+  
   @IBAction func getMyLocation(_ sender: UIBarButtonItem) {
+    
     // authorise
+    
+    print("getting location")
     
     let authStatus = CLLocationManager.authorizationStatus()
     if authStatus == .notDetermined {
@@ -197,9 +207,12 @@ extension MapViewController: MKMapViewDelegate {
   }
   
   func startLocationManager() {
+    
+    print ("starting mananger")
     if CLLocationManager.locationServicesEnabled() {
+ 
       locationManager.delegate = self
-      locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+      locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
       locationManager.startUpdatingLocation()
       updatingLocation = true
     }
@@ -214,18 +227,26 @@ extension MapViewController: MKMapViewDelegate {
   }
   
   func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    
+    print ("here")
     let newLocation = locations.last!
     
     if newLocation.timestamp.timeIntervalSinceNow < -5 {
+      
+      print("too old")
       return
     }
     
     if newLocation.horizontalAccuracy < 0 {
+      print ("less than 0")
+      
       return
     }
     
     if location == nil || location!.horizontalAccuracy > newLocation.horizontalAccuracy {
       // 4
+      
+      print ("improving")
       lastLocationError = nil
       location = newLocation
       if newLocation.horizontalAccuracy <= locationManager.desiredAccuracy {
