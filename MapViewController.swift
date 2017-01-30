@@ -12,7 +12,8 @@ import MapKit
 import CoreLocation
 
 
-class MapViewController: UIViewController, CLLocationManagerDelegate {
+class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDelegate {
+  
   
   var searchResults = [SearchResult]()
   var mapAnnotations = [MapAnnotation]()
@@ -20,7 +21,42 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
   var location: CLLocation?
   var updatingLocation = false
   var lastLocationError: Error?
+  let search = Search()
+  var searchController:UISearchController!
+  var localSearchRequest:MKLocalSearchRequest!
+  var localSearch:MKLocalSearch!
+  var localSearchResponse:MKLocalSearchResponse!
+  var error:NSError!
   
+  func searchBarSearchButtonClicked(_ searchBar: UISearchBar){
+    
+    searchBar.resignFirstResponder()
+    dismiss(animated: true, completion: nil)
+    
+    localSearchRequest = MKLocalSearchRequest()
+    localSearchRequest.naturalLanguageQuery = searchBar.text
+    localSearch = MKLocalSearch(request: localSearchRequest)
+    localSearch.start {
+      (localSearchResponse, error) -> Void in
+      
+      if localSearchResponse == nil{
+        let alertController = UIAlertController(title: nil, message: "Place Not Found", preferredStyle: UIAlertControllerStyle.alert)
+        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default, handler: nil))
+        self.present(alertController, animated: true, completion: nil)
+        return
+      }
+      self.mapView.setRegion(localSearchResponse!.boundingRegion, animated: true)
+    }
+  }
+  
+  @IBAction func searchMap(_ sender: UIBarButtonItem) {
+    
+    searchController = UISearchController(searchResultsController: nil)
+    searchController.hidesNavigationBarDuringPresentation = false
+    self.searchController.searchBar.delegate = self
+    present(searchController, animated: true, completion: nil)
+    
+  }
   @IBAction func getMyLocation(_ sender: UIBarButtonItem) {
     // authorise
     
@@ -53,15 +89,24 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     let sw = CLLocationCoordinate2DMake(centre.latitude - span.latitudeDelta / 2.0, centre.longitude + span.longitudeDelta / 2.0)
     
     
-    let necornerAnnotation  = MapAnnotation(lat: "\(ne.latitude)", long: "\(ne.longitude)", title:"ne corner", subtitle: "oh yeah")
-    let secornerAnnotation  = MapAnnotation(lat: "\(se.latitude)", long: "\(se.longitude)", title:"se corner", subtitle: "oh yeah")
-    let nwcornerAnnotation  = MapAnnotation(lat: "\(nw.latitude)", long: "\(nw.longitude)", title:"nw corner", subtitle: "oh yeah")
-    let swcornerAnnotation  = MapAnnotation(lat: "\(sw.latitude)", long: "\(sw.longitude)", title:"sw corner", subtitle: "oh yeah")
     
-    mapView.addAnnotations([necornerAnnotation, secornerAnnotation,swcornerAnnotation,nwcornerAnnotation])
+    //now get data for region
     
     
-    
+    search.performSearch(coords: [ne,nw,sw,se], date: nil) {success in
+      switch self.search.state {
+      case .noResults:
+     //   self.goLabel.text! = "No results try again"
+        print ("no results")
+      case .results(let resultArray):
+      //  self.parent?.performSegue(withIdentifier: "loadMap", sender: resultArray)
+        self.searchResults = resultArray
+        self.loadAnnotations()
+        
+      default:
+        return
+      }
+    }
     
 
     
@@ -71,6 +116,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+  
     mapAnnotations = []
     loadAnnotations()
    }
@@ -81,7 +128,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
       mapView.addAnnotation(s.mapAnnotation)
     }
     // zoom to fit all pins
-    mapView.showAnnotations(mapView.annotations, animated: true)
+//    mapView.showAnnotations(mapView.annotations, animated: true)
   }
 }
 
@@ -96,7 +143,7 @@ extension MapViewController: MKMapViewDelegate {
     let identifier = "Location"
     var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
        if annotationView == nil {
-    let pinView = MKAnnotationView(annotation: annotation,reuseIdentifier: identifier)
+    let pinView = MKPinAnnotationView(annotation: annotation,reuseIdentifier: identifier)
       pinView.isEnabled = true
       pinView.canShowCallout = true
      // pinView.animatesDrop = false
@@ -192,4 +239,6 @@ extension MapViewController: MKMapViewDelegate {
       }
     }
     }
-}
+  
+  
+  }

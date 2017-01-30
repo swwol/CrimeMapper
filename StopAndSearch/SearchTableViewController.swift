@@ -55,7 +55,7 @@ class SearchTableViewController: UITableViewController {
         // alert need valid location
         return
       }
-      search.performSearch(coord: coord, date: date) {success in
+  /*    search.performSearch(coord: coord, date: date) {success in
         switch self.search.state {
         case .noResults:
           self.goLabel.text! = "No results try again"
@@ -64,7 +64,7 @@ class SearchTableViewController: UITableViewController {
         default:
           return
         }
-      }
+      }*/
      }
   }
   

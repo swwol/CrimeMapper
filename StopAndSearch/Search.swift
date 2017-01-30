@@ -25,7 +25,7 @@ class Search {
   private var dataTask: URLSessionDataTask? = nil
   private(set) var state: State = .notSearchedYet
   
-  func performSearch(coord: CLLocationCoordinate2D, date: MonthYear?, completion: @escaping SearchComplete) {
+  func performSearch(coords: [CLLocationCoordinate2D], date: MonthYear?, completion: @escaping SearchComplete) {
    
     state = .loading
     
@@ -33,7 +33,7 @@ class Search {
    
     dataTask?.cancel()
     
-    let url = getSearchURL( coordinate: coord, date: date)
+    let url = getSearchURL( coords: coords, date: date)
     let session  = URLSession.shared
     dataTask  = session.dataTask(with: url, completionHandler: {
       data, response, error in
@@ -45,7 +45,13 @@ class Search {
         return   // Search was cancelled
       }
     
-      if let httpResponse = response as? HTTPURLResponse,httpResponse.statusCode == 200 {
+      if let httpResponse = response as? HTTPURLResponse {
+        
+        if httpResponse.statusCode == 503 {
+          print ("too many results - over 10000")
+        }
+        
+      if httpResponse.statusCode == 200 {
         
         if let data = data, let jsonArray  = self.parse(json: data) {
           if jsonArray.isEmpty {
@@ -63,6 +69,7 @@ class Search {
         success = true
         }
       }
+    }
         DispatchQueue.main.async {
         completion(success)
       }
@@ -79,11 +86,11 @@ class Search {
     }
   }
   
-  func getSearchURL (coordinate: CLLocationCoordinate2D, date: MonthYear? ) -> URL {
+  func getSearchURL (coords: [CLLocationCoordinate2D], date: MonthYear? ) -> URL {
     
     // format search string
     
-    var searchString = "https://data.police.uk/api/stops-street?lat=\(coordinate.latitude)&lng=\(coordinate.longitude)"
+    var searchString = "https://data.police.uk/api/stops-street?poly=\(coords[0].latitude),\(coords[0].longitude):\(coords[1].latitude),\(coords[1].longitude):\(coords[2].latitude),\(coords[2].longitude):\(coords[3].latitude),\(coords[3].longitude)"
     
     if let d = date {
       print("adding date")
