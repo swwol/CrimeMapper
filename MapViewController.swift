@@ -27,6 +27,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
   var localSearchResponse:MKLocalSearchResponse!
   var error:NSError!
   let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+  let clusteringManager  = FBClusteringManager()
+  var fbpins = [FBAnnotation]()
   
  // perform local search
   
@@ -120,8 +122,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
  */
         
         // remove all anotations
+      
+        // instead of loding annotations  - generate FBAnnotations from results
         
-        self.loadAnnotations(resultArray: resultArray)
+     //   self.loadAnnotations(resultArray: resultArray)
+        
+       self.generateFBAnnotations(results: resultArray)
 
       default:
         return
@@ -129,6 +135,32 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
      self.myActivityIndicator.stopAnimating()
     }
   }
+  
+  func generateFBAnnotations(results: [SearchResult]) {
+    fbpins = []
+    for result in results {
+      
+      let fb = FBAnnotation()
+      fb.coordinate = CLLocationCoordinate2D(latitude: result.latitude, longitude: result.longitude)
+      fb.title = result.title
+      fbpins.append(fb)
+
+    }
+    clusteringManager.removeAll()
+    clusteringManager.add(annotations: fbpins)
+    DispatchQueue.global(qos: .userInitiated).async {
+      let mapBoundsWidth = Double(self.mapView.bounds.size.width)
+      let mapRectWidth = self.mapView.visibleMapRect.size.width
+      let scale = mapBoundsWidth / mapRectWidth
+      
+      let annotationArray = self.clusteringManager.clusteredAnnotations(withinMapRect: self.mapView.visibleMapRect, zoomScale:scale)
+      
+      DispatchQueue.main.async {
+        self.clusteringManager.display(annotations: annotationArray, onMapView:self.mapView)
+      }
+    }
+  }
+  
   
   @IBAction func ItemPressed(_ sender: UIBarButtonItem) {
     
@@ -174,10 +206,16 @@ extension MapViewController: MKMapViewDelegate {
     findAndDisplayDataPointsInVisibleRegion()
   }
   
-  
+  func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
+    
+    print ("WILL CHANGE")
+    fbpins = []
+    clusteringManager.removeAll()
+    clusteringManager.display(annotations: fbpins, onMapView: mapView)
+    }
 
   
-  func mapView(_ mapView: MKMapView,viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+/*func mapView(_ mapView: MKMapView,viewFor annotation: MKAnnotation) -> MKAnnotationView? {
     guard annotation is SearchResult else {
       return nil
     }
@@ -202,12 +240,38 @@ extension MapViewController: MKMapViewDelegate {
       }*/
    // }
     return annotationView
-  }
+  }*/
   
+  
+  func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+    var reuseId = ""
+    if annotation is FBAnnotationCluster {
+      reuseId = "Cluster"
+      var clusterView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId)
+      if clusterView == nil {
+        clusterView = FBAnnotationClusterView(annotation: annotation, reuseIdentifier: reuseId, configuration: FBAnnotationClusterViewConfiguration.default())
+      } else {
+        clusterView?.annotation = annotation
+      }
+      return clusterView
+    } else {
+      reuseId = "Pin"
+      var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
+      if pinView == nil {
+        pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+        pinView?.pinTintColor = UIColor.green
+      } else {
+        pinView?.annotation = annotation
+      }
+      return pinView
+    }
+  }
+
+
   func showDetails(_ sender: UIButton) {
     performSegue(withIdentifier: "showDetail", sender: sender.tag)
   }
-  
+
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if segue.identifier == "showDetail" {
       let controller = segue.destination as! DetailViewController
