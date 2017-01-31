@@ -12,7 +12,7 @@ import MapKit
 import CoreLocation
 
 
-class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDelegate {
+class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDelegate, UIGestureRecognizerDelegate {
   
   
   var searchResults = [SearchResult]()
@@ -32,6 +32,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
   
  // perform local search
   
+  
+  func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    return true
+  }
+
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar){
     
     searchBar.resignFirstResponder()
@@ -168,9 +173,16 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
   
   }
   
+ 
+  
   @IBOutlet weak var mapView: MKMapView!
   
   override func viewDidLoad() {
+    let zoom  = UIPinchGestureRecognizer ( target: self, action:  #selector(self.handleZoom(_:)))
+    zoom.delegate = self
+    mapView.addGestureRecognizer(zoom)
+    mapView.isUserInteractionEnabled = true
+    
     super.viewDidLoad()
 
     myActivityIndicator.hidesWhenStopped = true
@@ -185,6 +197,15 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
     mapView.addAnnotations(searchResults)
     
     
+  }
+  
+  func handleZoom( _ sender: UIPinchGestureRecognizer) {
+    if (sender.state == UIGestureRecognizerState.began) {
+      print("Zoom began")
+      fbpins = []
+      clusteringManager.removeAll()
+      clusteringManager.display(annotations: fbpins, onMapView: mapView)
+    }
   }
  /*
   func addAnnotation( annotation: SearchResult) {
@@ -206,13 +227,7 @@ extension MapViewController: MKMapViewDelegate {
     findAndDisplayDataPointsInVisibleRegion()
   }
   
-  func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
-    
-    print ("WILL CHANGE")
-    fbpins = []
-    clusteringManager.removeAll()
-    clusteringManager.display(annotations: fbpins, onMapView: mapView)
-    }
+ 
 
   
 /*func mapView(_ mapView: MKMapView,viewFor annotation: MKAnnotation) -> MKAnnotationView? {
