@@ -12,7 +12,7 @@ import MapKit
 import CoreLocation
 
 
-class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDelegate, UIGestureRecognizerDelegate {
+class MapViewController: UIViewController, CLLocationManagerDelegate {
   
   
   var searchResults = [SearchResult]()
@@ -30,33 +30,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UISearchBa
   let clusteringManager  = FBClusteringManager()
   var fbpins = [FBAnnotation]()
   
- // perform local search
   
   
-  func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-    return true
-  }
-
-  func searchBarSearchButtonClicked(_ searchBar: UISearchBar){
-    
-    searchBar.resignFirstResponder()
-    dismiss(animated: true, completion: nil)
-    
-    localSearchRequest = MKLocalSearchRequest()
-    localSearchRequest.naturalLanguageQuery = searchBar.text
-    localSearch = MKLocalSearch(request: localSearchRequest)
-    localSearch.start {
-      (localSearchResponse, error) -> Void in
-      
-      if localSearchResponse == nil{
-        let alertController = UIAlertController(title: nil, message: "Place Not Found", preferredStyle: UIAlertControllerStyle.alert)
-        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default, handler: nil))
-        self.present(alertController, animated: true, completion: nil)
-        return
-      }
-      self.mapView.setRegion(localSearchResponse!.boundingRegion, animated: true)
-    }
-  }
   
   //show search bar
   
@@ -372,3 +347,38 @@ extension MapViewController: MKMapViewDelegate {
     }
   }
   }
+
+
+extension MapViewController: UIGestureRecognizerDelegate {
+  
+  func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    return true
+  }
+}
+
+extension MapViewController: UISearchBarDelegate {
+  
+  
+  func searchBarSearchButtonClicked(_ searchBar: UISearchBar){
+    
+    searchBar.resignFirstResponder()
+    dismiss(animated: true, completion: nil)
+    
+    localSearchRequest = MKLocalSearchRequest()
+    localSearchRequest.naturalLanguageQuery = searchBar.text
+    localSearch = MKLocalSearch(request: localSearchRequest)
+    localSearch.start {
+      (localSearchResponse, error) -> Void in
+      
+      if localSearchResponse == nil{
+        let alertController = UIAlertController(title: nil, message: "Place Not Found", preferredStyle: UIAlertControllerStyle.alert)
+        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default, handler: nil))
+        self.present(alertController, animated: true, completion: nil)
+        return
+      }
+      self.mapView.setRegion(localSearchResponse!.boundingRegion, animated: true)
+    }
+  }
+
+  
+}
