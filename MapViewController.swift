@@ -244,6 +244,11 @@ extension MapViewController: MKMapViewDelegate {
   
   
   func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+    
+    guard annotation is FBAnnotationCluster || annotation is SearchResult else {
+      return nil
+    }
+    
     var reuseId = ""
     if annotation is FBAnnotationCluster {
       reuseId = "Cluster"
