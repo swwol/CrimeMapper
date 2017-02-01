@@ -1,5 +1,6 @@
+ platform :ios, '10.0'
+ use_frameworks!
 target 'StopAndSearch' do
-  use_frameworks!
   pod 'Gloss'
-  pod 'LFHeatMap'
+  pod 'Alamofire', '~> 4.3'
 end

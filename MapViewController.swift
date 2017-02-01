@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import MapKit
 import CoreLocation
+import Alamofire
 
 
 class MapViewController: UIViewController, CLLocationManagerDelegate {
@@ -144,7 +145,41 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
   
   @IBAction func ItemPressed(_ sender: UIBarButtonItem) {
     
-  findAndDisplayDataPointsInVisibleRegion()
+
+    //test Alamofire here
+    
+    Alamofire.request("https://data.police.uk/api/crime-last-updated").responseJSON { response in
+     
+      
+      print(response.request)  // original URL request
+      print(response.response) // HTTP URL response
+      print(response.data)     // server data
+      print(response.result)
+      
+      if let JSON = response.result.value {
+        print("JSON: \(JSON)")
+        
+        let parsedToDict = JSON as! [String:String]
+        print (parsedToDict)
+        
+        if let date  = parsedToDict["date"] {
+          let index = date.index(date.startIndex, offsetBy:4)
+          let year = date.substring(to: index)
+          print (year)
+          
+          let monthStartIndex = date.index(date.startIndex, offsetBy:5)
+          let monthEndIndex = date.index(date.startIndex, offsetBy: 7)
+          let range = monthStartIndex..<monthEndIndex
+          
+          let month = date.substring(with: range)
+          
+          print (month)
+        }
+      }
+      
+    }
+    
+    
   
   }
   

@@ -2,11 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "mantest.png",
+      "filename" : "cal.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "cal@2x.png",
       "scale" : "2x"
     },
     {
