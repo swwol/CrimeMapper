@@ -32,6 +32,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
   var fbpins = [FBAnnotation]()
   
   
+  func changeDate( _ sender: UITapGestureRecognizer) {
+    
+    print("change date here")
+    
+  }
   
   
   //show search bar
@@ -198,6 +203,28 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     myActivityIndicator.hidesWhenStopped = true
     myActivityIndicator.center = view.center
     view.addSubview(myActivityIndicator)
+    
+    let containView = UIView(frame: CGRect(x: 0, y: 0, width: 90, height: 40))
+    let label = UILabel(frame: CGRect(x: 25, y: 0, width: 70, height: 40))
+    label.text = "Nov 2015"
+  
+    label.font = label.font.withSize(12)
+   
+    label.textAlignment = NSTextAlignment.left
+
+    containView.addSubview(label)
+    
+    let imageview = UIImageView(frame:CGRect(x: 0, y: 10, width:20, height: 20))
+    imageview.image = UIImage(named: "linecal")
+    imageview.contentMode = UIViewContentMode.scaleAspectFill
+    containView.addSubview(imageview)
+    
+    let tap = UITapGestureRecognizer(target: self, action:  #selector (self.changeDate (_:)))
+    containView.addGestureRecognizer(tap)
+    
+    self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: containView)
+    
+    
    }
   
   func loadAnnotations(resultArray: [SearchResult]) {
