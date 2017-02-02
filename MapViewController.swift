@@ -215,13 +215,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
       clusteringManager.display(annotations: fbpins, onMapView: mapView)
     }
   }
- /*
-  func addAnnotation( annotation: SearchResult) {
-     mapView.addAnnotation(annotation)
-    }
-  */
+
   func removeAllAnotations() {
-   
     mapView.removeAnnotations(searchResults)
     searchResults = []
     
@@ -268,12 +263,13 @@ extension MapViewController: MKMapViewDelegate {
   
   func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
     
-    guard annotation is FBAnnotationCluster || annotation is SearchResult else {
+   if annotation is MKUserLocation {
       return nil
     }
     
     var reuseId = ""
     if annotation is FBAnnotationCluster {
+ 
       reuseId = "Cluster"
       var clusterView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId)
       if clusterView == nil {
@@ -284,10 +280,11 @@ extension MapViewController: MKMapViewDelegate {
       return clusterView
     } else {
       reuseId = "Pin"
+    
       var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
       if pinView == nil {
         pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
-        pinView?.pinTintColor = UIColor.green
+        pinView?.pinTintColor = UIColor.orange
       } else {
         pinView?.annotation = annotation
       }
