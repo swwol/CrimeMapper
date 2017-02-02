@@ -113,9 +113,6 @@
                                                 <constraint firstAttribute="trailing" secondItem="Cd4-Fu-64I" secondAttribute="trailing" constant="5" id="wvG-ym-VzO"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="Dbq-TE-K4Q" kind="presentation" identifier="SetDate" id="pcZ-h6-Nrm"/>
-                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -358,10 +355,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ev3-QU-UqQ">
-                                <rect key="frame" x="0.0" y="141" width="320" height="216"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            </pickerView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hl3-Bx-0MP">
                                 <rect key="frame" x="132" y="445" width="56" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -370,8 +363,14 @@
                                     <action selector="setDate:" destination="Dbq-TE-K4Q" eventType="touchUpInside" id="DSK-Qm-kml"/>
                                 </connections>
                             </button>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ev3-QU-UqQ">
+                                <rect key="frame" x="87" y="216" width="147" height="137"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </pickerView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.83795469600000005" green="1" blue="0.87846602200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <connections>
                         <outlet property="datePicker" destination="Ev3-QU-UqQ" id="HXS-77-nmI"/>
@@ -379,7 +378,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cYG-mv-n8b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4233.75" y="9.5070422535211261"/>
+            <point key="canvasLocation" x="2287.5" y="1030.9859154929577"/>
         </scene>
         <!--Map-->
         <scene sceneID="u8g-gJ-qio">
@@ -431,6 +430,7 @@
                         <outlet property="mapView" destination="SaS-t1-1hy" id="J3k-9a-jVs"/>
                         <outlet property="toolbar" destination="scH-yp-4Id" id="KdF-u2-30E"/>
                         <segue destination="rcU-Sx-pRH" kind="presentation" identifier="showDetail" id="Lve-dU-vW9"/>
+                        <segue destination="Dbq-TE-K4Q" kind="presentation" identifier="setDate" id="kli-aa-Cs2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yfl-uw-afA" userLabel="First Responder" sceneMemberID="firstResponder"/>

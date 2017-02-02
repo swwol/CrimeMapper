@@ -39,6 +39,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     
   }
   
+
+  
   @IBOutlet weak var toolbar: UIToolbar!
   
   //show search bar
@@ -449,6 +451,8 @@ extension MapViewController: TouchContainerDelegate {
   
   func touchContainerTouched(_ sender: TouchContainer) {
     print ("container was touched")
+    self.performSegue(withIdentifier: "setDate", sender: nil)
+    
   }
   
 }

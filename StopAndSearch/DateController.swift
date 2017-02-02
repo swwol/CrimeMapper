@@ -34,6 +34,8 @@ class DateController: UIViewController {
         super.viewDidLoad()
       datePicker.delegate = self
       datePicker.dataSource = self
+       let tintColor = UIColor(red: 20/255, green: 160/255, blue: 160/255, alpha: 1)
+      self.view.backgroundColor = tintColor
      }
 
     override func didReceiveMemoryWarning() {
@@ -52,8 +54,16 @@ extension DateController: UIPickerViewDataSource, UIPickerViewDelegate {
     return pickerData[component].count
   }
   
-  func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+  /*func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
     return pickerData[component][row]
+  }*/
+  
+  func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+    
+  
+    return NSAttributedString(string:  pickerData[component][row] , attributes: [NSForegroundColorAttributeName:UIColor.white])
+   
+
   }
   
   func pickerView( _ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
