@@ -30,11 +30,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
   let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
   let clusteringManager  = FBClusteringManager()
   var fbpins = [FBAnnotation]()
-  
+  let containView = TouchContainer(frame: CGRect(x: 0, y: 0, width: 90, height: 40))
   
   func changeDate( _ sender: UITapGestureRecognizer) {
     
-    print("change date here")
+   
+    
     
   }
   
@@ -209,24 +210,23 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     myActivityIndicator.center = view.center
     view.addSubview(myActivityIndicator)
     
-    let containView = UIView(frame: CGRect(x: 0, y: 0, width: 90, height: 40))
+  
     let label = UILabel(frame: CGRect(x: 25, y: 0, width: 70, height: 40))
     label.text = "Nov 2015"
   
     label.font = label.font.withSize(12)
-   
+    label.textColor = UIColor.white
     label.textAlignment = NSTextAlignment.left
 
     containView.addSubview(label)
     
     let imageview = UIImageView(frame:CGRect(x: 0, y: 10, width:20, height: 20))
     imageview.image = UIImage(named: "linecal")
+    imageview.image = imageview.image!.withRenderingMode(.alwaysTemplate)
+    imageview.tintColor = UIColor.white
     imageview.contentMode = UIViewContentMode.scaleAspectFill
     containView.addSubview(imageview)
-    
-    let tap = UITapGestureRecognizer(target: self, action:  #selector (self.changeDate (_:)))
-    containView.addGestureRecognizer(tap)
-    
+    containView.delegate = self
     self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: containView)
     
     
@@ -425,12 +425,9 @@ extension MapViewController: UIGestureRecognizerDelegate {
 
 extension MapViewController: UISearchBarDelegate {
   
-  
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar){
-    
     searchBar.resignFirstResponder()
     dismiss(animated: true, completion: nil)
-    
     localSearchRequest = MKLocalSearchRequest()
     localSearchRequest.naturalLanguageQuery = searchBar.text
     localSearch = MKLocalSearch(request: localSearchRequest)
@@ -446,6 +443,12 @@ extension MapViewController: UISearchBarDelegate {
       self.mapView.setRegion(localSearchResponse!.boundingRegion, animated: true)
     }
   }
+}
 
+extension MapViewController: TouchContainerDelegate {
+  
+  func touchContainerTouched(_ sender: TouchContainer) {
+    print ("container was touched")
+  }
   
 }
