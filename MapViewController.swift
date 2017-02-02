@@ -38,6 +38,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     
   }
   
+  @IBOutlet weak var toolbar: UIToolbar!
   
   //show search bar
   
@@ -193,6 +194,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
   @IBOutlet weak var mapView: MKMapView!
   
   override func viewDidLoad() {
+   
+      let barTintColor = UIColor(red: 20/255, green: 160/255, blue: 160/255, alpha: 1)
+    toolbar.barTintColor=barTintColor
+    
     let zoom  = UIPinchGestureRecognizer ( target: self, action:  #selector(self.handleZoom(_:)))
     zoom.delegate = self
     mapView.addGestureRecognizer(zoom)

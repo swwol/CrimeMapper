@@ -13,9 +13,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
 
+  
+  func customizeAppearance() {
+    let barTintColor = UIColor(red: 20/255, green: 160/255, blue: 160/255, alpha: 1)
+    UISearchBar.appearance().barTintColor = barTintColor
+    let tintColor  =  UIColor(red: 1, green: 1, blue: 1 ,alpha: 1)
+    window!.tintColor = tintColor
+    
+    let navigationBarAppearance = UINavigationBar.appearance()
+    navigationBarAppearance.tintColor = tintColor
+    navigationBarAppearance.barTintColor = barTintColor
+    navigationBarAppearance.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.white]
+  }
+  
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     // Override point for customization after application launch.
+    customizeAppearance()
     return true
   }
 
