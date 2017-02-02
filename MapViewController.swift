@@ -30,14 +30,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
   let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
   let clusteringManager  = FBClusteringManager()
   var fbpins = [FBAnnotation]()
-  let containView = TouchContainer(frame: CGRect(x: 0, y: 0, width: 90, height: 40))
+  let setDateMenuController = SetDateMenuController()
   
-  func changeDate( _ sender: UITapGestureRecognizer) {
-    
-   
-    
-    
-  }
+  var theMonth: Int? = nil
+  var theYear: Int? = nil
   
 
   
@@ -151,85 +147,60 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     }
   }
   
-  
-  @IBAction func ItemPressed(_ sender: UIBarButtonItem) {
-    
-
-    //test Alamofire here
-    
+  func getDateLastUpdated() {
+   
     Alamofire.request("https://data.police.uk/api/crime-last-updated").responseJSON { response in
-     
-      
-      print(response.request)  // original URL request
-      print(response.response) // HTTP URL response
-      print(response.data)     // server data
-      print(response.result)
-      
       if let JSON = response.result.value {
         print("JSON: \(JSON)")
-        
         let parsedToDict = JSON as! [String:String]
         print (parsedToDict)
-        
         if let date  = parsedToDict["date"] {
           let index = date.index(date.startIndex, offsetBy:4)
           let year = date.substring(to: index)
-          print (year)
-          
+          self.theYear = Int(year)
           let monthStartIndex = date.index(date.startIndex, offsetBy:5)
           let monthEndIndex = date.index(date.startIndex, offsetBy: 7)
           let range = monthStartIndex..<monthEndIndex
-          
           let month = date.substring(with: range)
-          
-          print (month)
+          self.theMonth = Int(month)
+          print("\(self.theMonth)-\(self.theYear)")
+         self.setDateMenuController.setDate(month: self.theMonth, year: self.theYear)
+        // self.setDateMenuController.setText("Booya")
         }
+      } else {
+        self.theYear = nil; self.theMonth = nil
       }
-      
     }
-    
-    
-  
   }
   
- 
+  @IBAction func ItemPressed(_ sender: UIBarButtonItem) {
+    
+    
+    }
   
   @IBOutlet weak var mapView: MKMapView!
   
   override func viewDidLoad() {
    
-      let barTintColor = UIColor(red: 20/255, green: 160/255, blue: 160/255, alpha: 1)
-    toolbar.barTintColor=barTintColor
+    super.viewDidLoad()
+//appearance
     
+    let barTintColor = UIColor(red: 20/255, green: 160/255, blue: 160/255, alpha: 1)
+    toolbar.barTintColor=barTintColor
+
+ //gesture recogniser to hide clusters/pins when zooming
     let zoom  = UIPinchGestureRecognizer ( target: self, action:  #selector(self.handleZoom(_:)))
     zoom.delegate = self
     mapView.addGestureRecognizer(zoom)
     mapView.isUserInteractionEnabled = true
-    
-    super.viewDidLoad()
-
+//activity indicator
     myActivityIndicator.hidesWhenStopped = true
     myActivityIndicator.center = view.center
-    view.addSubview(myActivityIndicator)
-    
-  
-    let label = UILabel(frame: CGRect(x: 25, y: 0, width: 70, height: 40))
-    label.text = "Nov 2015"
-  
-    label.font = label.font.withSize(12)
-    label.textColor = UIColor.white
-    label.textAlignment = NSTextAlignment.left
-
-    containView.addSubview(label)
-    
-    let imageview = UIImageView(frame:CGRect(x: 0, y: 10, width:20, height: 20))
-    imageview.image = UIImage(named: "linecal")
-    imageview.image = imageview.image!.withRenderingMode(.alwaysTemplate)
-    imageview.tintColor = UIColor.white
-    imageview.contentMode = UIViewContentMode.scaleAspectFill
-    containView.addSubview(imageview)
-    containView.delegate = self
-    self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: containView)
+   view.addSubview(myActivityIndicator)
+// set the date button in nav bar
+    self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: setDateMenuController.view)
+//find date of latest data
+    getDateLastUpdated()
     
     
    }
