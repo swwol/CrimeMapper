@@ -14,7 +14,7 @@ protocol DateControllerDelegate: class {
 }
 
 class DateController: UIViewController {
-  
+  var currentDate: MonthYear?
   var delegate: DateControllerDelegate?
   let pickerData =  [Months.months,["2014","2015","2016"]]
  
@@ -31,13 +31,31 @@ class DateController: UIViewController {
     
   }
   @IBOutlet weak var datePicker: UIPickerView!
+  
     override func viewDidLoad() {
-        super.viewDidLoad()
+      
+      super.viewDidLoad()
       datePicker.delegate = self
       datePicker.dataSource = self
-       let tintColor = UIColor(red: 20/255, green: 160/255, blue: 160/255, alpha: 1)
+      let tintColor = UIColor(red: 20/255, green: 160/255, blue: 160/255, alpha: 1)
       self.view.backgroundColor = tintColor
+      
+      self.setToDate(currentDate)
+      
      }
+  
+  
+  func setToDate(_ date:MonthYear?) {
+    
+    if let d = date {
+      
+      
+      datePicker.selectRow(d.month, inComponent: 0, animated: false)
+      datePicker.selectRow(d.year - 2014, inComponent: 1, animated: false)
+      
+    }
+    
+  }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -66,7 +84,7 @@ extension DateController: UIPickerViewDataSource, UIPickerViewDelegate {
    
 
   }
-  
+ /*
   func pickerView( _ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
    // if chose year 2014, set month to december as no data for other months available
     print (row, component)
@@ -74,5 +92,5 @@ extension DateController: UIPickerViewDataSource, UIPickerViewDelegate {
     if component == 1 && row == 0 {
       pickerView.selectRow(11, inComponent: 0, animated: true)
     }
-  }
+  }*/
 }

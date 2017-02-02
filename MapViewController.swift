@@ -36,6 +36,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
   var theYear: Int? = nil
   var monthYear: MonthYear? = nil
   
+  var readyToSearch = false
 
   
   @IBOutlet weak var toolbar: UIToolbar!
@@ -77,6 +78,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
   
   func findAndDisplayDataPointsInVisibleRegion() {
     
+    guard readyToSearch else {
+      return
+    }
+    
     myActivityIndicator.startAnimating()
     
     let region  = mapView.region
@@ -93,8 +98,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
       switch self.search.state {
       case .noResults:
         print ("no results")
+        self.removeAnnotations()
       case .results(let resultArray):
-        
+      
         print ("returned \(resultArray.count) results")
           
        self.generateFBAnnotations(results: resultArray)
@@ -105,6 +111,14 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
      self.myActivityIndicator.stopAnimating()
     }
   }
+  
+  func removeAnnotations() {
+    print("removing annotations")
+    fbpins = []
+    clusteringManager.removeAll()
+    clusteringManager.display(annotations: [], onMapView: self.mapView)
+  }
+  
   
   func generateFBAnnotations(results: [SearchResult]) {
     fbpins = []
@@ -154,6 +168,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
       } else {
         self.theYear = nil; self.theMonth = nil
       }
+      self.readyToSearch = true
+      self.findAndDisplayDataPointsInVisibleRegion()
     }
   }
   
@@ -292,9 +308,8 @@ extension MapViewController: MKMapViewDelegate {
     if segue.identifier == "setDate" {
       let controller  = segue.destination as! DateController
       controller.delegate = self
+      controller.currentDate = sender as! MonthYear?
     }
-    
-    
   }
   
   func showLocationServicesDeniedAlert() {
@@ -405,7 +420,7 @@ extension MapViewController: TouchContainerDelegate {
   
   func touchContainerTouched(_ sender: TouchContainer) {
     print ("container was touched")
-    self.performSegue(withIdentifier: "setDate", sender: nil)
+    self.performSegue(withIdentifier: "setDate", sender: self.monthYear)
     
   }
 }
@@ -416,5 +431,6 @@ extension MapViewController: DateControllerDelegate {
     setDateMenuController.setDate(date: date)
     print ("new date is ", date)
     self.monthYear = date
+    findAndDisplayDataPointsInVisibleRegion()
   }
 }
