@@ -404,7 +404,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="A5p-vi-OtV"/>
-                                    <barButtonItem title="myLocation" id="PaQ-CB-KZc">
+                                    <barButtonItem image="Location" id="PaQ-CB-KZc">
                                         <connections>
                                             <action selector="getMyLocation:" destination="ZAQ-5u-4bi" id="Kf2-eC-bFE"/>
                                         </connections>
@@ -451,4 +451,7 @@
             <point key="canvasLocation" x="1636.875" y="228.16901408450704"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Location" width="20" height="20"/>
+    </resources>
 </document>
