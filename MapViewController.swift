@@ -34,6 +34,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
   
   var theMonth: Int? = nil
   var theYear: Int? = nil
+  var monthYear: MonthYear? = nil
   
 
   
@@ -88,31 +89,14 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     let sw = CLLocationCoordinate2DMake(centre.latitude - span.latitudeDelta / 2.0, centre.longitude + span.longitudeDelta / 2.0)
     //now get data for region
    
-    search.performSearch(coords: [ne,nw,sw,se], date: nil) {success in
+    search.performSearch(coords: [ne,nw,sw,se], date: self.monthYear) {success in
       switch self.search.state {
       case .noResults:
         print ("no results")
       case .results(let resultArray):
         
         print ("returned \(resultArray.count) results")
-       /*
-        for (i,result) in resultArray.enumerated() {
           
-          print ("processing result \(i)")
-          
-          if !self.searchResults.contains(result) {
-            self.searchResults.append(result)
-            self.addAnnotation(annotation: result.mapAnnotation)
-          }
-        }
- */
-        
-        // remove all anotations
-      
-        // instead of loding annotations  - generate FBAnnotations from results
-        
-     //   self.loadAnnotations(resultArray: resultArray)
-        
        self.generateFBAnnotations(results: resultArray)
 
       default:
@@ -163,6 +147,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
           let range = monthStartIndex..<monthEndIndex
           let month = date.substring(with: range)
           self.theMonth = Int(month)
+          self.monthYear = MonthYear(month: self.theMonth! - 1, year: self.theYear! )
           print("\(self.theMonth)-\(self.theYear)")
          self.setDateMenuController.setDate(month: self.theMonth, year: self.theYear)
         }
@@ -198,17 +183,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     tc.delegate = self
 //find date of latest data
     getDateLastUpdated()
-    
-    
    }
   
   func loadAnnotations(resultArray: [SearchResult]) {
-  
     removeAllAnotations()
     searchResults = resultArray
     mapView.addAnnotations(searchResults)
-    
-    
   }
   
   func handleZoom( _ sender: UIPinchGestureRecognizer) {
@@ -309,6 +289,12 @@ extension MapViewController: MKMapViewDelegate {
       let controller = segue.destination as! DetailViewController
       controller.data = searchResults[sender as! Int]
     }
+    if segue.identifier == "setDate" {
+      let controller  = segue.destination as! DateController
+      controller.delegate = self
+    }
+    
+    
   }
   
   func showLocationServicesDeniedAlert() {
@@ -422,5 +408,13 @@ extension MapViewController: TouchContainerDelegate {
     self.performSegue(withIdentifier: "setDate", sender: nil)
     
   }
+}
+
+extension MapViewController: DateControllerDelegate {
   
+  func didSetDate(date: MonthYear) {
+    setDateMenuController.setDate(date: date)
+    print ("new date is ", date)
+    self.monthYear = date
+  }
 }

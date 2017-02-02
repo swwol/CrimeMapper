@@ -11,12 +11,15 @@ import Foundation
 struct MonthYear {
   let month: Int
   let year: Int
-  let monthName: String
+  var monthName: String {
+    return "\(Months.months[month])"
+  }
   var yearAsString: String {
-    return "\(2014 + year)"
+    return "\(year)"
   }
   var dateFormattedForApiSearch: String {
       let paddedMonth  = String(format: "%02d", (month+1))
       return yearAsString+"-"+paddedMonth
   }
+  
 }

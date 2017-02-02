@@ -16,15 +16,16 @@ protocol DateControllerDelegate: class {
 class DateController: UIViewController {
   
   var delegate: DateControllerDelegate?
-  let pickerData =  [["Jan","Feb","March","April","May","June","July","Aug","Sep","Oct","Nov","Dec"],["2014","2015","2016"]]
+  let pickerData =  [Months.months,["2014","2015","2016"]]
  
   
   @IBAction func setDate(_ sender: UIButton) {
     
     let month  = datePicker.selectedRow(inComponent: 0)
-    let year  = datePicker.selectedRow(inComponent: 1)
-    let monthName  = pickerData[0][month]
-    let date = MonthYear(month:month,  year : year, monthName : monthName )
+   // let year  = datePicker.selectedRow(inComponent: 1)
+    let yearAsString = pickerData[1][datePicker.selectedRow(inComponent: 1)]
+    let year = Int(yearAsString)
+    let date = MonthYear(month:month,  year : year! )
     delegate?.didSetDate(date: date)
     self.dismiss(animated: true, completion: nil)
     
