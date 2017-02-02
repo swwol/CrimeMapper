@@ -165,7 +165,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
           self.theMonth = Int(month)
           print("\(self.theMonth)-\(self.theYear)")
          self.setDateMenuController.setDate(month: self.theMonth, year: self.theYear)
-        // self.setDateMenuController.setText("Booya")
         }
       } else {
         self.theYear = nil; self.theMonth = nil
@@ -173,10 +172,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     }
   }
   
-  @IBAction func ItemPressed(_ sender: UIBarButtonItem) {
-    
-    
-    }
   
   @IBOutlet weak var mapView: MKMapView!
   
@@ -199,6 +194,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
    view.addSubview(myActivityIndicator)
 // set the date button in nav bar
     self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: setDateMenuController.view)
+    let tc = setDateMenuController.view as! TouchContainer
+    tc.delegate = self
 //find date of latest data
     getDateLastUpdated()
     
