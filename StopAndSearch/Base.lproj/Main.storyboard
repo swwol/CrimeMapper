@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -216,10 +215,10 @@
             </objects>
             <point key="canvasLocation" x="3277.5" y="-730.9859154929577"/>
         </scene>
-        <!--Detail View Controller-->
+        <!--Detail Info-->
         <scene sceneID="Xzu-Ro-kfL">
             <objects>
-                <viewController id="rcU-Sx-pRH" customClass="DetailViewController" customModule="StopAndSearch" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Detail Info" id="rcU-Sx-pRH" customClass="DetailViewController" customModule="StopAndSearch" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4sa-vv-yij"/>
                         <viewControllerLayoutGuide type="bottom" id="DVt-6P-bbG"/>
@@ -308,26 +307,12 @@
                                     <constraint firstAttribute="height" constant="246" id="g7H-de-PdD"/>
                                 </constraints>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NLE-bP-EnB">
-                                <rect key="frame" x="142" y="503" width="37" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="UVp-3q-5NQ"/>
-                                    <constraint firstAttribute="width" constant="37" id="ztG-sJ-BBg"/>
-                                </constraints>
-                                <state key="normal" title="close"/>
-                                <connections>
-                                    <action selector="closeButton:" destination="rcU-Sx-pRH" eventType="touchUpInside" id="Qhy-Z4-23O"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="NLE-bP-EnB" secondAttribute="trailing" constant="125" id="Leh-n3-ly5"/>
                             <constraint firstItem="bGO-uo-oKg" firstAttribute="top" secondItem="ZPc-xs-RXi" secondAttribute="top" constant="50" id="LmS-eo-FZT"/>
                             <constraint firstItem="bGO-uo-oKg" firstAttribute="leading" secondItem="ZPc-xs-RXi" secondAttribute="leading" id="QxG-5e-NWO"/>
-                            <constraint firstItem="DVt-6P-bbG" firstAttribute="top" secondItem="NLE-bP-EnB" secondAttribute="bottom" constant="35" id="asW-u4-u4a"/>
                             <constraint firstAttribute="trailing" secondItem="bGO-uo-oKg" secondAttribute="trailing" id="fgS-hK-kAm"/>
-                            <constraint firstItem="NLE-bP-EnB" firstAttribute="leading" secondItem="ZPc-xs-RXi" secondAttribute="leadingMargin" constant="126" id="uLa-mm-A4x"/>
                         </constraints>
                     </view>
                     <connections>
@@ -341,7 +326,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Twx-Oq-8bH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3574" y="228"/>
+            <point key="canvasLocation" x="4329" y="1010"/>
         </scene>
         <!--Cluster Info-->
         <scene sceneID="jaI-HG-JDe">
@@ -382,10 +367,13 @@
                             <outlet property="delegate" destination="60G-Rb-THp" id="cUA-Te-iML"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <segue destination="rcU-Sx-pRH" kind="show" identifier="showDetail" id="f2I-No-gN2"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sqm-jf-hOh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3731" y="994"/>
+            <point key="canvasLocation" x="3278" y="1010"/>
         </scene>
         <!--Date Controller-->
         <scene sceneID="ri3-Xa-jpr">
@@ -468,7 +456,6 @@
                     <connections>
                         <outlet property="mapView" destination="SaS-t1-1hy" id="J3k-9a-jVs"/>
                         <outlet property="toolbar" destination="scH-yp-4Id" id="KdF-u2-30E"/>
-                        <segue destination="rcU-Sx-pRH" kind="presentation" identifier="showDetail" id="Lve-dU-vW9"/>
                         <segue destination="Dbq-TE-K4Q" kind="presentation" identifier="setDate" id="kli-aa-Cs2"/>
                         <segue destination="60G-Rb-THp" kind="show" identifier="showClusterInfo" id="xzd-2F-KXt"/>
                     </connections>
