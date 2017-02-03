@@ -127,6 +127,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
       let fb = FBAnnotation()
       fb.coordinate = CLLocationCoordinate2D(latitude: result.latitude, longitude: result.longitude)
       fb.title = result.title
+      fb.subtitle = result.subtitle
       fbpins.append(fb)
 
     }
@@ -280,10 +281,24 @@ extension MapViewController: MKMapViewDelegate {
       return clusterView
     } else {
       reuseId = "Pin"
-    
+      if let t = annotation.title ?? nil {
+        print (t)
+      }
+      if let s = annotation.subtitle ?? nil {
+        print (s)
+      }
+      
       var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
       if pinView == nil {
         pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+    
+        pinView?.isEnabled = true
+        pinView?.canShowCallout = true
+        let rightButton = UIButton(type: .detailDisclosure)
+        rightButton.tintColor = UIColor.gray
+        rightButton.addTarget(self,action: #selector(showDetails),for: .touchUpInside)
+        pinView?.rightCalloutAccessoryView = rightButton
+
         pinView?.pinTintColor = UIColor.orange
       } else {
         pinView?.annotation = annotation
@@ -294,7 +309,7 @@ extension MapViewController: MKMapViewDelegate {
 
 
   func showDetails(_ sender: UIButton) {
-    performSegue(withIdentifier: "showDetail", sender: sender.tag)
+   // performSegue(withIdentifier: "showDetail", sender: sender.tag)
   }
 
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

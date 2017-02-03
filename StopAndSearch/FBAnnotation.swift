@@ -14,6 +14,7 @@ open class FBAnnotation: NSObject {
     
     open var coordinate = CLLocationCoordinate2D()
     open var title: String?
+    open var subtitle: String?
 }
 
 extension FBAnnotation : MKAnnotation { }
