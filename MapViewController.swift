@@ -29,7 +29,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
   var error:NSError!
   let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
   let clusteringManager  = FBClusteringManager()
-  var fbpins = [FBAnnotation]()
+  var fbpins = [SearchResult]()
   let setDateMenuController = SetDateMenuController()
   
   var theMonth: Int? = nil
@@ -122,7 +122,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
   
   func generateFBAnnotations(results: [SearchResult]) {
     fbpins = []
-    for result in results {
+ /*  for result in results {
       
       let fb = FBAnnotation()
       fb.coordinate = CLLocationCoordinate2D(latitude: result.latitude, longitude: result.longitude)
@@ -130,7 +130,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
       fb.subtitle = result.subtitle
       fbpins.append(fb)
 
-    }
+    } */
+    fbpins  = results
     clusteringManager.removeAll()
     clusteringManager.add(annotations: fbpins)
     DispatchQueue.global(qos: .userInitiated).async {
