@@ -229,6 +229,7 @@
                                 <rect key="frame" x="0.0" y="524" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
+                                    <barButtonItem image="controls" id="Tba-3a-gRU"/>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="A5p-vi-OtV"/>
                                     <barButtonItem image="Location" id="PaQ-CB-KZc">
                                         <connections>
@@ -280,6 +281,7 @@
     </scenes>
     <resources>
         <image name="Location" width="20" height="20"/>
+        <image name="controls" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="ddL-Ad-qcc"/>

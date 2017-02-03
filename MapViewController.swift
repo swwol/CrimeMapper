@@ -11,10 +11,11 @@ import UIKit
 import MapKit
 import CoreLocation
 import Alamofire
+import Gloss
 
 
 class MapViewController: UIViewController, CLLocationManagerDelegate {
-  
+  var searchResults = [SearchResult]()
   let locationManager = CLLocationManager()
   var location: CLLocation?
   var updatingLocation = false
@@ -72,6 +73,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
    startLocationManager()
   }
   
+  
   // find  and display datapoints within viewable region
   
   func findAndDisplayDataPointsInVisibleRegion() {
@@ -91,6 +93,23 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     let nw = CLLocationCoordinate2DMake(centre.latitude + span.latitudeDelta / 2.0, centre.longitude + span.longitudeDelta / 2.0)
     let sw = CLLocationCoordinate2DMake(centre.latitude - span.latitudeDelta / 2.0, centre.longitude + span.longitudeDelta / 2.0)
     //now get data for region
+    
+    /*
+    Alamofire.request(getSearchURL(coords: [ne,nw,sw,se], date: self.monthYear)).responseJSON { response in
+      self.searchResults = []
+      if let result = response.result.value {
+        let jsonArray = result as! [NSDictionary]
+        for result in jsonArray {
+          if let r = SearchResult(json: result as! JSON) {
+            self.searchResults.append(r)
+          }
+        }
+      }
+      self.myActivityIndicator.stopAnimating()
+      self.generateFBAnnotations(results: self.searchResults)
+    }
+    */
+    
    
     search.performSearch(coords: [ne,nw,sw,se], date: self.monthYear) {success in
       switch self.search.state {
@@ -98,11 +117,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         print ("no results")
         self.removeAnnotations()
       case .results(let resultArray):
-      
         print ("returned \(resultArray.count) results")
-          
        self.generateFBAnnotations(results: resultArray)
-
       default:
         return
       }

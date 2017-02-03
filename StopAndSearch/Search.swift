@@ -11,6 +11,7 @@ import CoreLocation
 import Gloss
 
 
+
 typealias SearchComplete = (Bool) -> Void
 
 class Search {
