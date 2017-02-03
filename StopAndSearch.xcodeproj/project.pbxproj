@@ -17,9 +17,7 @@
 		CD33D9751E36808400AB6E94 /* AddressTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD33D9741E36808400AB6E94 /* AddressTests.swift */; };
 		CD568C7E1E32CF9300DB0B9C /* AddressController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD568C7D1E32CF9300DB0B9C /* AddressController.swift */; };
 		CD568C801E32D1F600DB0B9C /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD568C7F1E32D1F600DB0B9C /* Address.swift */; };
-		CD65058F1E337F3100DF0C03 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD65058E1E337F3100DF0C03 /* SearchTableViewController.swift */; };
 		CD7FBCA61E32AE1500DA40F1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7FBCA51E32AE1500DA40F1 /* AppDelegate.swift */; };
-		CD7FBCA81E32AE1500DA40F1 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7FBCA71E32AE1500DA40F1 /* FirstViewController.swift */; };
 		CD7FBCAD1E32AE1500DA40F1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD7FBCAB1E32AE1500DA40F1 /* Main.storyboard */; };
 		CD7FBCAF1E32AE1500DA40F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD7FBCAE1E32AE1500DA40F1 /* Assets.xcassets */; };
 		CD7FBCB21E32AE1500DA40F1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD7FBCB01E32AE1500DA40F1 /* LaunchScreen.storyboard */; };
@@ -67,10 +65,8 @@
 		CD33D9741E36808400AB6E94 /* AddressTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressTests.swift; sourceTree = "<group>"; };
 		CD568C7D1E32CF9300DB0B9C /* AddressController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressController.swift; sourceTree = "<group>"; };
 		CD568C7F1E32D1F600DB0B9C /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
-		CD65058E1E337F3100DF0C03 /* SearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
 		CD7FBCA21E32AE1500DA40F1 /* StopAndSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StopAndSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD7FBCA51E32AE1500DA40F1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		CD7FBCA71E32AE1500DA40F1 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
 		CD7FBCAC1E32AE1500DA40F1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CD7FBCAE1E32AE1500DA40F1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CD7FBCB11E32AE1500DA40F1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -152,12 +148,10 @@
 				CDF6A0731E43979E00875B6E /* SetDateMenuController.swift */,
 				CD251B031E3555F4004DACB7 /* Search.swift */,
 				CD7FBCA51E32AE1500DA40F1 /* AppDelegate.swift */,
-				CD7FBCA71E32AE1500DA40F1 /* FirstViewController.swift */,
 				CD7FBCAB1E32AE1500DA40F1 /* Main.storyboard */,
 				CD28AF9D1E449F1E00663A36 /* ClusterInfoTableViewController.swift */,
 				CDFC3E631E3396290065C9E2 /* DateController.swift */,
 				CDF6A0751E43AC7200875B6E /* Months.swift */,
-				CD65058E1E337F3100DF0C03 /* SearchTableViewController.swift */,
 				CD02F3921E34CF6200A5DD9C /* SearchResult.swift */,
 				CDD5DE0C1E40ADC9000F382C /* FBClustering */,
 				CD33D95E1E36405200AB6E94 /* MapAnnotation.swift */,
@@ -392,7 +386,6 @@
 				CDFC3E661E33AD530065C9E2 /* MonthYear.swift in Sources */,
 				CD33D95F1E36405200AB6E94 /* MapAnnotation.swift in Sources */,
 				CDD5DE041E40ADBF000F382C /* FBAnnotationClusterView.swift in Sources */,
-				CD65058F1E337F3100DF0C03 /* SearchTableViewController.swift in Sources */,
 				CDFC3E641E3396290065C9E2 /* DateController.swift in Sources */,
 				CD7FBCA61E32AE1500DA40F1 /* AppDelegate.swift in Sources */,
 				CDD5DE0A1E40ADBF000F382C /* FBQuadTreeNode.swift in Sources */,
@@ -401,7 +394,6 @@
 				CDD5DE031E40ADBF000F382C /* FBAnnotationClusterTemplate.swift in Sources */,
 				CDD5DE091E40ADBF000F382C /* FBQuadTree.swift in Sources */,
 				CD251B041E3555F4004DACB7 /* Search.swift in Sources */,
-				CD7FBCA81E32AE1500DA40F1 /* FirstViewController.swift in Sources */,
 				CDF6A0761E43AC7200875B6E /* Months.swift in Sources */,
 				CD568C801E32D1F600DB0B9C /* Address.swift in Sources */,
 			);

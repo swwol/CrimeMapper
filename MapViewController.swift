@@ -15,8 +15,6 @@ import Alamofire
 
 class MapViewController: UIViewController, CLLocationManagerDelegate {
   
-  
-  var searchResults = [SearchResult]()
   let locationManager = CLLocationManager()
   var location: CLLocation?
   var updatingLocation = false
@@ -192,11 +190,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     getDateLastUpdated()
    }
   
-  func loadAnnotations(resultArray: [SearchResult]) {
-    removeAllAnotations()
-    searchResults = resultArray
-    mapView.addAnnotations(searchResults)
-  }
   
   func handleZoom( _ sender: UIPinchGestureRecognizer) {
     if (sender.state == UIGestureRecognizerState.began) {
@@ -205,12 +198,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
       clusteringManager.removeAll()
       clusteringManager.display(annotations: fbpins, onMapView: mapView)
     }
-  }
-
-  func removeAllAnotations() {
-    mapView.removeAnnotations(searchResults)
-    searchResults = []
-    
   }
   
 }
