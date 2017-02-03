@@ -28,7 +28,7 @@ class DetailViewController: UIViewController {
       
       typeLabel.text = data?.type ?? ""
       streetLabel.text = data?.street ?? ""
-      dateLabel.text = data?.dateTime ?? ""
+      dateLabel.text = data?.subtitle ?? ""
       genderLabel.text = data?.gender ?? ""
       ethnicityLabel.text = data?.ethnicity ?? ""
       ageLabel.text = data?.age ?? ""

@@ -122,15 +122,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
   
   func generateFBAnnotations(results: [SearchResult]) {
     fbpins = []
- /*  for result in results {
-      
-      let fb = FBAnnotation()
-      fb.coordinate = CLLocationCoordinate2D(latitude: result.latitude, longitude: result.longitude)
-      fb.title = result.title
-      fb.subtitle = result.subtitle
-      fbpins.append(fb)
-
-    } */
     fbpins  = results
     clusteringManager.removeAll()
     clusteringManager.add(annotations: fbpins)
@@ -138,9 +129,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
       let mapBoundsWidth = Double(self.mapView.bounds.size.width)
       let mapRectWidth = self.mapView.visibleMapRect.size.width
       let scale = mapBoundsWidth / mapRectWidth
-      
       let annotationArray = self.clusteringManager.clusteredAnnotations(withinMapRect: self.mapView.visibleMapRect, zoomScale:scale)
-      
       DispatchQueue.main.async {
         self.clusteringManager.display(annotations: annotationArray, onMapView:self.mapView)
       }
@@ -262,15 +251,22 @@ func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnota
         pinView?.canShowCallout = true
         let rightButton = UIButton(type: .detailDisclosure)
         rightButton.tintColor = UIColor.gray
+        let i = fbpins.index(of: annotation as! SearchResult)
+        rightButton.tag = i!
         rightButton.addTarget(self,action: #selector(showDetails),for: .touchUpInside)
-        pinView?.rightCalloutAccessoryView = rightButton
 
+        pinView?.rightCalloutAccessoryView = rightButton
+        
+        
         pinView?.pinTintColor = UIColor.orange
         let subtitleView = UILabel()
         subtitleView.font = subtitleView.font.withSize(10)
         subtitleView.textColor = UIColor.gray
         subtitleView.numberOfLines = 0
         subtitleView.text = annotation.subtitle!
+        
+        
+        
         pinView!.detailCalloutAccessoryView = subtitleView
       } else {
         pinView?.annotation = annotation
@@ -281,13 +277,13 @@ func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnota
 
 
   func showDetails(_ sender: UIButton) {
-   // performSegue(withIdentifier: "showDetail", sender: sender.tag)
+    performSegue(withIdentifier: "showDetail", sender: sender.tag)
   }
 
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if segue.identifier == "showDetail" {
       let controller = segue.destination as! DetailViewController
-      controller.data = searchResults[sender as! Int]
+      controller.data = fbpins[sender as! Int]
     }
     if segue.identifier == "setDate" {
       let controller  = segue.destination as! DateController

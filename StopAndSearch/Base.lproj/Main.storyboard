@@ -326,7 +326,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Twx-Oq-8bH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4329" y="1010"/>
+            <point key="canvasLocation" x="4140" y="418"/>
         </scene>
         <!--Cluster Info-->
         <scene sceneID="jaI-HG-JDe">
@@ -458,6 +458,7 @@
                         <outlet property="toolbar" destination="scH-yp-4Id" id="KdF-u2-30E"/>
                         <segue destination="Dbq-TE-K4Q" kind="presentation" identifier="setDate" id="kli-aa-Cs2"/>
                         <segue destination="60G-Rb-THp" kind="show" identifier="showClusterInfo" id="xzd-2F-KXt"/>
+                        <segue destination="rcU-Sx-pRH" kind="show" identifier="showDetail" id="ddL-Ad-qcc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yfl-uw-afA" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -486,4 +487,7 @@
     <resources>
         <image name="Location" width="20" height="20"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="ddL-Ad-qcc"/>
+    </inferredMetricsTieBreakers>
 </document>
