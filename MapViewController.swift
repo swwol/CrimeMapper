@@ -231,38 +231,8 @@ extension MapViewController: MKMapViewDelegate {
     findAndDisplayDataPointsInVisibleRegion()
   }
   
- 
-
   
-/*func mapView(_ mapView: MKMapView,viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-    guard annotation is SearchResult else {
-      return nil
-    }
-    
-    let identifier = "Location"
-    var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
-       if annotationView == nil {
-    let pinView = MKPinAnnotationView(annotation: annotation,reuseIdentifier: identifier)
-      pinView.isEnabled = true
-      pinView.canShowCallout = true
-     // pinView.animatesDrop = false
-      let rightButton = UIButton(type: .detailDisclosure)
-      rightButton.addTarget(self,action: #selector(showDetails),for: .touchUpInside)
-      pinView.rightCalloutAccessoryView = rightButton
-      annotationView = pinView
-    }
- //   if let annotationView = annotationView {
- //     annotationView.annotation = annotation
-   //   _ = annotationView.rightCalloutAccessoryView as! UIButton
-     /* if let index = mapAnnotations.index(of: annotation as! MapAnnotation) {
-        button.tag = index
-      }*/
-   // }
-    return annotationView
-  }*/
-  
-  
-  func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
     
    if annotation is MKUserLocation {
       return nil
@@ -275,6 +245,7 @@ extension MapViewController: MKMapViewDelegate {
       var clusterView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId)
       if clusterView == nil {
         clusterView = FBAnnotationClusterView(annotation: annotation, reuseIdentifier: reuseId, configuration: FBAnnotationClusterViewConfiguration.default())
+      (clusterView as! FBAnnotationClusterView).delegate = self
       } else {
         clusterView?.annotation = annotation
       }
@@ -446,3 +417,13 @@ extension MapViewController: DateControllerDelegate {
     findAndDisplayDataPointsInVisibleRegion()
   }
 }
+
+extension MapViewController: FBAnnotationClusterViewDelegate {
+
+  func showClusterInfo(for cluster: FBAnnotationCluster) {
+    print ("ttttt")
+  }
+  
+  
+}
+
