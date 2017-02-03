@@ -281,12 +281,6 @@ extension MapViewController: MKMapViewDelegate {
       return clusterView
     } else {
       reuseId = "Pin"
-      if let t = annotation.title ?? nil {
-        print (t)
-      }
-      if let s = annotation.subtitle ?? nil {
-        print (s)
-      }
       
       var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
       if pinView == nil {
@@ -300,6 +294,12 @@ extension MapViewController: MKMapViewDelegate {
         pinView?.rightCalloutAccessoryView = rightButton
 
         pinView?.pinTintColor = UIColor.orange
+        let subtitleView = UILabel()
+        subtitleView.font = subtitleView.font.withSize(10)
+        subtitleView.textColor = UIColor.gray
+        subtitleView.numberOfLines = 0
+        subtitleView.text = annotation.subtitle!
+        pinView!.detailCalloutAccessoryView = subtitleView
       } else {
         pinView?.annotation = annotation
       }
