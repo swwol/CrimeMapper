@@ -43,7 +43,17 @@ class SearchResult: NSObject,Decodable,MKAnnotation {
     self.latitude = Double(latitudeString!) ?? 0
     self.longitude = Double(longitudeString!) ?? 0
     self.title = self.type
-    self.subtitle =  self.dateTime
+  //  self.subtitle =  self.dateTime
+    
+    if let d = dateTime {
+      //trim date to 10 characters
+      
+      let index = d.index(d.startIndex, offsetBy: 10)
+      let trimmedDate = d.substring(to: index)
+      self.subtitle = trimmedDate
+    } else {
+      self.subtitle = nil
+    }
     
     
   //  self.mapAnnotation = MapAnnotation(lat: latitude!, long: longitude!, title: type, subtitle: dateTime)
