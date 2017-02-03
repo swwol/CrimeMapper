@@ -293,6 +293,13 @@ func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnota
       controller.delegate = self
       controller.currentDate = sender as! MonthYear?
     }
+    if segue.identifier == "showClusterInfo" {
+      let controller = segue.destination as! ClusterInfoTableViewController
+      controller.cluster  = sender as? FBAnnotationCluster
+    }
+    
+    
+    
   }
   
   func showLocationServicesDeniedAlert() {
@@ -421,7 +428,7 @@ extension MapViewController: DateControllerDelegate {
 extension MapViewController: FBAnnotationClusterViewDelegate {
 
   func showClusterInfo(for cluster: FBAnnotationCluster) {
-    print ("ttttt")
+    performSegue(withIdentifier: "showClusterInfo", sender: cluster)
   }
   
   

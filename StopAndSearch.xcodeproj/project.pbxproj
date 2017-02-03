@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		CD02F3931E34CF6200A5DD9C /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD02F3921E34CF6200A5DD9C /* SearchResult.swift */; };
 		CD251B041E3555F4004DACB7 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD251B031E3555F4004DACB7 /* Search.swift */; };
+		CD28AF9E1E449F1E00663A36 /* ClusterInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD28AF9D1E449F1E00663A36 /* ClusterInfoTableViewController.swift */; };
 		CD33D95B1E362C0700AB6E94 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD33D95A1E362C0700AB6E94 /* MapKit.framework */; };
 		CD33D95D1E362C7100AB6E94 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD33D95C1E362C7100AB6E94 /* MapViewController.swift */; };
 		CD33D95F1E36405200AB6E94 /* MapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD33D95E1E36405200AB6E94 /* MapAnnotation.swift */; };
@@ -56,6 +57,7 @@
 		BE7D707924925F6F16864114 /* Pods_StopAndSearch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StopAndSearch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD02F3921E34CF6200A5DD9C /* SearchResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
 		CD251B031E3555F4004DACB7 /* Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
+		CD28AF9D1E449F1E00663A36 /* ClusterInfoTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClusterInfoTableViewController.swift; sourceTree = "<group>"; };
 		CD33D95A1E362C0700AB6E94 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		CD33D95C1E362C7100AB6E94 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapViewController.swift; path = ../MapViewController.swift; sourceTree = "<group>"; };
 		CD33D95E1E36405200AB6E94 /* MapAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapAnnotation.swift; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 				CD7FBCA51E32AE1500DA40F1 /* AppDelegate.swift */,
 				CD7FBCA71E32AE1500DA40F1 /* FirstViewController.swift */,
 				CD7FBCAB1E32AE1500DA40F1 /* Main.storyboard */,
+				CD28AF9D1E449F1E00663A36 /* ClusterInfoTableViewController.swift */,
 				CDFC3E631E3396290065C9E2 /* DateController.swift */,
 				CDF6A0751E43AC7200875B6E /* Months.swift */,
 				CD65058E1E337F3100DF0C03 /* SearchTableViewController.swift */,
@@ -375,6 +378,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CDD5DE071E40ADBF000F382C /* FBBoundingBox+MapKit.swift in Sources */,
+				CD28AF9E1E449F1E00663A36 /* ClusterInfoTableViewController.swift in Sources */,
 				CDD5DE011E40ADBF000F382C /* FBAnnotation.swift in Sources */,
 				CD33D95D1E362C7100AB6E94 /* MapViewController.swift in Sources */,
 				CD568C7E1E32CF9300DB0B9C /* AddressController.swift in Sources */,
