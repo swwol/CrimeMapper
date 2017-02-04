@@ -90,8 +90,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
       return
     }
     
-    myActivityIndicator.startAnimating()
-    
     let region  = mapView.region
     let centre  =  region.center
     let span = region.span
@@ -102,19 +100,18 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     let sw = CLLocationCoordinate2DMake(centre.latitude - span.latitudeDelta / 2.0, centre.longitude + span.longitudeDelta / 2.0)
     //now get data for region
     
-   
+   // clear fbpins array
+    
+    fbpins = []
+    
+    
     search.performSearch(coords: [ne,nw,sw,se], date: self.monthYear, categories: self.selectedCategories) {success in
-      switch self.search.state {
-      case .noResults:
-        print ("no results")
-        self.removeAnnotations()
-      case .results(let resultArray):
-        print ("returned \(resultArray.count) results")
-       self.generateFBAnnotations(results: resultArray)
-      default:
-        return
-      }
-     self.myActivityIndicator.stopAnimating()
+      
+      print ("ok")
+      print ("got data for category \(Categories.categories[success.1])")
+    
+      self.generateFBAnnotations(results: success.0)
+      self.myActivityIndicator.stopAnimating()
     }
   }
   
@@ -127,8 +124,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
   
   
   func generateFBAnnotations(results: [SearchResult]) {
-    fbpins = []
-    fbpins  = results
+   
+    fbpins += results
     clusteringManager.removeAll()
     clusteringManager.add(annotations: fbpins)
     DispatchQueue.global(qos: .userInitiated).async {
@@ -176,6 +173,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
   override func viewDidLoad() {
    
     super.viewDidLoad()
+    
+    search.delegate = self
 //appearance
     
     let barTintColor = UIColor(red: 20/255, green: 160/255, blue: 160/255, alpha: 1)
@@ -427,7 +426,15 @@ extension MapViewController: FBAnnotationClusterViewDelegate {
   func showClusterInfo(for cluster: FBAnnotationCluster) {
     performSegue(withIdentifier: "showClusterInfo", sender: cluster)
   }
+}
+
+extension MapViewController: SearchDelegate {
   
+  func searchStarted(for category: Int) {
+  
+    myActivityIndicator.startAnimating()
+    print ("searching for cat \(category)")
+  }
   
 }
 
