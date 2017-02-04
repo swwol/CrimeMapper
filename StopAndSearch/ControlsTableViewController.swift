@@ -28,14 +28,26 @@ import UIKit
 
 class ControlsTableViewController: UITableViewController {
   
-var checked: [Bool] = Array(repeating: true, count: Categories.categories.count)
+var checked: [Bool]?
   
     override func viewDidLoad() {
+      
+     
         super.viewDidLoad()
+      if checked == nil {
+       checked = Array(repeating: true, count: Categories.categories.count)
+        
+      }
+      
       navigationController?.delegate = self
-
+      navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneTapped))
    
     }
+  
+  func doneTapped() {
+    print ("done")
+  let _ = navigationController?.popViewController(animated: true)
+  }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -51,7 +63,7 @@ var checked: [Bool] = Array(repeating: true, count: Categories.categories.count)
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 14
+        return Categories.categories.count
     }
 
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -60,10 +72,10 @@ var checked: [Bool] = Array(repeating: true, count: Categories.categories.count)
     if let cell = tableView.cellForRow(at: indexPath) {
       if cell.accessoryType == .checkmark {
         cell.accessoryType = .none
-        checked[indexPath.row] = false
+        checked![indexPath.row] = false
       } else {
         cell.accessoryType = .checkmark
-        checked[indexPath.row] = true
+        checked![indexPath.row] = true
       }
     }
     tableView.deselectRow(at: indexPath, animated: true)
@@ -75,9 +87,9 @@ var checked: [Bool] = Array(repeating: true, count: Categories.categories.count)
         // Configure the cell...
         cell.textLabel?.text = Categories.categories[indexPath.row]
         cell.tintColor = UIColor.darkGray
-      if !checked[indexPath.row] {
+      if !checked![indexPath.row] {
         cell.accessoryType = .none
-      } else if checked[indexPath.row] {
+      } else if checked![indexPath.row] {
         cell.accessoryType = .checkmark
       }
         return cell

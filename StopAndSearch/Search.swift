@@ -26,8 +26,13 @@ class Search {
   private var dataTask: URLSessionDataTask? = nil
   private(set) var state: State = .notSearchedYet
   
-  func performSearch(coords: [CLLocationCoordinate2D], date: MonthYear?, completion: @escaping SearchComplete) {
+  func performSearch(coords: [CLLocationCoordinate2D], date: MonthYear?, categories: [Bool]?, completion: @escaping SearchComplete) {
    
+    
+    if let c = categories {
+      print (c)
+    }
+    
     state = .loading
     
     // clear search results array of old results

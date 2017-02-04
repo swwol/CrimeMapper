@@ -41,7 +41,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
   @IBAction func adjustSettings(_ sender: UIBarButtonItem) {
     
     // load the settings screen with date
-    performSegue(withIdentifier: "loadControls", sender: nil)
+    performSegue(withIdentifier: "loadControls", sender: selectedCategories)
     
     
   }
@@ -102,24 +102,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     let sw = CLLocationCoordinate2DMake(centre.latitude - span.latitudeDelta / 2.0, centre.longitude + span.longitudeDelta / 2.0)
     //now get data for region
     
-    /*
-    Alamofire.request(getSearchURL(coords: [ne,nw,sw,se], date: self.monthYear)).responseJSON { response in
-      self.searchResults = []
-      if let result = response.result.value {
-        let jsonArray = result as! [NSDictionary]
-        for result in jsonArray {
-          if let r = SearchResult(json: result as! JSON) {
-            self.searchResults.append(r)
-          }
-        }
-      }
-      self.myActivityIndicator.stopAnimating()
-      self.generateFBAnnotations(results: self.searchResults)
-    }
-    */
-    
    
-    search.performSearch(coords: [ne,nw,sw,se], date: self.monthYear) {success in
+    search.performSearch(coords: [ne,nw,sw,se], date: self.monthYear, categories: self.selectedCategories) {success in
       switch self.search.state {
       case .noResults:
         print ("no results")
@@ -304,6 +288,11 @@ func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnota
     if segue.identifier == "showClusterInfo" {
       let controller = segue.destination as! ClusterInfoTableViewController
       controller.cluster  = sender as? FBAnnotationCluster
+    }
+    
+    if segue.identifier == "loadControls" {
+      let controller = segue.destination as! ControlsTableViewController
+      controller.checked = sender as! [Bool]?
     }
     
     
