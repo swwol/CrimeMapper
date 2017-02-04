@@ -36,7 +36,15 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
   var monthYear: MonthYear? = nil
   
   var readyToSearch = false
-
+  var selectedCategories: [Bool]?
+  
+  @IBAction func adjustSettings(_ sender: UIBarButtonItem) {
+    
+    // load the settings screen with date
+    performSegue(withIdentifier: "loadControls", sender: nil)
+    
+    
+  }
   
   @IBOutlet weak var toolbar: UIToolbar!
   

@@ -54,28 +54,10 @@ class SearchResult: NSObject,Decodable,MKAnnotation {
     } else {
       self.subtitle = nil
     }
-    
-    
-  //  self.mapAnnotation = MapAnnotation(lat: latitude!, long: longitude!, title: type, subtitle: dateTime)
+
   }
 }
-/*
-func  == (lhs: SearchResult, rhs: SearchResult) -> Bool {
+
   
-  if lhs.type == rhs.type &&
-  lhs.street == rhs.street &&
-  lhs.gender == rhs.gender &&
-  lhs.latitude == rhs.latitude &&
-  lhs.longitude == rhs.longitude &&
-  lhs.age == rhs.age &&
-  lhs.ethnicity == rhs.ethnicity &&
-  lhs.dateTime == rhs.dateTime {
-    return true
-  } else {
-    return false
-  }
-  
-  */
-  
-  
+ // if im a crime - i have category (title), coodinate, street, outcome, date
 
