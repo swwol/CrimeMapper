@@ -264,8 +264,12 @@ func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnota
         
         pinView!.detailCalloutAccessoryView = subtitleView
       } else {
+        let resultToDisplay = annotation as! SearchResult
         pinView?.annotation = annotation
-        pinView?.pinTintColor = (annotation as! SearchResult).color
+        pinView?.pinTintColor = resultToDisplay.color
+        let i = fbpins.index(of: resultToDisplay)
+        pinView?.rightCalloutAccessoryView?.tag = i!
+        //something can cause crash here
       }
       return pinView
     }

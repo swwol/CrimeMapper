@@ -51,6 +51,7 @@ class SearchResult: NSObject,Decodable,MKAnnotation {
       self.title = Categories.categories[a!]
       self.color = Categories.colors[a!]
     } else {
+      print ("INVALID CATEGORY!!!!!!!")
       self.title = nil
       self.color = nil
     }
