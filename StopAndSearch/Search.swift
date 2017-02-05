@@ -38,10 +38,10 @@ class Search {
   
   func performSearch(coords: [CLLocationCoordinate2D], date: MonthYear?, categories: [Bool]?, completion: @escaping SearchComplete) {
    
-    
-    
-    if let cats = categories {
-      
+   
+  
+      let cats = categories ?? Array(repeating: true, count: Categories.categories.count) // if not categories passed, make all true
+  
       for (index,cat) in cats.enumerated() {
         
         if cat == true {
@@ -85,7 +85,7 @@ class Search {
         }
       }
     }
-  }
+  
   
 
   func getSearchURL (coords: [CLLocationCoordinate2D], date: MonthYear?, catIndex: Int? ) -> URL {
