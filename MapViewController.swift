@@ -245,14 +245,15 @@ func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnota
         pinView?.canShowCallout = true
         let rightButton = UIButton(type: .detailDisclosure)
         rightButton.tintColor = UIColor.gray
-        let i = fbpins.index(of: annotation as! SearchResult)
+        let resultToDisplay = annotation as! SearchResult
+        let i = fbpins.index(of: resultToDisplay)
         rightButton.tag = i!
         rightButton.addTarget(self,action: #selector(showDetails),for: .touchUpInside)
 
         pinView?.rightCalloutAccessoryView = rightButton
         
-        
-        pinView?.pinTintColor = UIColor.orange
+      
+        pinView?.pinTintColor = resultToDisplay.color ?? UIColor.white
         let subtitleView = UILabel()
         subtitleView.font = subtitleView.font.withSize(10)
         subtitleView.textColor = UIColor.gray
@@ -264,6 +265,7 @@ func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnota
         pinView!.detailCalloutAccessoryView = subtitleView
       } else {
         pinView?.annotation = annotation
+        pinView?.pinTintColor = (annotation as! SearchResult).color
       }
       return pinView
     }

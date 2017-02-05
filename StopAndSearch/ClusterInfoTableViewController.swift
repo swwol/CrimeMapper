@@ -43,8 +43,11 @@ class ClusterInfoTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
 
-      cell.textLabel?.text = cluster?.annotations[indexPath.row].title!
-      cell.detailTextLabel?.text = cluster?.annotations[indexPath.row].subtitle!
+      let resultToDisplay  = cluster?.annotations[indexPath.row] as! SearchResult
+      
+      cell.textLabel?.text = resultToDisplay.title!
+      cell.detailTextLabel?.text = resultToDisplay.subtitle!
+      cell.backgroundColor = resultToDisplay.color!
 
         return cell
     }

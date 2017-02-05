@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>ChameleonFramework.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Gloss.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -22,17 +27,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>0F39B55CE52579E68EEB38F744FDB645</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>40E7477AD67135868F5FB08136602674</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>76BD4592010354D6C23D6ECCA20D83A8</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>88E9EC28B8B46C3631E6B242B50F4442</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C4CEFE3FC1A359B7D88BCB77F008F464</key>
 		<dict>
 			<key>primary</key>
 			<true/>

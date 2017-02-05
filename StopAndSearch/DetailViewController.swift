@@ -26,12 +26,12 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
       
-      typeLabel.text = data?.type ?? ""
+  //    typeLabel.text = data?.type ?? ""
       streetLabel.text = data?.street ?? ""
       dateLabel.text = data?.subtitle ?? ""
-      genderLabel.text = data?.gender ?? ""
-      ethnicityLabel.text = data?.ethnicity ?? ""
-      ageLabel.text = data?.age ?? ""
+   //  genderLabel.text = data?.gender ?? ""
+   //   ethnicityLabel.text = data?.ethnicity ?? ""
+   //   ageLabel.text = data?.age ?? ""
 
         // Do any additional setup after loading the view.
     }

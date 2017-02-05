@@ -10,20 +10,19 @@ import Gloss
 import CoreLocation
 import MapKit
 class SearchResult: NSObject,Decodable,MKAnnotation {
-  
-  let type: String?
+
+  let category: String?
   let street: String?
-  let gender: String?
   var latitudeString: String? = nil
   var longitudeString: String? = nil
-  let age: String?
-  let ethnicity: String?
-  let dateTime: String?
+  let month: String?
   
   var latitude: CLLocationDegrees
   var longitude: CLLocationDegrees
   let title: String?
   let subtitle: String?
+  let outcome: String?
+  let color: UIColor?
   var coordinate:CLLocationCoordinate2D{
     return CLLocationCoordinate2DMake(latitude, longitude)
   }
@@ -31,29 +30,41 @@ class SearchResult: NSObject,Decodable,MKAnnotation {
 //  let mapAnnotation: MapAnnotation
   
   required init?(json: JSON) {
-    self.type = "type" <~~ json
+    
+   
+    
+    self.category = "category" <~~ json
     self.latitudeString = "location.latitude" <~~ json
     self.longitudeString  = "location.longitude" <~~ json
-    self.street = "street" <~~ json
-    self.ethnicity = "self_defined_ethnicity"  <~~ json
-    self.gender = "gender" <~~ json
-    self.age = "age_range" <~~ json
-    self.dateTime = "datetime" <~~ json
-    
+    self.street = "location.street.name" <~~ json
+    self.outcome = "outcome_status.category"  <~~ json
+    self.month = "month" <~~ json
     self.latitude = Double(latitudeString!) ?? 0
     self.longitude = Double(longitudeString!) ?? 0
-    self.title = self.type
+
+    self.subtitle = month
+    
+    
+    if let c  = category {
+      
+      let a  = Categories.urls.index(of: c)
+      self.title = Categories.categories[a!]
+      self.color = Categories.colors[a!]
+    } else {
+      self.title = nil
+      self.color = nil
+    }
   //  self.subtitle =  self.dateTime
     
-    if let d = dateTime {
+   //if let d = month {
       //trim date to 10 characters
       
-      let index = d.index(d.startIndex, offsetBy: 10)
-      let trimmedDate = d.substring(to: index)
-      self.subtitle = trimmedDate
-    } else {
-      self.subtitle = nil
-    }
+    //  let index = d.index(d.startIndex, offsetBy: 10)
+    //  let trimmedDate = d.substring(to: index)
+    //  self.subtitle =
+ //  } else {
+    //  self.subtitle = nil
+   // }
 
   }
 }
