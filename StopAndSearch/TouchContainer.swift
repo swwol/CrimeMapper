@@ -16,7 +16,7 @@ class TouchContainer: UIView {
   
   var delegate: TouchContainerDelegate?
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-    print ("began")
+    print ("began!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     self.alpha = 0.5
   }
 

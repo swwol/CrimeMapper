@@ -12,7 +12,7 @@ import MapKit
 protocol FBAnnotationClusterViewDelegate {
   
   func showClusterInfo(for cluster: FBAnnotationCluster)
-  
+  func touchBegan()
 }
 
 public class FBAnnotationClusterView : MKAnnotationView {
@@ -80,7 +80,8 @@ public class FBAnnotationClusterView : MKAnnotationView {
     }
   
   override public func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-    print ("began")
+    print ("began!!!!!!!!!!!!!!!!!!!!!!")
+    delegate?.touchBegan()
     self.alpha = 0.5
     self.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
   }
@@ -92,6 +93,20 @@ public class FBAnnotationClusterView : MKAnnotationView {
     if let cluster  = self.annotation  as? FBAnnotationCluster {
     delegate?.showClusterInfo(for: cluster)
     }
+  }
+  
+  public func reset() {
+    
+    if self.alpha != 1 {
+      
+      print ("NEEDS RESET")
+      self.alpha = 1
+      self.transform = CGAffineTransform.identity
+      
+      
+    }
+    
+    
   }
 
 	private func updateClusterSize() {

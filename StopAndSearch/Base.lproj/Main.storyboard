@@ -282,6 +282,9 @@
                                         <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" lineBreakMode="middleTruncation" id="esn-JR-beO">
                                             <rect key="frame" x="282" y="11" width="22" height="22"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <connections>
+                                                <action selector="infoPressed:" destination="ZAQ-5u-4bi" eventType="touchUpInside" id="CRg-nb-Iue"/>
+                                            </connections>
                                         </button>
                                     </barButtonItem>
                                 </items>

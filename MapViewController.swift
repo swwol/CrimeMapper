@@ -40,12 +40,19 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
   
   @IBAction func adjustSettings(_ sender: UIBarButtonItem) {
     
+
     // load the settings screen with date
     performSegue(withIdentifier: "loadControls", sender: selectedCategories)
     
-    
   }
   
+  @IBAction func infoPressed(_ sender: UIButton) {
+    
+    print("infopressed")
+    
+    search.cancelSearches()
+  
+  }
   @IBOutlet weak var toolbar: UIToolbar!
   
   //show search bar
@@ -179,7 +186,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     
     let barTintColor = UIColor(red: 20/255, green: 160/255, blue: 160/255, alpha: 1)
     toolbar.barTintColor=barTintColor
-
+    
  //gesture recogniser to hide clusters/pins when zooming
     let zoom  = UIPinchGestureRecognizer ( target: self, action:  #selector(self.handleZoom(_:)))
     zoom.delegate = self
@@ -232,6 +239,7 @@ func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnota
       (clusterView as! FBAnnotationClusterView).delegate = self
       } else {
         clusterView?.annotation = annotation
+        (clusterView as! FBAnnotationClusterView).reset()
       }
       return clusterView
     } else {
@@ -281,6 +289,9 @@ func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnota
   }
 
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    
+    search.cancelSearches()
+    
     if segue.identifier == "showDetail" {
       let controller = segue.destination as! DetailViewController
       controller.data = fbpins[sender as! Int]
@@ -429,6 +440,10 @@ extension MapViewController: DateControllerDelegate {
 
 extension MapViewController: FBAnnotationClusterViewDelegate {
 
+  func touchBegan() {
+    search.cancelSearches()
+  }
+  
   func showClusterInfo(for cluster: FBAnnotationCluster) {
     performSegue(withIdentifier: "showClusterInfo", sender: cluster)
   }

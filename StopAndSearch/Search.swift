@@ -22,23 +22,28 @@ typealias SearchComplete = ((results:[SearchResult], cat: Int)) -> Void
 
 class Search {
   
-  enum State {
-    case notSearchedYet
-    case loading
-    case noResults
-    case results([SearchResult])
-  }
   
   var delegate: SearchDelegate?
-  private var dataTask: URLSessionDataTask? = nil
-  private(set) var state: State = .notSearchedYet
+  var sessionManager : SessionManager?
   
   
   
+  func cancelSearches() {
+    
+    print ("cancelling all searches")
+    sessionManager?.session.invalidateAndCancel()
+  }
   
   func performSearch(coords: [CLLocationCoordinate2D], date: MonthYear?, categories: [Bool]?, completion: @escaping SearchComplete) {
    
-   
+  
+  cancelSearches()
+    
+    sessionManager = Alamofire.SessionManager(configuration: URLSessionConfiguration.default)
+    
+    // cancel any current downloads
+    
+
   
       let cats = categories ?? Array(repeating: true, count: Categories.categories.count) // if not categories passed, make all true
   
@@ -55,7 +60,7 @@ class Search {
          
           delegate?.searchStarted(for: index)
           
-          Alamofire.request(searchURL).responseJSON { response in
+          sessionManager?.request(searchURL).responseJSON { response in
            
             if let status = response.response?.statusCode {
               switch(status){
