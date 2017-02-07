@@ -255,8 +255,10 @@ func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnota
         rightButton.tintColor = UIColor.gray
         let resultToDisplay = annotation as! SearchResult
         let i = fbpins.index(of: resultToDisplay)
-        rightButton.tag = i!
-        rightButton.addTarget(self,action: #selector(showDetails),for: .touchUpInside)
+        if let ind = i {
+        rightButton.tag = ind
+        }
+          rightButton.addTarget(self,action: #selector(showDetails),for: .touchUpInside)
 
         pinView?.rightCalloutAccessoryView = rightButton
         
@@ -276,7 +278,9 @@ func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnota
         pinView?.annotation = annotation
         pinView?.pinTintColor = resultToDisplay.color
         let i = fbpins.index(of: resultToDisplay)
-        pinView?.rightCalloutAccessoryView?.tag = i!
+        if let ind = i {
+        pinView?.rightCalloutAccessoryView?.tag = ind
+        }
         //something can cause crash here
       }
       return pinView
