@@ -119,7 +119,7 @@ public class FBAnnotationClusterView : MKAnnotationView {
 			case .Image(let imageName):
 				image = UIImage(named: imageName)
 				break
-			case .SolidColor(let sideLength, let color):
+			case .SolidColor(let sideLength, _ ):
 			
         var slices = [(value:CGFloat, color:UIColor)]()
         

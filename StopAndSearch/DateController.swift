@@ -37,7 +37,7 @@ class DateController: UIViewController {
       super.viewDidLoad()
       datePicker.delegate = self
       datePicker.dataSource = self
-      let tintColor = UIColor(red: 20/255, green: 160/255, blue: 160/255, alpha: 1)
+      let tintColor = UIColor.flatMintDark
       self.view.backgroundColor = tintColor
       
       self.setToDate(currentDate)

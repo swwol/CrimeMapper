@@ -14,7 +14,8 @@ import Alamofire
 
 protocol SearchDelegate {
   
-  func searchStarted(for category: Int)
+  func searchStarted()
+  func searchComplete()
   
 }
 
@@ -36,33 +37,29 @@ class Search {
   
   func performSearch(coords: [CLLocationCoordinate2D], date: MonthYear?, categories: [Bool]?, completion: @escaping SearchComplete) {
    
-  
-  cancelSearches()
-    
-    sessionManager = Alamofire.SessionManager(configuration: URLSessionConfiguration.default)
-    
-    // cancel any current downloads
-    
 
   
-      let cats = categories ?? Array(repeating: true, count: Categories.categories.count) // if not categories passed, make all true
+  cancelSearches()
+  delegate?.searchStarted()
+  sessionManager = Alamofire.SessionManager(configuration: URLSessionConfiguration.default)
+    
+    let cats = categories ?? Array(repeating: true, count: Categories.categories.count) // if not categories passed, make all true
+    
+    // filter by true
+    
+    let trueCats = cats.filter{ $0 == true}
+    
+    var categoriesCompleted = 0
   
-      for (index,cat) in cats.enumerated() {
+    for (index, _ ) in trueCats.enumerated() {
         
-        if cat == true {
-          
-          // perform a search on this category
-          
-          // get search url
-          
-          
+      
           let searchURL = getSearchURL(coords: coords, date: date, catIndex: index)
          
-          delegate?.searchStarted(for: index)
-          
           sessionManager?.request(searchURL).responseJSON { response in
            
             if let status = response.response?.statusCode {
+              
               switch(status){
               case 200:
                 print("example success")
@@ -71,6 +68,14 @@ class Search {
               default:
                 print("error with response status: \(status)")
               }
+              categoriesCompleted += 1
+              if categoriesCompleted == trueCats.count {
+                
+                print ("all searches completed")
+                self.delegate?.searchComplete()
+                
+              }
+              
             }
             if let result = response.result.value {
               let jsonArray = result as! [NSDictionary]
@@ -89,8 +94,6 @@ class Search {
           }
         }
       }
-    }
-  
   
 
   func getSearchURL (coords: [CLLocationCoordinate2D], date: MonthYear?, catIndex: Int? ) -> URL {

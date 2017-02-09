@@ -30,6 +30,8 @@ class ControlsTableViewController: UITableViewController {
   
 var checked: [Bool]?
   
+ let topView = UIView()
+  
     override func viewDidLoad() {
       
      
@@ -42,10 +44,32 @@ var checked: [Bool]?
       navigationController?.delegate = self
       navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneTapped))
    
+      let cellNib = UINib(nibName: "CategoryCell", bundle: nil)
+      tableView.register(cellNib, forCellReuseIdentifier: "CategoryCell")
+      
+      topView.frame = CGRect ( x: 0 , y: 64, width: self.view.frame.size.width, height:60)
+      
+      topView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
+      
+      let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
+      let blurEffectView = UIVisualEffectView(effect: blurEffect)
+      blurEffectView.frame = topView.bounds
+      topView.addSubview(blurEffectView)
+      let topLabel = UILabel(frame:CGRect(x: 0, y: 5, width: self.view.frame.size.width, height: 50))
+      topLabel.text = "Select crime categories to display"
+      topLabel.textColor = UIColor.black
+      topLabel.textAlignment = .center
+      topLabel.font = topLabel.font.withSize(14)
+      topView.addSubview(topLabel)
+      navigationController?.view.addSubview(topView)
+      
+      tableView.contentInset = UIEdgeInsets(top: 60, left: 0 , bottom: 0 , right: 0)
+      
     }
   
   func doneTapped() {
     print ("done")
+    topView.removeFromSuperview()
   let _ = navigationController?.popViewController(animated: true)
   }
 
@@ -68,7 +92,7 @@ var checked: [Bool]?
 
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     
-    
+   
     if let cell = tableView.cellForRow(at: indexPath) {
       if cell.accessoryType == .checkmark {
         cell.accessoryType = .none
@@ -82,11 +106,14 @@ var checked: [Bool]?
   }
   
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "controlCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath) as! CategoryCell
 
         // Configure the cell...
-        cell.textLabel?.text = Categories.categories[indexPath.row]
-        cell.tintColor = UIColor.darkGray
+      
+      cell.categoryLabel.text = Categories.categories[indexPath.row]
+      cell.categoryView.backgroundColor = Categories.colors[indexPath.row]
+      cell.categoryView.layer.cornerRadius = cell.categoryView.frame.size.width/2
+      cell.tintColor = UIColor.darkGray
       if !checked![indexPath.row] {
         cell.accessoryType = .none
       } else if checked![indexPath.row] {
@@ -95,15 +122,23 @@ var checked: [Bool]?
         return cell
     }
   
-  override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-    return "Choose categories of crime to display"
+ 
+  
+ override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+     return 60
   }
+
+  
+  
 }
+
+
 
 extension ControlsTableViewController: UINavigationControllerDelegate {
   
   func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
     if let controller = viewController as? MapViewController {
+      topView.removeFromSuperview()
      controller.selectedCategories  = checked
     }
   }

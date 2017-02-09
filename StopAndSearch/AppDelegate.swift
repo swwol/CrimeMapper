@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   
   func customizeAppearance() {
-    let barTintColor = UIColor(red: 20/255, green: 160/255, blue: 160/255, alpha: 1)
+    let barTintColor = UIColor.flatMintDark
     UISearchBar.appearance().barTintColor = barTintColor
     UISearchBar.appearance().tintColor = .gray
     let tintColor  =  UIColor(red: 1, green: 1, blue: 1 ,alpha: 1)

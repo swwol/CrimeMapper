@@ -26,7 +26,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
   var localSearch:MKLocalSearch!
   var localSearchResponse:MKLocalSearchResponse!
   var error:NSError!
-  let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+
   let clusteringManager  = FBClusteringManager()
   var fbpins = [SearchResult]()
   let setDateMenuController = SetDateMenuController()
@@ -37,6 +37,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
   
   var readyToSearch = false
   var selectedCategories: [Bool]?
+  
+  var loader: Loader?
   
   @IBAction func adjustSettings(_ sender: UIBarButtonItem) {
     
@@ -118,7 +120,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
       print ("got data for category \(Categories.categories[success.1])")
     
       self.generateFBAnnotations(results: success.0)
-      self.myActivityIndicator.stopAnimating()
+      //self.myActivityIndicator.stopAnimating()
     }
   }
   
@@ -184,7 +186,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     search.delegate = self
 //appearance
     
-    let barTintColor = UIColor(red: 20/255, green: 160/255, blue: 160/255, alpha: 1)
+    let barTintColor = UIColor.flatMintDark
     toolbar.barTintColor=barTintColor
     
  //gesture recogniser to hide clusters/pins when zooming
@@ -193,9 +195,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     mapView.addGestureRecognizer(zoom)
     mapView.isUserInteractionEnabled = true
 //activity indicator
-    myActivityIndicator.hidesWhenStopped = true
-    myActivityIndicator.center = view.center
-   view.addSubview(myActivityIndicator)
+ //   myActivityIndicator.hidesWhenStopped = true
+//    myActivityIndicator.center = view.center
+ //  view.addSubview(myActivityIndicator)
 // set the date button in nav bar
     self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: setDateMenuController.view)
     let tc = setDateMenuController.view as! TouchContainer
@@ -455,10 +457,16 @@ extension MapViewController: FBAnnotationClusterViewDelegate {
 
 extension MapViewController: SearchDelegate {
   
-  func searchStarted(for category: Int) {
+  func searchStarted() {
+    
+    loader = Loader(message: "loading crime data...")
+    loader?.center = view.center
+    self.view.addSubview(loader!)  
+  }
   
-    myActivityIndicator.startAnimating()
-    print ("searching for cat \(category)")
+  func searchComplete() {
+    loader?.removeFromSuperview()
+    loader = nil
   }
   
 }

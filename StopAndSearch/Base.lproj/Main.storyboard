@@ -169,42 +169,13 @@
             </objects>
             <point key="canvasLocation" x="3311" y="1084"/>
         </scene>
-        <!--Settings-->
+        <!--Categories-->
         <scene sceneID="ae4-b9-gQI">
             <objects>
-                <tableViewController title="Settings" id="4kJ-pX-ea6" customClass="ControlsTableViewController" customModule="StopAndSearch" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="gfp-7o-SXd">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="controlCell" textLabel="u5q-28-GAE" style="IBUITableViewCellStyleDefault" id="iwz-ii-9Cv">
-                                <rect key="frame" x="0.0" y="28" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iwz-ii-9Cv" id="VOp-Qu-8wF">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="u5q-28-GAE">
-                                            <rect key="frame" x="15" y="0.0" width="290" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="4kJ-pX-ea6" id="3rO-4b-YG2"/>
-                            <outlet property="delegate" destination="4kJ-pX-ea6" id="a0l-8u-HUA"/>
-                        </connections>
-                    </tableView>
-                </tableViewController>
+                <tableViewController title="Categories" id="4kJ-pX-ea6" customClass="ControlsTableViewController" customModule="StopAndSearch" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bnO-aS-FGa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1406.25" y="967.6056338028169"/>
+            <point key="canvasLocation" x="1318" y="957"/>
         </scene>
         <!--Date Controller-->
         <scene sceneID="ri3-Xa-jpr">
@@ -336,6 +307,6 @@
         <image name="controls" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ddL-Ad-qcc"/>
+        <segue reference="f2I-No-gN2"/>
     </inferredMetricsTieBreakers>
 </document>
