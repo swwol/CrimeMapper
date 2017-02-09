@@ -64,7 +64,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     searchController = UISearchController(searchResultsController: nil)
     searchController.hidesNavigationBarDuringPresentation = false
     // this is to make cursor not white!
-    searchController.searchBar.subviews[0].subviews.flatMap(){ $0 as? UITextField }.first?.tintColor = UIColor.lightGray
+   let textFieldInsideSearchBar = searchController.searchBar.value(forKey: "searchField") as? UITextField
+    textFieldInsideSearchBar?.tintColor = UIColor.lightGray
+    let textFieldInsideSearchBarLabel = textFieldInsideSearchBar!.value(forKey: "placeholderLabel") as? UILabel
+    textFieldInsideSearchBarLabel?.text = "Search for UK address..."
     self.searchController.searchBar.delegate = self
     present(searchController, animated: true, completion: nil)
     
