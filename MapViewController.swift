@@ -481,6 +481,14 @@ extension MapViewController: SearchDelegate {
       if tooMany > 0 {
         let alert = UIAlertController(title: "Too many results", message: "Some categories returned too many results, try narrowing search area.", preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+        
+        alert.view.tintColor = UIColor.flatMint
+        self.present(alert, animated: true, completion: nil)
+        
+      } else if unknown > 0 {
+        let alert = UIAlertController(title: "Error", message: "There were errora retreiving data for some categories.", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+        alert.view.tintColor = UIColor.flatMint
         self.present(alert, animated: true, completion: nil)
         
       }
