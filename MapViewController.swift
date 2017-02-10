@@ -465,14 +465,17 @@ extension MapViewController: SearchDelegate {
   func searchStarted() {
     
     loader = Loader(message: "loading crime data...")
+    loader?.alpha = 0
     loader?.center = view.center
-    self.view.addSubview(loader!)  
+    self.view.addSubview(loader!)
+    UIView.animate(withDuration: 0.5, animations: {self.loader?.alpha = 1})
   }
   
   func searchComplete() {
-    loader?.removeFromSuperview()
-    loader = nil
-  }
+    
+    UIView.animate(withDuration: 0.5, animations: {self.loader?.alpha = 0}, completion: { finished in
+      self.loader?.removeFromSuperview()})
+    }
   
 }
 

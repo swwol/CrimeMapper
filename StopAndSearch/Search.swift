@@ -26,7 +26,8 @@ class Search {
   
   var delegate: SearchDelegate?
   var sessionManager : SessionManager?
-  
+  var categoriesSearched: Int = 0
+  var searchErrors: Int = 0
   
   
   func cancelSearches() {
@@ -49,10 +50,14 @@ class Search {
     
     let trueCats = cats.filter{ $0 == true}
     
-    var categoriesCompleted = 0
+   
   
     for (index, _ ) in trueCats.enumerated() {
         
+      
+      categoriesSearched =  0
+      searchErrors = 0
+      
       
           let searchURL = getSearchURL(coords: coords, date: date, catIndex: index)
          
@@ -65,37 +70,54 @@ class Search {
                 print("example success")
               case 503:
                 print ("too many results")
+                self.incrementSearchCount(error: true, numCats: trueCats.count)
               default:
                 print("error with response status: \(status)")
+                self.incrementSearchCount(error: true, numCats: trueCats.count)
               }
-              categoriesCompleted += 1
-              if categoriesCompleted == trueCats.count {
-                
-                print ("all searches completed")
-                self.delegate?.searchComplete()
-                
-              }
-              
             }
             if let result = response.result.value {
               let jsonArray = result as! [NSDictionary]
               var searchResults  = [SearchResult]()
-              
               for result in jsonArray {
                 if let r = SearchResult(json: result as! JSON){
                   searchResults.append(r)
                 }
               }
-             
               DispatchQueue.main.async {
                 completion((results:searchResults, cat: index))
               }
+            self.incrementSearchCount(error: false, numCats: trueCats.count)
+            } else {
+            self.incrementSearchCount(error: true, numCats: trueCats.count)
             }
           }
         }
       }
   
 
+  func incrementSearchCount( error: Bool, numCats: Int ) {
+    
+    categoriesSearched += 1
+    
+    if (error) {
+      
+      searchErrors += 1
+    }
+    
+  
+    if categoriesSearched == numCats {
+      print ("all searches completed")
+      if (searchErrors != 0 ) {
+        print ("with errors")
+      }
+      self.delegate?.searchComplete()
+    }
+
+    
+  }
+  
+  
   func getSearchURL (coords: [CLLocationCoordinate2D], date: MonthYear?, catIndex: Int? ) -> URL {
     
     // format search string
