@@ -31,11 +31,13 @@ class ControlsTableViewController: UITableViewController {
 var checked: [Bool]?
   
  let topView = UIView()
+ let topLabel = UILabel()
+ let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
+ let blurEffectView = UIVisualEffectView()
   
     override func viewDidLoad() {
       
-     
-        super.viewDidLoad()
+      super.viewDidLoad()
       if checked == nil {
        checked = Array(repeating: true, count: Categories.categories.count)
         
@@ -46,26 +48,37 @@ var checked: [Bool]?
    
       let cellNib = UINib(nibName: "CategoryCell", bundle: nil)
       tableView.register(cellNib, forCellReuseIdentifier: "CategoryCell")
-      
-      topView.frame = CGRect ( x: 0 , y: 64, width: self.view.frame.size.width, height:60)
-      
       topView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
-      
-      let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
-      let blurEffectView = UIVisualEffectView(effect: blurEffect)
+      setTopViewFrame()
+      blurEffectView.effect = blurEffect
       blurEffectView.frame = topView.bounds
       topView.addSubview(blurEffectView)
-      let topLabel = UILabel(frame:CGRect(x: 0, y: 5, width: self.view.frame.size.width, height: 50))
+      topLabel.frame = CGRect(x: 0, y: 5, width: self.view.frame.size.width, height: 50)
       topLabel.text = "Select crime categories to display"
       topLabel.textColor = UIColor.black
       topLabel.textAlignment = .center
       topLabel.font = topLabel.font.withSize(14)
       topView.addSubview(topLabel)
       navigationController?.view.addSubview(topView)
-      
       tableView.contentInset = UIEdgeInsets(top: 60, left: 0 , bottom: 0 , right: 0)
       
     }
+  
+  func setTopViewFrame() {
+    
+    let nbh  = navigationController?.navigationBar.frame.size.height
+    let nby  = navigationController?.navigationBar.frame.origin.y
+    topView.frame = CGRect ( x: 0 , y: nbh! + nby!, width: self.view.frame.size.width, height: 60)
+    topLabel.frame = CGRect(x: 0, y: 5, width: self.view.frame.size.width, height: 50)
+    blurEffectView.frame = topView.bounds
+  }
+  
+  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    
+    setTopViewFrame()
+    
+  }
+  
   
   func doneTapped() {
     print ("done")

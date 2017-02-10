@@ -15,7 +15,7 @@ import Alamofire
 protocol SearchDelegate {
   
   func searchStarted()
-  func searchComplete()
+  func searchComplete(tooMany: Int, unknown: Int)
   
 }
 
@@ -27,8 +27,8 @@ class Search {
   var delegate: SearchDelegate?
   var sessionManager : SessionManager?
   var categoriesSearched: Int = 0
-  var searchErrors: Int = 0
-  
+  var unknownErrors: Int = 0
+  var tooManyResultsErrors: Int = 0
   
   func cancelSearches() {
     
@@ -56,8 +56,8 @@ class Search {
         
       
       categoriesSearched =  0
-      searchErrors = 0
-      
+      unknownErrors = 0
+      tooManyResultsErrors = 0
       
           let searchURL = getSearchURL(coords: coords, date: date, catIndex: index)
          
@@ -70,10 +70,10 @@ class Search {
                 print("example success")
               case 503:
                 print ("too many results")
-                self.incrementSearchCount(error: true, numCats: trueCats.count)
+                self.incrementSearchCount(error: status, numCats: trueCats.count)
               default:
                 print("error with response status: \(status)")
-                self.incrementSearchCount(error: true, numCats: trueCats.count)
+                self.incrementSearchCount(error: status, numCats: trueCats.count)
               }
             }
             if let result = response.result.value {
@@ -86,32 +86,34 @@ class Search {
               }
               DispatchQueue.main.async {
                 completion((results:searchResults, cat: index))
+                self.incrementSearchCount(error: 0, numCats: trueCats.count)
               }
-            self.incrementSearchCount(error: false, numCats: trueCats.count)
+            
             } else {
-            self.incrementSearchCount(error: true, numCats: trueCats.count)
+            self.incrementSearchCount(error: 1, numCats: trueCats.count)
             }
           }
         }
       }
   
 
-  func incrementSearchCount( error: Bool, numCats: Int ) {
+  func incrementSearchCount( error: Int, numCats: Int ) {
     
     categoriesSearched += 1
     
-    if (error) {
+    if (error == 503) {
       
-      searchErrors += 1
+      tooManyResultsErrors += 1
+    } else if (error != 0 ) {
+      
+      unknownErrors += 1
     }
+    
     
   
     if categoriesSearched == numCats {
       print ("all searches completed")
-      if (searchErrors != 0 ) {
-        print ("with errors")
-      }
-      self.delegate?.searchComplete()
+      self.delegate?.searchComplete(tooMany: tooManyResultsErrors, unknown: unknownErrors)
     }
 
     

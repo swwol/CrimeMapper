@@ -463,18 +463,30 @@ extension MapViewController: FBAnnotationClusterViewDelegate {
 extension MapViewController: SearchDelegate {
   
   func searchStarted() {
-    
+    if (loader == nil) {
     loader = Loader(message: "loading crime data...")
     loader?.alpha = 0
     loader?.center = view.center
     self.view.addSubview(loader!)
+    }
     UIView.animate(withDuration: 0.5, animations: {self.loader?.alpha = 1})
+    
   }
   
-  func searchComplete() {
+  func searchComplete(tooMany: Int, unknown: Int) {
     
     UIView.animate(withDuration: 0.5, animations: {self.loader?.alpha = 0}, completion: { finished in
-      self.loader?.removeFromSuperview()})
+      self.loader?.removeFromSuperview()
+      self.loader = nil
+      if tooMany > 0 {
+        let alert = UIAlertController(title: "Too many results", message: "Some categories returned too many results, try narrowing search area.", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+        
+      }
+    
+    
+    })
     }
   
 }

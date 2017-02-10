@@ -20,7 +20,7 @@ class Loader: UIView {
   strLabel = UILabel(frame: CGRect(x: 50, y: 0, width: 250, height: 50))
   super.init(frame: CGRect(x:0, y:0, width: 250, height: 50))
   self.layer.cornerRadius = 15
-  self.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
+  self.backgroundColor = UIColor.lightGray.withAlphaComponent(0.5)
   let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
   let blurEffectView = UIVisualEffectView(effect: blurEffect)
   blurEffectView.layer.cornerRadius = 15
