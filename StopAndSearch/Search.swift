@@ -126,7 +126,7 @@ class Search {
     var searchString: String
     if let cat = catIndex {
       
-      let catString = Categories.urls[cat]
+      let catString = Categories.categories[cat].url
       searchString = "https://data.police.uk/api/crimes-street/"+catString
     }
     

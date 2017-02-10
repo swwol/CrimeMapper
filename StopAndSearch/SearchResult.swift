@@ -47,9 +47,11 @@ class SearchResult: NSObject,Decodable,MKAnnotation {
     
     if let c  = category {
       
-      let a  = Categories.urls.index(of: c)
-      self.title = Categories.categories[a!]
-      self.color = Categories.colors[a!]
+      let a = Categories.categories.filter { $0.url == c }
+      
+    //  let a  = Categories.urls.index(of: c)
+      self.title = a[0].category
+      self.color =  a[0].color
     } else {
       print ("INVALID CATEGORY!!!!!!!")
       self.title = nil

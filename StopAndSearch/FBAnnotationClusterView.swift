@@ -128,9 +128,9 @@ public class FBAnnotationClusterView : MKAnnotationView {
           
           //how many annotations in cluster.annotations have title of category?
           
-          let justThisCat = cluster.annotations.filter { $0.title! == cat }
+          let justThisCat = cluster.annotations.filter { $0.title! == cat.category }
           
-          slices.append( (value: CGFloat(justThisCat.count), color: Categories.colors[i])   )
+          slices.append( (value: CGFloat(justThisCat.count), color: Categories.categories[i].color)   )
           
           
         }

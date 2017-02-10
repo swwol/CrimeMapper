@@ -122,7 +122,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     search.performSearch(coords: [ne,nw,sw,se], date: self.monthYear, categories: self.selectedCategories) {success in
       
       print ("ok")
-      print ("got data for category \(Categories.categories[success.1])")
+      print ("got data for category \(Categories.categories[success.1].category)")
     
       self.generateFBAnnotations(results: success.0)
       //self.myActivityIndicator.stopAnimating()

@@ -29,6 +29,7 @@ import UIKit
 class ControlsTableViewController: UITableViewController {
   
 var checked: [Bool]?
+var crimeCategories = [[CrimeCategory]]()
   
  let topView = UIView()
  let topLabel = UILabel()
@@ -62,6 +63,12 @@ var checked: [Bool]?
       navigationController?.view.addSubview(topView)
       tableView.contentInset = UIEdgeInsets(top: 60, left: 0 , bottom: 0 , right: 0)
       
+      for type in Categories.types {
+        let filteredByType = Categories.categories.filter{$0.type == type}
+        if !filteredByType.isEmpty{
+         crimeCategories.append(filteredByType)
+        }
+      }
     }
   
   func setTopViewFrame() {
@@ -72,6 +79,12 @@ var checked: [Bool]?
     topLabel.frame = CGRect(x: 0, y: 5, width: self.view.frame.size.width, height: 50)
     blurEffectView.frame = topView.bounds
   }
+  
+  override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    return Categories.types[section]
+  }
+  
+  
   
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
     
@@ -95,12 +108,12 @@ var checked: [Bool]?
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return crimeCategories.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return Categories.categories.count
+        return crimeCategories[section].count
     }
 
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -123,8 +136,8 @@ var checked: [Bool]?
 
         // Configure the cell...
       
-      cell.categoryLabel.text = Categories.categories[indexPath.row]
-      cell.categoryView.backgroundColor = Categories.colors[indexPath.row]
+      cell.categoryLabel.text = crimeCategories[indexPath.section][indexPath.row].category
+      cell.categoryView.backgroundColor = crimeCategories[indexPath.section][indexPath.row].color
       cell.categoryView.layer.cornerRadius = cell.categoryView.frame.size.width/2
       cell.tintColor = UIColor.darkGray
       if !checked![indexPath.row] {

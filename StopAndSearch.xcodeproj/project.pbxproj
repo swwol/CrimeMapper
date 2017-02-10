@@ -36,6 +36,7 @@
 		CDD5DE091E40ADBF000F382C /* FBQuadTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD5DDFE1E40ADBF000F382C /* FBQuadTree.swift */; };
 		CDD5DE0A1E40ADBF000F382C /* FBQuadTreeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD5DDFF1E40ADBF000F382C /* FBQuadTreeNode.swift */; };
 		CDD5DE0B1E40ADBF000F382C /* FBZoomLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD5DE001E40ADBF000F382C /* FBZoomLevel.swift */; };
+		CDE1416C1E4E331B00D2528B /* CrimeCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE1416B1E4E331B00D2528B /* CrimeCategory.swift */; };
 		CDE1CCFC1E45D55900209A1B /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE1CCFB1E45D55900209A1B /* Categories.swift */; };
 		CDF6A0721E43636C00875B6E /* TouchContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF6A0711E43636C00875B6E /* TouchContainer.swift */; };
 		CDF6A0741E43979E00875B6E /* SetDateMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF6A0731E43979E00875B6E /* SetDateMenuController.swift */; };
@@ -91,6 +92,7 @@
 		CDD5DDFE1E40ADBF000F382C /* FBQuadTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBQuadTree.swift; sourceTree = "<group>"; };
 		CDD5DDFF1E40ADBF000F382C /* FBQuadTreeNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBQuadTreeNode.swift; sourceTree = "<group>"; };
 		CDD5DE001E40ADBF000F382C /* FBZoomLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBZoomLevel.swift; sourceTree = "<group>"; };
+		CDE1416B1E4E331B00D2528B /* CrimeCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrimeCategory.swift; sourceTree = "<group>"; };
 		CDE1CCFB1E45D55900209A1B /* Categories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
 		CDF6A0711E43636C00875B6E /* TouchContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchContainer.swift; sourceTree = "<group>"; };
 		CDF6A0731E43979E00875B6E /* SetDateMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetDateMenuController.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 				CD28AF9F1E450A1600663A36 /* ControlsTableViewController.swift */,
 				CD8A24D41E4CEC2B00244A56 /* CategoryCell.swift */,
 				CDE1CCFB1E45D55900209A1B /* Categories.swift */,
+				CDE1416B1E4E331B00D2528B /* CrimeCategory.swift */,
 				CDF6A0711E43636C00875B6E /* TouchContainer.swift */,
 				CDF6A0731E43979E00875B6E /* SetDateMenuController.swift */,
 				CD251B031E3555F4004DACB7 /* Search.swift */,
@@ -403,6 +406,7 @@
 				CDD5DE051E40ADBF000F382C /* FBAnnotationClusterViewConfiguration.swift in Sources */,
 				CDFC3E661E33AD530065C9E2 /* MonthYear.swift in Sources */,
 				CD33D95F1E36405200AB6E94 /* MapAnnotation.swift in Sources */,
+				CDE1416C1E4E331B00D2528B /* CrimeCategory.swift in Sources */,
 				CD8A24D51E4CEC2B00244A56 /* CategoryCell.swift in Sources */,
 				CDD5DE041E40ADBF000F382C /* FBAnnotationClusterView.swift in Sources */,
 				CDFC3E641E3396290065C9E2 /* DateController.swift in Sources */,

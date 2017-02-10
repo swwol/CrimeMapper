@@ -11,45 +11,45 @@ import UIKit
 class ClusterInfoTableViewController: UITableViewController {
   
   var cluster: FBAnnotationCluster?
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+  var clusterContents = [[SearchResult]]()
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    if let c = cluster {
+      let searchResults  = c.annotations as! [SearchResult]
+      for category in Categories.categories {
+        let filterdArray = searchResults.filter{$0.title! == category.category}
+        if !filterdArray.isEmpty {
+          clusterContents.append(filterdArray)
+        }
+      }
     }
+  }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
-    // MARK: - Table view data source
-
     override func numberOfSections(in tableView: UITableView) -> Int {
-      
-        return 1
+        return clusterContents.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
       
-        return cluster?.annotations.count ?? 0
+        return clusterContents[section].count
   }
 
   
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
 
-      let resultToDisplay  = cluster?.annotations[indexPath.row] as! SearchResult
-      
+      let resultToDisplay  = clusterContents[indexPath.section][indexPath.row]
+
       cell.textLabel?.text = resultToDisplay.title!
       cell.detailTextLabel?.text = resultToDisplay.subtitle!
       cell.backgroundColor = resultToDisplay.color!
-
-        return cell
+      return cell
     }
   
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -60,6 +60,10 @@ class ClusterInfoTableViewController: UITableViewController {
     
     performSegue(withIdentifier: "showDetail", sender: cluster?.annotations[indexPath.row])
     
+  }
+  
+  override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    return "title"
   }
   
 
