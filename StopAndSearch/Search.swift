@@ -107,8 +107,6 @@ class Search {
                 self.incrementSearchCount(error: 0, numCats: selectedCats.count)
               }
             
-            } else {
-            self.incrementSearchCount(error: 1, numCats: selectedCats.count)
             }
           }
         }

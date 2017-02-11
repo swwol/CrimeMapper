@@ -36,8 +36,17 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
   var monthYear: MonthYear? = nil
   
   var readyToSearch = false
-  var selectedCategories: [Bool]?
-  var enabledSections: [Bool]?
+  var selectedCategories: [Bool]? {
+    didSet {
+    findAndDisplayDataPointsInVisibleRegion()
+    }
+  }
+  var enabledSections: [Bool]? {
+    didSet {
+      findAndDisplayDataPointsInVisibleRegion()
+    }
+  }
+
   
   var loader: Loader?
   
@@ -488,7 +497,7 @@ extension MapViewController: SearchDelegate {
         self.present(alert, animated: true, completion: nil)
         
       } else if unknown > 0 {
-        let alert = UIAlertController(title: "Error", message: "There were errora retreiving data for some categories.", preferredStyle: UIAlertControllerStyle.alert)
+        let alert = UIAlertController(title: "Error", message: "There were errors retreiving data for some categories.", preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
         alert.view.tintColor = UIColor.flatMint
         self.present(alert, animated: true, completion: nil)
