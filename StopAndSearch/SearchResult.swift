@@ -41,15 +41,10 @@ class SearchResult: NSObject,Decodable,MKAnnotation {
     self.month = "month" <~~ json
     self.latitude = Double(latitudeString!) ?? 0
     self.longitude = Double(longitudeString!) ?? 0
-
     self.subtitle = month
-    
-    
+  
     if let c  = category {
-      
       let a = Categories.categories.filter { $0.url == c }
-      
-    //  let a  = Categories.urls.index(of: c)
       self.title = a[0].category
       self.color =  a[0].color
     } else {
@@ -57,21 +52,8 @@ class SearchResult: NSObject,Decodable,MKAnnotation {
       self.title = nil
       self.color = nil
     }
-  //  self.subtitle =  self.dateTime
-    
-   //if let d = month {
-      //trim date to 10 characters
-      
-    //  let index = d.index(d.startIndex, offsetBy: 10)
-    //  let trimmedDate = d.substring(to: index)
-    //  self.subtitle =
- //  } else {
-    //  self.subtitle = nil
-   // }
-
   }
 }
-
   
  // if im a crime - i have category (title), coodinate, street, outcome, date
 

@@ -19,9 +19,9 @@ class CategoryCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+     
       let myCustomSelectionColorView = UIView()
-      myCustomSelectionColorView.backgroundColor = UIColor(complementaryFlatColorOf: .flatMint).withAlphaComponent(0.3)
+      myCustomSelectionColorView.backgroundColor = UIColor.flatMint.withAlphaComponent(0.3)
       selectedBackgroundView = myCustomSelectionColorView
     }
 

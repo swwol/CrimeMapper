@@ -19,6 +19,8 @@
 		CD33D9751E36808400AB6E94 /* AddressTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD33D9741E36808400AB6E94 /* AddressTests.swift */; };
 		CD568C7E1E32CF9300DB0B9C /* AddressController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD568C7D1E32CF9300DB0B9C /* AddressController.swift */; };
 		CD568C801E32D1F600DB0B9C /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD568C7F1E32D1F600DB0B9C /* Address.swift */; };
+		CD5AD2501E4F756900ED3226 /* ClusterInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5AD24E1E4F756900ED3226 /* ClusterInfoCell.swift */; };
+		CD5AD2551E4F775700ED3226 /* ClusterInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD5AD2541E4F775700ED3226 /* ClusterInfoCell.xib */; };
 		CD7FBCA61E32AE1500DA40F1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7FBCA51E32AE1500DA40F1 /* AppDelegate.swift */; };
 		CD7FBCAD1E32AE1500DA40F1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD7FBCAB1E32AE1500DA40F1 /* Main.storyboard */; };
 		CD7FBCAF1E32AE1500DA40F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD7FBCAE1E32AE1500DA40F1 /* Assets.xcassets */; };
@@ -75,6 +77,8 @@
 		CD33D9741E36808400AB6E94 /* AddressTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressTests.swift; sourceTree = "<group>"; };
 		CD568C7D1E32CF9300DB0B9C /* AddressController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressController.swift; sourceTree = "<group>"; };
 		CD568C7F1E32D1F600DB0B9C /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
+		CD5AD24E1E4F756900ED3226 /* ClusterInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClusterInfoCell.swift; sourceTree = "<group>"; };
+		CD5AD2541E4F775700ED3226 /* ClusterInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ClusterInfoCell.xib; sourceTree = "<group>"; };
 		CD7FBCA21E32AE1500DA40F1 /* StopAndSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StopAndSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD7FBCA51E32AE1500DA40F1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CD7FBCAC1E32AE1500DA40F1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -171,6 +175,8 @@
 				CD7FBCA51E32AE1500DA40F1 /* AppDelegate.swift */,
 				CD7FBCAB1E32AE1500DA40F1 /* Main.storyboard */,
 				CD8A24D21E4CD91B00244A56 /* CategoryCell.xib */,
+				CD5AD2541E4F775700ED3226 /* ClusterInfoCell.xib */,
+				CD5AD24E1E4F756900ED3226 /* ClusterInfoCell.swift */,
 				CDE1416D1E4E881900D2528B /* CustomHeaderCell.swift */,
 				CDE1416E1E4E881900D2528B /* CustomHeaderCell.xib */,
 				CD28AF9D1E449F1E00663A36 /* ClusterInfoTableViewController.swift */,
@@ -326,6 +332,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD5AD2551E4F775700ED3226 /* ClusterInfoCell.xib in Resources */,
 				CD7FBCB21E32AE1500DA40F1 /* LaunchScreen.storyboard in Resources */,
 				CD7FBCAF1E32AE1500DA40F1 /* Assets.xcassets in Resources */,
 				CD7FBCAD1E32AE1500DA40F1 /* Main.storyboard in Resources */,
@@ -427,6 +434,7 @@
 				CD251B041E3555F4004DACB7 /* Search.swift in Sources */,
 				CDF6A0761E43AC7200875B6E /* Months.swift in Sources */,
 				CD2743611E4CB81B00FC4C53 /* Loader.swift in Sources */,
+				CD5AD2501E4F756900ED3226 /* ClusterInfoCell.swift in Sources */,
 				CD568C801E32D1F600DB0B9C /* Address.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

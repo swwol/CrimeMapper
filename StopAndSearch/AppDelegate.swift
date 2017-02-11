@@ -15,6 +15,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   
   func customizeAppearance() {
+   
+    UIApplication.shared.statusBarStyle = .lightContent
+   
     let barTintColor = UIColor.flatMintDark
     UISearchBar.appearance().barTintColor = barTintColor
     UISearchBar.appearance().tintColor = .white

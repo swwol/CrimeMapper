@@ -46,7 +46,7 @@ var crimeCategories = [[CrimeCategory]]()
       tableView.register(headerCellNib, forCellReuseIdentifier: "HeaderCell")
 
       
-      topView.backgroundColor = UIColor(complementaryFlatColorOf: .flatMint).withAlphaComponent(0.3)
+      topView.backgroundColor = UIColor.flatMintDark.withAlphaComponent(0.33)
       setTopViewFrame()
       blurEffectView.effect = blurEffect
       blurEffectView.frame = topView.bounds
@@ -98,7 +98,7 @@ var crimeCategories = [[CrimeCategory]]()
   override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
     let cell = tableView.dequeueReusableCell(withIdentifier: "HeaderCell") as! CustomHeaderCell
     cell.categoryTitle.text = Categories.types[section]
-    cell.bg.backgroundColor = UIColor.flatMint.withAlphaComponent(0.3)
+    cell.bg.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
     cell.categorySwitch.tintColor = .flatMint
     cell.categorySwitch.isOn = (enabledSections?[section])!
     cell.categorySwitch.onTintColor = .flatGreen

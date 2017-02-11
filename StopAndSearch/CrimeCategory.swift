@@ -15,7 +15,4 @@ struct CrimeCategory {
   let url : String
   let color: UIColor
   let type: String
-  var enabled: Bool
-  
-  
 }

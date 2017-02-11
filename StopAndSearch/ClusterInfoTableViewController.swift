@@ -12,15 +12,28 @@ class ClusterInfoTableViewController: UITableViewController {
   
   var cluster: FBAnnotationCluster?
   var clusterContents = [[SearchResult]]()
+  var sectionTitles = [String]()
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    //register category cell
+    let cellNib = UINib(nibName: "ClusterInfoCell", bundle: nil)
+    tableView.register(cellNib, forCellReuseIdentifier: "ClusterInfoCell")
+   //and headercell
+    let headerCellNib = UINib(nibName: "CustomHeaderCell", bundle: nil)
+    tableView.register(headerCellNib, forCellReuseIdentifier: "HeaderCell")
+
+    
     if let c = cluster {
       let searchResults  = c.annotations as! [SearchResult]
-      for category in Categories.categories {
-        let filterdArray = searchResults.filter{$0.title! == category.category}
-        if !filterdArray.isEmpty {
-          clusterContents.append(filterdArray)
+      
+      for type in Categories.types {
+        print (type)
+        let filteredByType = searchResults.filter{Categories.categoryDict[type]!.contains($0.title!)}
+        if !filteredByType.isEmpty{
+          clusterContents.append(filteredByType)
+          sectionTitles.append(type)
         }
       }
     }
@@ -42,13 +55,19 @@ class ClusterInfoTableViewController: UITableViewController {
 
   
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ClusterInfoCell", for: indexPath) as! ClusterInfoCell
+  
 
       let resultToDisplay  = clusterContents[indexPath.section][indexPath.row]
-
-      cell.textLabel?.text = resultToDisplay.title!
-      cell.detailTextLabel?.text = resultToDisplay.subtitle!
-      cell.backgroundColor = resultToDisplay.color!
+      cell.tintColor = UIColor.darkGray
+      cell.catLabel.text = resultToDisplay.title!
+      cell.dateLabel.text = resultToDisplay.subtitle!
+      cell.dateLabel.textColor = UIColor(complementaryFlatColorOf: .flatMintDark)
+      cell.streetLabel.text = resultToDisplay.street!
+      cell.streetLabel.textColor = .flatGrayDark
+      cell.catView.backgroundColor = resultToDisplay.color!
+      cell.catView.layer.cornerRadius  = cell.catView.frame.size.width/2
+      cell.accessoryType = .disclosureIndicator
       return cell
     }
   
@@ -62,9 +81,29 @@ class ClusterInfoTableViewController: UITableViewController {
     
   }
   
-  override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-    return "title"
+  
+  override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    return 60
   }
+
+  
+  /*override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    return sectionTitles[section]
+  }*/
+  
+  override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    let cell = tableView.dequeueReusableCell(withIdentifier: "HeaderCell") as! CustomHeaderCell
+    cell.categoryTitle.text = sectionTitles[section]
+    cell.bg.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
+    cell.categorySwitch.removeFromSuperview()
+    return cell
+  }
+  
+  override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    return 34
+  }
+
+
   
 
   // MARK: - Navigation
