@@ -17,6 +17,9 @@ class ClusterInfoTableViewController: UITableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneTapped))
+
+    
     //register category cell
     let cellNib = UINib(nibName: "ClusterInfoCell", bundle: nil)
     tableView.register(cellNib, forCellReuseIdentifier: "ClusterInfoCell")
@@ -62,14 +65,21 @@ class ClusterInfoTableViewController: UITableViewController {
       cell.tintColor = UIColor.darkGray
       cell.catLabel.text = resultToDisplay.title!
       cell.dateLabel.text = resultToDisplay.subtitle!
-      cell.dateLabel.textColor = UIColor(complementaryFlatColorOf: .flatMintDark)
+      cell.dateLabel.textColor = .darkGray
       cell.streetLabel.text = resultToDisplay.street!
-      cell.streetLabel.textColor = .flatGrayDark
+      cell.streetLabel.textColor = UIColor(complementaryFlatColorOf: .flatMintDark)
       cell.catView.backgroundColor = resultToDisplay.color!
       cell.catView.layer.cornerRadius  = cell.catView.frame.size.width/2
       cell.accessoryType = .disclosureIndicator
       return cell
     }
+  
+  func doneTapped() {
+    print ("done")
+//   topView.removeFromSuperview()
+    let _ = navigationController?.popViewController(animated: true)
+  }
+
   
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     
