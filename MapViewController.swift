@@ -120,10 +120,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     fbpins = []
     
     
-    search.performSearch(coords: [ne,nw,sw,se], date: self.monthYear, categories: self.selectedCategories) {success in
+    search.performSearch(coords: [ne,nw,sw,se], date: self.monthYear, categories: self.selectedCategories, enabledSections: self.enabledSections) {success in
       
       print ("ok")
-      print ("got data for category \(Categories.categories[success.1].category)")
+      print ("got data for category \(success.1.category)")
     
       self.generateFBAnnotations(results: success.0)
       //self.myActivityIndicator.stopAnimating()

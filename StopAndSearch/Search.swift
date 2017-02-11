@@ -19,7 +19,7 @@ protocol SearchDelegate {
   
 }
 
-typealias SearchComplete = ((results:[SearchResult], cat: Int)) -> Void
+typealias SearchComplete = ((results:[SearchResult], cat: CrimeCategory)) -> Void
 
 class Search {
   
@@ -36,7 +36,7 @@ class Search {
     sessionManager?.session.invalidateAndCancel()
   }
   
-  func performSearch(coords: [CLLocationCoordinate2D], date: MonthYear?, categories: [Bool]?, completion: @escaping SearchComplete) {
+  func performSearch(coords: [CLLocationCoordinate2D], date: MonthYear?, categories: [Bool]?, enabledSections: [Bool]?,  completion: @escaping SearchComplete) {
    
 
   
@@ -45,35 +45,53 @@ class Search {
   sessionManager = Alamofire.SessionManager(configuration: URLSessionConfiguration.default)
     
     let cats = categories ?? Array(repeating: true, count: Categories.categories.count) // if not categories passed, make all true
+    let sects  = enabledSections ?? Array(repeating: true, count: Categories.types.count)
     
     // filter by true
     
-    let trueCats = cats.filter{ $0 == true}
     
-   
+    /// this doesnt work
+    
+    // what we need is array of categories that are enabled and in enabled sections
+    
+    // first get selected cats
+    var selectedCats = [CrimeCategory]()
+    for (i,cat) in cats.enumerated() {
+      if cat {
+        selectedCats.append(Categories.categories[i])
+      }
+    }
+    // now filter out the ones that are in disabled sections
+    for (i,sect) in sects.enumerated() {
+      if !sect {
+      selectedCats = selectedCats.filter{ $0.type !=  Categories.types[i]   }
+      }
+    }
+    
+    
   
-    for (index, _ ) in trueCats.enumerated() {
+    for selectedCat in selectedCats {
         
       
       categoriesSearched =  0
       unknownErrors = 0
       tooManyResultsErrors = 0
       
-          let searchURL = getSearchURL(coords: coords, date: date, catIndex: index)
+      let searchURL = getSearchURL(coords: coords, date: date, cat: selectedCat)
          
-          sessionManager?.request(searchURL).responseJSON { response in
+      sessionManager?.request(searchURL).responseJSON { response in
            
-            if let status = response.response?.statusCode {
+      if let status = response.response?.statusCode {
               
               switch(status){
               case 200:
                 print("example success")
               case 503:
                 print ("too many results")
-                self.incrementSearchCount(error: status, numCats: trueCats.count)
+                self.incrementSearchCount(error: status, numCats: selectedCats.count)
               default:
                 print("error with response status: \(status)")
-                self.incrementSearchCount(error: status, numCats: trueCats.count)
+                self.incrementSearchCount(error: status, numCats: selectedCats.count)
               }
             }
             if let result = response.result.value {
@@ -85,12 +103,12 @@ class Search {
                 }
               }
               DispatchQueue.main.async {
-                completion((results:searchResults, cat: index))
-                self.incrementSearchCount(error: 0, numCats: trueCats.count)
+                completion((results:searchResults, cat: selectedCat))
+                self.incrementSearchCount(error: 0, numCats: selectedCats.count)
               }
             
             } else {
-            self.incrementSearchCount(error: 1, numCats: trueCats.count)
+            self.incrementSearchCount(error: 1, numCats: selectedCats.count)
             }
           }
         }
@@ -120,13 +138,13 @@ class Search {
   }
   
   
-  func getSearchURL (coords: [CLLocationCoordinate2D], date: MonthYear?, catIndex: Int? ) -> URL {
+  func getSearchURL (coords: [CLLocationCoordinate2D], date: MonthYear?, cat: CrimeCategory? ) -> URL {
     
     // format search string
     var searchString: String
-    if let cat = catIndex {
+    if let c = cat {
       
-      let catString = Categories.categories[cat].url
+      let catString = c.url
       searchString = "https://data.police.uk/api/crimes-street/"+catString
     }
     

@@ -28,7 +28,7 @@ struct Categories {
     CrimeCategory(category:   "Public order",url:"public-order", color: .flatSand, type: "public order", enabled: true),
    
     CrimeCategory(category:   "Possession of weapons",url:"possession-of-weapons", color: .flatForestGreenDark, type: "possession", enabled: true),
-    CrimeCategory(category:   "Drugs",url:"drugs", color:.flatLimeDark, type: "possession, enabled: true", enabled: true),
+    CrimeCategory(category:   "Drugs",url:"drugs", color:.flatLimeDark, type: "possession", enabled: true),
    
  
     CrimeCategory(category:    "Vehicle crime", url:"vehicle-crime", color: .flatBrown, type: "vehicle crime", enabled: true),

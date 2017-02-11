@@ -46,7 +46,7 @@ var crimeCategories = [[CrimeCategory]]()
       tableView.register(headerCellNib, forCellReuseIdentifier: "HeaderCell")
 
       
-      topView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
+      topView.backgroundColor = UIColor(complementaryFlatColorOf: .flatMint).withAlphaComponent(0.3)
       setTopViewFrame()
       blurEffectView.effect = blurEffect
       blurEffectView.frame = topView.bounds
