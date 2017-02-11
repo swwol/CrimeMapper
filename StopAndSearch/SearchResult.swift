@@ -22,6 +22,7 @@ class SearchResult: NSObject,Decodable,MKAnnotation {
   let title: String?
   let subtitle: String?
   let outcome: String?
+  let outcome_date: String?
   let color: UIColor?
   var coordinate:CLLocationCoordinate2D{
     return CLLocationCoordinate2DMake(latitude, longitude)
@@ -30,14 +31,12 @@ class SearchResult: NSObject,Decodable,MKAnnotation {
 //  let mapAnnotation: MapAnnotation
   
   required init?(json: JSON) {
-    
-   
-    
     self.category = "category" <~~ json
     self.latitudeString = "location.latitude" <~~ json
     self.longitudeString  = "location.longitude" <~~ json
     self.street = "location.street.name" <~~ json
     self.outcome = "outcome_status.category"  <~~ json
+    self.outcome_date = "outcome_status.date"  <~~ json
     self.month = "month" <~~ json
     self.latitude = Double(latitudeString!) ?? 0
     self.longitude = Double(longitudeString!) ?? 0
