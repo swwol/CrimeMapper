@@ -37,6 +37,8 @@
 		CDD5DE0A1E40ADBF000F382C /* FBQuadTreeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD5DDFF1E40ADBF000F382C /* FBQuadTreeNode.swift */; };
 		CDD5DE0B1E40ADBF000F382C /* FBZoomLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD5DE001E40ADBF000F382C /* FBZoomLevel.swift */; };
 		CDE1416C1E4E331B00D2528B /* CrimeCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE1416B1E4E331B00D2528B /* CrimeCategory.swift */; };
+		CDE1416F1E4E881900D2528B /* CustomHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE1416D1E4E881900D2528B /* CustomHeaderCell.swift */; };
+		CDE141701E4E881900D2528B /* CustomHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDE1416E1E4E881900D2528B /* CustomHeaderCell.xib */; };
 		CDE1CCFC1E45D55900209A1B /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE1CCFB1E45D55900209A1B /* Categories.swift */; };
 		CDF6A0721E43636C00875B6E /* TouchContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF6A0711E43636C00875B6E /* TouchContainer.swift */; };
 		CDF6A0741E43979E00875B6E /* SetDateMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF6A0731E43979E00875B6E /* SetDateMenuController.swift */; };
@@ -93,6 +95,8 @@
 		CDD5DDFF1E40ADBF000F382C /* FBQuadTreeNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBQuadTreeNode.swift; sourceTree = "<group>"; };
 		CDD5DE001E40ADBF000F382C /* FBZoomLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBZoomLevel.swift; sourceTree = "<group>"; };
 		CDE1416B1E4E331B00D2528B /* CrimeCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrimeCategory.swift; sourceTree = "<group>"; };
+		CDE1416D1E4E881900D2528B /* CustomHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomHeaderCell.swift; sourceTree = "<group>"; };
+		CDE1416E1E4E881900D2528B /* CustomHeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomHeaderCell.xib; sourceTree = "<group>"; };
 		CDE1CCFB1E45D55900209A1B /* Categories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
 		CDF6A0711E43636C00875B6E /* TouchContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchContainer.swift; sourceTree = "<group>"; };
 		CDF6A0731E43979E00875B6E /* SetDateMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetDateMenuController.swift; sourceTree = "<group>"; };
@@ -167,6 +171,8 @@
 				CD7FBCA51E32AE1500DA40F1 /* AppDelegate.swift */,
 				CD7FBCAB1E32AE1500DA40F1 /* Main.storyboard */,
 				CD8A24D21E4CD91B00244A56 /* CategoryCell.xib */,
+				CDE1416D1E4E881900D2528B /* CustomHeaderCell.swift */,
+				CDE1416E1E4E881900D2528B /* CustomHeaderCell.xib */,
 				CD28AF9D1E449F1E00663A36 /* ClusterInfoTableViewController.swift */,
 				CDFC3E631E3396290065C9E2 /* DateController.swift */,
 				CDF6A0751E43AC7200875B6E /* Months.swift */,
@@ -323,6 +329,7 @@
 				CD7FBCB21E32AE1500DA40F1 /* LaunchScreen.storyboard in Resources */,
 				CD7FBCAF1E32AE1500DA40F1 /* Assets.xcassets in Resources */,
 				CD7FBCAD1E32AE1500DA40F1 /* Main.storyboard in Resources */,
+				CDE141701E4E881900D2528B /* CustomHeaderCell.xib in Resources */,
 				CD8A24D31E4CD91B00244A56 /* CategoryCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -399,6 +406,7 @@
 				CDD5DE0B1E40ADBF000F382C /* FBZoomLevel.swift in Sources */,
 				CDF6A0721E43636C00875B6E /* TouchContainer.swift in Sources */,
 				CDF6A0741E43979E00875B6E /* SetDateMenuController.swift in Sources */,
+				CDE1416F1E4E881900D2528B /* CustomHeaderCell.swift in Sources */,
 				CDD5DE021E40ADBF000F382C /* FBAnnotationCluster.swift in Sources */,
 				CD02F3931E34CF6200A5DD9C /* SearchResult.swift in Sources */,
 				CD33D9651E3668E000AB6E94 /* DetailViewController.swift in Sources */,

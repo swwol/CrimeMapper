@@ -7,28 +7,14 @@
 //
 
 
-//Anti-social behavior
-//bicycle theft
-//burgalry
-//criminal damagge and arson
-//drugs
-//other theft
-//possesion of weapons
-//public order
-//robbery
-//shoplifing
-//theft from the person
-//vehicle crime
-//violent and sexual
-//other
-// stop and search
-
 
 import UIKit
 
 class ControlsTableViewController: UITableViewController {
   
 var checked: [Bool]?
+var enabledSections: [Bool]?
+var TwoDChecked = [[Bool]]()
 var crimeCategories = [[CrimeCategory]]()
   
  let topView = UIView()
@@ -41,14 +27,25 @@ var crimeCategories = [[CrimeCategory]]()
       super.viewDidLoad()
       if checked == nil {
        checked = Array(repeating: true, count: Categories.categories.count)
-        
       }
+      
+      if enabledSections == nil {
+        enabledSections = Array(repeating: true, count: Categories.types.count)
+      }
+      
       
       navigationController?.delegate = self
       navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneTapped))
    
+      //register category cell
       let cellNib = UINib(nibName: "CategoryCell", bundle: nil)
       tableView.register(cellNib, forCellReuseIdentifier: "CategoryCell")
+      //register custom header cell
+      
+      let headerCellNib = UINib(nibName: "CustomHeaderCell", bundle: nil)
+      tableView.register(headerCellNib, forCellReuseIdentifier: "HeaderCell")
+
+      
       topView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
       setTopViewFrame()
       blurEffectView.effect = blurEffect
@@ -63,12 +60,18 @@ var crimeCategories = [[CrimeCategory]]()
       navigationController?.view.addSubview(topView)
       tableView.contentInset = UIEdgeInsets(top: 60, left: 0 , bottom: 0 , right: 0)
       
+      //break categories and checked into 2d array
+       var n = 0
       for type in Categories.types {
         let filteredByType = Categories.categories.filter{$0.type == type}
         if !filteredByType.isEmpty{
          crimeCategories.append(filteredByType)
+         let subChecked = checked![n..<(n + filteredByType.count)]
+         TwoDChecked.append(Array(subChecked))
+          n += (filteredByType.count)
         }
       }
+      print (TwoDChecked)
     }
   
   func setTopViewFrame() {
@@ -80,9 +83,9 @@ var crimeCategories = [[CrimeCategory]]()
     blurEffectView.frame = topView.bounds
   }
   
-  override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+  /*override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
     return Categories.types[section]
-  }
+  }*/
   
   
   
@@ -90,6 +93,23 @@ var crimeCategories = [[CrimeCategory]]()
     
     setTopViewFrame()
     
+  }
+  
+  override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    let cell = tableView.dequeueReusableCell(withIdentifier: "HeaderCell") as! CustomHeaderCell
+    cell.categoryTitle.text = Categories.types[section]
+    cell.bg.backgroundColor = UIColor.flatMint.withAlphaComponent(0.3)
+    cell.categorySwitch.tintColor = .flatMint
+    cell.categorySwitch.isOn = (enabledSections?[section])!
+    cell.categorySwitch.onTintColor = .flatGreen
+    cell.mySection = section
+    cell.delegate = self
+    return cell
+
+  }
+  
+  override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    return 44
   }
   
   
@@ -122,10 +142,10 @@ var crimeCategories = [[CrimeCategory]]()
     if let cell = tableView.cellForRow(at: indexPath) {
       if cell.accessoryType == .checkmark {
         cell.accessoryType = .none
-        checked![indexPath.row] = false
+        TwoDChecked[indexPath.section][indexPath.row] = false
       } else {
         cell.accessoryType = .checkmark
-        checked![indexPath.row] = true
+       TwoDChecked[indexPath.section][indexPath.row] = true
       }
     }
     tableView.deselectRow(at: indexPath, animated: true)
@@ -133,18 +153,25 @@ var crimeCategories = [[CrimeCategory]]()
   
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath) as! CategoryCell
-
-        // Configure the cell...
       
+    
+   
       cell.categoryLabel.text = crimeCategories[indexPath.section][indexPath.row].category
       cell.categoryView.backgroundColor = crimeCategories[indexPath.section][indexPath.row].color
       cell.categoryView.layer.cornerRadius = cell.categoryView.frame.size.width/2
       cell.tintColor = UIColor.darkGray
-      if !checked![indexPath.row] {
+      if !TwoDChecked[indexPath.section][indexPath.row]{
         cell.accessoryType = .none
-      } else if checked![indexPath.row] {
+      } else if TwoDChecked[indexPath.section][indexPath.row] {
         cell.accessoryType = .checkmark
       }
+      
+      if (enabledSections?[indexPath.section])! {
+        enableCell(cell)
+      } else {
+        disableCell(cell)
+      }
+      
         return cell
     }
   
@@ -158,14 +185,70 @@ var crimeCategories = [[CrimeCategory]]()
   
 }
 
+func disableCell (_ cell: CategoryCell) {
+  
+  cell.categoryLabel.isEnabled = false
+  cell.categoryView.backgroundColor = cell.categoryView.backgroundColor?.withAlphaComponent(0.4)
+  cell.tintColor = cell.tintColor.withAlphaComponent(0.4)
+  cell.isUserInteractionEnabled = false
+  if cell.overlay == nil {
+    cell.overlay = UIView()
+    cell.overlay?.frame = cell.bounds
+    cell.overlay?.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
+    cell.contentView.addSubview(cell.overlay!)
+  }
+  cell.contentView.bringSubview(toFront: cell.overlay!)
+}
 
+func enableCell (_ cell: CategoryCell) {
+  
+  cell.categoryLabel.isEnabled = true
+  cell.categoryView.backgroundColor = cell.categoryView.backgroundColor?.withAlphaComponent(1)
+  cell.tintColor = cell.tintColor.withAlphaComponent(1)
+  cell.isUserInteractionEnabled = true
+  cell.overlay?.removeFromSuperview()
+  cell.overlay = nil
+  
+}
+
+extension ControlsTableViewController: CustomHeaderCellDelegate {
+  
+  func switched(section: Int, value: Bool) {
+    print ("section \(section) value \(value)")
+    
+    self.enabledSections?[section] = value
+    
+    
+    for i in 0..<crimeCategories[section].count {
+      
+      let indexpath = IndexPath(row: i, section: section)
+        let cell =  self.tableView.cellForRow(at: indexpath) as! CategoryCell
+      
+      if value == false {
+      
+       disableCell(cell)
+        
+      } else {
+        
+       enableCell(cell)
+    
+      }
+    }
+
+    
+    
+  }
+}
 
 extension ControlsTableViewController: UINavigationControllerDelegate {
   
   func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
     if let controller = viewController as? MapViewController {
       topView.removeFromSuperview()
-     controller.selectedCategories  = checked
+    checked = TwoDChecked.flatMap{$0}
+    print (checked!)
+      controller.selectedCategories  = checked
+      controller.enabledSections = self.enabledSections
     }
   }
 }

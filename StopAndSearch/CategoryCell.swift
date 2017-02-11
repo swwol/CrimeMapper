@@ -10,6 +10,7 @@ import UIKit
 
 class CategoryCell: UITableViewCell {
   
+  var overlay: UIView?
 
   @IBOutlet weak var bg: UIView!
 

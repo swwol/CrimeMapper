@@ -37,6 +37,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
   
   var readyToSearch = false
   var selectedCategories: [Bool]?
+  var enabledSections: [Bool]?
   
   var loader: Loader?
   
@@ -320,6 +321,7 @@ func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnota
     if segue.identifier == "loadControls" {
       let controller = segue.destination as! ControlsTableViewController
       controller.checked = sender as! [Bool]?
+      controller.enabledSections = self.enabledSections
     }
     
     
