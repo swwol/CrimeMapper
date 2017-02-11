@@ -87,22 +87,21 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
   
   @IBAction func getMyLocation(_ sender: UIBarButtonItem) {
     
+   getLocation()
+  }
+  
+  func getLocation() {
     // authorise
-    
-    print("getting location")
-    
     let authStatus = CLLocationManager.authorizationStatus()
     if authStatus == .notDetermined {
       locationManager.requestWhenInUseAuthorization()
       return
     }
-    
     if authStatus == .denied || authStatus == .restricted {
       showLocationServicesDeniedAlert()
       return
     }
-    
-   startLocationManager()
+    startLocationManager()
   }
   
   
@@ -197,8 +196,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
   override func viewDidLoad() {
    
     super.viewDidLoad()
-    
     search.delegate = self
+// go to users location on launch
+    getLocation()
+    
 //appearance
     
     let barTintColor = UIColor.flatMintDark
@@ -209,11 +210,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     zoom.delegate = self
     mapView.addGestureRecognizer(zoom)
     mapView.isUserInteractionEnabled = true
-//activity indicator
- //   myActivityIndicator.hidesWhenStopped = true
-//    myActivityIndicator.center = view.center
- //  view.addSubview(myActivityIndicator)
-// set the date button in nav bar
     self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: setDateMenuController.view)
     let tc = setDateMenuController.view as! TouchContainer
     tc.delegate = self
