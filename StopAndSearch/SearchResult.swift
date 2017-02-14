@@ -23,7 +23,9 @@ class SearchResult: NSObject,Decodable,MKAnnotation {
   let subtitle: String?
   let outcome: String?
   let outcome_date: String?
+  let context: String?
   let color: UIColor?
+  let type: String?
   var coordinate:CLLocationCoordinate2D{
     return CLLocationCoordinate2DMake(latitude, longitude)
   }
@@ -37,6 +39,7 @@ class SearchResult: NSObject,Decodable,MKAnnotation {
     self.street = "location.street.name" <~~ json
     self.outcome = "outcome_status.category"  <~~ json
     self.outcome_date = "outcome_status.date"  <~~ json
+    self.context = "context" <~~ json
     self.month = "month" <~~ json
     self.latitude = Double(latitudeString!) ?? 0
     self.longitude = Double(longitudeString!) ?? 0
@@ -46,13 +49,15 @@ class SearchResult: NSObject,Decodable,MKAnnotation {
       let a = Categories.categories.filter { $0.url == c }
       self.title = a[0].category
       self.color =  a[0].color
+      self.type = a[0].type
     } else {
       print ("INVALID CATEGORY!!!!!!!")
       self.title = nil
       self.color = nil
+      self.type = nil
     }
   }
 }
   
- // if im a crime - i have category (title), coodinate, street, outcome, date
+ // if im a crime - i have category (title), coodinate, street,date, context. outcome, outcomedate
 

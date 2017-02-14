@@ -34,6 +34,7 @@ class CustomHeaderCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+      self.categoryTitle.textColor = UIColor.flatGrayDark
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

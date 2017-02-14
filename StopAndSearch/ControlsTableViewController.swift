@@ -154,8 +154,8 @@ var crimeCategories = [[CrimeCategory]]()
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath) as! CategoryCell
       
-    
-   
+      
+      cell.typeLabel.removeFromSuperview()
       cell.categoryLabel.text = crimeCategories[indexPath.section][indexPath.row].category
       cell.categoryView.backgroundColor = crimeCategories[indexPath.section][indexPath.row].color
       cell.categoryView.layer.cornerRadius = cell.categoryView.frame.size.width/2

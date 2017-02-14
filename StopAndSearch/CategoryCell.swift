@@ -12,7 +12,11 @@ class CategoryCell: UITableViewCell {
   
   var overlay: UIView?
 
+  @IBOutlet weak var typeLabel: UILabel!
+
+
   @IBOutlet weak var bg: UIView!
+
 
   @IBOutlet weak var categoryView: UIView!
   @IBOutlet weak var categoryLabel: UILabel!

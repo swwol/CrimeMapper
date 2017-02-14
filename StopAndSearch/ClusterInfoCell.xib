@@ -31,7 +31,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Burgalry" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x4F-Tz-pPd">
-                                <rect key="frame" x="62" y="9" width="225" height="21"/>
+                                <rect key="frame" x="62" y="11" width="225" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="225" id="SNP-Om-DnW"/>
                                 </constraints>
@@ -52,8 +52,8 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="iuM-89-xoq" firstAttribute="top" secondItem="x4F-Tz-pPd" secondAttribute="bottom" constant="5" id="Ada-wH-b0f"/>
-                            <constraint firstItem="x4F-Tz-pPd" firstAttribute="top" secondItem="eQa-lq-Hcd" secondAttribute="top" constant="9" id="QD6-bS-aLw"/>
+                            <constraint firstItem="iuM-89-xoq" firstAttribute="top" secondItem="x4F-Tz-pPd" secondAttribute="bottom" constant="3" id="Ada-wH-b0f"/>
+                            <constraint firstItem="x4F-Tz-pPd" firstAttribute="top" secondItem="eQa-lq-Hcd" secondAttribute="top" constant="11" id="QD6-bS-aLw"/>
                             <constraint firstAttribute="trailing" secondItem="i1q-6F-YbQ" secondAttribute="trailing" constant="8" id="SyT-vf-I5s"/>
                             <constraint firstItem="i1q-6F-YbQ" firstAttribute="top" secondItem="eQa-lq-Hcd" secondAttribute="top" constant="15" id="V5t-WX-jns"/>
                             <constraint firstItem="iuM-89-xoq" firstAttribute="leading" secondItem="eQa-lq-Hcd" secondAttribute="leading" constant="62" id="VtH-Tq-adJ"/>

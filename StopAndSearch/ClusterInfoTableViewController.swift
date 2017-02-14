@@ -17,9 +17,7 @@ class ClusterInfoTableViewController: UITableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneTapped))
-
-    
+   
     //register category cell
     let cellNib = UINib(nibName: "ClusterInfoCell", bundle: nil)
     tableView.register(cellNib, forCellReuseIdentifier: "ClusterInfoCell")
@@ -73,21 +71,14 @@ class ClusterInfoTableViewController: UITableViewController {
       cell.accessoryType = .disclosureIndicator
       return cell
     }
-  
-  func doneTapped() {
-    print ("done")
-//   topView.removeFromSuperview()
-    let _ = navigationController?.popViewController(animated: true)
-  }
-
-  
+   
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     
     print ("selected cell at indexpath \(indexPath.row)" )
     
     //segue to detail view
     
-    performSegue(withIdentifier: "showDetail", sender: cluster?.annotations[indexPath.row])
+    performSegue(withIdentifier: "showDetail", sender: clusterContents[indexPath.section][indexPath.row])
     
   }
   
@@ -104,6 +95,7 @@ class ClusterInfoTableViewController: UITableViewController {
   override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
     let cell = tableView.dequeueReusableCell(withIdentifier: "HeaderCell") as! CustomHeaderCell
     cell.categoryTitle.text = sectionTitles[section]
+    
     cell.bg.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
     cell.categorySwitch.removeFromSuperview()
     return cell

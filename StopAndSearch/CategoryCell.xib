@@ -16,12 +16,24 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IgE-VQ-WDG" id="vLE-H9-x7f">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="59"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eQa-lq-Hcd">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="59"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="type" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="44W-PE-WuA">
+                                <rect key="frame" x="266" y="19" width="34" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="44W-PE-WuA" secondAttribute="trailing" constant="20" id="T8E-2b-6nk"/>
+                            <constraint firstItem="44W-PE-WuA" firstAttribute="centerY" secondItem="eQa-lq-Hcd" secondAttribute="centerY" id="eKt-Ik-1l9"/>
+                        </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LXb-g3-Fzf">
                         <rect key="frame" x="15" y="9" width="40" height="40"/>
@@ -57,6 +69,7 @@
                 <outlet property="bg" destination="eQa-lq-Hcd" id="wDi-jZ-8eP"/>
                 <outlet property="categoryLabel" destination="x4F-Tz-pPd" id="xeT-83-bQQ"/>
                 <outlet property="categoryView" destination="LXb-g3-Fzf" id="dAB-GH-bce"/>
+                <outlet property="typeLabel" destination="44W-PE-WuA" id="jsj-by-g5u"/>
             </connections>
             <point key="canvasLocation" x="-31" y="-59"/>
         </tableViewCell>

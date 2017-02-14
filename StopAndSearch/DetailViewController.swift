@@ -10,34 +10,139 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
-  @IBOutlet weak var typeLabel: UILabel!
-  @IBOutlet weak var streetLabel: UILabel!
-  @IBOutlet weak var dateLabel: UILabel!
-  @IBOutlet weak var genderLabel: UILabel!
-  @IBOutlet weak var ageLabel: UILabel!
-  @IBOutlet weak var ethnicityLabel: UILabel!
-  
-  @IBAction func closeButton(_ sender: UIButton) {
-    self.dismiss(animated: true, completion: nil)
-  }
+  @IBOutlet weak var tableView: UITableView!
   
   var data : SearchResult?
+  var dataArray = [(catTitle: String, catContents: [String])]()
+  
   
     override func viewDidLoad() {
         super.viewDidLoad()
-      
-  //    typeLabel.text = data?.type ?? ""
-      streetLabel.text = data?.street ?? ""
-      dateLabel.text = data?.subtitle ?? ""
-   //  genderLabel.text = data?.gender ?? ""
-   //   ethnicityLabel.text = data?.ethnicity ?? ""
-   //   ageLabel.text = data?.age ?? ""
 
-        // Do any additional setup after loading the view.
-    }
-
+      //register category cell
+      let cellNib = UINib(nibName: "CategoryCell", bundle: nil)
+      tableView.register(cellNib, forCellReuseIdentifier: "CategoryCell")
+      //get data into array
+      putDataInArray()
+  }
+  
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
   }
+
+extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
+  
+
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  return dataArray.count + 1
+  }
+  
+   func numberOfSections(in tableView: UITableView) -> Int {
+    return 1
+  }
+  
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+   
+    if indexPath.row == 0 {
+      return 60
+    }
+    else {
+      return 44
+    }
+  }
+  
+
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    if indexPath.row == 0 {
+      let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath) as! CategoryCell
+      cell.categoryLabel.text = data!.title
+      cell.categoryView.backgroundColor = data!.color!
+      cell.categoryView.layer.cornerRadius = cell.categoryView.frame.size.width/2
+      cell.typeLabel.text = data!.type
+      cell.typeLabel.textColor = UIColor.flatMint
+      return cell
+    } else {
+      
+      let cell: UITableViewCell = {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell") else {
+          // Never fails:
+          return UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: "UITableViewCell")
+        }
+        return cell
+      }()
+      
+      let element = dataArray[indexPath.row - 1]
+      
+      if ( element.catTitle == "date") {
+        let date =   getDateInWordFormat(date: element.catContents[0])
+        cell.textLabel?.text = "date"
+        cell.detailTextLabel?.text = date
+        return cell
+        
+      } else if element.catTitle == "coordinates" {
+        cell.textLabel?.text = element.catTitle
+        cell.detailTextLabel?.text = "\(element.catContents[0]),\(element.catContents[1])"
+        return cell
+        
+      } else if element.catTitle == "outcome date" {
+        let date =   getDateInWordFormat(date: element.catContents[0])
+        cell.textLabel?.text = "outcome date"
+        cell.detailTextLabel?.text = date
+        return cell
+      } else {
+        cell.textLabel?.text = element.catTitle
+        cell.detailTextLabel?.text = element.catContents[0]
+        return cell
+      }
+    }
+  }
+
+
+
+  func getDateInWordFormat( date: String) -> String {
+    
+    let yearEndIndex = date.index(date.startIndex, offsetBy: 4)
+    let monthStartIndex = date.index(date.startIndex, offsetBy: 5)
+    let year = date.substring(to: yearEndIndex)
+    let range = monthStartIndex..<date.endIndex
+    let month =  date.substring(with: range)
+    let monthAsInt = Int(month)
+    let monthAsWord = DateFormatter().monthSymbols[monthAsInt! - 1].capitalized
+    return "\(monthAsWord) \(year)"
+  }
+  
+  func putDataInArray() {
+    
+    // if im a crime - i have category (title), date, coodinate, street, context. outcome, outcomedate
+    //get date:
+    if let d = data!.month, d != "" {
+      let date = (catTitle: "date", catContents: [d] )
+      dataArray.append(date)
+    }
+    //get coordinate:
+    if let lat = data!.latitudeString, let long = data!.longitudeString, lat != "" {
+      let coordinates = (catTitle: "coordinates", catContents: [lat,long] )
+      dataArray.append(coordinates)
+    }
+    //get street:
+    if let street = data!.street, street != "" {
+      let s = (catTitle: "street", catContents: [street] )
+      dataArray.append(s)
+    }
+    //get context:
+    if let context = data!.context, context != "" {
+      let c = (catTitle: "context", catContents: [context] )
+      dataArray.append(c)
+    }
+    if let outcome = data!.outcome, outcome != "" {
+      let o = (catTitle: "outcome", catContents: [outcome] )
+      dataArray.append(o)
+    }
+    if let outcomeDate = data!.outcome_date, outcomeDate != "" {
+      let od = (catTitle: "outcome date", catContents: [outcomeDate] )
+      dataArray.append(od)
+    }
+  }
+}
