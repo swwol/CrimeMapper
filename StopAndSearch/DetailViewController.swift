@@ -19,14 +19,18 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-      //register category cell
-     // let cellNib = UINib(nibName: "CategoryCell", bundle: nil)
-     // tableView.register(cellNib, forCellReuseIdentifier: "CategoryCell")
+   
       let cellNib = UINib(nibName: "CrimeDetail", bundle: nil)
       tableView.register(cellNib, forCellReuseIdentifier: "CrimeDetail")
+      
+      let headerCellNib = UINib(nibName: "CustomHeaderCell", bundle: nil)
+      tableView.register(headerCellNib, forCellReuseIdentifier: "HeaderCell")
   
       //get data into array
       putDataInArray()
+      
+   //   tableView.estimatedRowHeight = 44
+   //  tableView.rowHeight = UITableViewAutomaticDimension
   }
   
     override func didReceiveMemoryWarning() {
@@ -37,18 +41,40 @@ class DetailViewController: UIViewController {
 
 extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
   
+  
+  func numberOfSections(in tableView: UITableView) -> Int {
+    return 2
+  }
 
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-  return dataArray.count + 1
+    
+    if section == 0 {
+      return 1
+    } else {
+      return dataArray.count
+    }
   }
   
-   func numberOfSections(in tableView: UITableView) -> Int {
-    return 1
+ func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    let cell = tableView.dequeueReusableCell(withIdentifier: "HeaderCell") as! CustomHeaderCell
+    cell.categoryTitle.text = ""
+    cell.bg.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
+    cell.categorySwitch.removeFromSuperview()
+    return cell
   }
   
+  func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    if section == 0 {
+      return 0
+    } else {
+     return  34
+    }
+  }
+  
+
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
    
-    if indexPath.row == 0 {
+    if indexPath.section == 0 {
       return 120
     }
     else {
@@ -56,17 +82,17 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     }
   }
   
-
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    if indexPath.row == 0 {
+    if indexPath.row == 0 && indexPath.section == 0 {
       let cell = tableView.dequeueReusableCell(withIdentifier: "CrimeDetail", for: indexPath) as! CrimeDetail
-     
       cell.catView.backgroundColor = data!.color!
       cell.catView.layer.cornerRadius = cell.catView.frame.size.width/2
       cell.crimeLabel.text = data!.title
       cell.dateLabel.text = getDateInWordFormat(date: data!.subtitle!)
       cell.streetLabel.text  = data!.street!
+      cell.streetLabel.textColor  =  UIColor.init(complementaryFlatColorOf: UIColor.flatMintDark)
       cell.coordLabel.text = "lat \(data!.latitudeString!) long \(data!.longitudeString!)"
+      cell.coordLabel.textColor = .darkGray
       return cell
     } else {
       
@@ -78,7 +104,9 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
       }()
       
-      let element = dataArray[indexPath.row - 1]
+      cell.detailTextLabel?.numberOfLines = 0
+      
+      let element = dataArray[indexPath.row]
       
       if ( element.catTitle == "date") {
         let date =   getDateInWordFormat(date: element.catContents[0])
@@ -103,8 +131,6 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
       }
     }
   }
-
-
 
   func getDateInWordFormat( date: String) -> String {
     

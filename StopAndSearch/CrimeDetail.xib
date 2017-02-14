@@ -22,16 +22,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="119"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="on or near Rowcross Street" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iuM-89-xoq">
-                                <rect key="frame" x="91" y="45" width="154" height="15"/>
+                                <rect key="frame" x="91" y="45" width="217" height="15"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Burgalry" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x4F-Tz-pPd">
-                                <rect key="frame" x="91" y="15" width="225" height="27"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="225" id="SNP-Om-DnW"/>
-                                </constraints>
+                                <rect key="frame" x="91" y="15" width="217" height="27"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -40,26 +37,30 @@
                                 <rect key="frame" x="288" y="90" width="20" height="20"/>
                                 <color key="tintColor" red="0.012865800950000001" green="1" blue="0.0" alpha="0.94999999999999996" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="lat 0.1234 long 0.345" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yE3-x9-srt">
-                                <rect key="frame" x="177" y="95" width="103" height="12"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="lat 0.1234 long 0.345" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yE3-x9-srt">
+                                <rect key="frame" x="17" y="95" width="263" height="12"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="December 2012" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i1q-6F-YbQ">
-                                <rect key="frame" x="91" y="63" width="90" height="15"/>
+                                <rect key="frame" x="91" y="63" width="217" height="15"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="x4F-Tz-pPd" secondAttribute="trailing" constant="12" id="8E3-2T-Orz"/>
                             <constraint firstItem="iuM-89-xoq" firstAttribute="top" secondItem="x4F-Tz-pPd" secondAttribute="bottom" constant="3" id="Ada-wH-b0f"/>
                             <constraint firstAttribute="trailing" secondItem="YQv-fg-DIc" secondAttribute="trailing" constant="12" id="JhK-50-RYG"/>
                             <constraint firstItem="i1q-6F-YbQ" firstAttribute="top" secondItem="iuM-89-xoq" secondAttribute="bottom" constant="3" id="Lll-PR-TJS"/>
                             <constraint firstItem="x4F-Tz-pPd" firstAttribute="top" secondItem="eQa-lq-Hcd" secondAttribute="top" constant="15" id="QD6-bS-aLw"/>
+                            <constraint firstAttribute="trailing" secondItem="iuM-89-xoq" secondAttribute="trailing" constant="12" id="dg3-zU-ADo"/>
                             <constraint firstAttribute="bottom" secondItem="yE3-x9-srt" secondAttribute="bottom" constant="12" id="gs8-mm-ZRc"/>
+                            <constraint firstAttribute="trailing" secondItem="i1q-6F-YbQ" secondAttribute="trailing" constant="12" id="kwu-b2-KD8"/>
+                            <constraint firstItem="yE3-x9-srt" firstAttribute="leading" secondItem="eQa-lq-Hcd" secondAttribute="leading" constant="17" id="uwG-hD-f7Z"/>
                             <constraint firstAttribute="bottom" secondItem="YQv-fg-DIc" secondAttribute="bottom" constant="9" id="vLD-bC-9BY"/>
                             <constraint firstItem="YQv-fg-DIc" firstAttribute="leading" secondItem="yE3-x9-srt" secondAttribute="trailing" constant="8" id="vcN-S0-hgc"/>
                         </constraints>
