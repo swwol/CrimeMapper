@@ -20,8 +20,11 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
 
       //register category cell
-      let cellNib = UINib(nibName: "CategoryCell", bundle: nil)
-      tableView.register(cellNib, forCellReuseIdentifier: "CategoryCell")
+     // let cellNib = UINib(nibName: "CategoryCell", bundle: nil)
+     // tableView.register(cellNib, forCellReuseIdentifier: "CategoryCell")
+      let cellNib = UINib(nibName: "CrimeDetail", bundle: nil)
+      tableView.register(cellNib, forCellReuseIdentifier: "CrimeDetail")
+  
       //get data into array
       putDataInArray()
   }
@@ -46,7 +49,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
    
     if indexPath.row == 0 {
-      return 60
+      return 120
     }
     else {
       return 44
@@ -56,12 +59,14 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     if indexPath.row == 0 {
-      let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath) as! CategoryCell
-      cell.categoryLabel.text = data!.title
-      cell.categoryView.backgroundColor = data!.color!
-      cell.categoryView.layer.cornerRadius = cell.categoryView.frame.size.width/2
-      cell.typeLabel.text = data!.type
-      cell.typeLabel.textColor = UIColor.flatMint
+      let cell = tableView.dequeueReusableCell(withIdentifier: "CrimeDetail", for: indexPath) as! CrimeDetail
+     
+      cell.catView.backgroundColor = data!.color!
+      cell.catView.layer.cornerRadius = cell.catView.frame.size.width/2
+      cell.crimeLabel.text = data!.title
+      cell.dateLabel.text = getDateInWordFormat(date: data!.subtitle!)
+      cell.streetLabel.text  = data!.street!
+      cell.coordLabel.text = "lat \(data!.latitudeString!) long \(data!.longitudeString!)"
       return cell
     } else {
       

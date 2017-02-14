@@ -13,6 +13,8 @@ class CrimeDetail: UITableViewCell {
   @IBOutlet weak var catView: UIView!
   @IBOutlet weak var dateLabel: UILabel!
   
+  @IBOutlet weak var coordLabel: UILabel!
+  @IBOutlet weak var streetLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
