@@ -19,6 +19,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
   let locationManager = CLLocationManager()
   var location: CLLocation?
   var updatingLocation = false
+  var located = false
   var lastLocationError: Error?
   let search = Search()
   var searchController:UISearchController!
@@ -26,7 +27,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
   var localSearch:MKLocalSearch!
   var localSearchResponse:MKLocalSearchResponse!
   var error:NSError!
-
+  
   let clusteringManager  = FBClusteringManager()
   var fbpins = [SearchResult]()
   let setDateMenuController = SetDateMenuController()
@@ -34,7 +35,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
   var theMonth: Int? = nil
   var theYear: Int? = nil
   var monthYear: MonthYear? = nil
-  
   var readyToSearch = false
   var selectedCategories: [Bool]? {
     didSet {
@@ -101,6 +101,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
       showLocationServicesDeniedAlert()
       return
     }
+   
     startLocationManager()
   }
   
@@ -356,8 +357,7 @@ func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnota
   }
   
   func startLocationManager() {
-    
-    print ("starting mananger")
+       print ("starting mananger")
     if CLLocationManager.locationServicesEnabled() {
  
       locationManager.delegate = self
@@ -377,6 +377,7 @@ func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnota
   
   func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
     print ("here")
+    
     let newLocation = locations.last!
     if newLocation.timestamp.timeIntervalSinceNow < -5 {
       print("too old")
@@ -388,14 +389,17 @@ func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnota
       return
     }
     
-    if location == nil || location!.horizontalAccuracy > newLocation.horizontalAccuracy {
+    if location == nil || location!.horizontalAccuracy > newLocation.horizontalAccuracy  || located {
       // 4
-      
+    
+      located = true
       print ("improving")
       lastLocationError = nil
       location = newLocation
       if newLocation.horizontalAccuracy <= locationManager.desiredAccuracy {
+        search.cancelSearches()
         print("*** We're done!")
+       
         let center = CLLocationCoordinate2D(latitude: newLocation.coordinate.latitude, longitude: newLocation.coordinate.longitude)
         let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
         

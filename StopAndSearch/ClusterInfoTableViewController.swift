@@ -97,7 +97,9 @@ class ClusterInfoTableViewController: UITableViewController {
     cell.categoryTitle.text = sectionTitles[section]
     
     cell.bg.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
+    if cell.categorySwitch != nil {
     cell.categorySwitch.removeFromSuperview()
+    }
     return cell
   }
   

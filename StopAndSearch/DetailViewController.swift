@@ -59,7 +59,9 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     let cell = tableView.dequeueReusableCell(withIdentifier: "HeaderCell") as! CustomHeaderCell
     cell.categoryTitle.text = ""
     cell.bg.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
+  if cell.categorySwitch != nil {
     cell.categorySwitch.removeFromSuperview()
+  }
     return cell
   }
   
