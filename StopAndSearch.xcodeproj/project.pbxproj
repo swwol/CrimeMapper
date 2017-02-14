@@ -44,6 +44,7 @@
 		CDD5DE091E40ADBF000F382C /* FBQuadTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD5DDFE1E40ADBF000F382C /* FBQuadTree.swift */; };
 		CDD5DE0A1E40ADBF000F382C /* FBQuadTreeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD5DDFF1E40ADBF000F382C /* FBQuadTreeNode.swift */; };
 		CDD5DE0B1E40ADBF000F382C /* FBZoomLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD5DE001E40ADBF000F382C /* FBZoomLevel.swift */; };
+		CDDCB2AA1E53C51C00D86CE7 /* ExtendedNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDCB2A91E53C51C00D86CE7 /* ExtendedNavController.swift */; };
 		CDE1416C1E4E331B00D2528B /* CrimeCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE1416B1E4E331B00D2528B /* CrimeCategory.swift */; };
 		CDE1416F1E4E881900D2528B /* CustomHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE1416D1E4E881900D2528B /* CustomHeaderCell.swift */; };
 		CDE141701E4E881900D2528B /* CustomHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDE1416E1E4E881900D2528B /* CustomHeaderCell.xib */; };
@@ -110,6 +111,7 @@
 		CDD5DDFE1E40ADBF000F382C /* FBQuadTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBQuadTree.swift; sourceTree = "<group>"; };
 		CDD5DDFF1E40ADBF000F382C /* FBQuadTreeNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBQuadTreeNode.swift; sourceTree = "<group>"; };
 		CDD5DE001E40ADBF000F382C /* FBZoomLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBZoomLevel.swift; sourceTree = "<group>"; };
+		CDDCB2A91E53C51C00D86CE7 /* ExtendedNavController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtendedNavController.swift; sourceTree = "<group>"; };
 		CDE1416B1E4E331B00D2528B /* CrimeCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrimeCategory.swift; sourceTree = "<group>"; };
 		CDE1416D1E4E881900D2528B /* CustomHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomHeaderCell.swift; sourceTree = "<group>"; };
 		CDE1416E1E4E881900D2528B /* CustomHeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomHeaderCell.xib; sourceTree = "<group>"; };
@@ -175,7 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				CDDCB2A51E53650B00D86CE7 /* TableViewControllers */,
-				CD7FC2CA1E523FA700B1B6C2 /* UIImage+Extensions.swift */,
+				CDDCB2A61E53BC9400D86CE7 /* Extensions */,
 				CD33D95C1E362C7100AB6E94 /* MapViewController.swift */,
 				CD2743601E4CB81B00FC4C53 /* Loader.swift */,
 				CDC7F69B1E50CFC1002F337B /* cells */,
@@ -186,6 +188,7 @@
 				CD251B031E3555F4004DACB7 /* Search.swift */,
 				CD7FBCA51E32AE1500DA40F1 /* AppDelegate.swift */,
 				CD7FBCAB1E32AE1500DA40F1 /* Main.storyboard */,
+				CDDCB2A91E53C51C00D86CE7 /* ExtendedNavController.swift */,
 				CDC7F69A1E50CF9D002F337B /* xibs */,
 				CDFC3E631E3396290065C9E2 /* DateController.swift */,
 				CDF6A0751E43AC7200875B6E /* Months.swift */,
@@ -253,6 +256,14 @@
 				CD28AF9D1E449F1E00663A36 /* ClusterInfoTableViewController.swift */,
 			);
 			name = TableViewControllers;
+			sourceTree = "<group>";
+		};
+		CDDCB2A61E53BC9400D86CE7 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				CD7FC2CA1E523FA700B1B6C2 /* UIImage+Extensions.swift */,
+			);
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 		DA2C11151DF7CF9B9AE59AA8 /* Pods */ = {
@@ -447,6 +458,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CDDCB2AA1E53C51C00D86CE7 /* ExtendedNavController.swift in Sources */,
 				CDD5DE071E40ADBF000F382C /* FBBoundingBox+MapKit.swift in Sources */,
 				CD28AF9E1E449F1E00663A36 /* ClusterInfoTableViewController.swift in Sources */,
 				CDD5DE011E40ADBF000F382C /* FBAnnotation.swift in Sources */,

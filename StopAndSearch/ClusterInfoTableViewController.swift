@@ -17,7 +17,7 @@ class ClusterInfoTableViewController: UITableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-   
+    tableView.contentInset = UIEdgeInsets(top: 60, left: 0 , bottom: 0 , right: 0)
     //register category cell
     let cellNib = UINib(nibName: "ClusterInfoCell", bundle: nil)
     tableView.register(cellNib, forCellReuseIdentifier: "ClusterInfoCell")

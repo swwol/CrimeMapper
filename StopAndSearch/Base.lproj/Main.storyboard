@@ -277,10 +277,10 @@
             </objects>
             <point key="canvasLocation" x="2634.375" y="228.16901408450704"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Extended Nav Controller-->
         <scene sceneID="9Vm-hr-bSG">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7B5-1X-DRT" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7B5-1X-DRT" customClass="ExtendedNavController" customModule="StopAndSearch" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="5JA-JZ-Hio">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
