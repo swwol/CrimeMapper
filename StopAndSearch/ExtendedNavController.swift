@@ -49,7 +49,9 @@ class ExtendedNavController: UINavigationController {
     }
   }
 
-  
+  func setStatusMessage(message: String) {
+    topView.sLabel.text = message    
+  }
   
   
 }

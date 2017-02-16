@@ -39,17 +39,10 @@ class DateController: UIViewController {
   @IBOutlet weak var doneButton: UIButton!
   
   //labels
-  
-  @IBOutlet weak var switchStatusLabel: UILabel!
+
   @IBOutlet weak var instructionsLabel: UILabel!
   
-  //switch
-  
-  @IBAction func didToggleSwitch(_ sender: UISwitch) {
-    dateFilterIsOn = sender.isOn
-    setPickerState(dateFilterIsOn!)
-  }
-  
+
   //containers
   
   @IBOutlet weak var titleViewContainer: UIView!
@@ -80,20 +73,19 @@ class DateController: UIViewController {
   
   func setPickerState (_ isOn: Bool) {
     
-    setDateSwitch.isOn = isOn
+   
     datePicker.isUserInteractionEnabled = isOn
     if (isOn) {
     datePicker.alpha = 1
     instructionsContainer.backgroundColor  = UIColor.flatMint.withAlphaComponent(0.2)
    // pickerContainer.backgroundColor = .flatWhite
     instructionsLabel.text = "select date to filter crime data"
-    switchStatusLabel.text = "turn off filter to show data for all dates"
+  
     } else {
     instructionsContainer.backgroundColor  = UIColor.flatGrayDark.withAlphaComponent(0.3)
    // pickerContainer.backgroundColor = UIColor.flatWhiteDark.withAlphaComponent(0.5)
     instructionsLabel.text = "not filtering by date"
-    switchStatusLabel.text = "turn on to filter by date"
-      datePicker.alpha = 0.2
+       datePicker.alpha = 0.2
     }
   }
    

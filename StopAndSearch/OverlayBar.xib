@@ -36,14 +36,15 @@
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="status message" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lkL-0u-x98">
-                    <rect key="frame" x="137" y="22" width="101" height="17"/>
-                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
-                    <nil key="textColor"/>
+                    <rect key="frame" x="143.5" y="23.5" width="88" height="14.5"/>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
+                    <color key="textColor" red="0.12637259066104889" green="0.12639245390892029" blue="0.12636536359786987" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dec 2016" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jdd-e0-SYW">
-                    <rect key="frame" x="20" y="30" width="46" height="20"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="....." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jdd-e0-SYW">
+                    <rect key="frame" x="15" y="30" width="60" height="20"/>
                     <constraints>
+                        <constraint firstAttribute="width" constant="60" id="EiL-D9-40y"/>
                         <constraint firstAttribute="height" constant="20" id="sKi-5h-gC1"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
@@ -51,9 +52,9 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="data for:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BHa-DT-4eB">
-                    <rect key="frame" x="20" y="10" width="46" height="20"/>
+                    <rect key="frame" x="15" y="10" width="60" height="20"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="45.5" id="Cda-ce-ahD"/>
+                        <constraint firstAttribute="width" constant="60" id="Cda-ce-ahD"/>
                         <constraint firstAttribute="height" constant="20" id="mjM-QZ-VX7"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="10"/>
@@ -64,10 +65,10 @@
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="Jdd-e0-SYW" secondAttribute="bottom" constant="10" id="6WK-pC-EiV"/>
                 <constraint firstItem="BHa-DT-4eB" firstAttribute="top" secondItem="l4Z-0P-s1s" secondAttribute="top" constant="10" id="Qcz-8h-NMg"/>
-                <constraint firstItem="Jdd-e0-SYW" firstAttribute="leading" secondItem="l4Z-0P-s1s" secondAttribute="leading" constant="20" id="XZx-cn-wmx"/>
+                <constraint firstItem="Jdd-e0-SYW" firstAttribute="leading" secondItem="l4Z-0P-s1s" secondAttribute="leading" constant="15" id="XZx-cn-wmx"/>
                 <constraint firstAttribute="trailing" secondItem="sf5-JQ-zxm" secondAttribute="trailing" id="awg-zg-adF"/>
                 <constraint firstItem="sf5-JQ-zxm" firstAttribute="leading" secondItem="l4Z-0P-s1s" secondAttribute="leading" id="b1H-3M-t97"/>
-                <constraint firstItem="BHa-DT-4eB" firstAttribute="leading" secondItem="l4Z-0P-s1s" secondAttribute="leading" constant="20" id="ele-JJ-mpg"/>
+                <constraint firstItem="BHa-DT-4eB" firstAttribute="leading" secondItem="l4Z-0P-s1s" secondAttribute="leading" constant="15" id="ele-JJ-mpg"/>
                 <constraint firstItem="lkL-0u-x98" firstAttribute="centerX" secondItem="l4Z-0P-s1s" secondAttribute="centerX" id="gqm-yn-J2M"/>
                 <constraint firstAttribute="bottom" secondItem="sf5-JQ-zxm" secondAttribute="bottom" id="kBe-rl-C6f"/>
                 <constraint firstItem="lkL-0u-x98" firstAttribute="centerY" secondItem="l4Z-0P-s1s" secondAttribute="centerY" id="yjm-ol-3Aw"/>

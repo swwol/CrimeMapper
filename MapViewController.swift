@@ -172,7 +172,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
           self.theMonth = Int(month)
           self.monthYear = MonthYear(month: self.theMonth! - 1, year: self.theYear! )
           print("\(self.theMonth)-\(self.theYear)")
-          self.setDateMenuController.setDate(month: self.theMonth, year: self.theYear)
+          let nav = self.navigationController as! ExtendedNavController
+          nav.setDate(month: self.theMonth, year: self.theYear)
         }
       } else {
         self.theYear = nil; self.theMonth = nil
@@ -188,6 +189,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     super.viewDidLoad()
     let nav = navigationController! as! ExtendedNavController
     nav.setExtendedBarColor(UIColor.lightGray.withAlphaComponent(0.2))
+    nav.setStatusMessage(message: "")
     search.delegate = self
     // go to users location on launch
     getLocation()
@@ -438,6 +440,8 @@ extension MapViewController: FBAnnotationClusterViewDelegate {
 
 extension MapViewController: SearchDelegate {
   func searchStarted() {
+    let nav = navigationController as! ExtendedNavController
+    nav.setStatusMessage(message: "loading...")
     if (loader == nil) {
       loader = Loader(message: "loading crime data...")
       loader?.alpha = 0
@@ -452,6 +456,8 @@ extension MapViewController: SearchDelegate {
     UIView.animate(withDuration: 0.5, animations: {self.loader?.alpha = 0}, completion: { finished in
       self.loader?.removeFromSuperview()
       self.loader = nil
+      let nav = self.navigationController as! ExtendedNavController
+      nav.setStatusMessage(message: "touch pin or cluster for info")
       if tooMany > 0 {
         let alert = UIAlertController(title: "Too many results", message: "Some categories returned too many results, try narrowing search area.", preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
