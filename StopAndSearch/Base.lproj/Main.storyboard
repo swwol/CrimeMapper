@@ -183,7 +183,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cf8-wP-dBq" userLabel="titleview">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cf8-wP-dBq" userLabel="titleviewContainer">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="94"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="turn off filter to show data for all dates" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eTY-1f-Qvg">
@@ -205,7 +205,7 @@
                                             <constraint firstAttribute="height" constant="31" id="eO4-rK-7Ea"/>
                                         </constraints>
                                         <connections>
-                                            <action selector="didSetDate:" destination="Dbq-TE-K4Q" eventType="valueChanged" id="b8g-jv-SMe"/>
+                                            <action selector="didToggleSwitch:" destination="Dbq-TE-K4Q" eventType="valueChanged" id="wfI-X7-gY3"/>
                                         </connections>
                                     </switch>
                                 </subviews>
@@ -222,7 +222,7 @@
                                     <constraint firstAttribute="bottom" secondItem="eTY-1f-Qvg" secondAttribute="bottom" constant="12" id="y5U-Tt-Lpj"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hCj-v4-2kl" userLabel="picker">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hCj-v4-2kl" userLabel="pickerContainer">
                                 <rect key="frame" x="0.0" y="94" width="414" height="642"/>
                                 <subviews>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ev3-QU-UqQ">
@@ -238,7 +238,7 @@
                                             <action selector="didPressDone:" destination="Dbq-TE-K4Q" eventType="touchUpInside" id="BLW-up-ZUW"/>
                                         </connections>
                                     </button>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qBj-Nt-uzE">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qBj-Nt-uzE" userLabel="instructionsContainer">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="213"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="select date to filter crime data  " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mlN-oa-M1V">
@@ -282,9 +282,12 @@
                     <connections>
                         <outlet property="datePicker" destination="Ev3-QU-UqQ" id="HXS-77-nmI"/>
                         <outlet property="doneButton" destination="C6E-zo-Bgo" id="4po-qH-diP"/>
+                        <outlet property="instructionsContainer" destination="qBj-Nt-uzE" id="rAb-xD-6gg"/>
                         <outlet property="instructionsLabel" destination="mlN-oa-M1V" id="D3C-Es-krp"/>
+                        <outlet property="pickerContainer" destination="hCj-v4-2kl" id="y4x-lR-nMQ"/>
                         <outlet property="setDateSwitch" destination="0K7-ZM-QCY" id="Pw2-fl-qse"/>
                         <outlet property="switchStatusLabel" destination="eTY-1f-Qvg" id="3Hj-9B-Uxe"/>
+                        <outlet property="titleViewContainer" destination="cf8-wP-dBq" id="14q-PB-bwh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cYG-mv-n8b" userLabel="First Responder" sceneMemberID="firstResponder"/>

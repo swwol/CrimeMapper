@@ -166,6 +166,7 @@
 		CD71A8571E549270004A4132 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				CDDCB2A51E53650B00D86CE7 /* TableViewControllers */,
 				CD33D95C1E362C7100AB6E94 /* MapViewController.swift */,
 				CDFC3E631E3396290065C9E2 /* DateController.swift */,
 			);
@@ -205,7 +206,6 @@
 		CD7FBCA41E32AE1500DA40F1 /* StopAndSearch */ = {
 			isa = PBXGroup;
 			children = (
-				CDDCB2A51E53650B00D86CE7 /* TableViewControllers */,
 				CDDCB2A61E53BC9400D86CE7 /* Extensions */,
 				CD71A8571E549270004A4132 /* ViewControllers */,
 				CD2743601E4CB81B00FC4C53 /* Loader.swift */,

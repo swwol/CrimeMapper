@@ -34,6 +34,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
   var theMonth: Int? = nil
   var theYear: Int? = nil
   var monthYear: MonthYear? = nil
+  var dateFilterIsOn = true
   var readyToSearch = false
   var selectedCategories: [Bool]? {
     didSet {
@@ -280,6 +281,7 @@ extension MapViewController: MKMapViewDelegate {
       let controller  = segue.destination as! DateController
       controller.delegate = self
       controller.currentDate = sender as! MonthYear?
+      controller.dateFilterIsOn = self.dateFilterIsOn
       slideInTransitioningDelegate.direction = .bottom
       slideInTransitioningDelegate.disableCompactHeight = true
       controller.transitioningDelegate = slideInTransitioningDelegate
@@ -402,10 +404,11 @@ extension MapViewController: TouchContainerDelegate {
 }
 
 extension MapViewController: DateControllerDelegate {
-  func didSetDate(date: MonthYear) {
-    setDateMenuController.setDate(date: date)
-    print ("new date is ", date)
+  func didSetDate(date: MonthYear, isOn: Bool) {
+  //  setDateMenuController.setDate(date: date)
+    print ("new date is ", date, isOn)
     self.monthYear = date
+    self.dateFilterIsOn = isOn
     findAndDisplayDataPointsInVisibleRegion()
   }
 }
