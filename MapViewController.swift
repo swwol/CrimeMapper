@@ -94,8 +94,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
       showLocationServicesDeniedAlert()
       return
     }
-    
     startLocationManager()
+  }
+  
+  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    //put loader back in middle
+    loader?.center = view.center
+    findAndDisplayDataPointsInVisibleRegion()
   }
   
   // find  and display datapoints within viewable region
@@ -116,7 +121,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     // clear fbpins array
     
     fbpins = []
-    search.performSearch(coords: [ne,nw,sw,se], date: self.monthYear, categories: self.selectedCategories, enabledSections: self.enabledSections) {success in
+    var dateToSearch: MonthYear?
+    if dateFilterIsOn {
+      dateToSearch = self.monthYear
+    } else {
+      dateToSearch = nil
+    }
+    search.performSearch(coords: [ne,nw,sw,se], date: dateToSearch, categories: self.selectedCategories, enabledSections: self.enabledSections) {success in
       self.generateFBAnnotations(results: success.0)
       //self.myActivityIndicator.stopAnimating()
     }
@@ -409,6 +420,8 @@ extension MapViewController: DateControllerDelegate {
     print ("new date is ", date, isOn)
     self.monthYear = date
     self.dateFilterIsOn = isOn
+    let nav  = navigationController as! ExtendedNavController
+    nav.setDate(date: date, isOn: isOn)
     findAndDisplayDataPointsInVisibleRegion()
   }
 }

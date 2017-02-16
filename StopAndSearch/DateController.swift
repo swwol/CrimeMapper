@@ -78,7 +78,6 @@ class DateController: UIViewController {
     }
   }
   
-  
   func setPickerState (_ isOn: Bool) {
     
     setDateSwitch.isOn = isOn
@@ -97,31 +96,7 @@ class DateController: UIViewController {
       datePicker.alpha = 0.2
     }
   }
-  /*
-  func disablePicker () {
-    datePicker.isEnabled = false
-       if cell.overlay == nil {
-      cell.overlay = UIView()
-      cell.overlay?.frame = cell.bounds
-      cell.overlay?.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
-      cell.contentView.addSubview(cell.overlay!)
-    }
-    cell.contentView.bringSubview(toFront: cell.overlay!)
-  }
-  
-  func enablePicker () {
-    cell.categoryLabel.isEnabled = true
-    cell.categoryView.backgroundColor = cell.categoryView.backgroundColor?.withAlphaComponent(1)
-    cell.tintColor = cell.tintColor.withAlphaComponent(1)
-    cell.isUserInteractionEnabled = true
-    cell.overlay?.removeFromSuperview()
-    cell.overlay = nil
-  }
-*/
-  
-  
-  
-  
+   
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.

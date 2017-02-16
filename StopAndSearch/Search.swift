@@ -37,8 +37,6 @@ class Search {
   }
   
   func performSearch(coords: [CLLocationCoordinate2D], date: MonthYear?, categories: [Bool]?, enabledSections: [Bool]?,  completion: @escaping SearchComplete) {
-   
-
   
   cancelSearches()
   delegate?.searchStarted()
@@ -46,14 +44,7 @@ class Search {
     
     let cats = categories ?? Array(repeating: true, count: Categories.categories.count) // if not categories passed, make all true
     let sects  = enabledSections ?? Array(repeating: true, count: Categories.types.count)
-    
-    // filter by true
-    
-    
-    /// this doesnt work
-    
-    // what we need is array of categories that are enabled and in enabled sections
-    
+  
     // first get selected cats
     var selectedCats = [CrimeCategory]()
     for (i,cat) in cats.enumerated() {
@@ -68,16 +59,13 @@ class Search {
       }
     }
     
-    
-  
     for selectedCat in selectedCats {
-        
-      
       categoriesSearched =  0
       unknownErrors = 0
       tooManyResultsErrors = 0
       
       let searchURL = getSearchURL(coords: coords, date: date, cat: selectedCat)
+      print (searchURL)
          
       sessionManager?.request(searchURL).responseJSON { response in
            
@@ -112,7 +100,6 @@ class Search {
         }
       }
   
-
   func incrementSearchCount( error: Int, numCats: Int ) {
     
     categoriesSearched += 1
@@ -124,28 +111,18 @@ class Search {
       
       unknownErrors += 1
     }
-    
-    
-  
     if categoriesSearched == numCats {
       print ("all searches completed")
       self.delegate?.searchComplete(tooMany: tooManyResultsErrors, unknown: unknownErrors)
     }
-
-    
   }
-  
-  
   func getSearchURL (coords: [CLLocationCoordinate2D], date: MonthYear?, cat: CrimeCategory? ) -> URL {
-    
     // format search string
     var searchString: String
     if let c = cat {
-      
       let catString = c.url
       searchString = "https://data.police.uk/api/crimes-street/"+catString
     }
-    
     else {
       searchString = "https://data.police.uk/api/crimes-street/all-crime"
     }

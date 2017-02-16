@@ -166,6 +166,7 @@
 		CD71A8571E549270004A4132 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				CDDCB2A91E53C51C00D86CE7 /* ExtendedNavController.swift */,
 				CDDCB2A51E53650B00D86CE7 /* TableViewControllers */,
 				CD33D95C1E362C7100AB6E94 /* MapViewController.swift */,
 				CDFC3E631E3396290065C9E2 /* DateController.swift */,
@@ -218,7 +219,6 @@
 				CD251B031E3555F4004DACB7 /* Search.swift */,
 				CD7FBCA51E32AE1500DA40F1 /* AppDelegate.swift */,
 				CD7FBCAB1E32AE1500DA40F1 /* Main.storyboard */,
-				CDDCB2A91E53C51C00D86CE7 /* ExtendedNavController.swift */,
 				CDC7F69A1E50CF9D002F337B /* xibs */,
 				CDF6A0751E43AC7200875B6E /* Months.swift */,
 				CD02F3921E34CF6200A5DD9C /* SearchResult.swift */,
