@@ -29,7 +29,7 @@
                                         <rect key="frame" x="0.0" y="28" width="414" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sDw-tp-5i9" id="IJP-bD-WTv">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="59.666666666666664"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="linecal" translatesAutoresizingMaskIntoConstraints="NO" id="QvP-3m-rAd">
@@ -58,7 +58,7 @@
                                         <rect key="frame" x="0.0" y="88" width="414" height="120"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HNv-wl-GO0" id="Rrx-58-qWJ">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="119.66666666666667"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="120"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coord" translatesAutoresizingMaskIntoConstraints="NO" id="2Nm-Iu-gPo">
@@ -231,29 +231,39 @@
                                         <color key="tintColor" red="0.19115509089999999" green="0.63786703349999996" blue="0.26147949700000001" alpha="1" colorSpace="calibratedRGB"/>
                                     </pickerView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C6E-zo-Bgo">
-                                        <rect key="frame" x="186" y="565" width="42" height="33"/>
+                                        <rect key="frame" x="186" y="545" width="42" height="33"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                         <state key="normal" title="Done"/>
                                         <connections>
                                             <action selector="didPressDone:" destination="Dbq-TE-K4Q" eventType="touchUpInside" id="BLW-up-ZUW"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select month and year to filter crime data  " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mlN-oa-M1V">
-                                        <rect key="frame" x="0.0" y="607" width="414" height="15"/>
-                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qBj-Nt-uzE">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="213"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="select date to filter crime data  " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mlN-oa-M1V">
+                                                <rect key="frame" x="120" y="99" width="174.33333333333331" height="15"/>
+                                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
+                                                <color key="textColor" red="0.12637259066104889" green="0.12639245390892029" blue="0.12636536359786987" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.18198148906230927" green="0.69426733255386353" blue="0.53024792671203613" alpha="0.20000000000000001" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstItem="mlN-oa-M1V" firstAttribute="centerX" secondItem="qBj-Nt-uzE" secondAttribute="centerX" id="34G-cS-Olr"/>
+                                            <constraint firstItem="mlN-oa-M1V" firstAttribute="centerY" secondItem="qBj-Nt-uzE" secondAttribute="centerY" id="95u-NE-Gqe"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" red="0.90823972230000005" green="0.92638683320000004" blue="0.93171715740000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="mlN-oa-M1V" secondAttribute="trailing" id="Qtt-M3-ofC"/>
                                     <constraint firstItem="C6E-zo-Bgo" firstAttribute="centerX" secondItem="hCj-v4-2kl" secondAttribute="centerX" id="SaC-uc-5ss"/>
-                                    <constraint firstAttribute="bottom" secondItem="mlN-oa-M1V" secondAttribute="bottom" constant="20" id="Vg9-5Y-rrZ"/>
-                                    <constraint firstAttribute="bottom" secondItem="C6E-zo-Bgo" secondAttribute="bottom" constant="44" id="ZlV-Lr-3ge"/>
-                                    <constraint firstItem="mlN-oa-M1V" firstAttribute="leading" secondItem="hCj-v4-2kl" secondAttribute="leading" id="fva-BE-sBw"/>
+                                    <constraint firstItem="qBj-Nt-uzE" firstAttribute="leading" secondItem="hCj-v4-2kl" secondAttribute="leading" id="XHW-Mu-1ha"/>
+                                    <constraint firstAttribute="bottom" secondItem="C6E-zo-Bgo" secondAttribute="bottom" constant="64" id="ZlV-Lr-3ge"/>
+                                    <constraint firstItem="Ev3-QU-UqQ" firstAttribute="top" secondItem="qBj-Nt-uzE" secondAttribute="bottom" id="eVs-CG-ffQ"/>
                                     <constraint firstItem="Ev3-QU-UqQ" firstAttribute="centerX" secondItem="hCj-v4-2kl" secondAttribute="centerX" id="mXO-gS-20I"/>
                                     <constraint firstItem="Ev3-QU-UqQ" firstAttribute="centerY" secondItem="hCj-v4-2kl" secondAttribute="centerY" id="mh6-Iv-jlV"/>
+                                    <constraint firstAttribute="trailing" secondItem="qBj-Nt-uzE" secondAttribute="trailing" id="sLM-M7-cQn"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -265,6 +275,7 @@
                             <constraint firstItem="hCj-v4-2kl" firstAttribute="top" secondItem="cf8-wP-dBq" secondAttribute="bottom" id="Eq8-pS-2X4"/>
                             <constraint firstItem="hCj-v4-2kl" firstAttribute="leading" secondItem="LcW-xc-Ibq" secondAttribute="leading" id="GsI-X8-Wml"/>
                             <constraint firstItem="cf8-wP-dBq" firstAttribute="top" secondItem="LcW-xc-Ibq" secondAttribute="top" id="Zs2-SM-QgL"/>
+                            <constraint firstItem="qBj-Nt-uzE" firstAttribute="top" secondItem="cf8-wP-dBq" secondAttribute="bottom" id="jMI-IL-kLX"/>
                             <constraint firstItem="cf8-wP-dBq" firstAttribute="leading" secondItem="LcW-xc-Ibq" secondAttribute="leading" id="sHN-aY-Al3"/>
                         </constraints>
                     </view>
