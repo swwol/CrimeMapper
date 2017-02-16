@@ -24,6 +24,10 @@ class DateController: UIViewController {
   // done button
   
   @IBAction func didPressDone(_ sender: Any) {
+    delegateAndDismiss()
+  }
+  
+  func delegateAndDismiss() {
     let month  = datePicker.selectedRow(inComponent: 0)
     let yearAsString = pickerData[1][datePicker.selectedRow(inComponent: 1)]
     let year = Int(yearAsString)
@@ -51,7 +55,6 @@ class DateController: UIViewController {
   @IBOutlet weak var titleViewContainer: UIView!
   @IBOutlet weak var pickerContainer: UIView!
   @IBOutlet weak var instructionsContainer: UIView!
-  
   @IBOutlet weak var setDateSwitch: UISwitch!
   
   //picker

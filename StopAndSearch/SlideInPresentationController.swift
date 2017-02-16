@@ -104,6 +104,10 @@ private extension SlideInPresentationController {
   }
   
   dynamic func handleTap(recognizer: UITapGestureRecognizer) {
-    presentingViewController.dismiss(animated: true)
+  
+    if (presentedViewController is DateController) {
+      let controller = presentedViewController as! DateController
+      controller.delegateAndDismiss()
+    }
   }
 }
