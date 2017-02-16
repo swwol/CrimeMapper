@@ -13,7 +13,6 @@ import CoreLocation
 import Alamofire
 import Gloss
 
-
 class MapViewController: UIViewController, CLLocationManagerDelegate {
   var searchResults = [SearchResult]()
   let locationManager = CLLocationManager()
@@ -38,7 +37,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
   var readyToSearch = false
   var selectedCategories: [Bool]? {
     didSet {
-    findAndDisplayDataPointsInVisibleRegion()
+      findAndDisplayDataPointsInVisibleRegion()
     }
   }
   var enabledSections: [Bool]? {
@@ -46,48 +45,41 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
       findAndDisplayDataPointsInVisibleRegion()
     }
   }
-
   
   var loader: Loader?
   
+  lazy var slideInTransitioningDelegate = SlideInPresentationManager()
+  @IBAction func setDate(_ sender: UIBarButtonItem) {
+    print ("set date")
+    self.performSegue(withIdentifier: "setDate", sender: self.monthYear)
+  }
+  
   @IBAction func adjustSettings(_ sender: UIBarButtonItem) {
-    
-
     // load the settings screen with date
     performSegue(withIdentifier: "loadControls", sender: selectedCategories)
-    
   }
   
   @IBAction func infoPressed(_ sender: UIButton) {
-    
     print("infopressed")
-    
     search.cancelSearches()
-  
   }
+  
   @IBOutlet weak var toolbar: UIToolbar!
-  
-  //show search bar
-  
   @IBAction func searchMap(_ sender: UIBarButtonItem) {
-    
     searchController = UISearchController(searchResultsController: nil)
     searchController.hidesNavigationBarDuringPresentation = false
     // this is to make cursor not white!
-   let textFieldInsideSearchBar = searchController.searchBar.value(forKey: "searchField") as? UITextField
+    let textFieldInsideSearchBar = searchController.searchBar.value(forKey: "searchField") as? UITextField
     textFieldInsideSearchBar?.tintColor = UIColor.lightGray
     let textFieldInsideSearchBarLabel = textFieldInsideSearchBar!.value(forKey: "placeholderLabel") as? UILabel
     textFieldInsideSearchBarLabel?.text = "Search for UK address..."
     self.searchController.searchBar.delegate = self
     present(searchController, animated: true, completion: nil)
-    
   }
   
   // go to my location
-  
   @IBAction func getMyLocation(_ sender: UIBarButtonItem) {
-    
-   getLocation()
+    getLocation()
   }
   
   func getLocation() {
@@ -101,19 +93,15 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
       showLocationServicesDeniedAlert()
       return
     }
-   
+    
     startLocationManager()
   }
   
-  
   // find  and display datapoints within viewable region
-  
   func findAndDisplayDataPointsInVisibleRegion() {
-    
     guard readyToSearch else {
       return
     }
-    
     let region  = mapView.region
     let centre  =  region.center
     let span = region.span
@@ -124,16 +112,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     let sw = CLLocationCoordinate2DMake(centre.latitude - span.latitudeDelta / 2.0, centre.longitude + span.longitudeDelta / 2.0)
     //now get data for region
     
-   // clear fbpins array
+    // clear fbpins array
     
     fbpins = []
-    
-    
     search.performSearch(coords: [ne,nw,sw,se], date: self.monthYear, categories: self.selectedCategories, enabledSections: self.enabledSections) {success in
-      
-      print ("ok")
-      print ("got data for category \(success.1.category)")
-    
       self.generateFBAnnotations(results: success.0)
       //self.myActivityIndicator.stopAnimating()
     }
@@ -146,9 +128,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     clusteringManager.display(annotations: [], onMapView: self.mapView)
   }
   
-  
   func generateFBAnnotations(results: [SearchResult]) {
-   
     fbpins += results
     clusteringManager.removeAll()
     clusteringManager.add(annotations: fbpins)
@@ -164,7 +144,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
   }
   
   func getDateLastUpdated() {
-   
     Alamofire.request("https://data.police.uk/api/crime-last-updated").responseJSON { response in
       if let JSON = response.result.value {
         print("JSON: \(JSON)")
@@ -181,7 +160,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
           self.theMonth = Int(month)
           self.monthYear = MonthYear(month: self.theMonth! - 1, year: self.theYear! )
           print("\(self.theMonth)-\(self.theYear)")
-         self.setDateMenuController.setDate(month: self.theMonth, year: self.theYear)
+          self.setDateMenuController.setDate(month: self.theMonth, year: self.theYear)
         }
       } else {
         self.theYear = nil; self.theMonth = nil
@@ -191,33 +170,29 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     }
   }
   
-  
   @IBOutlet weak var mapView: MKMapView!
-  
+ 
   override func viewDidLoad() {
-   
     super.viewDidLoad()
+    let nav = navigationController! as! ExtendedNavController
+    nav.setExtendedBarColor(UIColor.lightGray.withAlphaComponent(0.2))
     search.delegate = self
-// go to users location on launch
+    // go to users location on launch
     getLocation()
-    
-//appearance
-    
+    //appearance
     let barTintColor = UIColor.flatMintDark
     toolbar.barTintColor=barTintColor
-    
- //gesture recogniser to hide clusters/pins when zooming
+    //gesture recogniser to hide clusters/pins when zooming
     let zoom  = UIPinchGestureRecognizer ( target: self, action:  #selector(self.handleZoom(_:)))
     zoom.delegate = self
     mapView.addGestureRecognizer(zoom)
     mapView.isUserInteractionEnabled = true
-    self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: setDateMenuController.view)
-    let tc = setDateMenuController.view as! TouchContainer
-    tc.delegate = self
-//find date of latest data
+    //  self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: setDateMenuController.view)
+    //  let tc = setDateMenuController.view as! TouchContainer
+    //  tc.delegate = self
+    //find date of latest data
     getDateLastUpdated()
-   }
-  
+  }
   
   func handleZoom( _ sender: UIPinchGestureRecognizer) {
     if (sender.state == UIGestureRecognizerState.began) {
@@ -227,8 +202,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
       clusteringManager.display(annotations: fbpins, onMapView: mapView)
     }
   }
-  
 }
+
 extension MapViewController: MKMapViewDelegate {
   
   func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
@@ -236,21 +211,17 @@ extension MapViewController: MKMapViewDelegate {
     findAndDisplayDataPointsInVisibleRegion()
   }
   
-  
-func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-    
-   if annotation is MKUserLocation {
+  func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+    if annotation is MKUserLocation {
       return nil
     }
-    
     var reuseId = ""
     if annotation is FBAnnotationCluster {
- 
       reuseId = "Cluster"
       var clusterView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId)
       if clusterView == nil {
         clusterView = FBAnnotationClusterView(annotation: annotation, reuseIdentifier: reuseId, configuration: FBAnnotationClusterViewConfiguration.default())
-      (clusterView as! FBAnnotationClusterView).delegate = self
+        (clusterView as! FBAnnotationClusterView).delegate = self
       } else {
         clusterView?.annotation = annotation
         (clusterView as! FBAnnotationClusterView).reset()
@@ -262,7 +233,7 @@ func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnota
       var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
       if pinView == nil {
         pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
-    
+        
         pinView?.isEnabled = true
         pinView?.canShowCallout = true
         let rightButton = UIButton(type: .detailDisclosure)
@@ -270,22 +241,16 @@ func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnota
         let resultToDisplay = annotation as! SearchResult
         let i = fbpins.index(of: resultToDisplay)
         if let ind = i {
-        rightButton.tag = ind
+          rightButton.tag = ind
         }
-          rightButton.addTarget(self,action: #selector(showDetails),for: .touchUpInside)
-
+        rightButton.addTarget(self,action: #selector(showDetails),for: .touchUpInside)
         pinView?.rightCalloutAccessoryView = rightButton
-        
-      
         pinView?.pinTintColor = resultToDisplay.color ?? UIColor.white
         let subtitleView = UILabel()
         subtitleView.font = subtitleView.font.withSize(10)
         subtitleView.textColor = UIColor.gray
         subtitleView.numberOfLines = 0
         subtitleView.text = annotation.subtitle!
-        
-        
-        
         pinView!.detailCalloutAccessoryView = subtitleView
       } else {
         let resultToDisplay = annotation as! SearchResult
@@ -293,23 +258,20 @@ func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnota
         pinView?.pinTintColor = resultToDisplay.color
         let i = fbpins.index(of: resultToDisplay)
         if let ind = i {
-        pinView?.rightCalloutAccessoryView?.tag = ind
+          pinView?.rightCalloutAccessoryView?.tag = ind
         }
-        //something can cause crash here
       }
       return pinView
     }
   }
-
-
+  
   func showDetails(_ sender: UIButton) {
     performSegue(withIdentifier: "showDetail", sender: sender.tag)
   }
-
+  
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     
     search.cancelSearches()
-    
     if segue.identifier == "showDetail" {
       let controller = segue.destination as! DetailViewController
       controller.data = fbpins[sender as! Int]
@@ -318,10 +280,15 @@ func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnota
       let controller  = segue.destination as! DateController
       controller.delegate = self
       controller.currentDate = sender as! MonthYear?
+      slideInTransitioningDelegate.direction = .bottom
+      slideInTransitioningDelegate.disableCompactHeight = true
+      controller.transitioningDelegate = slideInTransitioningDelegate
+      controller.modalPresentationStyle = .custom
     }
     if segue.identifier == "showClusterInfo" {
       let controller = segue.destination as! ClusterInfoTableViewController
       controller.cluster  = sender as? FBAnnotationCluster
+    
     }
     
     if segue.identifier == "loadControls" {
@@ -329,9 +296,6 @@ func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnota
       controller.checked = sender as! [Bool]?
       controller.enabledSections = self.enabledSections
     }
-    
-    
-    
   }
   
   func showLocationServicesDeniedAlert() {
@@ -340,7 +304,6 @@ func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnota
     alert.addAction(okAction)
     present(alert, animated: true, completion: nil)
   }
-  
   
   // MARK: - CLLocationManagerDelegate
   
@@ -357,9 +320,8 @@ func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnota
   }
   
   func startLocationManager() {
-       print ("starting mananger")
+    print ("starting mananger")
     if CLLocationManager.locationServicesEnabled() {
- 
       locationManager.delegate = self
       locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
       locationManager.startUpdatingLocation()
@@ -388,10 +350,7 @@ func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnota
       print ("less than 0")
       return
     }
-    
     if location == nil || location!.horizontalAccuracy > newLocation.horizontalAccuracy  || located {
-      // 4
-    
       located = true
       print ("improving")
       lastLocationError = nil
@@ -399,28 +358,22 @@ func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnota
       if newLocation.horizontalAccuracy <= locationManager.desiredAccuracy {
         search.cancelSearches()
         print("*** We're done!")
-       
         let center = CLLocationCoordinate2D(latitude: newLocation.coordinate.latitude, longitude: newLocation.coordinate.longitude)
         let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-        
         self.mapView.setRegion(region, animated: true)
-
         stopLocationManager()
       }
     }
   }
-  }
-
+}
 
 extension MapViewController: UIGestureRecognizerDelegate {
-  
   func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
     return true
   }
 }
 
 extension MapViewController: UISearchBarDelegate {
-  
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar){
     searchBar.resignFirstResponder()
     dismiss(animated: true, completion: nil)
@@ -429,7 +382,6 @@ extension MapViewController: UISearchBarDelegate {
     localSearch = MKLocalSearch(request: localSearchRequest)
     localSearch.start {
       (localSearchResponse, error) -> Void in
-      
       if localSearchResponse == nil{
         let alertController = UIAlertController(title: nil, message: "Place Not Found", preferredStyle: UIAlertControllerStyle.alert)
         alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default, handler: nil))
@@ -442,7 +394,6 @@ extension MapViewController: UISearchBarDelegate {
 }
 
 extension MapViewController: TouchContainerDelegate {
-  
   func touchContainerTouched(_ sender: TouchContainer) {
     print ("container was touched")
     self.performSegue(withIdentifier: "setDate", sender: self.monthYear)
@@ -451,7 +402,6 @@ extension MapViewController: TouchContainerDelegate {
 }
 
 extension MapViewController: DateControllerDelegate {
-  
   func didSetDate(date: MonthYear) {
     setDateMenuController.setDate(date: date)
     print ("new date is ", date)
@@ -461,7 +411,6 @@ extension MapViewController: DateControllerDelegate {
 }
 
 extension MapViewController: FBAnnotationClusterViewDelegate {
-
   func touchBegan() {
     search.cancelSearches()
   }
@@ -472,20 +421,18 @@ extension MapViewController: FBAnnotationClusterViewDelegate {
 }
 
 extension MapViewController: SearchDelegate {
-  
   func searchStarted() {
     if (loader == nil) {
-    loader = Loader(message: "loading crime data...")
-    loader?.alpha = 0
-    loader?.center = view.center
-    self.view.addSubview(loader!)
+      loader = Loader(message: "loading crime data...")
+      loader?.alpha = 0
+      loader?.center = view.center
+      self.view.addSubview(loader!)
     }
     UIView.animate(withDuration: 0.5, animations: {self.loader?.alpha = 1})
     
   }
   
   func searchComplete(tooMany: Int, unknown: Int) {
-    
     UIView.animate(withDuration: 0.5, animations: {self.loader?.alpha = 0}, completion: { finished in
       self.loader?.removeFromSuperview()
       self.loader = nil
@@ -501,12 +448,12 @@ extension MapViewController: SearchDelegate {
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
         alert.view.tintColor = UIColor.flatMint
         self.present(alert, animated: true, completion: nil)
-        
       }
-    
-    
     })
-    }
-  
+  }
 }
+
+
+  
+
 

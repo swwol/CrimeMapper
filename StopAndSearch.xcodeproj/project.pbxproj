@@ -21,6 +21,9 @@
 		CD568C801E32D1F600DB0B9C /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD568C7F1E32D1F600DB0B9C /* Address.swift */; };
 		CD5AD2501E4F756900ED3226 /* ClusterInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5AD24E1E4F756900ED3226 /* ClusterInfoCell.swift */; };
 		CD5AD2551E4F775700ED3226 /* ClusterInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD5AD2541E4F775700ED3226 /* ClusterInfoCell.xib */; };
+		CD7F5A7C1E55A7ED0000A1DF /* SlideInPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7F5A7B1E55A7ED0000A1DF /* SlideInPresentationController.swift */; };
+		CD7F5A7E1E55A7FC0000A1DF /* SlideInPresentationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7F5A7D1E55A7FC0000A1DF /* SlideInPresentationManager.swift */; };
+		CD7F5A801E55A80B0000A1DF /* SlideInPresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7F5A7F1E55A80B0000A1DF /* SlideInPresentationAnimator.swift */; };
 		CD7FBCA61E32AE1500DA40F1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7FBCA51E32AE1500DA40F1 /* AppDelegate.swift */; };
 		CD7FBCAD1E32AE1500DA40F1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD7FBCAB1E32AE1500DA40F1 /* Main.storyboard */; };
 		CD7FBCAF1E32AE1500DA40F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD7FBCAE1E32AE1500DA40F1 /* Assets.xcassets */; };
@@ -30,6 +33,8 @@
 		CD7FC2CD1E5245E100B1B6C2 /* CoordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7FC2CC1E5245E100B1B6C2 /* CoordCell.swift */; };
 		CD8A24D31E4CD91B00244A56 /* CategoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD8A24D21E4CD91B00244A56 /* CategoryCell.xib */; };
 		CD8A24D51E4CEC2B00244A56 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8A24D41E4CEC2B00244A56 /* CategoryCell.swift */; };
+		CDBB86EF1E54684800902267 /* OverlayBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDBB86EE1E54684800902267 /* OverlayBar.xib */; };
+		CDBB86F11E5469CA00902267 /* OverlayBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBB86F01E5469CA00902267 /* OverlayBar.swift */; };
 		CDC7F6A11E50ED45002F337B /* CoordinateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC7F6A01E50ED45002F337B /* CoordinateCell.swift */; };
 		CDC7F6A31E51177B002F337B /* CrimeDetail.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDC7F6A21E51177B002F337B /* CrimeDetail.xib */; };
 		CDC7F6A51E5123CB002F337B /* CrimeDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC7F6A41E5123CB002F337B /* CrimeDetail.swift */; };
@@ -86,6 +91,9 @@
 		CD568C7F1E32D1F600DB0B9C /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		CD5AD24E1E4F756900ED3226 /* ClusterInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClusterInfoCell.swift; sourceTree = "<group>"; };
 		CD5AD2541E4F775700ED3226 /* ClusterInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ClusterInfoCell.xib; sourceTree = "<group>"; };
+		CD7F5A7B1E55A7ED0000A1DF /* SlideInPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideInPresentationController.swift; sourceTree = "<group>"; };
+		CD7F5A7D1E55A7FC0000A1DF /* SlideInPresentationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideInPresentationManager.swift; sourceTree = "<group>"; };
+		CD7F5A7F1E55A80B0000A1DF /* SlideInPresentationAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideInPresentationAnimator.swift; sourceTree = "<group>"; };
 		CD7FBCA21E32AE1500DA40F1 /* StopAndSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StopAndSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD7FBCA51E32AE1500DA40F1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CD7FBCAC1E32AE1500DA40F1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -97,6 +105,8 @@
 		CD7FC2CC1E5245E100B1B6C2 /* CoordCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoordCell.swift; sourceTree = "<group>"; };
 		CD8A24D21E4CD91B00244A56 /* CategoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoryCell.xib; sourceTree = "<group>"; };
 		CD8A24D41E4CEC2B00244A56 /* CategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
+		CDBB86EE1E54684800902267 /* OverlayBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OverlayBar.xib; sourceTree = "<group>"; };
+		CDBB86F01E5469CA00902267 /* OverlayBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayBar.swift; sourceTree = "<group>"; };
 		CDC7F6A01E50ED45002F337B /* CoordinateCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoordinateCell.swift; sourceTree = "<group>"; };
 		CDC7F6A21E51177B002F337B /* CrimeDetail.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CrimeDetail.xib; sourceTree = "<group>"; };
 		CDC7F6A41E5123CB002F337B /* CrimeDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrimeDetail.swift; sourceTree = "<group>"; };
@@ -153,6 +163,25 @@
 			path = StopAndSearchTests;
 			sourceTree = "<group>";
 		};
+		CD71A8571E549270004A4132 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				CD33D95C1E362C7100AB6E94 /* MapViewController.swift */,
+				CDFC3E631E3396290065C9E2 /* DateController.swift */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		CD7F5A7A1E55A7CE0000A1DF /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				CD7F5A7D1E55A7FC0000A1DF /* SlideInPresentationManager.swift */,
+				CD7F5A7B1E55A7ED0000A1DF /* SlideInPresentationController.swift */,
+				CD7F5A7F1E55A80B0000A1DF /* SlideInPresentationAnimator.swift */,
+			);
+			name = Presentation;
+			sourceTree = "<group>";
+		};
 		CD7FBC991E32AE1400DA40F1 = {
 			isa = PBXGroup;
 			children = (
@@ -178,19 +207,19 @@
 			children = (
 				CDDCB2A51E53650B00D86CE7 /* TableViewControllers */,
 				CDDCB2A61E53BC9400D86CE7 /* Extensions */,
-				CD33D95C1E362C7100AB6E94 /* MapViewController.swift */,
+				CD71A8571E549270004A4132 /* ViewControllers */,
 				CD2743601E4CB81B00FC4C53 /* Loader.swift */,
+				CDF6A0731E43979E00875B6E /* SetDateMenuController.swift */,
 				CDC7F69B1E50CFC1002F337B /* cells */,
 				CDE1CCFB1E45D55900209A1B /* Categories.swift */,
 				CDE1416B1E4E331B00D2528B /* CrimeCategory.swift */,
 				CDF6A0711E43636C00875B6E /* TouchContainer.swift */,
-				CDF6A0731E43979E00875B6E /* SetDateMenuController.swift */,
+				CD7F5A7A1E55A7CE0000A1DF /* Presentation */,
 				CD251B031E3555F4004DACB7 /* Search.swift */,
 				CD7FBCA51E32AE1500DA40F1 /* AppDelegate.swift */,
 				CD7FBCAB1E32AE1500DA40F1 /* Main.storyboard */,
 				CDDCB2A91E53C51C00D86CE7 /* ExtendedNavController.swift */,
 				CDC7F69A1E50CF9D002F337B /* xibs */,
-				CDFC3E631E3396290065C9E2 /* DateController.swift */,
 				CDF6A0751E43AC7200875B6E /* Months.swift */,
 				CD02F3921E34CF6200A5DD9C /* SearchResult.swift */,
 				CDD5DE0C1E40ADC9000F382C /* FBClustering */,
@@ -208,6 +237,7 @@
 		CDC7F69A1E50CF9D002F337B /* xibs */ = {
 			isa = PBXGroup;
 			children = (
+				CDBB86EE1E54684800902267 /* OverlayBar.xib */,
 				CD8A24D21E4CD91B00244A56 /* CategoryCell.xib */,
 				CD5AD2541E4F775700ED3226 /* ClusterInfoCell.xib */,
 				CDC7F6A21E51177B002F337B /* CrimeDetail.xib */,
@@ -219,6 +249,7 @@
 		CDC7F69B1E50CFC1002F337B /* cells */ = {
 			isa = PBXGroup;
 			children = (
+				CDBB86F01E5469CA00902267 /* OverlayBar.swift */,
 				CD7FC2C81E5236CF00B1B6C2 /* ContentCell.swift */,
 				CDC7F6A01E50ED45002F337B /* CoordinateCell.swift */,
 				CD8A24D41E4CEC2B00244A56 /* CategoryCell.swift */,
@@ -391,6 +422,7 @@
 				CD7FBCAF1E32AE1500DA40F1 /* Assets.xcassets in Resources */,
 				CD7FBCAD1E32AE1500DA40F1 /* Main.storyboard in Resources */,
 				CDE141701E4E881900D2528B /* CustomHeaderCell.xib in Resources */,
+				CDBB86EF1E54684800902267 /* OverlayBar.xib in Resources */,
 				CD8A24D31E4CD91B00244A56 /* CategoryCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -465,8 +497,10 @@
 				CD33D95D1E362C7100AB6E94 /* MapViewController.swift in Sources */,
 				CD568C7E1E32CF9300DB0B9C /* AddressController.swift in Sources */,
 				CDE1CCFC1E45D55900209A1B /* Categories.swift in Sources */,
+				CD7F5A801E55A80B0000A1DF /* SlideInPresentationAnimator.swift in Sources */,
 				CDD5DE0B1E40ADBF000F382C /* FBZoomLevel.swift in Sources */,
 				CDF6A0721E43636C00875B6E /* TouchContainer.swift in Sources */,
+				CDBB86F11E5469CA00902267 /* OverlayBar.swift in Sources */,
 				CDF6A0741E43979E00875B6E /* SetDateMenuController.swift in Sources */,
 				CDC7F6A51E5123CB002F337B /* CrimeDetail.swift in Sources */,
 				CDC7F6A11E50ED45002F337B /* CoordinateCell.swift in Sources */,
@@ -478,6 +512,7 @@
 				CD28AFA01E450A1600663A36 /* ControlsTableViewController.swift in Sources */,
 				CDD5DE051E40ADBF000F382C /* FBAnnotationClusterViewConfiguration.swift in Sources */,
 				CDFC3E661E33AD530065C9E2 /* MonthYear.swift in Sources */,
+				CD7F5A7E1E55A7FC0000A1DF /* SlideInPresentationManager.swift in Sources */,
 				CD33D95F1E36405200AB6E94 /* MapAnnotation.swift in Sources */,
 				CDE1416C1E4E331B00D2528B /* CrimeCategory.swift in Sources */,
 				CD8A24D51E4CEC2B00244A56 /* CategoryCell.swift in Sources */,
@@ -495,6 +530,7 @@
 				CDF6A0761E43AC7200875B6E /* Months.swift in Sources */,
 				CD2743611E4CB81B00FC4C53 /* Loader.swift in Sources */,
 				CD5AD2501E4F756900ED3226 /* ClusterInfoCell.swift in Sources */,
+				CD7F5A7C1E55A7ED0000A1DF /* SlideInPresentationController.swift in Sources */,
 				CD568C801E32D1F600DB0B9C /* Address.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

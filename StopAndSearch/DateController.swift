@@ -19,6 +19,15 @@ class DateController: UIViewController {
   let pickerData =  [Months.months,["2014","2015","2016"]]
  
   
+  @IBAction func didPressDone(_ sender: Any) {
+  }
+  @IBOutlet weak var doneButton: UIButton!
+  @IBOutlet weak var switchStatusLabel: UILabel!
+  @IBOutlet weak var instructionsLabel: UILabel!
+ 
+  @IBAction func didSetDate(_ sender: Any) {
+  }
+  @IBOutlet weak var setDateSwitch: UISwitch!
   @IBAction func setDate(_ sender: UIButton) {
     
     let month  = datePicker.selectedRow(inComponent: 0)
@@ -35,26 +44,19 @@ class DateController: UIViewController {
     override func viewDidLoad() {
       
       super.viewDidLoad()
+   
       datePicker.delegate = self
       datePicker.dataSource = self
-      let tintColor = UIColor.flatMintDark
-      self.view.backgroundColor = tintColor
-      
-      self.setToDate(currentDate)
-      
+      self.view.backgroundColor = .flatWhite
+     doneButton.tintColor = .flatMintDark
+     self.setToDate(currentDate)
      }
   
-  
   func setToDate(_ date:MonthYear?) {
-    
     if let d = date {
-      
-      
       datePicker.selectRow(d.month, inComponent: 0, animated: false)
       datePicker.selectRow(d.year - 2014, inComponent: 1, animated: false)
-      
     }
-    
   }
 
     override func didReceiveMemoryWarning() {
@@ -80,7 +82,7 @@ extension DateController: UIPickerViewDataSource, UIPickerViewDelegate {
   func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
     
   
-    return NSAttributedString(string:  pickerData[component][row] , attributes: [NSForegroundColorAttributeName:UIColor.white])
+    return NSAttributedString(string:  pickerData[component][row] , attributes: [NSForegroundColorAttributeName:UIColor.flatBlack])
    
 
   }
