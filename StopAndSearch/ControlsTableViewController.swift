@@ -10,17 +10,22 @@
 
 import UIKit
 
-class ControlsTableViewController: UITableViewController {
+class ControlsTableViewController: UITableViewController,InitialisesExtendedNavBar {
   
+  //propertieas to initialise xnavbar with if vc is navigated to
+  
+  var extendedNavBarColor = UIColor.flatMintDark.withAlphaComponent(0.33)
+  var extendedNavBarMessage =  "select crime categories to display"
+  var extendedNavBarShouldShowDate = false
+  var extendedNavBarFontSize: CGFloat  = 14
+  var extendedNavBarFontColor = UIColor.flatBlackDark
+  //
   var checked: [Bool]?
   var enabledSections: [Bool]?
   var TwoDChecked = [[Bool]]()
   var crimeCategories = [[CrimeCategory]]()
   
-  let topView = UIView()
-  let topLabel = UILabel()
-  let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
-  let blurEffectView = UIVisualEffectView()
+  
   
   override func viewDidLoad() {
     
@@ -32,8 +37,7 @@ class ControlsTableViewController: UITableViewController {
     if enabledSections == nil {
       enabledSections = Array(repeating: true, count: Categories.types.count)
     }
-    
-    navigationController?.delegate = self
+
     navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneTapped))
     
     //register category cell
@@ -43,19 +47,6 @@ class ControlsTableViewController: UITableViewController {
     
     let headerCellNib = UINib(nibName: "CustomHeaderCell", bundle: nil)
     tableView.register(headerCellNib, forCellReuseIdentifier: "HeaderCell")
-    
-    topView.backgroundColor = UIColor.flatMintDark.withAlphaComponent(0.33)
-    setTopViewFrame()
-    blurEffectView.effect = blurEffect
-    blurEffectView.frame = topView.bounds
-    topView.addSubview(blurEffectView)
-    topLabel.frame = CGRect(x: 0, y: 5, width: self.view.frame.size.width, height: 50)
-    topLabel.text = "Select crime categories to display"
-    topLabel.textColor = UIColor.black
-    topLabel.textAlignment = .center
-    topLabel.font = topLabel.font.withSize(14)
-    topView.addSubview(topLabel)
-    navigationController?.view.addSubview(topView)
     tableView.contentInset = UIEdgeInsets(top: 60, left: 0 , bottom: 0 , right: 0)
     
     //break categories and checked into 2d array
@@ -72,17 +63,6 @@ class ControlsTableViewController: UITableViewController {
     print (TwoDChecked)
   }
   
-  func setTopViewFrame() {
-    let nbh  = navigationController?.navigationBar.frame.size.height
-    let nby  = navigationController?.navigationBar.frame.origin.y
-    topView.frame = CGRect ( x: 0 , y: nbh! + nby!, width: self.view.frame.size.width, height: 60)
-    topLabel.frame = CGRect(x: 0, y: 5, width: self.view.frame.size.width, height: 50)
-    blurEffectView.frame = topView.bounds
-  }
-  
-  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-    setTopViewFrame()
-  }
   
   override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
     let cell = tableView.dequeueReusableCell(withIdentifier: "HeaderCell") as! CustomHeaderCell
@@ -103,7 +83,6 @@ class ControlsTableViewController: UITableViewController {
   
   func doneTapped() {
     print ("done")
-    topView.removeFromSuperview()
     let _ = navigationController?.popViewController(animated: true)
   }
   
@@ -190,36 +169,28 @@ func enableCell (_ cell: CategoryCell) {
 extension ControlsTableViewController: CustomHeaderCellDelegate {
   
   func switched(section: Int, value: Bool) {
-    print ("section \(section) value \(value)")
-    
     self.enabledSections?[section] = value
-    
-    
     for i in 0..<crimeCategories[section].count {
-      
       let indexpath = IndexPath(row: i, section: section)
       let cell =  self.tableView.cellForRow(at: indexpath) as! CategoryCell
-      
       if value == false {
-        
         disableCell(cell)
-        
       } else {
         enableCell(cell)
       }
     }
   }
 }
-
+/*
 extension ControlsTableViewController: UINavigationControllerDelegate {
   
   func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
     if let controller = viewController as? MapViewController {
-      topView.removeFromSuperview()
+      controller.extendedNavSetup()
       checked = TwoDChecked.flatMap{$0}
-      print (checked!)
       controller.selectedCategories  = checked
       controller.enabledSections = self.enabledSections
+   
     }
   }
-}
+}*/

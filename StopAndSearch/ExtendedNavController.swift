@@ -1,6 +1,7 @@
 
 import UIKit
 
+
 class ExtendedNavController: UINavigationController {
   
   let topView = OverlayBar.instanceFromNib() as! OverlayBar
@@ -48,9 +49,20 @@ class ExtendedNavController: UINavigationController {
       topView.dateLabel.text = "all dates"
     }
   }
-
-  func setStatusMessage(message: String) {
-    topView.sLabel.text = message    
+  
+  func showDate(_ show: Bool) {
+    if show {
+    topView.dataForLabel.isHidden = false
+    topView.dateLabel.isHidden = false
+    } else {
+      topView.dataForLabel.isHidden = true
+      topView.dateLabel.isHidden = true
+    }
+  }
+  func setStatusMessage(message: String, size: CGFloat = 12, color: UIColor = .flatBlack) {
+    topView.sLabel.textColor = color
+    topView.sLabel.font = topView.sLabel.font.withSize(size)
+    topView.sLabel.text = message
   }
   
   

@@ -108,3 +108,8 @@ extension DateController: UIPickerViewDataSource, UIPickerViewDelegate {
     return NSAttributedString(string:  pickerData[component][row] , attributes: [NSForegroundColorAttributeName:UIColor.flatBlack])
   }
 }
+
+
+
+
+

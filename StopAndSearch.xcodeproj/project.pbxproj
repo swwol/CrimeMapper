@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CD02F3931E34CF6200A5DD9C /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD02F3921E34CF6200A5DD9C /* SearchResult.swift */; };
+		CD04FEDD1E57306100832820 /* InitialisesExtendedNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD04FEDC1E57306100832820 /* InitialisesExtendedNavBar.swift */; };
 		CD251B041E3555F4004DACB7 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD251B031E3555F4004DACB7 /* Search.swift */; };
 		CD2743611E4CB81B00FC4C53 /* Loader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2743601E4CB81B00FC4C53 /* Loader.swift */; };
 		CD28AF9E1E449F1E00663A36 /* ClusterInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD28AF9D1E449F1E00663A36 /* ClusterInfoTableViewController.swift */; };
@@ -76,6 +77,7 @@
 		7356764FCF51E447F27ADD22 /* Pods-StopAndSearch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StopAndSearch.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StopAndSearch/Pods-StopAndSearch.debug.xcconfig"; sourceTree = "<group>"; };
 		BE7D707924925F6F16864114 /* Pods_StopAndSearch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StopAndSearch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD02F3921E34CF6200A5DD9C /* SearchResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
+		CD04FEDC1E57306100832820 /* InitialisesExtendedNavBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialisesExtendedNavBar.swift; sourceTree = "<group>"; };
 		CD251B031E3555F4004DACB7 /* Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		CD2743601E4CB81B00FC4C53 /* Loader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Loader.swift; sourceTree = "<group>"; };
 		CD28AF9D1E449F1E00663A36 /* ClusterInfoTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClusterInfoTableViewController.swift; sourceTree = "<group>"; };
@@ -207,6 +209,7 @@
 		CD7FBCA41E32AE1500DA40F1 /* StopAndSearch */ = {
 			isa = PBXGroup;
 			children = (
+				CD04FEDC1E57306100832820 /* InitialisesExtendedNavBar.swift */,
 				CDDCB2A61E53BC9400D86CE7 /* Extensions */,
 				CD71A8571E549270004A4132 /* ViewControllers */,
 				CD2743601E4CB81B00FC4C53 /* Loader.swift */,
@@ -506,6 +509,7 @@
 				CDC7F6A11E50ED45002F337B /* CoordinateCell.swift in Sources */,
 				CDE1416F1E4E881900D2528B /* CustomHeaderCell.swift in Sources */,
 				CDD5DE021E40ADBF000F382C /* FBAnnotationCluster.swift in Sources */,
+				CD04FEDD1E57306100832820 /* InitialisesExtendedNavBar.swift in Sources */,
 				CD02F3931E34CF6200A5DD9C /* SearchResult.swift in Sources */,
 				CD33D9651E3668E000AB6E94 /* DetailViewController.swift in Sources */,
 				CD7FC2CB1E523FA700B1B6C2 /* UIImage+Extensions.swift in Sources */,

@@ -1,6 +1,6 @@
 //
 //  DetailViewController.swift
-//  
+//
 //
 //  Created by edit on 23/01/2017.
 //
@@ -8,46 +8,43 @@
 
 import UIKit
 
-class DetailViewController: UIViewController {
-
+class DetailViewController: UIViewController,InitialisesExtendedNavBar {
+  
+  //propertieas to initialise xnavbar with if vc is navigated to
+  var extendedNavBarColor = UIColor.flatMintDark.withAlphaComponent(0.33)
+  var extendedNavBarMessage =  ""
+  var extendedNavBarShouldShowDate = false
+  var extendedNavBarFontSize: CGFloat  = 14
+  var extendedNavBarFontColor = UIColor.flatBlackDark
+  //
   @IBOutlet weak var tableView: UITableView!
   
   var data : SearchResult?
   var dataArray = [(catTitle: String, catContents: [String])]()
   
-  
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-   
-      let cellNib = UINib(nibName: "CrimeDetail", bundle: nil)
-      tableView.register(cellNib, forCellReuseIdentifier: "CrimeDetail")
-      
-      let headerCellNib = UINib(nibName: "CustomHeaderCell", bundle: nil)
-      tableView.register(headerCellNib, forCellReuseIdentifier: "HeaderCell")
-  
-      //get data into array
-      putDataInArray()
-      
-   //   tableView.estimatedRowHeight = 44
-   //  tableView.rowHeight = UITableViewAutomaticDimension
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    tableView.contentInset = UIEdgeInsets(top: 60, left: 0 , bottom: 0 , right: 0)
+    let cellNib = UINib(nibName: "CrimeDetail", bundle: nil)
+    tableView.register(cellNib, forCellReuseIdentifier: "CrimeDetail")
+    let headerCellNib = UINib(nibName: "CustomHeaderCell", bundle: nil)
+    tableView.register(headerCellNib, forCellReuseIdentifier: "HeaderCell")
+    //get data into array
+    putDataInArray()
+   }
+  override func didReceiveMemoryWarning() {
+    super.didReceiveMemoryWarning()
+    // Dispose of any resources that can be recreated.
   }
-  
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-  }
+}
 
 extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
-  
   
   func numberOfSections(in tableView: UITableView) -> Int {
     return 2
   }
-
+  
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    
     if section == 0 {
       return 1
     } else {
@@ -55,13 +52,13 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     }
   }
   
- func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+  func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
     let cell = tableView.dequeueReusableCell(withIdentifier: "HeaderCell") as! CustomHeaderCell
     cell.categoryTitle.text = ""
     cell.bg.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
-  if cell.categorySwitch != nil {
-    cell.categorySwitch.removeFromSuperview()
-  }
+    if cell.categorySwitch != nil {
+      cell.categorySwitch.removeFromSuperview()
+    }
     return cell
   }
   
@@ -69,13 +66,12 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     if section == 0 {
       return 0
     } else {
-     return  34
+      return  34
     }
   }
   
-
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-   
+    
     if indexPath.section == 0 {
       return 120
     }
@@ -133,7 +129,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
       }
     }
   }
-
+  
   func getDateInWordFormat( date: String) -> String {
     
     let yearEndIndex = date.index(date.startIndex, offsetBy: 4)
@@ -179,3 +175,4 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     }
   }
 }
+

@@ -13,7 +13,16 @@ import CoreLocation
 import Alamofire
 import Gloss
 
-class MapViewController: UIViewController, CLLocationManagerDelegate {
+class MapViewController: UIViewController, CLLocationManagerDelegate, InitialisesExtendedNavBar {
+  
+  //propertieas to initialise xnavbar with if vc is navigated to
+  
+  var extendedNavBarColor = UIColor.flatGray.withAlphaComponent(0.33)
+  var extendedNavBarMessage =  "touch cluster of pin for info"
+  var extendedNavBarShouldShowDate = true
+  var extendedNavBarFontSize: CGFloat  = 12
+  var extendedNavBarFontColor = UIColor.flatBlack
+  //
   var searchResults = [SearchResult]()
   let locationManager = CLLocationManager()
   var location: CLLocation?
@@ -187,9 +196,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
  
   override func viewDidLoad() {
     super.viewDidLoad()
-    let nav = navigationController! as! ExtendedNavController
-    nav.setExtendedBarColor(UIColor.lightGray.withAlphaComponent(0.2))
-    nav.setStatusMessage(message: "")
+   
+    navigationController?.delegate = self
     search.delegate = self
     // go to users location on launch
     getLocation()
@@ -201,12 +209,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     zoom.delegate = self
     mapView.addGestureRecognizer(zoom)
     mapView.isUserInteractionEnabled = true
-    //  self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: setDateMenuController.view)
-    //  let tc = setDateMenuController.view as! TouchContainer
-    //  tc.delegate = self
     //find date of latest data
     getDateLastUpdated()
   }
+  
   
   func handleZoom( _ sender: UIPinchGestureRecognizer) {
     if (sender.state == UIGestureRecognizerState.began) {
@@ -449,7 +455,7 @@ extension MapViewController: SearchDelegate {
       self.view.addSubview(loader!)
     }
     UIView.animate(withDuration: 0.5, animations: {self.loader?.alpha = 1})
-    
+   
   }
   
   func searchComplete(tooMany: Int, unknown: Int) {
@@ -457,7 +463,9 @@ extension MapViewController: SearchDelegate {
       self.loader?.removeFromSuperview()
       self.loader = nil
       let nav = self.navigationController as! ExtendedNavController
-      nav.setStatusMessage(message: "touch pin or cluster for info")
+      if (self.navigationController?.visibleViewController is MapViewController) {
+        nav.setStatusMessage(message: "touch pin or cluster for info")
+      }
       if tooMany > 0 {
         let alert = UIAlertController(title: "Too many results", message: "Some categories returned too many results, try narrowing search area.", preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
@@ -476,6 +484,26 @@ extension MapViewController: SearchDelegate {
 }
 
 
+extension MapViewController: UINavigationControllerDelegate {
+  func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+    
+    print ("I am navigating to ", viewController)
+    let nav = navigationController as! ExtendedNavController
+    if let controller = viewController as? InitialisesExtendedNavBar {
+      
+    nav.setExtendedBarColor(controller.extendedNavBarColor)
+    nav.setStatusMessage(message: controller.extendedNavBarMessage, size: controller.extendedNavBarFontSize, color: controller.extendedNavBarFontColor )
+    nav.showDate(controller.extendedNavBarShouldShowDate)
+      
+  }
+}
+
+}
+
+
   
+
+
+
 
 
