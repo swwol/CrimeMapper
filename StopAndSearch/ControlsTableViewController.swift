@@ -24,7 +24,7 @@ class ControlsTableViewController: UITableViewController,InitialisesExtendedNavB
   var enabledSections: [Bool]?
   var TwoDChecked = [[Bool]]()
   var crimeCategories = [[CrimeCategory]]()
-  
+  var delegate: MapViewControllerDelegate?
   
   
   override func viewDidLoad() {
@@ -108,9 +108,14 @@ class ControlsTableViewController: UITableViewController,InitialisesExtendedNavB
       if cell.accessoryType == .checkmark {
         cell.accessoryType = .none
         TwoDChecked[indexPath.section][indexPath.row] = false
+        checked = TwoDChecked.flatMap{$0}
+        delegate?.setCategoriesToShow(selectedCategories: checked)
       } else {
         cell.accessoryType = .checkmark
         TwoDChecked[indexPath.section][indexPath.row] = true
+        checked = TwoDChecked.flatMap{$0}
+        delegate?.setCategoriesToShow(selectedCategories: checked)
+
       }
     }
     tableView.deselectRow(at: indexPath, animated: true)
@@ -172,13 +177,19 @@ extension ControlsTableViewController: CustomHeaderCellDelegate {
     self.enabledSections?[section] = value
     for i in 0..<crimeCategories[section].count {
       let indexpath = IndexPath(row: i, section: section)
-      let cell =  self.tableView.cellForRow(at: indexpath) as! CategoryCell
+     print ("row",i)
+      // something crashed here!
+      print ("sssection",section)
+     print ("indexpath",indexpath)
+      if let cell =  self.tableView.cellForRow(at: indexpath) as? CategoryCell {
       if value == false {
         disableCell(cell)
       } else {
         enableCell(cell)
       }
+      } else {print ("would have crashed")}
     }
+    delegate?.setSectionsToShow(enabledSections: enabledSections)
   }
 }
 /*

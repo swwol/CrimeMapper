@@ -13,6 +13,24 @@ import CoreLocation
 import Alamofire
 import Gloss
 
+protocol MapViewControllerDelegate {
+  
+  func setCategoriesToShow ( selectedCategories: [Bool]? )
+  func setSectionsToShow ( enabledSections: [Bool]? )
+  
+  
+}
+
+extension MapViewController: MapViewControllerDelegate {
+ 
+  func setCategoriesToShow ( selectedCategories: [Bool]? ) {
+    self.selectedCategories = selectedCategories
+  }
+  func setSectionsToShow ( enabledSections: [Bool]? ) {
+    self.enabledSections = enabledSections
+  }
+}
+
 class MapViewController: UIViewController, CLLocationManagerDelegate, InitialisesExtendedNavBar {
   
   //propertieas to initialise xnavbar with if vc is navigated to
@@ -316,6 +334,7 @@ extension MapViewController: MKMapViewDelegate {
       let controller = segue.destination as! ControlsTableViewController
       controller.checked = sender as! [Bool]?
       controller.enabledSections = self.enabledSections
+      controller.delegate = self
     }
   }
   
@@ -447,7 +466,9 @@ extension MapViewController: FBAnnotationClusterViewDelegate {
 extension MapViewController: SearchDelegate {
   func searchStarted() {
     let nav = navigationController as! ExtendedNavController
-    nav.setStatusMessage(message: "loading...")
+    if let _ = nav.visibleViewController as? MapViewController {
+      nav.setStatusMessage(message: "loading...")
+    }
     if (loader == nil) {
       loader = Loader(message: "loading crime data...")
       loader?.alpha = 0
@@ -463,7 +484,7 @@ extension MapViewController: SearchDelegate {
       self.loader?.removeFromSuperview()
       self.loader = nil
       let nav = self.navigationController as! ExtendedNavController
-      if (self.navigationController?.visibleViewController is MapViewController) {
+      if let _ = nav.visibleViewController as? MapViewController {
         nav.setStatusMessage(message: "touch pin or cluster for info")
       }
       if tooMany > 0 {

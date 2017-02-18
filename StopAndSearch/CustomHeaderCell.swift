@@ -22,7 +22,7 @@ class CustomHeaderCell: UITableViewCell {
   @IBOutlet weak var categorySwitch: UISwitch!
   
   @IBAction func categorySwitched(_ sender: UISwitch) {
-    
+    print ("section",mySection!, "value", sender.isOn)
     delegate?.switched(section: mySection ?? -1 , value: sender.isOn)
     
   }
