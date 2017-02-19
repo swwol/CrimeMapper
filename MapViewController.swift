@@ -33,6 +33,9 @@ extension MapViewController: MapViewControllerDelegate {
 
 class MapViewController: UIViewController, CLLocationManagerDelegate, InitialisesExtendedNavBar {
   
+  @IBAction func graphButtonPressed(_ sender: UIBarButtonItem) {
+    self.performSegue(withIdentifier: "showGraphs", sender: fbpins)
+  }
   //propertieas to initialise xnavbar with if vc is navigated to
   
   var extendedNavBarColor = UIColor.flatGray.withAlphaComponent(0.33)
@@ -310,6 +313,13 @@ extension MapViewController: MKMapViewDelegate {
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     
     search.cancelSearches()
+    
+    if segue.identifier == "showGraphs" {
+      
+      let controller = segue.destination as! GraphsViewController
+      controller.data  = fbpins
+    }
+    
     if segue.identifier == "showDetail" {
       let controller = segue.destination as! DetailViewController
       controller.data = fbpins[sender as! Int]
@@ -331,10 +341,12 @@ extension MapViewController: MKMapViewDelegate {
     }
     
     if segue.identifier == "loadControls" {
-      let controller = segue.destination as! ControlsTableViewController
-      controller.checked = sender as! [Bool]?
-      controller.enabledSections = self.enabledSections
-      controller.delegate = self
+      let tabController = segue.destination as! UITabBarController
+      if let catController = tabController.viewControllers?[0] as? ControlsTableViewController{
+      catController.checked = sender as! [Bool]?
+      catController.enabledSections = self.enabledSections
+      catController.delegate = self
+      }
     }
   }
   

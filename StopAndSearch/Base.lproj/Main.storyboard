@@ -161,15 +161,17 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sqm-jf-hOh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3311" y="1084"/>
+            <point key="canvasLocation" x="4217.391304347826" y="1083.4239130434783"/>
         </scene>
         <!--Categories-->
         <scene sceneID="ae4-b9-gQI">
             <objects>
-                <tableViewController title="Categories" id="4kJ-pX-ea6" customClass="ControlsTableViewController" customModule="StopAndSearch" customModuleProvider="target" sceneMemberID="viewController"/>
+                <tableViewController title="Categories" id="4kJ-pX-ea6" customClass="ControlsTableViewController" customModule="StopAndSearch" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="QFs-OT-zNx"/>
+                </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bnO-aS-FGa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1318" y="957"/>
+            <point key="canvasLocation" x="2223" y="1053"/>
         </scene>
         <!--set date-->
         <scene sceneID="ri3-Xa-jpr">
@@ -268,7 +270,41 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cYG-mv-n8b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2121.739130434783" y="1125"/>
+            <point key="canvasLocation" x="3028.985507246377" y="1125"/>
+        </scene>
+        <!--Graphs-->
+        <scene sceneID="l8i-rw-1s3">
+            <objects>
+                <viewController title="Graphs" id="1gN-2G-PFJ" customClass="GraphsViewController" customModule="StopAndSearch" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Gi2-gR-YOK"/>
+                        <viewControllerLayoutGuide type="bottom" id="iJR-XU-fhD"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ouZ-Lc-cVR">
+                        <rect key="frame" x="0.0" y="64" width="414" height="672"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zQX-dq-mp4" customClass="BarChartView" customModule="Charts">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="672"/>
+                                <color key="backgroundColor" red="0.90823972225189209" green="0.92638683319091797" blue="0.9317171573638916" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="zQX-dq-mp4" firstAttribute="leading" secondItem="ouZ-Lc-cVR" secondAttribute="leading" id="daf-Be-BfZ"/>
+                            <constraint firstItem="iJR-XU-fhD" firstAttribute="top" secondItem="zQX-dq-mp4" secondAttribute="bottom" id="iRT-BW-yAL"/>
+                            <constraint firstAttribute="trailing" secondItem="zQX-dq-mp4" secondAttribute="trailing" id="kyK-yf-Tzu"/>
+                            <constraint firstItem="zQX-dq-mp4" firstAttribute="top" secondItem="Gi2-gR-YOK" secondAttribute="bottom" id="mLP-RS-ZQ6"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <connections>
+                        <outlet property="barChartView" destination="zQX-dq-mp4" id="8e9-zB-k0M"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sdD-1h-d1d" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3857.971014492754" y="-554.34782608695662"/>
         </scene>
         <!--Map-->
         <scene sceneID="u8g-gJ-qio">
@@ -293,25 +329,31 @@
                                 <rect key="frame" x="0.0" y="692" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
-                                    <barButtonItem image="controls" id="Tba-3a-gRU">
+                                    <barButtonItem image="controls" id="Tba-3a-gRU" userLabel="settings">
                                         <connections>
                                             <action selector="adjustSettings:" destination="ZAQ-5u-4bi" id="NUV-et-Mic"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="A5p-vi-OtV"/>
-                                    <barButtonItem image="linecal" id="ePs-Wn-QFU">
+                                    <barButtonItem image="linecal" id="ePs-Wn-QFU" userLabel="date">
                                         <connections>
                                             <action selector="setDate:" destination="ZAQ-5u-4bi" id="a2g-Ui-BEJ"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Tsi-uQ-8fo"/>
+                                    <barButtonItem image="line-chart" id="2d9-er-2ZC" userLabel="graph">
+                                        <connections>
+                                            <action selector="graphButtonPressed:" destination="ZAQ-5u-4bi" id="IEg-14-VSI"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="S0x-BM-zn3"/>
-                                    <barButtonItem image="Location" id="PaQ-CB-KZc">
+                                    <barButtonItem image="Location" id="PaQ-CB-KZc" userLabel="locate">
                                         <connections>
                                             <action selector="getMyLocation:" destination="ZAQ-5u-4bi" id="Kf2-eC-bFE"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Wmp-Qk-f4v"/>
-                                    <barButtonItem style="plain" id="7if-7A-V8A">
+                                    <barButtonItem style="plain" id="7if-7A-V8A" userLabel="info">
                                         <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" lineBreakMode="middleTruncation" id="esn-JR-beO">
                                             <rect key="frame" x="372" y="11" width="22" height="22"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -338,12 +380,13 @@
                         <segue destination="Dbq-TE-K4Q" kind="presentation" identifier="setDate" id="kli-aa-Cs2"/>
                         <segue destination="60G-Rb-THp" kind="show" identifier="showClusterInfo" id="xzd-2F-KXt"/>
                         <segue destination="rcU-Sx-pRH" kind="show" identifier="showDetail" id="ddL-Ad-qcc"/>
-                        <segue destination="4kJ-pX-ea6" kind="show" identifier="loadControls" id="htG-Pb-axX"/>
+                        <segue destination="jWj-p4-Q7m" kind="show" identifier="loadControls" id="htG-Pb-axX"/>
+                        <segue destination="1gN-2G-PFJ" kind="show" identifier="showGraphs" id="IoW-pd-kQ5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yfl-uw-afA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2634.375" y="228.16901408450704"/>
+            <point key="canvasLocation" x="2809" y="-390"/>
         </scene>
         <!--Extended Nav Controller-->
         <scene sceneID="9Vm-hr-bSG">
@@ -363,11 +406,60 @@
             </objects>
             <point key="canvasLocation" x="1636.875" y="228.16901408450704"/>
         </scene>
+        <!--Item-->
+        <scene sceneID="BL3-WD-858">
+            <objects>
+                <tableViewController id="0E4-pr-yDY" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="iiV-nP-lxA">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="HNp-Ld-Thi">
+                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HNp-Ld-Thi" id="B4L-e6-RaH">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="0E4-pr-yDY" id="Y1l-VG-SyV"/>
+                            <outlet property="delegate" destination="0E4-pr-yDY" id="UGJ-17-5Vx"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="Item" id="poL-g2-hqC"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BKP-xk-2Sk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="423" y="1196"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="u5z-dn-cET">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="jWj-p4-Q7m" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="Wcg-Q8-WCx">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="4kJ-pX-ea6" kind="relationship" relationship="viewControllers" id="ddO-5a-j4a"/>
+                        <segue destination="0E4-pr-yDY" kind="relationship" relationship="viewControllers" id="UcB-Md-J6h"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gaJ-R2-qLs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1188" y="946"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Location" width="20" height="20"/>
         <image name="controls" width="20" height="20"/>
         <image name="coord" width="20" height="20"/>
+        <image name="line-chart" width="20" height="20"/>
         <image name="linecal" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
