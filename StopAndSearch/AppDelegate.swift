@@ -23,6 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     UISearchBar.appearance().tintColor = .white
  
     
+    
     let tintColor  =  UIColor(red: 1, green: 1, blue: 1 ,alpha: 1)
     window!.tintColor = tintColor
     

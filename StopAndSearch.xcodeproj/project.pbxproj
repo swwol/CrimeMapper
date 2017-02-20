@@ -34,7 +34,9 @@
 		CD7FC2CD1E5245E100B1B6C2 /* CoordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7FC2CC1E5245E100B1B6C2 /* CoordCell.swift */; };
 		CD8A24D31E4CD91B00244A56 /* CategoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD8A24D21E4CD91B00244A56 /* CategoryCell.xib */; };
 		CD8A24D51E4CEC2B00244A56 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8A24D41E4CEC2B00244A56 /* CategoryCell.swift */; };
-		CDA2A6431E58D15A0028F2D7 /* GraphsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA2A6421E58D15A0028F2D7 /* GraphsViewController.swift */; };
+		CD8CDA101E5A188800F8EAD2 /* GraphsTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8CDA0F1E5A188800F8EAD2 /* GraphsTabBarController.swift */; };
+		CDA2A6431E58D15A0028F2D7 /* BarGraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA2A6421E58D15A0028F2D7 /* BarGraphViewController.swift */; };
+		CDA944031E5B36D500A265B0 /* PieChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA944021E5B36D500A265B0 /* PieChartViewController.swift */; };
 		CDBB86EF1E54684800902267 /* OverlayBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDBB86EE1E54684800902267 /* OverlayBar.xib */; };
 		CDBB86F11E5469CA00902267 /* OverlayBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBB86F01E5469CA00902267 /* OverlayBar.swift */; };
 		CDC7F6A11E50ED45002F337B /* CoordinateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC7F6A01E50ED45002F337B /* CoordinateCell.swift */; };
@@ -108,7 +110,9 @@
 		CD7FC2CC1E5245E100B1B6C2 /* CoordCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoordCell.swift; sourceTree = "<group>"; };
 		CD8A24D21E4CD91B00244A56 /* CategoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoryCell.xib; sourceTree = "<group>"; };
 		CD8A24D41E4CEC2B00244A56 /* CategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
-		CDA2A6421E58D15A0028F2D7 /* GraphsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphsViewController.swift; sourceTree = "<group>"; };
+		CD8CDA0F1E5A188800F8EAD2 /* GraphsTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphsTabBarController.swift; sourceTree = "<group>"; };
+		CDA2A6421E58D15A0028F2D7 /* BarGraphViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarGraphViewController.swift; sourceTree = "<group>"; };
+		CDA944021E5B36D500A265B0 /* PieChartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PieChartViewController.swift; sourceTree = "<group>"; };
 		CDBB86EE1E54684800902267 /* OverlayBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OverlayBar.xib; sourceTree = "<group>"; };
 		CDBB86F01E5469CA00902267 /* OverlayBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayBar.swift; sourceTree = "<group>"; };
 		CDC7F6A01E50ED45002F337B /* CoordinateCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoordinateCell.swift; sourceTree = "<group>"; };
@@ -170,7 +174,9 @@
 		CD71A8571E549270004A4132 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				CDA2A6421E58D15A0028F2D7 /* GraphsViewController.swift */,
+				CD8CDA0F1E5A188800F8EAD2 /* GraphsTabBarController.swift */,
+				CDA2A6421E58D15A0028F2D7 /* BarGraphViewController.swift */,
+				CDA944021E5B36D500A265B0 /* PieChartViewController.swift */,
 				CDDCB2A91E53C51C00D86CE7 /* ExtendedNavController.swift */,
 				CDDCB2A51E53650B00D86CE7 /* TableViewControllers */,
 				CD33D95C1E362C7100AB6E94 /* MapViewController.swift */,
@@ -501,7 +507,7 @@
 				CD28AF9E1E449F1E00663A36 /* ClusterInfoTableViewController.swift in Sources */,
 				CDD5DE011E40ADBF000F382C /* FBAnnotation.swift in Sources */,
 				CD33D95D1E362C7100AB6E94 /* MapViewController.swift in Sources */,
-				CDA2A6431E58D15A0028F2D7 /* GraphsViewController.swift in Sources */,
+				CDA2A6431E58D15A0028F2D7 /* BarGraphViewController.swift in Sources */,
 				CD568C7E1E32CF9300DB0B9C /* AddressController.swift in Sources */,
 				CDE1CCFC1E45D55900209A1B /* Categories.swift in Sources */,
 				CD7F5A801E55A80B0000A1DF /* SlideInPresentationAnimator.swift in Sources */,
@@ -510,6 +516,7 @@
 				CDBB86F11E5469CA00902267 /* OverlayBar.swift in Sources */,
 				CDF6A0741E43979E00875B6E /* SetDateMenuController.swift in Sources */,
 				CDC7F6A51E5123CB002F337B /* CrimeDetail.swift in Sources */,
+				CD8CDA101E5A188800F8EAD2 /* GraphsTabBarController.swift in Sources */,
 				CDC7F6A11E50ED45002F337B /* CoordinateCell.swift in Sources */,
 				CDE1416F1E4E881900D2528B /* CustomHeaderCell.swift in Sources */,
 				CDD5DE021E40ADBF000F382C /* FBAnnotationCluster.swift in Sources */,
@@ -525,6 +532,7 @@
 				CDE1416C1E4E331B00D2528B /* CrimeCategory.swift in Sources */,
 				CD8A24D51E4CEC2B00244A56 /* CategoryCell.swift in Sources */,
 				CDD5DE041E40ADBF000F382C /* FBAnnotationClusterView.swift in Sources */,
+				CDA944031E5B36D500A265B0 /* PieChartViewController.swift in Sources */,
 				CD7FC2C91E5236CF00B1B6C2 /* ContentCell.swift in Sources */,
 				CDFC3E641E3396290065C9E2 /* DateController.swift in Sources */,
 				CD7FBCA61E32AE1500DA40F1 /* AppDelegate.swift in Sources */,
