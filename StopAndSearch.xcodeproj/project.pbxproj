@@ -22,6 +22,7 @@
 		CD568C801E32D1F600DB0B9C /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD568C7F1E32D1F600DB0B9C /* Address.swift */; };
 		CD5AD2501E4F756900ED3226 /* ClusterInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5AD24E1E4F756900ED3226 /* ClusterInfoCell.swift */; };
 		CD5AD2551E4F775700ED3226 /* ClusterInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD5AD2541E4F775700ED3226 /* ClusterInfoCell.xib */; };
+		CD6729541E5B552200EEC959 /* PieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD6729531E5B552200EEC959 /* PieViewController.swift */; };
 		CD7F5A7C1E55A7ED0000A1DF /* SlideInPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7F5A7B1E55A7ED0000A1DF /* SlideInPresentationController.swift */; };
 		CD7F5A7E1E55A7FC0000A1DF /* SlideInPresentationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7F5A7D1E55A7FC0000A1DF /* SlideInPresentationManager.swift */; };
 		CD7F5A801E55A80B0000A1DF /* SlideInPresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7F5A7F1E55A80B0000A1DF /* SlideInPresentationAnimator.swift */; };
@@ -36,7 +37,6 @@
 		CD8A24D51E4CEC2B00244A56 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8A24D41E4CEC2B00244A56 /* CategoryCell.swift */; };
 		CD8CDA101E5A188800F8EAD2 /* GraphsTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8CDA0F1E5A188800F8EAD2 /* GraphsTabBarController.swift */; };
 		CDA2A6431E58D15A0028F2D7 /* BarGraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA2A6421E58D15A0028F2D7 /* BarGraphViewController.swift */; };
-		CDA944031E5B36D500A265B0 /* PieChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA944021E5B36D500A265B0 /* PieChartViewController.swift */; };
 		CDBB86EF1E54684800902267 /* OverlayBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDBB86EE1E54684800902267 /* OverlayBar.xib */; };
 		CDBB86F11E5469CA00902267 /* OverlayBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBB86F01E5469CA00902267 /* OverlayBar.swift */; };
 		CDC7F6A11E50ED45002F337B /* CoordinateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC7F6A01E50ED45002F337B /* CoordinateCell.swift */; };
@@ -96,6 +96,7 @@
 		CD568C7F1E32D1F600DB0B9C /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		CD5AD24E1E4F756900ED3226 /* ClusterInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClusterInfoCell.swift; sourceTree = "<group>"; };
 		CD5AD2541E4F775700ED3226 /* ClusterInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ClusterInfoCell.xib; sourceTree = "<group>"; };
+		CD6729531E5B552200EEC959 /* PieViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PieViewController.swift; sourceTree = "<group>"; };
 		CD7F5A7B1E55A7ED0000A1DF /* SlideInPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideInPresentationController.swift; sourceTree = "<group>"; };
 		CD7F5A7D1E55A7FC0000A1DF /* SlideInPresentationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideInPresentationManager.swift; sourceTree = "<group>"; };
 		CD7F5A7F1E55A80B0000A1DF /* SlideInPresentationAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideInPresentationAnimator.swift; sourceTree = "<group>"; };
@@ -112,7 +113,6 @@
 		CD8A24D41E4CEC2B00244A56 /* CategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		CD8CDA0F1E5A188800F8EAD2 /* GraphsTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphsTabBarController.swift; sourceTree = "<group>"; };
 		CDA2A6421E58D15A0028F2D7 /* BarGraphViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarGraphViewController.swift; sourceTree = "<group>"; };
-		CDA944021E5B36D500A265B0 /* PieChartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PieChartViewController.swift; sourceTree = "<group>"; };
 		CDBB86EE1E54684800902267 /* OverlayBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OverlayBar.xib; sourceTree = "<group>"; };
 		CDBB86F01E5469CA00902267 /* OverlayBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayBar.swift; sourceTree = "<group>"; };
 		CDC7F6A01E50ED45002F337B /* CoordinateCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoordinateCell.swift; sourceTree = "<group>"; };
@@ -174,9 +174,9 @@
 		CD71A8571E549270004A4132 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				CD6729531E5B552200EEC959 /* PieViewController.swift */,
 				CD8CDA0F1E5A188800F8EAD2 /* GraphsTabBarController.swift */,
 				CDA2A6421E58D15A0028F2D7 /* BarGraphViewController.swift */,
-				CDA944021E5B36D500A265B0 /* PieChartViewController.swift */,
 				CDDCB2A91E53C51C00D86CE7 /* ExtendedNavController.swift */,
 				CDDCB2A51E53650B00D86CE7 /* TableViewControllers */,
 				CD33D95C1E362C7100AB6E94 /* MapViewController.swift */,
@@ -532,10 +532,10 @@
 				CDE1416C1E4E331B00D2528B /* CrimeCategory.swift in Sources */,
 				CD8A24D51E4CEC2B00244A56 /* CategoryCell.swift in Sources */,
 				CDD5DE041E40ADBF000F382C /* FBAnnotationClusterView.swift in Sources */,
-				CDA944031E5B36D500A265B0 /* PieChartViewController.swift in Sources */,
 				CD7FC2C91E5236CF00B1B6C2 /* ContentCell.swift in Sources */,
 				CDFC3E641E3396290065C9E2 /* DateController.swift in Sources */,
 				CD7FBCA61E32AE1500DA40F1 /* AppDelegate.swift in Sources */,
+				CD6729541E5B552200EEC959 /* PieViewController.swift in Sources */,
 				CDD5DE0A1E40ADBF000F382C /* FBQuadTreeNode.swift in Sources */,
 				CDD5DE061E40ADBF000F382C /* FBBoundingBox.swift in Sources */,
 				CDD5DE081E40ADBF000F382C /* FBClusteringManager.swift in Sources */,

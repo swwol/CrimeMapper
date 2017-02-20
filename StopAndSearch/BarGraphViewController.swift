@@ -11,18 +11,15 @@ import Charts
 
 class BarGraphViewController: UIViewController, ChartViewDelegate {
 
-  
-
   var barChartView: BarChartView?
-
   var graphArray = [[SearchResult]]()
   var tabBarHeight: CGFloat?
   override func viewDidLoad() {
     super.viewDidLoad()
+    self.title = "Bar Chart"
     tabBarHeight = tabBarController!.tabBar.frame.size.height
-    
     barChartInit()
-    
+
       if let d = (tabBarController as! GraphsTabBarController).data {
         for cat in Categories.categories {
           //loop through all categories
@@ -39,7 +36,6 @@ class BarGraphViewController: UIViewController, ChartViewDelegate {
     barChartView = BarChartView(frame: CGRect(x: 0, y: 60, width: self.view.frame.size.width, height: self.view.frame.size.height - (60 + tabBarHeight!)))
     barChartView!.backgroundColor = .flatWhite
     barChartView!.isUserInteractionEnabled = true
-  
     self.view.addSubview(barChartView!)
   }
   

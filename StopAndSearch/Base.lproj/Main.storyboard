@@ -295,7 +295,7 @@
         <!--Pie Chart-->
         <scene sceneID="9Zp-6f-oD5">
             <objects>
-                <viewController title="Pie Chart" id="qEf-77-BAF" customClass="PieChartViewController" customModule="StopAndSearch" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Pie Chart" id="qEf-77-BAF" customClass="PieViewController" customModule="StopAndSearch" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="QFd-IQ-Bzz"/>
                         <viewControllerLayoutGuide type="bottom" id="NHB-Mu-WkS"/>
@@ -465,6 +465,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="SAs-Rx-rXN" customClass="GraphsTabBarController" customModule="StopAndSearch" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="5Is-2G-P0f">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
