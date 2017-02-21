@@ -40,7 +40,17 @@ class Search {
   
   cancelSearches()
   delegate?.searchStarted()
-  sessionManager = Alamofire.SessionManager(configuration: URLSessionConfiguration.default)
+    let config : URLSessionConfiguration  = {
+      let configuration = URLSessionConfiguration.default
+    //  configuration.httpAdditionalHeaders = SessionManager.defaultHTTPHeaders
+      configuration.requestCachePolicy = .returnCacheDataElseLoad
+     //configuration.urlCache = urlCache
+      return configuration
+    }()
+
+ 
+  sessionManager = Alamofire.SessionManager(configuration: config)
+ 
     
     let cats = categories ?? Array(repeating: true, count: Categories.categories.count) // if not categories passed, make all true
     let sects  = enabledSections ?? Array(repeating: true, count: Categories.types.count)
@@ -66,9 +76,13 @@ class Search {
       
       let searchURL = getSearchURL(coords: coords, date: date, cat: selectedCat)
       print (searchURL)
+      
+    
          
       sessionManager?.request(searchURL).responseJSON { response in
-           
+        
+    
+        
       if let status = response.response?.statusCode {
               
               switch(status){
