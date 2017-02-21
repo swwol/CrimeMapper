@@ -29,7 +29,7 @@
                                         <rect key="frame" x="0.0" y="28" width="414" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sDw-tp-5i9" id="IJP-bD-WTv">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="59"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="linecal" translatesAutoresizingMaskIntoConstraints="NO" id="QvP-3m-rAd">
@@ -58,7 +58,7 @@
                                         <rect key="frame" x="0.0" y="88" width="414" height="120"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HNv-wl-GO0" id="Rrx-58-qWJ">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="120"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="119"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coord" translatesAutoresizingMaskIntoConstraints="NO" id="2Nm-Iu-gPo">
@@ -171,7 +171,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bnO-aS-FGa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1938" y="1656"/>
+            <point key="canvasLocation" x="-552" y="1101"/>
         </scene>
         <!--set date-->
         <scene sceneID="ri3-Xa-jpr">
@@ -385,13 +385,13 @@
                         <segue destination="Dbq-TE-K4Q" kind="presentation" identifier="setDate" id="kli-aa-Cs2"/>
                         <segue destination="60G-Rb-THp" kind="show" identifier="showClusterInfo" id="xzd-2F-KXt"/>
                         <segue destination="rcU-Sx-pRH" kind="show" identifier="showDetail" id="ddL-Ad-qcc"/>
-                        <segue destination="jWj-p4-Q7m" kind="show" identifier="loadControls" id="htG-Pb-axX"/>
                         <segue destination="SAs-Rx-rXN" kind="show" identifier="showGraphs" id="MEJ-7R-Ye6"/>
+                        <segue destination="0E4-pr-yDY" kind="show" identifier="settings" id="Mfi-JI-huB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yfl-uw-afA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2657" y="-805"/>
+            <point key="canvasLocation" x="2678" y="-805"/>
         </scene>
         <!--Extended Nav Controller-->
         <scene sceneID="9Vm-hr-bSG">
@@ -411,53 +411,29 @@
             </objects>
             <point key="canvasLocation" x="1820" y="-805"/>
         </scene>
-        <!--Item-->
+        <!--settings-->
         <scene sceneID="BL3-WD-858">
             <objects>
-                <tableViewController id="0E4-pr-yDY" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="iiV-nP-lxA">
+                <tableViewController title="settings" id="0E4-pr-yDY" customClass="SettingsTableViewController" customModule="StopAndSearch" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="44" sectionFooterHeight="28" id="iiV-nP-lxA">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="HNp-Ld-Thi">
-                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HNp-Ld-Thi" id="B4L-e6-RaH">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
+                        <inset key="scrollIndicatorInsets" minX="0.0" minY="60" maxX="0.0" maxY="0.0"/>
+                        <sections/>
                         <connections>
                             <outlet property="dataSource" destination="0E4-pr-yDY" id="Y1l-VG-SyV"/>
                             <outlet property="delegate" destination="0E4-pr-yDY" id="UGJ-17-5Vx"/>
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Item" id="poL-g2-hqC"/>
+                    <connections>
+                        <segue destination="4kJ-pX-ea6" kind="show" identifier="categories" id="eoP-XZ-DWl"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BKP-xk-2Sk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="448" y="1644"/>
-        </scene>
-        <!--Tab Bar Controller-->
-        <scene sceneID="u5z-dn-cET">
-            <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="jWj-p4-Q7m" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" id="Wcg-Q8-WCx">
-                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    </tabBar>
-                    <connections>
-                        <segue destination="4kJ-pX-ea6" kind="relationship" relationship="viewControllers" id="ddO-5a-j4a"/>
-                        <segue destination="0E4-pr-yDY" kind="relationship" relationship="viewControllers" id="UcB-Md-J6h"/>
-                    </connections>
-                </tabBarController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="gaJ-R2-qLs" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1146" y="672"/>
+            <point key="canvasLocation" x="423" y="346"/>
         </scene>
         <!--Graphs Tab Bar Controller-->
         <scene sceneID="CzP-6d-LVI">

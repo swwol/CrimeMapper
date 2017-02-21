@@ -17,8 +17,6 @@ protocol MapViewControllerDelegate {
   
   func setCategoriesToShow ( selectedCategories: [Bool]? )
   func setSectionsToShow ( enabledSections: [Bool]? )
-  
-  
 }
 
 extension MapViewController: MapViewControllerDelegate {
@@ -87,7 +85,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
   
   @IBAction func adjustSettings(_ sender: UIBarButtonItem) {
     // load the settings screen with date
-    performSegue(withIdentifier: "loadControls", sender: selectedCategories)
+    performSegue(withIdentifier: "settings", sender: selectedCategories)
   }
   
   @IBAction func infoPressed(_ sender: UIButton) {
@@ -339,6 +337,13 @@ extension MapViewController: MKMapViewDelegate {
       controller.cluster  = sender as? FBAnnotationCluster
     
     }
+    
+    if segue.identifier == "settings" {
+      
+      print ("loading settings")
+      
+    }
+    
     
     if segue.identifier == "loadControls" {
       let tabController = segue.destination as! UITabBarController

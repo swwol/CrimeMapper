@@ -61,6 +61,7 @@
 		CDF6A0721E43636C00875B6E /* TouchContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF6A0711E43636C00875B6E /* TouchContainer.swift */; };
 		CDF6A0741E43979E00875B6E /* SetDateMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF6A0731E43979E00875B6E /* SetDateMenuController.swift */; };
 		CDF6A0761E43AC7200875B6E /* Months.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF6A0751E43AC7200875B6E /* Months.swift */; };
+		CDFAE6671E5C70100053B691 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFAE6661E5C70100053B691 /* SettingsTableViewController.swift */; };
 		CDFC3E641E3396290065C9E2 /* DateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFC3E631E3396290065C9E2 /* DateController.swift */; };
 		CDFC3E661E33AD530065C9E2 /* MonthYear.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFC3E651E33AD530065C9E2 /* MonthYear.swift */; };
 		D5F139044ADA6C2A88BED4E1 /* Pods_StopAndSearch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE7D707924925F6F16864114 /* Pods_StopAndSearch.framework */; };
@@ -137,6 +138,7 @@
 		CDF6A0711E43636C00875B6E /* TouchContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchContainer.swift; sourceTree = "<group>"; };
 		CDF6A0731E43979E00875B6E /* SetDateMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetDateMenuController.swift; sourceTree = "<group>"; };
 		CDF6A0751E43AC7200875B6E /* Months.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Months.swift; sourceTree = "<group>"; };
+		CDFAE6661E5C70100053B691 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		CDFC3E631E3396290065C9E2 /* DateController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateController.swift; sourceTree = "<group>"; };
 		CDFC3E651E33AD530065C9E2 /* MonthYear.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthYear.swift; sourceTree = "<group>"; };
 		F9E2F30CB29004A374E4F4EF /* Pods-StopAndSearch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StopAndSearch.release.xcconfig"; path = "Pods/Target Support Files/Pods-StopAndSearch/Pods-StopAndSearch.release.xcconfig"; sourceTree = "<group>"; };
@@ -294,6 +296,7 @@
 		CDDCB2A51E53650B00D86CE7 /* TableViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				CDFAE6661E5C70100053B691 /* SettingsTableViewController.swift */,
 				CD33D9641E3668E000AB6E94 /* DetailViewController.swift */,
 				CD28AF9F1E450A1600663A36 /* ControlsTableViewController.swift */,
 				CD28AF9D1E449F1E00663A36 /* ClusterInfoTableViewController.swift */,
@@ -545,6 +548,7 @@
 				CD7FC2CD1E5245E100B1B6C2 /* CoordCell.swift in Sources */,
 				CDF6A0761E43AC7200875B6E /* Months.swift in Sources */,
 				CD2743611E4CB81B00FC4C53 /* Loader.swift in Sources */,
+				CDFAE6671E5C70100053B691 /* SettingsTableViewController.swift in Sources */,
 				CD5AD2501E4F756900ED3226 /* ClusterInfoCell.swift in Sources */,
 				CD7F5A7C1E55A7ED0000A1DF /* SlideInPresentationController.swift in Sources */,
 				CD568C801E32D1F600DB0B9C /* Address.swift in Sources */,
