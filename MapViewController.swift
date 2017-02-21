@@ -12,6 +12,7 @@ import MapKit
 import CoreLocation
 import Alamofire
 import Gloss
+import CoreData
 
 protocol MapViewControllerDelegate {
   
@@ -42,6 +43,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
   var extendedNavBarFontSize: CGFloat  = 12
   var extendedNavBarFontColor = UIColor.flatBlack
   //
+
+  var managedObjectContext: NSManagedObjectContext!
+  
   var searchResults = [SearchResult]()
   let locationManager = CLLocationManager()
   var location: CLLocation?
@@ -199,6 +203,15 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
           let month = date.substring(with: range)
           self.theMonth = Int(month)
           self.monthYear = MonthYear(month: self.theMonth! - 1, year: self.theYear! )
+          
+          let dateLastUpdated = ManagedMonthYear(context: self.managedObjectContext)
+          dateLastUpdated.month = Int16(self.theMonth!) - 1
+          dateLastUpdated.year = Int16(self.theYear!)
+          do { try self.managedObjectContext.save()
+          } catch {
+            fatalCoreDataError(error)
+          }
+          
           print("\(self.theMonth)-\(self.theYear)")
           let nav = self.navigationController as! ExtendedNavController
           nav.setDate(month: self.theMonth, year: self.theYear)
