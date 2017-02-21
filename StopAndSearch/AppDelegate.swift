@@ -7,62 +7,12 @@
 //
 
 import UIKit
-import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-  
-  lazy var persistentContainer: NSPersistentContainer = {
-    let container = NSPersistentContainer(name: "DataModel")
-    container.loadPersistentStores(completionHandler: {
-      storeDescription, error in
-      if let error = error {
-        fatalError("Could load data store: \(error)")
-      }
-    })
-    return container
-  }()
-  
-  lazy var managedObjectContext: NSManagedObjectContext = self.persistentContainer.viewContext
-  
+
   var window: UIWindow?
 
-  func listenForFatalCoreDataNotifications() {
-    // 1
-    NotificationCenter.default.addObserver(
-      forName: MyManagedObjectContextSaveDidFailNotification,
-      object: nil, queue: OperationQueue.main, using: { notification in
-        // 2
-        let alert = UIAlertController(
-          title: "Internal Error",
-          message:
-          "There was a fatal error in the app and it cannot continue.\n\n"
-            + "Press OK to terminate the app. Sorry for the inconvenience.",
-          preferredStyle: .alert)
-        // 3
-        let action = UIAlertAction(title: "OK", style: .default) { _ in
-          let exception = NSException(
-            name: NSExceptionName.internalInconsistencyException,
-            reason: "Fatal Core Data error", userInfo: nil)
-          exception.raise()
-        }
-        alert.addAction(action)
-        // 4
-        self.viewControllerForShowingAlert().present(alert, animated: true,  completion: nil)
-    })
-  }
-  // 5
-
-  func viewControllerForShowingAlert() -> UIViewController {
-    let rootViewController = self.window!.rootViewController!
-    if let presentedViewController =
-      rootViewController.presentedViewController {
-      return presentedViewController
-    } else {
-      return rootViewController
-    }
-  }
-  
   
   func customizeAppearance() {
    
@@ -87,12 +37,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     // Override point for customization after application launch.
     customizeAppearance()
-    //set managed object context for CoreData
-    let xNavController = window!.rootViewController as! ExtendedNavController
-    let mapController = xNavController.viewControllers[0] as! MapViewController
-    mapController.managedObjectContext = managedObjectContext
-    
-    listenForFatalCoreDataNotifications()
     return true
   }
 

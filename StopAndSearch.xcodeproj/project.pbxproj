@@ -62,10 +62,6 @@
 		CDF6A0741E43979E00875B6E /* SetDateMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF6A0731E43979E00875B6E /* SetDateMenuController.swift */; };
 		CDF6A0761E43AC7200875B6E /* Months.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF6A0751E43AC7200875B6E /* Months.swift */; };
 		CDFAE6671E5C70100053B691 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFAE6661E5C70100053B691 /* SettingsTableViewController.swift */; };
-		CDFAE66A1E5CBE550053B691 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CDFAE6681E5CBE550053B691 /* DataModel.xcdatamodeld */; };
-		CDFAE6711E5CC2E20053B691 /* ManagedMonthYear+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFAE66F1E5CC2E20053B691 /* ManagedMonthYear+CoreDataClass.swift */; };
-		CDFAE6721E5CC2E20053B691 /* ManagedMonthYear+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFAE6701E5CC2E20053B691 /* ManagedMonthYear+CoreDataProperties.swift */; };
-		CDFAE6741E5CCE3E0053B691 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFAE6731E5CCE3E0053B691 /* Functions.swift */; };
 		CDFC3E641E3396290065C9E2 /* DateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFC3E631E3396290065C9E2 /* DateController.swift */; };
 		CDFC3E661E33AD530065C9E2 /* MonthYear.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFC3E651E33AD530065C9E2 /* MonthYear.swift */; };
 		D5F139044ADA6C2A88BED4E1 /* Pods_StopAndSearch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE7D707924925F6F16864114 /* Pods_StopAndSearch.framework */; };
@@ -143,10 +139,6 @@
 		CDF6A0731E43979E00875B6E /* SetDateMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetDateMenuController.swift; sourceTree = "<group>"; };
 		CDF6A0751E43AC7200875B6E /* Months.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Months.swift; sourceTree = "<group>"; };
 		CDFAE6661E5C70100053B691 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
-		CDFAE6691E5CBE550053B691 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
-		CDFAE66F1E5CC2E20053B691 /* ManagedMonthYear+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ManagedMonthYear+CoreDataClass.swift"; sourceTree = "<group>"; };
-		CDFAE6701E5CC2E20053B691 /* ManagedMonthYear+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ManagedMonthYear+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		CDFAE6731E5CCE3E0053B691 /* Functions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		CDFC3E631E3396290065C9E2 /* DateController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateController.swift; sourceTree = "<group>"; };
 		CDFC3E651E33AD530065C9E2 /* MonthYear.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthYear.swift; sourceTree = "<group>"; };
 		F9E2F30CB29004A374E4F4EF /* Pods-StopAndSearch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StopAndSearch.release.xcconfig"; path = "Pods/Target Support Files/Pods-StopAndSearch/Pods-StopAndSearch.release.xcconfig"; sourceTree = "<group>"; };
@@ -228,9 +220,6 @@
 		CD7FBCA41E32AE1500DA40F1 /* StopAndSearch */ = {
 			isa = PBXGroup;
 			children = (
-				CDFAE6731E5CCE3E0053B691 /* Functions.swift */,
-				CDFAE66F1E5CC2E20053B691 /* ManagedMonthYear+CoreDataClass.swift */,
-				CDFAE6701E5CC2E20053B691 /* ManagedMonthYear+CoreDataProperties.swift */,
 				CD04FEDC1E57306100832820 /* InitialisesExtendedNavBar.swift */,
 				CDDCB2A61E53BC9400D86CE7 /* Extensions */,
 				CD71A8571E549270004A4132 /* ViewControllers */,
@@ -308,7 +297,6 @@
 			isa = PBXGroup;
 			children = (
 				CDFAE6661E5C70100053B691 /* SettingsTableViewController.swift */,
-				CDFAE6681E5CBE550053B691 /* DataModel.xcdatamodeld */,
 				CD33D9641E3668E000AB6E94 /* DetailViewController.swift */,
 				CD28AF9F1E450A1600663A36 /* ControlsTableViewController.swift */,
 				CD28AF9D1E449F1E00663A36 /* ClusterInfoTableViewController.swift */,
@@ -526,9 +514,7 @@
 				CD568C7E1E32CF9300DB0B9C /* AddressController.swift in Sources */,
 				CDE1CCFC1E45D55900209A1B /* Categories.swift in Sources */,
 				CD7F5A801E55A80B0000A1DF /* SlideInPresentationAnimator.swift in Sources */,
-				CDFAE66A1E5CBE550053B691 /* DataModel.xcdatamodeld in Sources */,
 				CDD5DE0B1E40ADBF000F382C /* FBZoomLevel.swift in Sources */,
-				CDFAE6741E5CCE3E0053B691 /* Functions.swift in Sources */,
 				CDF6A0721E43636C00875B6E /* TouchContainer.swift in Sources */,
 				CDBB86F11E5469CA00902267 /* OverlayBar.swift in Sources */,
 				CDF6A0741E43979E00875B6E /* SetDateMenuController.swift in Sources */,
@@ -553,7 +539,6 @@
 				CDFC3E641E3396290065C9E2 /* DateController.swift in Sources */,
 				CD7FBCA61E32AE1500DA40F1 /* AppDelegate.swift in Sources */,
 				CD6729541E5B552200EEC959 /* PieViewController.swift in Sources */,
-				CDFAE6721E5CC2E20053B691 /* ManagedMonthYear+CoreDataProperties.swift in Sources */,
 				CDD5DE0A1E40ADBF000F382C /* FBQuadTreeNode.swift in Sources */,
 				CDD5DE061E40ADBF000F382C /* FBBoundingBox.swift in Sources */,
 				CDD5DE081E40ADBF000F382C /* FBClusteringManager.swift in Sources */,
@@ -565,7 +550,6 @@
 				CD2743611E4CB81B00FC4C53 /* Loader.swift in Sources */,
 				CDFAE6671E5C70100053B691 /* SettingsTableViewController.swift in Sources */,
 				CD5AD2501E4F756900ED3226 /* ClusterInfoCell.swift in Sources */,
-				CDFAE6711E5CC2E20053B691 /* ManagedMonthYear+CoreDataClass.swift in Sources */,
 				CD7F5A7C1E55A7ED0000A1DF /* SlideInPresentationController.swift in Sources */,
 				CD568C801E32D1F600DB0B9C /* Address.swift in Sources */,
 			);
@@ -784,19 +768,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		CDFAE6681E5CBE550053B691 /* DataModel.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				CDFAE6691E5CBE550053B691 /* DataModel.xcdatamodel */,
-			);
-			currentVersion = CDFAE6691E5CBE550053B691 /* DataModel.xcdatamodel */;
-			path = DataModel.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = CD7FBC9A1E32AE1400DA40F1 /* Project object */;
 }
