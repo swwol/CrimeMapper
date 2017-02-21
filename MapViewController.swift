@@ -42,6 +42,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
   var extendedNavBarFontSize: CGFloat  = 12
   var extendedNavBarFontColor = UIColor.flatBlack
   //
+  
+  let defaults = UserDefaults.standard
+  
   var searchResults = [SearchResult]()
   let locationManager = CLLocationManager()
   var location: CLLocation?
@@ -199,6 +202,15 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
           let month = date.substring(with: range)
           self.theMonth = Int(month)
           self.monthYear = MonthYear(month: self.theMonth! - 1, year: self.theYear! )
+          
+          // store this value on user defaults
+          
+        print ("writing month \(self.theMonth)")
+          self.defaults.set(self.theMonth, forKey: "monthLastUpdated")
+          self.defaults.set(self.theYear, forKey: "yearLastUpdated")
+          
+      
+          
           print("\(self.theMonth)-\(self.theYear)")
           let nav = self.navigationController as! ExtendedNavController
           nav.setDate(month: self.theMonth, year: self.theYear)
