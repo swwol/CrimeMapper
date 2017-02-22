@@ -107,7 +107,7 @@ private extension SlideInPresentationController {
   
     if (presentedViewController is DateController) {
       let controller = presentedViewController as! DateController
-      controller.delegateAndDismiss()
+   //   controller.delegateAndDismiss()
     }
   }
 }

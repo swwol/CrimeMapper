@@ -10,85 +10,93 @@ import UIKit
 
 protocol DateControllerDelegate: class {
   
-  func didSetDate(date: MonthYear, isOn: Bool)
+  func didSetDate(date: MonthYear)
 }
 
 class DateController: UIViewController {
   
-  var currentDate: MonthYear?
-  var dateFilterIsOn: Bool?
   var delegate: DateControllerDelegate?
-  let pickerData =  [Months.months,["2014","2015","2016"]]
-  
-  
-  // done button
-  
+ 
+  var pickerData = [ [String](), [String]() ]
+ 
+  let defaults = UserDefaults.standard
+  var startMonth: Int = 0
+  var startYear: Int = 0
+  var endMonth: Int = 0
+  var endYear: Int = 0
+  var monthLastUpdated: Int = 0
+  var yearLastUpdated: Int = 0
+  var mode: String?
+
   @IBAction func didPressDone(_ sender: Any) {
-    delegateAndDismiss()
+    validateSaveAndDismiss()
   }
-  
-  func delegateAndDismiss() {
-    let month  = datePicker.selectedRow(inComponent: 0)
-    let yearAsString = pickerData[1][datePicker.selectedRow(inComponent: 1)]
-    let year = Int(yearAsString)
-    let date = MonthYear(month:month,  year : year! )
-    delegate?.didSetDate(date: date, isOn: dateFilterIsOn ?? true)
-    self.dismiss(animated: true, completion: nil)
-  }
-  
   @IBOutlet weak var doneButton: UIButton!
-  
-  //labels
-
   @IBOutlet weak var instructionsLabel: UILabel!
-  
-
-  //containers
-  
   @IBOutlet weak var titleViewContainer: UIView!
   @IBOutlet weak var pickerContainer: UIView!
   @IBOutlet weak var instructionsContainer: UIView!
-  @IBOutlet weak var setDateSwitch: UISwitch!
-  
-  //picker
   @IBOutlet weak var datePicker: UIPickerView!
   
   override func viewDidLoad() {
     
     super.viewDidLoad()
-    setPickerState(self.dateFilterIsOn!)
+    print("loaded with mode \(mode!)")
+    readData()
+    initiatePicker()
     datePicker.delegate = self
     datePicker.dataSource = self
     self.view.backgroundColor = .flatWhite
     doneButton.tintColor = .flatMintDark
-    self.setToDate(currentDate)
-  }
+   }
   
-  func setToDate(_ date:MonthYear?) {
-    if let d = date {
-      datePicker.selectRow(d.month, inComponent: 0, animated: false)
-      datePicker.selectRow(d.year - 2014, inComponent: 1, animated: false)
-    }
-  }
-  
-  func setPickerState (_ isOn: Bool) {
-    
-   
-    datePicker.isUserInteractionEnabled = isOn
-    if (isOn) {
-    datePicker.alpha = 1
-    instructionsContainer.backgroundColor  = UIColor.flatMint.withAlphaComponent(0.2)
-   // pickerContainer.backgroundColor = .flatWhite
-    instructionsLabel.text = "select date to filter crime data"
-  
+  override func viewWillAppear(_ animated: Bool) {
+    readData()
+    initiatePicker()
+    datePicker.reloadAllComponents()
+    //set picker to startMonth and startYear if set
+    if startMonth != 0 {
+      setToDate(MonthYear(month: startMonth, year: startYear))
     } else {
-    instructionsContainer.backgroundColor  = UIColor.flatGrayDark.withAlphaComponent(0.3)
-   // pickerContainer.backgroundColor = UIColor.flatWhiteDark.withAlphaComponent(0.5)
-    instructionsLabel.text = "not filtering by date"
-       datePicker.alpha = 0.2
+      setToDate(MonthYear(month: monthLastUpdated, year: yearLastUpdated))
+    }
+    
+  }
+  
+  func readData() {
+    startMonth  = defaults.integer(forKey: "startMonth")
+    startYear  = defaults.integer(forKey: "startYear")
+    endMonth  = defaults.integer(forKey: "endMonth")
+    endYear  = defaults.integer(forKey: "endYear")
+    monthLastUpdated = defaults.integer(forKey: "monthLastUpdated")
+    yearLastUpdated = defaults.integer(forKey: "yearLastUpdated")
+  }
+  
+  func initiatePicker() {
+    
+    pickerData[0]  = Months.months
+    // should be years 2010 - yearlastupdated
+    pickerData[1] = []
+    for y in 2010...yearLastUpdated {
+      pickerData[1].append("\(y)")
     }
   }
-   
+  
+  func setToDate(_ date:MonthYear) {
+  
+     // datePicker.selectRow(d.month, inComponent: 0, animated: false)
+     // datePicker.selectRow(d.year - 2014, inComponent: 1, animated: false)
+  }
+
+  func validateSaveAndDismiss() {
+    let month  = datePicker.selectedRow(inComponent: 0)
+    let yearAsString = pickerData[1][datePicker.selectedRow(inComponent: 1)]
+    let year = Int(yearAsString)
+    let date = MonthYear(month:month,  year : year! )
+    delegate?.didSetDate(date: date)
+    self.dismiss(animated: true, completion: nil)
+  }
+  
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
@@ -99,11 +107,9 @@ extension DateController: UIPickerViewDataSource, UIPickerViewDelegate {
   func numberOfComponents(in pickerView: UIPickerView) -> Int {
     return pickerData.count
   }
-  
   func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
     return pickerData[component].count
   }
-  
   func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
     return NSAttributedString(string:  pickerData[component][row] , attributes: [NSForegroundColorAttributeName:UIColor.flatBlack])
   }

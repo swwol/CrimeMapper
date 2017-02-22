@@ -41,12 +41,10 @@ class ExtendedNavController: UINavigationController {
      topView.dateLabel.text = "all dates"
     }
   }
-  func setDate(date:MonthYear?, isOn: Bool){
+  func setDate(date:MonthYear?){
     //set date from date picker
-    if let d = date, isOn {
+    if let d = date {
       topView.dateLabel.text = "\(d.monthName)-\(d.yearAsString)"
-    }else {
-      topView.dateLabel.text = "all dates"
     }
   }
   

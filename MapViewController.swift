@@ -13,12 +13,6 @@ import CoreLocation
 import Alamofire
 import Gloss
 
-protocol MapViewControllerDelegate {
-  
-  func setCategoriesToShow ( selectedCategories: [Bool]? )
-  func setSectionsToShow ( enabledSections: [Bool]? )
-}
-
 class MapViewController: UIViewController, CLLocationManagerDelegate, InitialisesExtendedNavBar {
   
   @IBAction func graphButtonPressed(_ sender: UIBarButtonItem) {
@@ -316,9 +310,6 @@ extension MapViewController: MKMapViewDelegate {
     }
     if segue.identifier == "setDate" {
       let controller  = segue.destination as! DateController
-      controller.delegate = self
-      controller.currentDate = sender as! MonthYear?
-      controller.dateFilterIsOn = self.dateFilterIsOn
       slideInTransitioningDelegate.direction = .bottom
       slideInTransitioningDelegate.disableCompactHeight = true
       controller.transitioningDelegate = slideInTransitioningDelegate
@@ -448,13 +439,13 @@ extension MapViewController: TouchContainerDelegate {
 }
 
 extension MapViewController: DateControllerDelegate {
-  func didSetDate(date: MonthYear, isOn: Bool) {
+  func didSetDate(date: MonthYear) {
   //  setDateMenuController.setDate(date: date)
-    print ("new date is ", date, isOn)
+    print ("new date is ", date)
     self.monthYear = date
-    self.dateFilterIsOn = isOn
+   
     let nav  = navigationController as! ExtendedNavController
-    nav.setDate(date: date, isOn: isOn)
+    nav.setDate(date: date)
     findAndDisplayDataPointsInVisibleRegion()
   }
 }
