@@ -22,4 +22,8 @@ struct MonthYear {
       return yearAsString+"-"+paddedMonth
   }
   
+  var dateAsString: String {
+    return "\(monthName) \(year)"
+  }
+  
 }
