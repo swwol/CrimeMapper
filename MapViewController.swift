@@ -19,16 +19,6 @@ protocol MapViewControllerDelegate {
   func setSectionsToShow ( enabledSections: [Bool]? )
 }
 
-extension MapViewController: MapViewControllerDelegate {
- 
-  func setCategoriesToShow ( selectedCategories: [Bool]? ) {
-    self.selectedCategories = selectedCategories
-  }
-  func setSectionsToShow ( enabledSections: [Bool]? ) {
-    self.enabledSections = enabledSections
-  }
-}
-
 class MapViewController: UIViewController, CLLocationManagerDelegate, InitialisesExtendedNavBar {
   
   @IBAction func graphButtonPressed(_ sender: UIBarButtonItem) {
@@ -67,17 +57,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
   var monthYear: MonthYear? = nil
   var dateFilterIsOn = true
   var readyToSearch = false
-  var selectedCategories: [Bool]? {
-    didSet {
-      findAndDisplayDataPointsInVisibleRegion()
-    }
-  }
-  var enabledSections: [Bool]? {
-    didSet {
-      findAndDisplayDataPointsInVisibleRegion()
-    }
-  }
-  
   var loader: Loader?
   
   lazy var slideInTransitioningDelegate = SlideInPresentationManager()
@@ -88,7 +67,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
   
   @IBAction func adjustSettings(_ sender: UIBarButtonItem) {
     // load the settings screen with date
-    performSegue(withIdentifier: "settings", sender: selectedCategories)
+    performSegue(withIdentifier: "settings", sender: nil)
   }
   
   @IBAction func infoPressed(_ sender: UIButton) {
@@ -158,7 +137,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
     } else {
       dateToSearch = nil
     }
-    search.performSearch(coords: [ne,nw,sw,se], date: dateToSearch, categories: self.selectedCategories, enabledSections: self.enabledSections) {success in
+    search.performSearch(coords: [ne,nw,sw,se], date: dateToSearch) {success in
       self.generateFBAnnotations(results: success.0)
       //self.myActivityIndicator.stopAnimating()
     }
@@ -240,7 +219,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
     zoom.delegate = self
     mapView.addGestureRecognizer(zoom)
     mapView.isUserInteractionEnabled = true
-    //find date of latest data
+    
+      //find date of latest data
     getDateLastUpdated()
   }
   
@@ -351,18 +331,15 @@ extension MapViewController: MKMapViewDelegate {
     }
     
     if segue.identifier == "settings" {
-      
       print ("loading settings")
-      
     }
-    
     
     if segue.identifier == "loadControls" {
       let tabController = segue.destination as! UITabBarController
       if let catController = tabController.viewControllers?[0] as? ControlsTableViewController{
       catController.checked = sender as! [Bool]?
-      catController.enabledSections = self.enabledSections
-      catController.delegate = self
+     // catController.enabledSections = self.enabledSections
+  //   catController.delegate = self
       }
     }
   }
@@ -537,17 +514,18 @@ extension MapViewController: SearchDelegate {
 extension MapViewController: UINavigationControllerDelegate {
   func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
     
-    print ("I am navigating to ", viewController)
+    
     let nav = navigationController as! ExtendedNavController
+    
     if let controller = viewController as? InitialisesExtendedNavBar {
-      
-    nav.setExtendedBarColor(controller.extendedNavBarColor)
-    nav.setStatusMessage(message: controller.extendedNavBarMessage, size: controller.extendedNavBarFontSize, color: controller.extendedNavBarFontColor )
-    nav.showDate(controller.extendedNavBarShouldShowDate)
-      
+      nav.setExtendedBarColor(controller.extendedNavBarColor)
+      nav.setStatusMessage(message: controller.extendedNavBarMessage, size: controller.extendedNavBarFontSize, color: controller.extendedNavBarFontColor )
+      nav.showDate(controller.extendedNavBarShouldShowDate)
+    }
+    if let mapController = viewController as? MapViewController {
+      mapController.findAndDisplayDataPointsInVisibleRegion()
+    }
   }
-}
-
 }
 
 

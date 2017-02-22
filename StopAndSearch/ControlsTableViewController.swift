@@ -24,31 +24,32 @@ class ControlsTableViewController: UITableViewController,InitialisesExtendedNavB
   var enabledSections: [Bool]?
   var TwoDChecked = [[Bool]]()
   var crimeCategories = [[CrimeCategory]]()
-  var delegate: MapViewControllerDelegate?
-  
+  let defaults = UserDefaults.standard
   
   override func viewDidLoad() {
     
     super.viewDidLoad()
-    if checked == nil {
-      checked = Array(repeating: true, count: Categories.categories.count)
-    }
     
-    if enabledSections == nil {
-      enabledSections = Array(repeating: true, count: Categories.types.count)
-    }
-
+    // add done button
     navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneTapped))
     
     //register category cell
     let cellNib = UINib(nibName: "CategoryCell", bundle: nil)
     tableView.register(cellNib, forCellReuseIdentifier: "CategoryCell")
-    //register custom header cell
     
+    //register custom header cell
     let headerCellNib = UINib(nibName: "CustomHeaderCell", bundle: nil)
     tableView.register(headerCellNib, forCellReuseIdentifier: "HeaderCell")
     tableView.contentInset = UIEdgeInsets(top: 60, left: 0 , bottom: 0 , right: 0)
     
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+  
+    // read in checked and enabled arrays from disk
+    checked = defaults.array(forKey: "selectedCategories") as? [Bool] ?? Array(repeating: true, count: Categories.categories.count)
+    enabledSections = defaults.array(forKey: "enabledSections") as? [Bool] ?? Array(repeating: true, count: Categories.types.count)
+
     //break categories and checked into 2d array
     var n = 0
     for type in Categories.types {
@@ -61,6 +62,7 @@ class ControlsTableViewController: UITableViewController,InitialisesExtendedNavB
       }
     }
     print (TwoDChecked)
+    
   }
   
   
@@ -83,7 +85,7 @@ class ControlsTableViewController: UITableViewController,InitialisesExtendedNavB
   
   func doneTapped() {
     print ("done")
-    let _ = navigationController?.popViewController(animated: true)
+    let _ = navigationController?.popToRootViewController(animated: true)
   }
   
   override func didReceiveMemoryWarning() {
@@ -109,12 +111,15 @@ class ControlsTableViewController: UITableViewController,InitialisesExtendedNavB
         cell.accessoryType = .none
         TwoDChecked[indexPath.section][indexPath.row] = false
         checked = TwoDChecked.flatMap{$0}
-        delegate?.setCategoriesToShow(selectedCategories: checked)
+        //save array to user defaults
+        defaults.set(checked,forKey:"selectedCategories" )
+
       } else {
         cell.accessoryType = .checkmark
         TwoDChecked[indexPath.section][indexPath.row] = true
         checked = TwoDChecked.flatMap{$0}
-        delegate?.setCategoriesToShow(selectedCategories: checked)
+        //save array to user defaults
+        defaults.set(checked,forKey:"selectedCategories" )
 
       }
     }
@@ -189,7 +194,10 @@ extension ControlsTableViewController: CustomHeaderCellDelegate {
       }
       } else {print ("would have crashed")}
     }
-    delegate?.setSectionsToShow(enabledSections: enabledSections)
+  
+    //save array to user defaults
+    defaults.set(enabledSections,forKey:"enabledSections" )
+
   }
 }
 /*

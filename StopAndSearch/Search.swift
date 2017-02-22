@@ -29,6 +29,7 @@ class Search {
   var categoriesSearched: Int = 0
   var unknownErrors: Int = 0
   var tooManyResultsErrors: Int = 0
+  let defaults = UserDefaults.standard
   
   func cancelSearches() {
     
@@ -36,8 +37,8 @@ class Search {
     sessionManager?.session.invalidateAndCancel()
   }
   
-  func performSearch(coords: [CLLocationCoordinate2D], date: MonthYear?, categories: [Bool]?, enabledSections: [Bool]?,  completion: @escaping SearchComplete) {
-  
+  func performSearch(coords: [CLLocationCoordinate2D], date: MonthYear?,completion: @escaping SearchComplete) {
+    
   cancelSearches()
   delegate?.searchStarted()
     let config : URLSessionConfiguration  = {
@@ -48,13 +49,13 @@ class Search {
       return configuration
     }()
 
- 
-  sessionManager = Alamofire.SessionManager(configuration: config)
- 
+    sessionManager = Alamofire.SessionManager(configuration: config)
     
-    let cats = categories ?? Array(repeating: true, count: Categories.categories.count) // if not categories passed, make all true
-    let sects  = enabledSections ?? Array(repeating: true, count: Categories.types.count)
-  
+    //read in selected categories and sections from disk or set all to true if null
+   
+    let cats = defaults.array(forKey: "selectedCategories") as? [Bool] ?? Array(repeating: true, count: Categories.categories.count)
+    let sects  = defaults.array(forKey: "enabledSections") as? [Bool] ?? Array(repeating: true, count: Categories.types.count)
+    
     // first get selected cats
     var selectedCats = [CrimeCategory]()
     for (i,cat) in cats.enumerated() {
