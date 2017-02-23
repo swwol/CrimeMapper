@@ -151,21 +151,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
       if let JSON = response.result.value {
         print("JSON: \(JSON)")
         let parsedToDict = JSON as! [String:String]
-  
         if let date  = parsedToDict["date"] {
-          
-          let index = date.index(date.startIndex, offsetBy:4)
-          let year = date.substring(to: index)
-          let yearAsInt = Int(year)
-          let monthStartIndex = date.index(date.startIndex, offsetBy:5)
-          let monthEndIndex = date.index(date.startIndex, offsetBy: 7)
-          let range = monthStartIndex..<monthEndIndex
-          let month = date.substring(with: range)
-          let monthAsInt = Int(month)
-          
+          let formattedDate = MonthYear(date: date)
           // store this value on user defaults
-          self.defaults.set(monthAsInt, forKey: "monthLastUpdated")
-          self.defaults.set(yearAsInt, forKey: "yearLastUpdated")
+          self.defaults.set(formattedDate.month, forKey: "monthLastUpdated")
+          self.defaults.set(formattedDate.year, forKey: "yearLastUpdated")
           self.updateDateExtendedNavBarInfo()
         }
       }
@@ -202,7 +192,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
   }
   
   override func viewWillAppear(_ animated: Bool) {
-    // also update date in status bar
+   
+    updateDateExtendedNavBarInfo()
     findAndDisplayDataPointsInVisibleRegion()
   }
   

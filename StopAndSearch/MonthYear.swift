@@ -8,22 +8,42 @@
 
 import Foundation
 
-struct MonthYear {
-  let month: Int
-  let year: Int
-  var monthName: String {
-    return "\(Months.months[month])"
-  }
-  var yearAsString: String {
-    return "\(year)"
-  }
-  var dateFormattedForApiSearch: String {
-      let paddedMonth  = String(format: "%02d", (month+1))
-      return yearAsString+"-"+paddedMonth
+class MonthYear {
+  
+  var month: Int
+  var year: Int
+  
+  init (month: Int, year: Int) {
+    self.month = month
+    self.year = year
   }
   
-  var dateAsString: String {
-    return "\(monthName) \(year)"
+  init (date: String) {
+    
+    let index = date.index(date.startIndex, offsetBy:4)
+    let year = date.substring(to: index)
+    self.year = Int(year) ?? 0
+    let monthStartIndex = date.index(date.startIndex, offsetBy:5)
+    let monthEndIndex = date.index(date.startIndex, offsetBy: 7)
+    let range = monthStartIndex..<monthEndIndex
+    let month = date.substring(with: range)
+    self.month = Int(month) ?? 0
+  }
+  
+  func getMonthName() -> String {
+    return "\(Months.months[self.month - 1])"
+  }
+  func  getYearAsString() -> String {
+    return "\(year)"
+  }
+  
+  func getDateFormattedForApiSearch() -> String {
+      let paddedMonth  = String(format: "%02d", (month))
+      return getYearAsString()+"-"+paddedMonth
+  }
+  
+  func getDateAsString() -> String {
+    return "\(getMonthName()) \(year)"
   }
   
 }

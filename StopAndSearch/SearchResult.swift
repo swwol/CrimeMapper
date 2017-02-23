@@ -43,13 +43,22 @@ class SearchResult: NSObject,Decodable,MKAnnotation {
     self.month = "month" <~~ json
     self.latitude = Double(latitudeString!) ?? 0
     self.longitude = Double(longitudeString!) ?? 0
-    self.subtitle = month
-  
+    if let m = self.month {
+    self.subtitle = MonthYear(date: m).getDateAsString()
+    } else {
+     self.subtitle = "invalid"
+    }
     if let c  = category {
       let a = Categories.categories.filter { $0.url == c }
+      if !a.isEmpty {
       self.title = a[0].category
       self.color =  a[0].color
       self.type = a[0].type
+      } else {
+      self.title = "Other Crime"
+      self.color = UIColor.flatGray
+      self.type = "other"
+      }
     } else {
       print ("INVALID CATEGORY!!!!!!!")
       self.title = nil

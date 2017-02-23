@@ -80,10 +80,10 @@ class Search {
       let yearLastupdated  = defaults.integer(forKey: "yearLastUpdated")
       var startDate: MonthYear
       if startMonth != 0 {
-        startDate = MonthYear(month: startMonth - 1, year: startYear)
+        startDate = MonthYear(month: startMonth, year: startYear)
       }
       else {
-        startDate = MonthYear(month: monthLastUpdated - 1, year: yearLastupdated)
+        startDate = MonthYear(month: monthLastUpdated, year: yearLastupdated)
         
       }
      
@@ -153,7 +153,7 @@ class Search {
     searchString.append( "?poly=\(coords[0].latitude),\(coords[0].longitude):\(coords[1].latitude),\(coords[1].longitude):\(coords[2].latitude),\(coords[2].longitude):\(coords[3].latitude),\(coords[3].longitude)")
     
     if let d = date {
-      searchString.append("&date="+d.dateFormattedForApiSearch)
+      searchString.append("&date="+d.getDateFormattedForApiSearch())
     }
 
     let url = URL(string: searchString)

@@ -35,7 +35,7 @@ class DateController: UIViewController {
   @IBAction func setToLatest(_ sender: UIButton) {
     
     if monthLastUpdated != 0 {
-        setToDate(MonthYear(month: monthLastUpdated - 1, year: yearLastUpdated), anim: true)
+        setToDate(MonthYear(month: monthLastUpdated, year: yearLastUpdated), anim: true)
     }
   }
   
@@ -58,9 +58,9 @@ class DateController: UIViewController {
     datePicker.reloadAllComponents()
     //set picker to startMonth and startYear if set
     if startMonth != 0 {
-      setToDate(MonthYear(month: startMonth - 1, year: startYear), anim: false)
+      setToDate(MonthYear(month: startMonth, year: startYear), anim: false)
     } else {
-      setToDate(MonthYear(month: monthLastUpdated - 1, year: yearLastUpdated), anim: false)
+      setToDate(MonthYear(month: monthLastUpdated, year: yearLastUpdated), anim: false)
     }
   }
   
@@ -85,7 +85,7 @@ class DateController: UIViewController {
   
   func setToDate(_ date:MonthYear, anim: Bool) {
   
-      datePicker.selectRow(date.month, inComponent: 0, animated: anim)
+      datePicker.selectRow(date.month - 1, inComponent: 0, animated: anim)
       datePicker.selectRow(date.year - 2010, inComponent: 1, animated: anim)
   }
   

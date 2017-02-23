@@ -47,8 +47,8 @@ class ExtendedNavController: UINavigationController {
     let startMonth = defaults.integer(forKey: "startMonth")
     let startYear = defaults.integer(forKey: "startYear")
     if startMonth != 0 {
-      let startDateAsMonthYear = MonthYear(month: startMonth - 1, year: startYear)
-      topView.dateLabel.text = startDateAsMonthYear.dateAsString
+      let startDateAsMonthYear = MonthYear(month: startMonth, year: startYear)
+      topView.dateLabel.text = startDateAsMonthYear.getDateAsString()
       
     }
   }

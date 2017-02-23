@@ -86,7 +86,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
       cell.catView.backgroundColor = data!.color!
       cell.catView.layer.cornerRadius = cell.catView.frame.size.width/2
       cell.crimeLabel.text = data!.title
-      cell.dateLabel.text = getDateInWordFormat(date: data!.subtitle!)
+      cell.dateLabel.text = data!.subtitle!
       cell.streetLabel.text  = data!.street!
       cell.streetLabel.textColor  =  UIColor.init(complementaryFlatColorOf: UIColor.flatMintDark)
       cell.coordLabel.text = "lat \(data!.latitudeString!) long \(data!.longitudeString!)"
@@ -107,9 +107,9 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
       let element = dataArray[indexPath.row]
       
       if ( element.catTitle == "date") {
-        let date =   getDateInWordFormat(date: element.catContents[0])
+   
         cell.textLabel?.text = "date"
-        cell.detailTextLabel?.text = date
+        cell.detailTextLabel?.text =  MonthYear(date: element.catContents[0]).getDateAsString()
         return cell
         
       } else if element.catTitle == "coordinates" {
@@ -118,7 +118,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
         
       } else if element.catTitle == "outcome date" {
-        let date =   getDateInWordFormat(date: element.catContents[0])
+        let date =   MonthYear(date : element.catContents[0]).getDateAsString()
         cell.textLabel?.text = "outcome date"
         cell.detailTextLabel?.text = date
         return cell
@@ -130,17 +130,6 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     }
   }
   
-  func getDateInWordFormat( date: String) -> String {
-    
-    let yearEndIndex = date.index(date.startIndex, offsetBy: 4)
-    let monthStartIndex = date.index(date.startIndex, offsetBy: 5)
-    let year = date.substring(to: yearEndIndex)
-    let range = monthStartIndex..<date.endIndex
-    let month =  date.substring(with: range)
-    let monthAsInt = Int(month)
-    let monthAsWord = DateFormatter().monthSymbols[monthAsInt! - 1].capitalized
-    return "\(monthAsWord) \(year)"
-  }
   
   func putDataInArray() {
     

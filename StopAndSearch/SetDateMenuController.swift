@@ -61,7 +61,7 @@ class SetDateMenuController: UIViewController {
   func setDate(date:MonthYear?){
     //set date from date picker
     if let d = date {
-      self.label.text = "\(d.monthName)-\(d.yearAsString)"
+      self.label.text = "\(d.getMonthName())-\(d.getYearAsString())"
     }else {
       self.label.text = "all dates"
     }
