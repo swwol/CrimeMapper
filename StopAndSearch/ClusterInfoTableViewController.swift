@@ -17,6 +17,7 @@ class ClusterInfoTableViewController: UITableViewController,InitialisesExtendedN
   var extendedNavBarShouldShowDate = false
   var extendedNavBarFontSize: CGFloat  = 14
   var extendedNavBarFontColor = UIColor.flatBlackDark
+  var extendedNavBarIsHidden: Bool = false
   //
   var cluster: FBAnnotationCluster?
   var clusterContents = [[SearchResult]]()

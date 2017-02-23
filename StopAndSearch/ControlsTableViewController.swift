@@ -19,6 +19,7 @@ class ControlsTableViewController: UITableViewController,InitialisesExtendedNavB
   var extendedNavBarShouldShowDate = false
   var extendedNavBarFontSize: CGFloat  = 14
   var extendedNavBarFontColor = UIColor.flatBlackDark
+  var extendedNavBarIsHidden: Bool = false
   //
   var checked: [Bool]?
   var enabledSections: [Bool]?

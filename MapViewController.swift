@@ -25,6 +25,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
   var extendedNavBarShouldShowDate = true
   var extendedNavBarFontSize: CGFloat  = 12
   var extendedNavBarFontColor = UIColor.flatBlack
+  var extendedNavBarIsHidden = false
   //
   
   let defaults = UserDefaults.standard
@@ -479,6 +480,7 @@ extension MapViewController: UINavigationControllerDelegate {
       nav.setExtendedBarColor(controller.extendedNavBarColor)
       nav.setStatusMessage(message: controller.extendedNavBarMessage, size: controller.extendedNavBarFontSize, color: controller.extendedNavBarFontColor )
       nav.showDate(controller.extendedNavBarShouldShowDate)
+      nav.shouldHideExtendedBar(controller.extendedNavBarIsHidden)
     }
   }
 }

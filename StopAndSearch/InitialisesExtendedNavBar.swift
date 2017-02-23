@@ -11,5 +11,6 @@ protocol InitialisesExtendedNavBar {
   var extendedNavBarShouldShowDate: Bool {get set}
   var extendedNavBarFontSize: CGFloat {get set}
   var extendedNavBarFontColor: UIColor {get set}
+  var extendedNavBarIsHidden: Bool {get set}
 
 }

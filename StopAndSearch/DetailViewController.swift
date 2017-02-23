@@ -16,6 +16,7 @@ class DetailViewController: UIViewController,InitialisesExtendedNavBar {
   var extendedNavBarShouldShowDate = false
   var extendedNavBarFontSize: CGFloat  = 14
   var extendedNavBarFontColor = UIColor.flatBlackDark
+  var extendedNavBarIsHidden = false
   //
   @IBOutlet weak var tableView: UITableView!
   

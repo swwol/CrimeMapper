@@ -8,8 +8,15 @@
 
 import UIKit
 
-class DateController: UIViewController {
+class DateController: UIViewController, InitialisesExtendedNavBar {
   
+  var extendedNavBarColor = UIColor.flatGray.withAlphaComponent(0.33)
+  var extendedNavBarMessage =  "touch cluster of pin for info"
+  var extendedNavBarShouldShowDate = true
+  var extendedNavBarFontSize: CGFloat  = 12
+  var extendedNavBarFontColor = UIColor.flatBlack
+  var extendedNavBarIsHidden = true  //
+  //
   var pickerData = [ [String](), [String]() ]
   let defaults = UserDefaults.standard
   var startMonth: Int = 0
@@ -19,7 +26,7 @@ class DateController: UIViewController {
   var monthLastUpdated: Int = 0
   var yearLastUpdated: Int = 0
   var mode: String?
-
+  //
   @IBAction func didPressDone(_ sender: Any) {
     validateSaveAndDismiss()
   }
@@ -36,10 +43,21 @@ class DateController: UIViewController {
         setToDate(MonthYear(month: monthLastUpdated, year: yearLastUpdated), anim: true)
     }
   }
+  @IBOutlet weak var startEndControl: UISegmentedControl!
+  @IBAction func ModeChanged(_ sender: UISegmentedControl) {
+    
+    if sender.selectedSegmentIndex == 0 {
+      self.mode = "start"
+        } else {
+      self.mode = "end"
+    }
+    setPickerDateForMode(mode: self.mode!, anim: true)
+  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    print("loaded with mode \(mode!)")
+    startEndControl.tintColor = UIColor.flatMint
+    
     doneButton.layer.cornerRadius = 10
     setToLatestButton.layer.cornerRadius = 10
     readData()
@@ -56,20 +74,27 @@ class DateController: UIViewController {
     datePicker.reloadAllComponents()
     
     if let mode = self.mode {
-      if mode == "start" {
-        //set picker to startMonth and startYear if set
-        if startMonth != 0 {
-          setToDate(MonthYear(month: startMonth, year: startYear), anim: false)
-        } else {
-          setToDate(MonthYear(month: monthLastUpdated, year: yearLastUpdated), anim: false)
-        }
-      } else if mode == "end" {
-        //set picker to endMonth and endYear if set
-        if endMonth != 0 {
-          setToDate(MonthYear(month: endMonth, year: endYear), anim: false)
-        } else {
-          setToDate(MonthYear(month: monthLastUpdated, year: yearLastUpdated), anim: false)
-        }
+      setPickerDateForMode(mode: mode)
+    }
+  }
+  
+  func setPickerDateForMode(mode : String, anim: Bool = false) {
+    
+    if mode == "start" {
+      startEndControl.selectedSegmentIndex = 0
+      //set picker to startMonth and startYear if set
+      if startMonth != 0 {
+        setToDate(MonthYear(month: startMonth, year: startYear), anim: anim)
+      } else {
+        setToDate(MonthYear(month: monthLastUpdated, year: yearLastUpdated), anim: anim)
+      }
+    }else if mode == "end" {
+      startEndControl.selectedSegmentIndex = 1
+      //set picker to endMonth and endYear if set
+      if endMonth != 0 {
+        setToDate(MonthYear(month: endMonth, year: endYear), anim: anim)
+      } else {
+        setToDate(MonthYear(month: monthLastUpdated, year: yearLastUpdated), anim: anim)
       }
     }
   }

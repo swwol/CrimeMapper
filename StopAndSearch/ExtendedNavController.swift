@@ -22,6 +22,11 @@ class ExtendedNavController: UINavigationController {
     topView.bgview.backgroundColor = color
   }
   
+  func shouldHideExtendedBar( _ b: Bool ) {
+    topView.isHidden = b
+  }
+  
+  
   func setTopViewFrame() {
     let nbh  = self.navigationBar.frame.size.height
     let nby  = self.navigationBar.frame.origin.y
