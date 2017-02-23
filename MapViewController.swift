@@ -48,7 +48,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
   
  
   var monthYear: MonthYear? = nil
-  var dateFilterIsOn = true
   var readyToSearch = false
   var loader: Loader?
   
@@ -118,13 +117,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
     // clear fbpins array
     
     fbpins = []
-    var dateToSearch: MonthYear?
-    if dateFilterIsOn {
-      dateToSearch = self.monthYear
-    } else {
-      dateToSearch = nil
-    }
-    search.performSearch(coords: [ne,nw,sw,se], date: dateToSearch) {success in
+  
+    search.performSearch(coords: [ne,nw,sw,se] ) {success in
       self.generateFBAnnotations(results: success.0)
       //self.myActivityIndicator.stopAnimating()
     }
@@ -157,8 +151,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
       if let JSON = response.result.value {
         print("JSON: \(JSON)")
         let parsedToDict = JSON as! [String:String]
-        print (parsedToDict)
+  
         if let date  = parsedToDict["date"] {
+          
           let index = date.index(date.startIndex, offsetBy:4)
           let year = date.substring(to: index)
           let yearAsInt = Int(year)
@@ -167,6 +162,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
           let range = monthStartIndex..<monthEndIndex
           let month = date.substring(with: range)
           let monthAsInt = Int(month)
+          
           // store this value on user defaults
           self.defaults.set(monthAsInt, forKey: "monthLastUpdated")
           self.defaults.set(yearAsInt, forKey: "yearLastUpdated")

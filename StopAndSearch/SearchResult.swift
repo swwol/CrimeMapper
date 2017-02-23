@@ -27,7 +27,7 @@ class SearchResult: NSObject,Decodable,MKAnnotation {
   let color: UIColor?
   let type: String?
   var coordinate:CLLocationCoordinate2D{
-    return CLLocationCoordinate2DMake(latitude, longitude)
+  return CLLocationCoordinate2DMake(latitude, longitude)
   }
 
 //  let mapAnnotation: MapAnnotation

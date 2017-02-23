@@ -37,7 +37,7 @@ class Search {
     sessionManager?.session.invalidateAndCancel()
   }
   
-  func performSearch(coords: [CLLocationCoordinate2D], date: MonthYear?,completion: @escaping SearchComplete) {
+  func performSearch(coords: [CLLocationCoordinate2D],completion: @escaping SearchComplete) {
     
   cancelSearches()
   delegate?.searchStarted()
@@ -74,15 +74,23 @@ class Search {
       categoriesSearched =  0
       unknownErrors = 0
       tooManyResultsErrors = 0
-      
-      let searchURL = getSearchURL(coords: coords, date: date, cat: selectedCat)
+      let startMonth = defaults.integer(forKey: "startMonth")
+      let startYear = defaults.integer(forKey: "startYear")
+      let monthLastUpdated = defaults.integer(forKey: "monthLastUpdated")
+      let yearLastupdated  = defaults.integer(forKey: "yearLastUpdated")
+      var startDate: MonthYear
+      if startMonth != 0 {
+        startDate = MonthYear(month: startMonth - 1, year: startYear)
+      }
+      else {
+        startDate = MonthYear(month: monthLastUpdated - 1, year: yearLastupdated)
+        
+      }
+     
+      let searchURL = getSearchURL(coords: coords, date: startDate, cat: selectedCat)
       print (searchURL)
       
-    
-         
       sessionManager?.request(searchURL).responseJSON { response in
-        
-    
         
       if let status = response.response?.statusCode {
               
