@@ -29,9 +29,7 @@ class DateController: UIViewController {
   @IBOutlet weak var pickerContainer: UIView!
   @IBOutlet weak var instructionsContainer: UIView!
   @IBOutlet weak var datePicker: UIPickerView!
-  
   @IBOutlet weak var setToLatestButton: UIButton!
-  
   @IBAction func setToLatest(_ sender: UIButton) {
     
     if monthLastUpdated != 0 {
@@ -45,7 +43,7 @@ class DateController: UIViewController {
     doneButton.layer.cornerRadius = 10
     setToLatestButton.layer.cornerRadius = 10
     readData()
-    initiatePicker()
+    initiatePickerData()
     datePicker.delegate = self
     datePicker.dataSource = self
     self.view.backgroundColor = .flatWhite
@@ -54,13 +52,25 @@ class DateController: UIViewController {
   
   override func viewWillAppear(_ animated: Bool) {
     readData()
-    initiatePicker()
+    initiatePickerData()
     datePicker.reloadAllComponents()
-    //set picker to startMonth and startYear if set
-    if startMonth != 0 {
-      setToDate(MonthYear(month: startMonth, year: startYear), anim: false)
-    } else {
-      setToDate(MonthYear(month: monthLastUpdated, year: yearLastUpdated), anim: false)
+    
+    if let mode = self.mode {
+      if mode == "start" {
+        //set picker to startMonth and startYear if set
+        if startMonth != 0 {
+          setToDate(MonthYear(month: startMonth, year: startYear), anim: false)
+        } else {
+          setToDate(MonthYear(month: monthLastUpdated, year: yearLastUpdated), anim: false)
+        }
+      } else if mode == "end" {
+        //set picker to endMonth and endYear if set
+        if endMonth != 0 {
+          setToDate(MonthYear(month: endMonth, year: endYear), anim: false)
+        } else {
+          setToDate(MonthYear(month: monthLastUpdated, year: yearLastUpdated), anim: false)
+        }
+      }
     }
   }
   
@@ -73,7 +83,7 @@ class DateController: UIViewController {
     yearLastUpdated = defaults.integer(forKey: "yearLastUpdated")
   }
   
-  func initiatePicker() {
+  func initiatePickerData() {
     
     pickerData[0]  = Months.months
     // should be years 2010 - yearlastupdated
@@ -93,24 +103,83 @@ class DateController: UIViewController {
     let month  = datePicker.selectedRow(inComponent: 0) + 1
     let yearAsString = pickerData[1][datePicker.selectedRow(inComponent: 1)]
     let year = Int(yearAsString)
-    //check if chosen date for startdate is before last date updated
-    if year == yearLastUpdated && month > monthLastUpdated {
+    
+    guard (year! <= yearLastUpdated && month <= monthLastUpdated)  else {
       showDateIsLaterThanLatestDataAlert()
-    } else {
-      // save date to start date and dissmiss
-      defaults.set(month, forKey:"startMonth")
-      defaults.set(year, forKey:"startYear")
-      
-      if let nav = navigationController {
-        nav.popViewController(animated: true)
-      } else {
-        self.dismiss(animated: true, completion: nil)
+      return
+    }
+    
+    if let mode = self.mode {
+      if mode == "start" {
+        guard startDateIsValid (m:month,y:year!)  else {
+          return
+        }
+        
+        defaults.set(month, forKey:"startMonth")
+        defaults.set(year, forKey:"startYear")
+        goBack()
+      } else if mode == "end" {
+        
+        guard  endDateIsValid(m:month,y:year!) else {
+          return
+        }
+        defaults.set(month, forKey:"endMonth")
+        defaults.set(year, forKey:"endYear")
+        goBack()
       }
     }
   }
   
+  func startDateIsValid(m:Int, y: Int) -> Bool {
+    // start date is valid if it is before end date, or if no end date is set
+    if   endMonth == 0 || (m <= endMonth && y <= endYear) {
+      return true
+    } else {
+      showEndDateIsLaterThanStartDateAlert()
+      return false
+    }
+  }
+  
+  func endDateIsValid(m:Int, y: Int) -> Bool {
+    // end date is valid if it is after end date, and start date is set
+    
+    guard startMonth != 0 else {
+      showNoStartDateSetAlert()
+      return false
+    }
+    if  (m >= endMonth && y >= endYear) {
+      return true
+    } else {
+      showEndDateIsLaterThanStartDateAlert()
+      return false
+    }
+  }
+  
+  
+  func goBack() {
+    if let nav = navigationController {
+      nav.popViewController(animated: true)
+    } else {
+      self.dismiss(animated: true, completion: nil)
+    }
+  }
+  
+  func showNoStartDateSetAlert() {
+    let alert = UIAlertController(title: "No start date set",message:"Set a start date before setting end date", preferredStyle: .alert)
+    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+    alert.addAction(okAction)
+    present(alert, animated: true, completion: nil)
+  }
+  
   func showDateIsLaterThanLatestDataAlert() {
-    let alert = UIAlertController(title: "Start date is later than newest data",message:"Latest data available is for \(Months.months[monthLastUpdated - 1]) \(yearLastUpdated).", preferredStyle: .alert)
+    let alert = UIAlertController(title: "Date is later than newest data",message:"Latest data available is for \(Months.months[monthLastUpdated - 1]) \(yearLastUpdated).", preferredStyle: .alert)
+    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+    alert.addAction(okAction)
+    present(alert, animated: true, completion: nil)
+  }
+  
+  func showEndDateIsLaterThanStartDateAlert() {
+    let alert = UIAlertController(title: "Start date is later than end date",message:"Start date must be before end date", preferredStyle: .alert)
     let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
     alert.addAction(okAction)
     present(alert, animated: true, completion: nil)

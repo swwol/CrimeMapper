@@ -21,11 +21,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let barTintColor = UIColor.flatMintDark
     UISearchBar.appearance().barTintColor = barTintColor
     UISearchBar.appearance().tintColor = .white
- 
+    UIToolbar.appearance().tintColor = .white
     
     
     let tintColor  =  UIColor(red: 1, green: 1, blue: 1 ,alpha: 1)
-    window!.tintColor = tintColor
+    
+    window!.tintColor = .flatMintDark
+    
     
     let navigationBarAppearance = UINavigationBar.appearance()
     navigationBarAppearance.tintColor = tintColor
