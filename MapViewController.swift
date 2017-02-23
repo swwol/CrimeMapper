@@ -46,28 +46,21 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
   var fbpins = [SearchResult]()
   let setDateMenuController = SetDateMenuController()
   
-  var theMonth: Int? = nil
-  var theYear: Int? = nil
+ 
   var monthYear: MonthYear? = nil
   var dateFilterIsOn = true
   var readyToSearch = false
   var loader: Loader?
   
   lazy var slideInTransitioningDelegate = SlideInPresentationManager()
-  @IBAction func setDate(_ sender: UIBarButtonItem) {
-    print ("set date")
-    self.performSegue(withIdentifier: "setDate", sender: self.monthYear)
-  }
+  
   
   @IBAction func adjustSettings(_ sender: UIBarButtonItem) {
     // load the settings screen with date
     performSegue(withIdentifier: "settings", sender: nil)
   }
   
-  @IBAction func infoPressed(_ sender: UIButton) {
-    print("infopressed")
-    search.cancelSearches()
-  }
+
   
   @IBOutlet weak var toolbar: UIToolbar!
   @IBAction func searchMap(_ sender: UIBarButtonItem) {
@@ -168,32 +161,26 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
         if let date  = parsedToDict["date"] {
           let index = date.index(date.startIndex, offsetBy:4)
           let year = date.substring(to: index)
-          self.theYear = Int(year)
+          let yearAsInt = Int(year)
           let monthStartIndex = date.index(date.startIndex, offsetBy:5)
           let monthEndIndex = date.index(date.startIndex, offsetBy: 7)
           let range = monthStartIndex..<monthEndIndex
           let month = date.substring(with: range)
-          self.theMonth = Int(month)
-          self.monthYear = MonthYear(month: self.theMonth! - 1, year: self.theYear! )
-          
+          let monthAsInt = Int(month)
           // store this value on user defaults
-          
-        print ("writing month \(self.theMonth)")
-          self.defaults.set(self.theMonth, forKey: "monthLastUpdated")
-          self.defaults.set(self.theYear, forKey: "yearLastUpdated")
-          
-      
-          
-          print("\(self.theMonth)-\(self.theYear)")
-          let nav = self.navigationController as! ExtendedNavController
-          nav.setDate(month: self.theMonth, year: self.theYear)
+          self.defaults.set(monthAsInt, forKey: "monthLastUpdated")
+          self.defaults.set(yearAsInt, forKey: "yearLastUpdated")
+          self.updateDateExtendedNavBarInfo()
         }
-      } else {
-        self.theYear = nil; self.theMonth = nil
       }
       self.readyToSearch = true
       self.findAndDisplayDataPointsInVisibleRegion()
     }
+  }
+  
+  func updateDateExtendedNavBarInfo() {
+    let nav = self.navigationController as! ExtendedNavController
+    nav.updateInfo()
   }
   
   @IBOutlet weak var mapView: MKMapView!
@@ -216,6 +203,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
     
       //find date of latest data
     getDateLastUpdated()
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    // also update date in status bar
+    findAndDisplayDataPointsInVisibleRegion()
   }
   
   
@@ -438,18 +430,6 @@ extension MapViewController: TouchContainerDelegate {
   }
 }
 
-extension MapViewController: DateControllerDelegate {
-  func didSetDate(date: MonthYear) {
-  //  setDateMenuController.setDate(date: date)
-    print ("new date is ", date)
-    self.monthYear = date
-   
-    let nav  = navigationController as! ExtendedNavController
-    nav.setDate(date: date)
-    findAndDisplayDataPointsInVisibleRegion()
-  }
-}
-
 extension MapViewController: FBAnnotationClusterViewDelegate {
   func touchBegan() {
     search.cancelSearches()
@@ -512,9 +492,6 @@ extension MapViewController: UINavigationControllerDelegate {
       nav.setExtendedBarColor(controller.extendedNavBarColor)
       nav.setStatusMessage(message: controller.extendedNavBarMessage, size: controller.extendedNavBarFontSize, color: controller.extendedNavBarFontColor )
       nav.showDate(controller.extendedNavBarShouldShowDate)
-    }
-    if let mapController = viewController as? MapViewController {
-      mapController.findAndDisplayDataPointsInVisibleRegion()
     }
   }
 }

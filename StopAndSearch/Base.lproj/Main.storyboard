@@ -189,25 +189,57 @@
                                 <rect key="frame" x="0.0" y="124" width="414" height="612"/>
                                 <subviews>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ev3-QU-UqQ">
-                                        <rect key="frame" x="47" y="198" width="320" height="216"/>
+                                        <rect key="frame" x="47" y="213" width="320" height="186"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <color key="tintColor" red="0.19115509089999999" green="0.63786703349999996" blue="0.26147949700000001" alpha="1" colorSpace="calibratedRGB"/>
                                     </pickerView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C6E-zo-Bgo">
-                                        <rect key="frame" x="186" y="515" width="42" height="33"/>
+                                        <rect key="frame" x="30" y="522" width="354" height="60"/>
+                                        <color key="backgroundColor" red="0.15101002159999999" green="0.56891876460000002" blue="0.43715286250000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="5BN-dR-b3F"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
-                                        <state key="normal" title="Done"/>
+                                        <state key="normal" title="Done">
+                                            <color key="titleColor" red="0.90823972230000005" green="0.92638683320000004" blue="0.93171715740000005" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <state key="selected">
+                                            <color key="titleColor" red="0.1819814891" green="0.69426733259999995" blue="0.53024792669999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
                                         <connections>
                                             <action selector="didPressDone:" destination="Dbq-TE-K4Q" eventType="touchUpInside" id="BLW-up-ZUW"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wue-jy-uSz">
+                                        <rect key="frame" x="30" y="432" width="354" height="60"/>
+                                        <color key="backgroundColor" red="0.15101002159999999" green="0.56891876460000002" blue="0.43715286250000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="vVh-F6-KIX"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <state key="normal" title="set to date latest available data">
+                                            <color key="titleColor" red="0.90823972230000005" green="0.92638683320000004" blue="0.93171715740000005" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <state key="selected">
+                                            <color key="titleColor" red="0.18198148906230927" green="0.69426733255386353" blue="0.53024792671203613" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="setToLatest:" destination="Dbq-TE-K4Q" eventType="touchUpInside" id="nhF-lS-PJe"/>
                                         </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.90823972230000005" green="0.92638683320000004" blue="0.93171715740000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstItem="C6E-zo-Bgo" firstAttribute="leading" secondItem="hCj-v4-2kl" secondAttribute="leading" constant="30" id="1nn-Cr-Zc3"/>
+                                    <constraint firstItem="C6E-zo-Bgo" firstAttribute="top" secondItem="Wue-jy-uSz" secondAttribute="bottom" constant="30" id="6lw-bz-gms"/>
+                                    <constraint firstAttribute="trailing" secondItem="Wue-jy-uSz" secondAttribute="trailing" constant="30" id="MlP-hN-7sO"/>
+                                    <constraint firstAttribute="trailing" secondItem="C6E-zo-Bgo" secondAttribute="trailing" constant="30" id="Pqf-12-hVU"/>
+                                    <constraint firstAttribute="bottom" secondItem="C6E-zo-Bgo" secondAttribute="bottom" constant="30" id="R74-iH-9IA"/>
                                     <constraint firstItem="C6E-zo-Bgo" firstAttribute="centerX" secondItem="hCj-v4-2kl" secondAttribute="centerX" id="SaC-uc-5ss"/>
-                                    <constraint firstAttribute="bottom" secondItem="C6E-zo-Bgo" secondAttribute="bottom" constant="64" id="ZlV-Lr-3ge"/>
+                                    <constraint firstItem="Wue-jy-uSz" firstAttribute="top" secondItem="Ev3-QU-UqQ" secondAttribute="bottom" constant="33" id="Zel-AP-ogW"/>
                                     <constraint firstItem="Ev3-QU-UqQ" firstAttribute="centerX" secondItem="hCj-v4-2kl" secondAttribute="centerX" id="mXO-gS-20I"/>
                                     <constraint firstItem="Ev3-QU-UqQ" firstAttribute="centerY" secondItem="hCj-v4-2kl" secondAttribute="centerY" id="mh6-Iv-jlV"/>
+                                    <constraint firstItem="Wue-jy-uSz" firstAttribute="leading" secondItem="hCj-v4-2kl" secondAttribute="leading" constant="30" id="zMh-VY-evz"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qBj-Nt-uzE" userLabel="instructionsContainer">
@@ -266,12 +298,13 @@
                         <outlet property="instructionsContainer" destination="qBj-Nt-uzE" id="rAb-xD-6gg"/>
                         <outlet property="instructionsLabel" destination="mlN-oa-M1V" id="D3C-Es-krp"/>
                         <outlet property="pickerContainer" destination="hCj-v4-2kl" id="y4x-lR-nMQ"/>
+                        <outlet property="setToLatestButton" destination="Wue-jy-uSz" id="s4S-WZ-AbI"/>
                         <outlet property="titleViewContainer" destination="cf8-wP-dBq" id="14q-PB-bwh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cYG-mv-n8b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1893" y="327"/>
+            <point key="canvasLocation" x="1892.753623188406" y="326.9021739130435"/>
         </scene>
         <!--BarGraph-->
         <scene sceneID="D4W-jX-Wai">
@@ -341,32 +374,16 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="A5p-vi-OtV"/>
-                                    <barButtonItem image="linecal" id="ePs-Wn-QFU" userLabel="date">
-                                        <connections>
-                                            <action selector="setDate:" destination="ZAQ-5u-4bi" id="a2g-Ui-BEJ"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Tsi-uQ-8fo"/>
-                                    <barButtonItem image="line-chart" id="2d9-er-2ZC" userLabel="graph">
-                                        <connections>
-                                            <action selector="graphButtonPressed:" destination="ZAQ-5u-4bi" id="IEg-14-VSI"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="S0x-BM-zn3"/>
                                     <barButtonItem image="Location" id="PaQ-CB-KZc" userLabel="locate">
                                         <connections>
                                             <action selector="getMyLocation:" destination="ZAQ-5u-4bi" id="Kf2-eC-bFE"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Wmp-Qk-f4v"/>
-                                    <barButtonItem style="plain" id="7if-7A-V8A" userLabel="info">
-                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" lineBreakMode="middleTruncation" id="esn-JR-beO">
-                                            <rect key="frame" x="372" y="11" width="22" height="22"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <connections>
-                                                <action selector="infoPressed:" destination="ZAQ-5u-4bi" eventType="touchUpInside" id="CRg-nb-Iue"/>
-                                            </connections>
-                                        </button>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="S0x-BM-zn3"/>
+                                    <barButtonItem image="line-chart" id="2d9-er-2ZC" userLabel="graph">
+                                        <connections>
+                                            <action selector="graphButtonPressed:" destination="ZAQ-5u-4bi" id="IEg-14-VSI"/>
+                                        </connections>
                                     </barButtonItem>
                                 </items>
                             </toolbar>
@@ -465,7 +482,7 @@
         <image name="linecal" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="kli-aa-Cs2"/>
         <segue reference="ddL-Ad-qcc"/>
-        <segue reference="NlB-zl-Ho5"/>
     </inferredMetricsTieBreakers>
 </document>

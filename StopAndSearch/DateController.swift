@@ -8,17 +8,9 @@
 
 import UIKit
 
-protocol DateControllerDelegate: class {
-  
-  func didSetDate(date: MonthYear)
-}
-
 class DateController: UIViewController {
   
-  var delegate: DateControllerDelegate?
- 
   var pickerData = [ [String](), [String]() ]
- 
   let defaults = UserDefaults.standard
   var startMonth: Int = 0
   var startYear: Int = 0
@@ -38,10 +30,20 @@ class DateController: UIViewController {
   @IBOutlet weak var instructionsContainer: UIView!
   @IBOutlet weak var datePicker: UIPickerView!
   
-  override func viewDidLoad() {
+  @IBOutlet weak var setToLatestButton: UIButton!
+  
+  @IBAction func setToLatest(_ sender: UIButton) {
     
+    if monthLastUpdated != 0 {
+        setToDate(MonthYear(month: monthLastUpdated - 1, year: yearLastUpdated), anim: true)
+    }
+  }
+  
+  override func viewDidLoad() {
     super.viewDidLoad()
     print("loaded with mode \(mode!)")
+    doneButton.layer.cornerRadius = 10
+    setToLatestButton.layer.cornerRadius = 10
     readData()
     initiatePicker()
     datePicker.delegate = self
@@ -56,11 +58,10 @@ class DateController: UIViewController {
     datePicker.reloadAllComponents()
     //set picker to startMonth and startYear if set
     if startMonth != 0 {
-      setToDate(MonthYear(month: startMonth, year: startYear))
+      setToDate(MonthYear(month: startMonth - 1, year: startYear), anim: false)
     } else {
-      setToDate(MonthYear(month: monthLastUpdated, year: yearLastUpdated))
+      setToDate(MonthYear(month: monthLastUpdated - 1, year: yearLastUpdated), anim: false)
     }
-    
   }
   
   func readData() {
@@ -82,19 +83,37 @@ class DateController: UIViewController {
     }
   }
   
-  func setToDate(_ date:MonthYear) {
+  func setToDate(_ date:MonthYear, anim: Bool) {
   
-     // datePicker.selectRow(d.month, inComponent: 0, animated: false)
-     // datePicker.selectRow(d.year - 2014, inComponent: 1, animated: false)
+      datePicker.selectRow(date.month, inComponent: 0, animated: anim)
+      datePicker.selectRow(date.year - 2010, inComponent: 1, animated: anim)
   }
-
+  
   func validateSaveAndDismiss() {
-    let month  = datePicker.selectedRow(inComponent: 0)
+    let month  = datePicker.selectedRow(inComponent: 0) + 1
     let yearAsString = pickerData[1][datePicker.selectedRow(inComponent: 1)]
     let year = Int(yearAsString)
-    let date = MonthYear(month:month,  year : year! )
-    delegate?.didSetDate(date: date)
-    self.dismiss(animated: true, completion: nil)
+    //check if chosen date for startdate is before last date updated
+    if year == yearLastUpdated && month > monthLastUpdated {
+      showDateIsLaterThanLatestDataAlert()
+    } else {
+      // save date to start date and dissmiss
+      defaults.set(month, forKey:"startMonth")
+      defaults.set(year, forKey:"startYear")
+      
+      if let nav = navigationController {
+        nav.popViewController(animated: true)
+      } else {
+        self.dismiss(animated: true, completion: nil)
+      }
+    }
+  }
+  
+  func showDateIsLaterThanLatestDataAlert() {
+    let alert = UIAlertController(title: "Start date is later than newest data",message:"Latest data available is for \(Months.months[monthLastUpdated - 1]) \(yearLastUpdated).", preferredStyle: .alert)
+    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+    alert.addAction(okAction)
+    present(alert, animated: true, completion: nil)
   }
   
   override func didReceiveMemoryWarning() {

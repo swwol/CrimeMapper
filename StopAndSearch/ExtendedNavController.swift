@@ -41,10 +41,15 @@ class ExtendedNavController: UINavigationController {
      topView.dateLabel.text = "all dates"
     }
   }
-  func setDate(date:MonthYear?){
-    //set date from date picker
-    if let d = date {
-      topView.dateLabel.text = "\(d.monthName)-\(d.yearAsString)"
+  func updateInfo(){
+    let defaults = UserDefaults.standard
+    // read in and set startdate
+    let startMonth = defaults.integer(forKey: "startMonth")
+    let startYear = defaults.integer(forKey: "startYear")
+    if startMonth != 0 {
+      let startDateAsMonthYear = MonthYear(month: startMonth - 1, year: startYear)
+      topView.dateLabel.text = startDateAsMonthYear.dateAsString
+      
     }
   }
   
