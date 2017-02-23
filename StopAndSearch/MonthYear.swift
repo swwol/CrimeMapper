@@ -8,7 +8,7 @@
 
 import Foundation
 
-class MonthYear {
+class MonthYear: Comparable {
   
   var month: Int
   var year: Int
@@ -46,4 +46,29 @@ class MonthYear {
     return "\(getMonthName()) \(year)"
   }
   
+  func increment() -> MonthYear {
+    
+    if self.month != 12 {
+      return MonthYear (month: self.month + 1, year: self.year)
+    } else {
+      return MonthYear(month: 1, year: self.year + 1)
+    }
+  }
 }
+
+func == (lhs: MonthYear, rhs: MonthYear) -> Bool {
+  
+  return lhs.month == rhs.month && lhs.year == rhs.year
+  
+}
+
+func < (lhs: MonthYear, rhs: MonthYear) -> Bool {
+  
+  if lhs.year < rhs.year {
+    return true
+  } else if lhs.year == rhs.year && lhs.month < rhs.month {
+      return true
+  }
+  return false
+}
+

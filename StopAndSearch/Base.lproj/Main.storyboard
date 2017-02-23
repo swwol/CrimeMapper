@@ -338,6 +338,25 @@
             </objects>
             <point key="canvasLocation" x="4692.753623188406" y="-358.69565217391306"/>
         </scene>
+        <!--line graph-->
+        <scene sceneID="zKs-Ny-mHK">
+            <objects>
+                <viewController id="yZk-UR-rg9" customClass="LineGraphViewController" customModule="StopAndSearch" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="tCe-d3-GVN"/>
+                        <viewControllerLayoutGuide type="bottom" id="y9w-PI-Pc9"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="vb6-hh-psp">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="line graph" image="coord" id="RE3-E6-h4M"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SfU-Kx-avN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5367" y="-667"/>
+        </scene>
         <!--Map-->
         <scene sceneID="u8g-gJ-qio">
             <objects>
@@ -460,6 +479,7 @@
                     <connections>
                         <segue destination="oa5-jS-nA3" kind="relationship" relationship="viewControllers" id="LQT-eN-E1t"/>
                         <segue destination="qEf-77-BAF" kind="relationship" relationship="viewControllers" id="fEM-Du-BOD"/>
+                        <segue destination="yZk-UR-rg9" kind="relationship" relationship="viewControllers" id="9eh-bY-uF1"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pvZ-Jj-qU4" userLabel="First Responder" sceneMemberID="firstResponder"/>

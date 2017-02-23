@@ -28,7 +28,8 @@ class DateController: UIViewController, InitialisesExtendedNavBar {
   var mode: String?
   //
   @IBAction func didPressDone(_ sender: Any) {
-    validateSaveAndDismiss()
+  let _ =  validateAndSave()
+    goBack()
   }
   @IBOutlet weak var doneButton: UIButton!
   @IBOutlet weak var instructionsLabel: UILabel!
@@ -45,6 +46,15 @@ class DateController: UIViewController, InitialisesExtendedNavBar {
   }
   @IBOutlet weak var startEndControl: UISegmentedControl!
   @IBAction func ModeChanged(_ sender: UISegmentedControl) {
+    
+    guard validateAndSave() else {
+      if self.mode == "start" {
+      sender.selectedSegmentIndex = 0
+      } else {
+      sender.selectedSegmentIndex = 1
+      }
+      return
+    }
     
     if sender.selectedSegmentIndex == 0 {
       self.mode = "start"
@@ -124,43 +134,45 @@ class DateController: UIViewController, InitialisesExtendedNavBar {
       datePicker.selectRow(date.year - 2010, inComponent: 1, animated: anim)
   }
   
-  func validateSaveAndDismiss() {
+  func validateAndSave() -> Bool {
+   
     let month  = datePicker.selectedRow(inComponent: 0) + 1
     let yearAsString = pickerData[1][datePicker.selectedRow(inComponent: 1)]
     let year = Int(yearAsString)
     
     guard (year! <= yearLastUpdated && month <= monthLastUpdated)  else {
       showDateIsLaterThanLatestDataAlert()
-      return
+      return false
     }
     
     if let mode = self.mode {
       if mode == "start" {
         guard startDateIsValid (m:month,y:year!)  else {
-          return
+          return false
         }
         
         defaults.set(month, forKey:"startMonth")
         defaults.set(year, forKey:"startYear")
-        goBack()
-      } else if mode == "end" {
-        
+        readData()
+        return true
+      } else {
         guard  endDateIsValid(m:month,y:year!) else {
-          return
+          return false
         }
         defaults.set(month, forKey:"endMonth")
         defaults.set(year, forKey:"endYear")
-        goBack()
+        readData()
+        return true
       }
-    }
+    } else { return false}
   }
   
   func startDateIsValid(m:Int, y: Int) -> Bool {
     // start date is valid if it is before end date, or if no end date is set
-    if   endMonth == 0 || (m <= endMonth && y <= endYear) {
+    if   endMonth == 0 || MonthYear(month:m, year: y) <= MonthYear(month: endMonth, year: endYear) {
       return true
     } else {
-      showEndDateIsLaterThanStartDateAlert()
+      showStartDateIsLaterThanEndDateAlert()
       return false
     }
   }
@@ -172,10 +184,10 @@ class DateController: UIViewController, InitialisesExtendedNavBar {
       showNoStartDateSetAlert()
       return false
     }
-    if  (m >= endMonth && y >= endYear) {
+    if  MonthYear(month: m, year: y) >= MonthYear(month:startMonth, year: startYear) {
       return true
     } else {
-      showEndDateIsLaterThanStartDateAlert()
+      showStartDateIsLaterThanEndDateAlert()
       return false
     }
   }
@@ -203,7 +215,7 @@ class DateController: UIViewController, InitialisesExtendedNavBar {
     present(alert, animated: true, completion: nil)
   }
   
-  func showEndDateIsLaterThanStartDateAlert() {
+  func showStartDateIsLaterThanEndDateAlert() {
     let alert = UIAlertController(title: "Start date is later than end date",message:"Start date must be before end date", preferredStyle: .alert)
     let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
     alert.addAction(okAction)
@@ -226,6 +238,10 @@ extension DateController: UIPickerViewDataSource, UIPickerViewDelegate {
   func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
     return NSAttributedString(string:  pickerData[component][row] , attributes: [NSForegroundColorAttributeName:UIColor.flatBlack])
   }
+  func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    
+  }
+  
 }
 
 

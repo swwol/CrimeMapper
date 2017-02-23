@@ -23,6 +23,7 @@
 		CD5AD2501E4F756900ED3226 /* ClusterInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5AD24E1E4F756900ED3226 /* ClusterInfoCell.swift */; };
 		CD5AD2551E4F775700ED3226 /* ClusterInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD5AD2541E4F775700ED3226 /* ClusterInfoCell.xib */; };
 		CD6729541E5B552200EEC959 /* PieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD6729531E5B552200EEC959 /* PieViewController.swift */; };
+		CD7007551E5F63D3000FFCFA /* LineGraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7007541E5F63D3000FFCFA /* LineGraphViewController.swift */; };
 		CD7F5A7C1E55A7ED0000A1DF /* SlideInPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7F5A7B1E55A7ED0000A1DF /* SlideInPresentationController.swift */; };
 		CD7F5A7E1E55A7FC0000A1DF /* SlideInPresentationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7F5A7D1E55A7FC0000A1DF /* SlideInPresentationManager.swift */; };
 		CD7F5A801E55A80B0000A1DF /* SlideInPresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7F5A7F1E55A80B0000A1DF /* SlideInPresentationAnimator.swift */; };
@@ -98,6 +99,7 @@
 		CD5AD24E1E4F756900ED3226 /* ClusterInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClusterInfoCell.swift; sourceTree = "<group>"; };
 		CD5AD2541E4F775700ED3226 /* ClusterInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ClusterInfoCell.xib; sourceTree = "<group>"; };
 		CD6729531E5B552200EEC959 /* PieViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PieViewController.swift; sourceTree = "<group>"; };
+		CD7007541E5F63D3000FFCFA /* LineGraphViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineGraphViewController.swift; sourceTree = "<group>"; };
 		CD7F5A7B1E55A7ED0000A1DF /* SlideInPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideInPresentationController.swift; sourceTree = "<group>"; };
 		CD7F5A7D1E55A7FC0000A1DF /* SlideInPresentationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideInPresentationManager.swift; sourceTree = "<group>"; };
 		CD7F5A7F1E55A80B0000A1DF /* SlideInPresentationAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideInPresentationAnimator.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 		CD71A8571E549270004A4132 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				CD7007541E5F63D3000FFCFA /* LineGraphViewController.swift */,
 				CD6729531E5B552200EEC959 /* PieViewController.swift */,
 				CD8CDA0F1E5A188800F8EAD2 /* GraphsTabBarController.swift */,
 				CDA2A6421E58D15A0028F2D7 /* BarGraphViewController.swift */,
@@ -522,6 +525,7 @@
 				CD8CDA101E5A188800F8EAD2 /* GraphsTabBarController.swift in Sources */,
 				CDC7F6A11E50ED45002F337B /* CoordinateCell.swift in Sources */,
 				CDE1416F1E4E881900D2528B /* CustomHeaderCell.swift in Sources */,
+				CD7007551E5F63D3000FFCFA /* LineGraphViewController.swift in Sources */,
 				CDD5DE021E40ADBF000F382C /* FBAnnotationCluster.swift in Sources */,
 				CD04FEDD1E57306100832820 /* InitialisesExtendedNavBar.swift in Sources */,
 				CD02F3931E34CF6200A5DD9C /* SearchResult.swift in Sources */,
