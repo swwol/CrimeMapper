@@ -52,6 +52,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
   var readyToSearch = false
   var loader: Loader?
   
+  var force: String?
+  var neighbourhood : String?
+  var sessionManager : SessionManager?
   lazy var slideInTransitioningDelegate = SlideInPresentationManager()
   
   
@@ -105,6 +108,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
     guard readyToSearch else {
       return
     }
+    
+    guard neighbourhood == nil else {
+      return
+    }
+    
+    
     let region  = mapView.region
     let centre  =  region.center
     let span = region.span
@@ -124,6 +133,20 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
  
     }
   }
+  
+  func getSearchNeighbourhoodID() {
+    
+    if let n = defaults.object(forKey: "neighbourhood"), let f = defaults.object(forKey: "force") {
+      if let nUnwrapped = n as? String, let fUnwrapped = f as? String {
+        neighbourhood = nUnwrapped
+        force = fUnwrapped
+      } else {
+        neighbourhood = nil
+        force  = nil
+      }
+    }
+  }
+  
   
   func removeAnnotations() {
     print("removing annotations")
@@ -193,10 +216,128 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
   }
   
   override func viewWillAppear(_ animated: Bool) {
-   
+    // set values of neighbour and force
+    getSearchNeighbourhoodID()
+    
+    print (force ?? "force not set", neighbourhood ?? "neigbourhood not set")
+    
+    
     updateDateExtendedNavBarInfo()
+    
+    if let n = neighbourhood, let f = force {
+      
+      findAndDisplayPointsInNeighbourhood(force: f, neighbourhood: n)
+      
+    } else {
+    
     findAndDisplayDataPointsInVisibleRegion()
+      
+    }
   }
+  
+
+  
+  func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+   
+    if overlay is MKPolygon {
+      let renderer = MKPolygonRenderer(overlay: overlay)
+      renderer.strokeColor = .flatOrange
+      renderer.lineWidth = 2
+      return renderer
+    }
+    
+    return MKOverlayRenderer()
+  }
+  
+  
+  func  findAndDisplayPointsInNeighbourhood(force: String, neighbourhood: String) {
+    
+    guard readyToSearch else {
+      return
+    }
+
+    guard self.neighbourhood != nil else {
+      return
+    }
+    
+    if (loader == nil) {
+      loader = Loader(message: "loading data...")
+      loader?.alpha = 0
+      loader?.center = view.center
+      self.view.addSubview(loader!)
+    }
+    UIView.animate(withDuration: 0.5, animations: {self.loader?.alpha = 1})
+    
+    let config : URLSessionConfiguration  = {
+      let configuration = URLSessionConfiguration.default
+      configuration.requestCachePolicy = .returnCacheDataElseLoad
+      return configuration
+    }()
+    
+    sessionManager = Alamofire.SessionManager(configuration: config)
+    
+    let searchURL  = URL(string: "https://data.police.uk/api/\(force)/\(neighbourhood)/boundary")
+    sessionManager?.request(searchURL!).responseJSON { response in
+      
+      if let status = response.response?.statusCode {
+        switch(status){
+        case 200:
+          print("getting neighbourhoos boundary example success ooo")
+        default:
+          print("error getting boundary data")
+        }
+      }
+      if let result = response.result.value {
+        let jsonArray = result as! [NSDictionary]
+        var coordResults: [NCoords]  = []
+        for result in jsonArray {
+          if let r = NCoords(json: result as! JSON){
+            coordResults.append(r)
+          }
+        }
+        DispatchQueue.main.async {
+          // kill loader
+          self.loader?.activityIndicator.stopAnimating()
+          self.loader?.removeFromSuperview()
+          self.loader = nil
+         // map coordResult to CLLocatoinCoordinateArray
+          
+          let coordResAsCLCoords: [CLLocationCoordinate2D] = coordResults.map{CLLocationCoordinate2DMake($0.latitude,$0.longitude)}
+         
+          // lets try and get the map region for this neighbourhood
+          
+          var r : MKMapRect = MKMapRectNull
+          for coord in coordResAsCLCoords {
+            let p: MKMapPoint = MKMapPointForCoordinate(coord)
+            r = MKMapRectUnion(r, MKMapRectMake(p.x, p.y, 0, 0))
+          }
+          // draw polygon on map
+          
+          let polygon = MKPolygon(coordinates: coordResAsCLCoords, count: coordResAsCLCoords.count)
+          self.mapView?.add(polygon)
+          
+          
+          let region = MKCoordinateRegionForMapRect(r)
+          self.mapView.setRegion(region, animated: true)
+          
+          
+
+         self.fbpins = []
+          
+          self.search.performSearch(coords: coordResAsCLCoords ) {success in
+            self.generateFBAnnotations(results: success.0)
+ 
+          }
+          
+          
+        }
+      }
+    }
+  }
+  
+
+  
+
   
   
   func handleZoom( _ sender: UIPinchGestureRecognizer) {

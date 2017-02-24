@@ -39,6 +39,8 @@ class Search {
   
   func performSearch(coords: [CLLocationCoordinate2D],completion: @escaping SearchComplete) {
     
+    
+    
     cancelSearches()
     delegate?.searchStarted()
     let config : URLSessionConfiguration  = {
@@ -102,13 +104,15 @@ class Search {
         
         let searchURL = getSearchURL(coords: coords, date: searchDate, cat: selectedCat)
         
+        print (searchURL)
+        
         sessionManager?.request(searchURL).responseJSON { response in
           
           if let status = response.response?.statusCode {
             
             switch(status){
             case 200:
-              print("example success")
+              print("searching for crime success")
             case 503:
               print ("too many results")
               self.incrementSearchCount(error: status, numCats: selectedCats.count)
@@ -166,7 +170,15 @@ class Search {
       searchString = "https://data.police.uk/api/crimes-street/all-crime"
     }
     
-    searchString.append( "?poly=\(coords[0].latitude),\(coords[0].longitude):\(coords[1].latitude),\(coords[1].longitude):\(coords[2].latitude),\(coords[2].longitude):\(coords[3].latitude),\(coords[3].longitude)")
+  /*  searchString.append( "?poly=\(coords[0].latitude),\(coords[0].longitude):\(coords[1].latitude),\(coords[1].longitude):\(coords[2].latitude),\(coords[2].longitude):\(coords[3].latitude),\(coords[3].longitude)")*/
+    
+    searchString.append("?poly=")
+    // add coords
+    for coord in coords {
+      searchString.append("\(coord.latitude),\(coord.longitude):")
+    }
+    //now remove final colon
+    searchString.remove(at: searchString.index(before: searchString.endIndex))
     
     if let d = date {
       searchString.append("&date="+d.getDateFormattedForApiSearch())
@@ -174,6 +186,16 @@ class Search {
 
     let url = URL(string: searchString)
     return url!
+  }
+  
+  
+  func  findAndDisplayPointsInNeighbourhood(force: String, neighbourhood: String) {
+    
+    // we need to get the neigbourhood boundary
+    
+    
+    
+    
   }
   
 }

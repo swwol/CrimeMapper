@@ -149,7 +149,7 @@ class NeighbourhoodTableViewController: UITableViewController {
         
         switch(status){
         case 200:
-          print("example success")
+          print("getting neighbourhood data example success")
         default:
           print("error getting forces data")
         }

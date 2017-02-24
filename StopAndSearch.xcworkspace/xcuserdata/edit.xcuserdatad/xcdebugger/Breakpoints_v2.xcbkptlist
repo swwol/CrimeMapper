@@ -39,5 +39,53 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MapViewController.swift"
+            timestampString = "509669577.552732"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "131"
+            endingLineNumber = "131"
+            landmarkName = "findAndDisplayDataPointsInVisibleRegion()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "StopAndSearch.MapViewController.findAndDisplayDataPointsInVisibleRegion () -&gt; ()"
+                  moduleName = "StopAndSearch"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/edit/developer/StopAndSearch/MapViewController.swift"
+                  timestampString = "509670548.748802"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "131"
+                  endingLineNumber = "131"
+                  offsetFromSymbolStart = "852">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "StopAndSearch.MapViewController.(findAndDisplayDataPointsInVisibleRegion () -&gt; ()).(closure #1)"
+                  moduleName = "StopAndSearch"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/edit/developer/StopAndSearch/MapViewController.swift"
+                  timestampString = "509670548.750301"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "132"
+                  endingLineNumber = "132"
+                  offsetFromSymbolStart = "108">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

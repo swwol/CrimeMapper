@@ -163,7 +163,7 @@ class RegionsTableViewController: UITableViewController {
         
         switch(status){
         case 200:
-          print("example success")
+          print("getting forces data success")
         default:
           print("error getting forces data")
           }

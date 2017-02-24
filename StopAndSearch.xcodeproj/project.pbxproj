@@ -38,6 +38,7 @@
 		CD8A24D31E4CD91B00244A56 /* CategoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD8A24D21E4CD91B00244A56 /* CategoryCell.xib */; };
 		CD8A24D51E4CEC2B00244A56 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8A24D41E4CEC2B00244A56 /* CategoryCell.swift */; };
 		CD8CDA101E5A188800F8EAD2 /* GraphsTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8CDA0F1E5A188800F8EAD2 /* GraphsTabBarController.swift */; };
+		CD95F9741E60D625003BB956 /* NCoords.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD95F9731E60D625003BB956 /* NCoords.swift */; };
 		CDA149751E60580C002F1003 /* ForceResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA149741E60580C002F1003 /* ForceResult.swift */; };
 		CDA149781E606861002F1003 /* NeighbourhoodTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA149771E606861002F1003 /* NeighbourhoodTableViewController.swift */; };
 		CDA2A6431E58D15A0028F2D7 /* BarGraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA2A6421E58D15A0028F2D7 /* BarGraphViewController.swift */; };
@@ -119,6 +120,7 @@
 		CD8A24D21E4CD91B00244A56 /* CategoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoryCell.xib; sourceTree = "<group>"; };
 		CD8A24D41E4CEC2B00244A56 /* CategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		CD8CDA0F1E5A188800F8EAD2 /* GraphsTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphsTabBarController.swift; sourceTree = "<group>"; };
+		CD95F9731E60D625003BB956 /* NCoords.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NCoords.swift; sourceTree = "<group>"; };
 		CDA149741E60580C002F1003 /* ForceResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForceResult.swift; sourceTree = "<group>"; };
 		CDA149771E606861002F1003 /* NeighbourhoodTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NeighbourhoodTableViewController.swift; sourceTree = "<group>"; };
 		CDA2A6421E58D15A0028F2D7 /* BarGraphViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarGraphViewController.swift; sourceTree = "<group>"; };
@@ -259,6 +261,7 @@
 		CDA149761E60582A002F1003 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				CD95F9731E60D625003BB956 /* NCoords.swift */,
 				CD251B031E3555F4004DACB7 /* Search.swift */,
 				CDA149741E60580C002F1003 /* ForceResult.swift */,
 				CD02F3921E34CF6200A5DD9C /* SearchResult.swift */,
@@ -557,6 +560,7 @@
 				CD8A24D51E4CEC2B00244A56 /* CategoryCell.swift in Sources */,
 				CDD5DE041E40ADBF000F382C /* FBAnnotationClusterView.swift in Sources */,
 				CDA149781E606861002F1003 /* NeighbourhoodTableViewController.swift in Sources */,
+				CD95F9741E60D625003BB956 /* NCoords.swift in Sources */,
 				CD7FC2C91E5236CF00B1B6C2 /* ContentCell.swift in Sources */,
 				CDFC3E641E3396290065C9E2 /* DateController.swift in Sources */,
 				CD7FBCA61E32AE1500DA40F1 /* AppDelegate.swift in Sources */,
