@@ -75,7 +75,7 @@ class NeighbourhoodTableViewController: UITableViewController {
       
       if let thisId = neighbourhoodResults[indexPath.row].id {
         
-        if thisId == (neighbourhoodId as! String){
+        if thisId == (neighbourhoodId as? String){
           
           cell.accessoryType = .checkmark
           

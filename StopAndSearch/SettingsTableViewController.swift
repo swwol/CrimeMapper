@@ -19,16 +19,16 @@ class SettingsTableViewController: UITableViewController,InitialisesExtendedNavB
   var extendedNavBarFontSize: CGFloat  = 14
   var extendedNavBarFontColor = UIColor.flatBlackDark
   var extendedNavBarIsHidden = false
- 
+  
   //
-  var neighbourhoodID: String?
+
   var startMonth: Int = 0
   var startYear: Int = 0
   var endMonth: Int = 0
   var endYear: Int = 0
   var monthLastUpdated: Int = 0
   var yearLastUpdated: Int = 0
-  
+  var neighbourhoodID: String?
   let defaults = UserDefaults.standard
   
     override func viewDidLoad() {
@@ -50,7 +50,14 @@ class SettingsTableViewController: UITableViewController,InitialisesExtendedNavB
     endYear  = defaults.integer(forKey: "endYear")
     monthLastUpdated = defaults.integer(forKey: "monthLastUpdated")
     yearLastUpdated = defaults.integer(forKey: "yearLastUpdated")
-    neighbourhoodID = defaults.object(forKey: "neighbourhood") as! String?
+    if let nId  = defaults.object(forKey: "neighbourhood") {
+      neighbourhoodID = nId as? String
+    } else {
+      neighbourhoodID = nil
+    }
+    
+    
+    
     tableView.reloadData()
   }
   

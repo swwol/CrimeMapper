@@ -15,31 +15,53 @@ class RegionsTableViewController: UITableViewController {
    var sessionManager : SessionManager?
    var loader: Loader?
    var forceResults  = [ForceResult]()
+   let defaults = UserDefaults.standard
 
   override func viewDidLoad() {
     
-        super.viewDidLoad()
+    super.viewDidLoad()
     tableView.contentInset = UIEdgeInsets(top: 60, left: 0 , bottom: 0 , right: 0)
-
-        getForcesData()
-   
+    let headerCellNib = UINib(nibName: "CustomHeaderCell", bundle: nil)
+    tableView.register(headerCellNib, forCellReuseIdentifier: "HeaderCell")
+    getForcesData()
     }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    tableView.reloadData()
+  }
+  
+  override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    return 34
+  }
+
+  
+  override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    let cell = tableView.dequeueReusableCell(withIdentifier: "HeaderCell") as! CustomHeaderCell
+    cell.categoryTitle.text = ""
+    cell.bg.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
+    if cell.categorySwitch != nil {
+      cell.categorySwitch.removeFromSuperview()
+    }
+    return cell
+  }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+         }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
+        return 2
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return forceResults.count
+      if section == 0 {
+        return 1
+      } else {
+          return forceResults.count
+      }
     }
 
   override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -49,6 +71,8 @@ class RegionsTableViewController: UITableViewController {
   }
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+  
+    // set cell prototype
     
     let cell: UITableViewCell = {
       guard let cell = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell") else {
@@ -61,13 +85,39 @@ class RegionsTableViewController: UITableViewController {
     let myCustomSelectionColorView = UIView()
     myCustomSelectionColorView.backgroundColor = UIColor.flatMint.withAlphaComponent(0.3)
     cell.selectedBackgroundView = myCustomSelectionColorView
+    //
+    // set attributes
+    if indexPath.section == 1 {
     cell.accessoryType = .disclosureIndicator
     cell.textLabel?.text = forceResults[indexPath.row].name
     return cell
+    }
+    else {
+      cell.textLabel?.text = "visible map region"
+      
+      if let n  = defaults.object(forKey: "neighbourhood") {
+        
+        if let _  = n as? String {
+       cell.accessoryType = .none
+        } else {
+          cell.accessoryType = .checkmark
+        }
+      }
+      
+      return cell
+    }
   }
   
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    
+    if indexPath.section == 0 {
+      defaults.set(nil, forKey: "neighbourhood")
+      tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+      tableView.deselectRow(at: indexPath, animated: true)
+    } else {
+    
     performSegue(withIdentifier: "neighbourhoods", sender: forceResults[indexPath.row].id)
+  }
   }
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
