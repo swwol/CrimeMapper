@@ -101,6 +101,7 @@ class Search {
         tooManyResultsErrors = 0
         
         let searchURL = getSearchURL(coords: coords, date: searchDate, cat: selectedCat)
+        
         sessionManager?.request(searchURL).responseJSON { response in
           
           if let status = response.response?.statusCode {
