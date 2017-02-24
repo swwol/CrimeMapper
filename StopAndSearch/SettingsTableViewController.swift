@@ -19,7 +19,9 @@ class SettingsTableViewController: UITableViewController,InitialisesExtendedNavB
   var extendedNavBarFontSize: CGFloat  = 14
   var extendedNavBarFontColor = UIColor.flatBlackDark
   var extendedNavBarIsHidden = false
+ 
   //
+  var neighbourhoodID: String?
   var startMonth: Int = 0
   var startYear: Int = 0
   var endMonth: Int = 0
@@ -48,6 +50,7 @@ class SettingsTableViewController: UITableViewController,InitialisesExtendedNavB
     endYear  = defaults.integer(forKey: "endYear")
     monthLastUpdated = defaults.integer(forKey: "monthLastUpdated")
     yearLastUpdated = defaults.integer(forKey: "yearLastUpdated")
+    neighbourhoodID = defaults.object(forKey: "neighbourhood") as! String?
     tableView.reloadData()
   }
   
@@ -124,7 +127,12 @@ class SettingsTableViewController: UITableViewController,InitialisesExtendedNavB
     if indexPath.section == 2 {
       // region
       cell.textLabel?.text = "set region"
-      cell.detailTextLabel?.text = "region"
+      
+      if let n = neighbourhoodID {
+      cell.detailTextLabel?.text = n
+      } else {
+        cell.detailTextLabel?.text = "visible"
+      }
       cell.imageView?.image = UIImage(named: "region")
     }
     
