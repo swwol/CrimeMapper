@@ -158,7 +158,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
     
     print ("got pins")
     
-    print ("lattitude \( fbpins[0].latitude)")
+  //  print ("lattitude \( fbpins[0].latitude)")
     
    // self.mapView.addAnnotations(fbpins)
     
