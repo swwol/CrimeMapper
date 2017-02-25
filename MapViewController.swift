@@ -160,9 +160,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
     
     print ("lattitude \( fbpins[0].latitude)")
     
-    self.mapView.addAnnotations(fbpins)
+   // self.mapView.addAnnotations(fbpins)
     
-   /*
+   
     clusteringManager.removeAll()
     clusteringManager.add(annotations: fbpins)
     DispatchQueue.global(qos: .userInitiated).async {
@@ -177,7 +177,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
       DispatchQueue.main.async {
         self.clusteringManager.display(annotations: annotationArray, onMapView:self.mapView)
       }
-    }*/
+    }
   }
   
   func getDateLastUpdated() {
