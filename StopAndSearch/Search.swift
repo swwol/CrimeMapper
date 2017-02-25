@@ -102,11 +102,22 @@ class Search {
         unknownErrors = 0
         tooManyResultsErrors = 0
         
-        let searchURL = getSearchURL(coords: coords, date: searchDate, cat: selectedCat)
+   
+     
+        let searchURL = getPostSearchURL(cat: selectedCat)
         
-        print (searchURL)
+   
         
-        sessionManager?.request(searchURL).responseJSON { response in
+        var request = URLRequest(url: searchURL)
+        request.httpMethod = "POST"
+        let postString = "poly="+getCoordParamString(coords:coords)+"&date="+getDateParamString(date: searchDate)
+        print(postString)
+        request.httpBody = postString.data(using: .utf8)
+        
+        
+        
+        
+       sessionManager?.request(request).responseJSON { response in
           
           if let status = response.response?.statusCode {
             
@@ -170,8 +181,6 @@ class Search {
       searchString = "https://data.police.uk/api/crimes-street/all-crime"
     }
     
-  /*  searchString.append( "?poly=\(coords[0].latitude),\(coords[0].longitude):\(coords[1].latitude),\(coords[1].longitude):\(coords[2].latitude),\(coords[2].longitude):\(coords[3].latitude),\(coords[3].longitude)")*/
-    
     searchString.append("?poly=")
     // add coords
     for coord in coords {
@@ -189,13 +198,48 @@ class Search {
   }
   
   
-  func  findAndDisplayPointsInNeighbourhood(force: String, neighbourhood: String) {
+  
+  func getPostSearchURL (cat: CrimeCategory? ) -> URL {
+    // format search string
+    var searchString: String
+    if let c = cat {
+      let catString = c.url
+      searchString = "https://data.police.uk/api/crimes-street/"+catString
+    }
+    else {
+      searchString = "https://data.police.uk/api/crimes-street/all-crime"
+    }
     
-    // we need to get the neigbourhood boundary
-    
-    
-    
-    
+    let url = URL(string: searchString)
+    return url!
   }
+
+  
+  func getCoordParamString(coords: [CLLocationCoordinate2D]) -> String {
+    
+    var coordString  = ""
+    
+    for coord in coords {
+      coordString.append("\(coord.latitude),\(coord.longitude):")
+    }
+    //now remove final colon
+    coordString.remove(at: coordString.index(before: coordString.endIndex))
+    
+    return coordString
+
+  }
+  
+  func getDateParamString(date: MonthYear?) -> String {
+    
+    if let d = date {
+      
+    
+   return d.getDateFormattedForApiSearch()
+    
+    
+    }
+    return ""  }
+  
+  
   
 }
