@@ -109,10 +109,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
       return
     }
     
-    guard neighbourhood == nil else {
-      return
-    }
-    
     
     let region  = mapView.region
     let centre  =  region.center
@@ -127,7 +123,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
     // clear fbpins array
     
     fbpins = []
-  
+    
   search.performSearch(coords: [ne,nw,sw,se] ) {success in
       self.generateFBAnnotations(results: success.0)
  
@@ -156,18 +152,32 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
   }
   
   func generateFBAnnotations(results: [SearchResult]) {
+    
+    
     fbpins += results
+    
+    print ("got pins")
+    
+    print ("lattitude \( fbpins[0].latitude)")
+    
+    self.mapView.addAnnotations(fbpins)
+    
+   /*
     clusteringManager.removeAll()
     clusteringManager.add(annotations: fbpins)
     DispatchQueue.global(qos: .userInitiated).async {
       let mapBoundsWidth = Double(self.mapView.bounds.size.width)
       let mapRectWidth = self.mapView.visibleMapRect.size.width
       let scale = mapBoundsWidth / mapRectWidth
-      let annotationArray = self.clusteringManager.clusteredAnnotations(withinMapRect: self.mapView.visibleMapRect, zoomScale:scale)
+      
+      print ("scale",scale)
+      let annotationArray = self.clusteringManager.clusteredAnnotations(withinMapRect: self.mapView.visibleMapRect, zoomScale: scale)
+      print ("annotatoins array \(annotationArray)")
+    
       DispatchQueue.main.async {
         self.clusteringManager.display(annotations: annotationArray, onMapView:self.mapView)
       }
-    }
+    }*/
   }
   
   func getDateLastUpdated() {
@@ -216,6 +226,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
   }
   
   override func viewWillAppear(_ animated: Bool) {
+     findAndDisplayDataPointsInVisibleRegion()
+    
+    /*
     // set values of neighbour and force
     getSearchNeighbourhoodID()
     
@@ -232,12 +245,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
     
     findAndDisplayDataPointsInVisibleRegion()
       
-    }
+    }*/
   }
   
 
-  
-  func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
    
     if overlay is MKPolygon {
       let renderer = MKPolygonRenderer(overlay: overlay)
@@ -248,7 +260,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
     
     return MKOverlayRenderer()
   }
-  
+ 
   
   func  findAndDisplayPointsInNeighbourhood(force: String, neighbourhood: String) {
     
@@ -256,9 +268,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
       return
     }
 
-    guard self.neighbourhood != nil else {
-      return
-    }
+  //  guard self.neighbourhood != nil else {
+  //    return
+  //  }
     
     if (loader == nil) {
       loader = Loader(message: "loading data...")
@@ -320,15 +332,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
           let region = MKCoordinateRegionForMapRect(r)
           self.mapView.setRegion(region, animated: true)
           
-          
-
-         self.fbpins = []
-          
-          self.search.performSearch(coords: coordResAsCLCoords ) {success in
-            self.generateFBAnnotations(results: success.0)
- 
-          }
-          
+     
           
         }
       }

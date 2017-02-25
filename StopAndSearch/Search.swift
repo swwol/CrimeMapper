@@ -102,20 +102,13 @@ class Search {
         unknownErrors = 0
         tooManyResultsErrors = 0
         
-   
-     
         let searchURL = getPostSearchURL(cat: selectedCat)
-        
-   
         
         var request = URLRequest(url: searchURL)
         request.httpMethod = "POST"
         let postString = "poly="+getCoordParamString(coords:coords)+"&date="+getDateParamString(date: searchDate)
         print(postString)
         request.httpBody = postString.data(using: .utf8)
-        
-        
-        
         
        sessionManager?.request(request).responseJSON { response in
           
