@@ -195,91 +195,86 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
     
     sessionManager = Alamofire.SessionManager(configuration: config)
     let searchURL  = URL(string: "https://data.police.uk/api/\(force)/\(neighbourhood)/boundary")
-
-   return sessionManager!.request(searchURL!).responseJSON().then {
-      value in
-      self.parseBoundary(value)
-    }
-  }
-  
-  
-  func parseBoundary(_ value: Any) -> Promise<[CLLocationCoordinate2D]> {
     
     return Promise { fulfill, reject in
-      
-      guard let dictArray  = value as? [NSDictionary] else {
-        reject(error)
-        return
-      }
-      var coordResults: [NCoords]  = []
-      for result in dictArray {
-        if let r = NCoords(json: result as! JSON){
-          coordResults.append(r)
+    sessionManager!.request(searchURL!)
+      .validate()
+      .responseJSON() { response in
+        switch response.result {
+        case .success(let dict):
+          guard let dictArray  = dict as? [NSDictionary] else {
+            return
+          }
+          var coordResults: [NCoords]  = []
+          for result in dictArray {
+            if let r = NCoords(json: result as! JSON){
+              coordResults.append(r)
+            }
+          }
+          let coordResAsCLCoords: [CLLocationCoordinate2D] = coordResults.map{CLLocationCoordinate2DMake($0.latitude,$0.longitude)}
+          
+          // lets try and get the map region for this neighbourhood
+          
+          var r : MKMapRect = MKMapRectNull
+          for coord in coordResAsCLCoords {
+            let p: MKMapPoint = MKMapPointForCoordinate(coord)
+            r = MKMapRectUnion(r, MKMapRectMake(p.x, p.y, 0, 0))
+          }
+          // draw polygon on map
+          
+          let polygon = MKPolygon(coordinates: coordResAsCLCoords, count: coordResAsCLCoords.count)
+          let lowerLeft = MKCoordinateForMapPoint(MKMapPoint(x: r.origin.x, y: r.origin.y))
+          
+          
+          let lowerRight =  MKCoordinateForMapPoint(MKMapPoint(x: r.origin.x + r.size.width, y: r.origin.y))
+          let topLeft =  MKCoordinateForMapPoint(MKMapPoint(x: r.origin.x, y: r.origin.y + r.size.height))
+          let topRight = MKCoordinateForMapPoint(MKMapPoint(x: r.origin.x + r.size.width, y: r.origin.y + r.size.height))
+          
+          let m = MKPolygon(coordinates: [lowerLeft,lowerRight,topRight,topLeft], count: 4)
+          self.mapView?.add(polygon)
+          self.mapView?.add(m)
+          self.neighbourhoodSquare  = [lowerLeft,lowerRight,topRight,topLeft]
+          let region = MKCoordinateRegionForMapRect(r)
+          self.mapView.setRegion(region, animated: true)
+          fulfill(coordResAsCLCoords)
+        case .failure (let err):
+          reject(err)
         }
       }
-      
-      let coordResAsCLCoords: [CLLocationCoordinate2D] = coordResults.map{CLLocationCoordinate2DMake($0.latitude,$0.longitude)}
-      
-      // lets try and get the map region for this neighbourhood
-      
-      var r : MKMapRect = MKMapRectNull
-      for coord in coordResAsCLCoords {
-        let p: MKMapPoint = MKMapPointForCoordinate(coord)
-        r = MKMapRectUnion(r, MKMapRectMake(p.x, p.y, 0, 0))
-      }
-      // draw polygon on map
-      
-      let polygon = MKPolygon(coordinates: coordResAsCLCoords, count: coordResAsCLCoords.count)
-      let lowerLeft = MKCoordinateForMapPoint(MKMapPoint(x: r.origin.x, y: r.origin.y))
-      
-      
-      let lowerRight =  MKCoordinateForMapPoint(MKMapPoint(x: r.origin.x + r.size.width, y: r.origin.y))
-      let topLeft =  MKCoordinateForMapPoint(MKMapPoint(x: r.origin.x, y: r.origin.y + r.size.height))
-      let topRight = MKCoordinateForMapPoint(MKMapPoint(x: r.origin.x + r.size.width, y: r.origin.y + r.size.height))
-      
-      let m = MKPolygon(coordinates: [lowerLeft,lowerRight,topRight,topLeft], count: 4)
-      self.mapView?.add(polygon)
-      self.mapView?.add(m)
-      self.neighbourhoodSquare  = [lowerLeft,lowerRight,topRight,topLeft]
-      let region = MKCoordinateRegionForMapRect(r)
-      self.mapView.setRegion(region, animated: true)
-      
-      
-      fulfill(coordResAsCLCoords)
     }
-    
-    
   }
+
+  
+
   
   /////////////
   
   func getDateLastUpdated() -> Promise<String> {
     
-    return Alamofire.request("https://data.police.uk/api/crime-last-updated").responseJSON()
-      .then   { value in
-        self.parseDate(value)
-    }
-  }
-  
-  func parseDate( _ value: Any) -> Promise<String> {
     
     return Promise { fulfill, reject in
-      
-      guard let dictionary  = value as? [String:Any], let date = dictionary["date"] as? String else {
-        reject(error)
-        return
+      Alamofire.request("https://data.police.uk/api/crime-last-updated")
+        .validate()
+        .responseJSON() { response in
+          switch response.result {
+          case .success(let dict):
+            guard let dictionary  = dict as? [String:Any], let date = dictionary["date"] as? String else {
+              return
+            }
+            let formattedDate = MonthYear(date: date)
+            self.defaults.set(formattedDate.month, forKey: "monthLastUpdated")
+            self.defaults.set(formattedDate.year, forKey: "yearLastUpdated")
+            self.updateDateExtendedNavBarInfo()
+            fulfill(date)
+          case .failure(let err):
+            reject(err)
+          }
       }
-      
-      let formattedDate = MonthYear(date: date)
-      self.defaults.set(formattedDate.month, forKey: "monthLastUpdated")
-      self.defaults.set(formattedDate.year, forKey: "yearLastUpdated")
-      self.updateDateExtendedNavBarInfo()
-      fulfill(date)
     }
   }
   
   
-  
+ 
   ///////////////
   
   func updateDateExtendedNavBarInfo() {
