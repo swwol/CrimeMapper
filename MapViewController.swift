@@ -9,6 +9,7 @@ import CoreLocation
 import Alamofire
 import Gloss
 import PromiseKit
+import CoreGraphics
 
 
 class MapViewController: UIViewController, CLLocationManagerDelegate, InitialisesExtendedNavBar {
@@ -52,6 +53,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
   var force: String?
   var neighbourhood : String?
   var neighbourhoodSquare: [CLLocationCoordinate2D]?
+  var renderer: MKPolygonRenderer?
   var sessionManager : SessionManager?
   lazy var slideInTransitioningDelegate = SlideInPresentationManager()
   
@@ -131,16 +133,31 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
       
     }
     
-    //now get data for region
-    
-    fbpins = []
+    searchStarted()
     
   search.performSearch(coords: searchCoords ) { results in
-      self.generateFBAnnotations(results: results)
+    
+    
+    // can we cull any results that are not within my polygon
+    let resultsWithinPolygon = results.filter {
+      
+      let currentMapPoint =  MKMapPointForCoordinate($0.coordinate)
+      let polygonViewPoint: CGPoint  = self.renderer!.point(for: currentMapPoint)
+      if  (self.renderer!.path).contains(polygonViewPoint) {
+        return true
+      }
+      return false
+     }
+    
+    
+      self.generateFBAnnotations(results: resultsWithinPolygon)
+      self.searchComplete()
  
     }
   }
   
+  
+  ///////
   func getSearchNeighbourhoodID() {
     
     if let n = defaults.object(forKey: "neighbourhood"), let f = defaults.object(forKey: "force") {
@@ -162,10 +179,76 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
     clusteringManager.display(annotations: [], onMapView: self.mapView)
   }
   
+  
+  
+  
+func searchStarted() {
+  
+
+    let nav = navigationController as! ExtendedNavController
+    if let _ = nav.visibleViewController as? MapViewController {
+      nav.setStatusMessage(message: "loading...")
+    }
+    if (loader == nil) {
+      loader = Loader(message: "loading crime data...")
+      loader?.alpha = 0
+      loader?.center = view.center
+      self.view.addSubview(loader!)
+    }
+    UIView.animate(withDuration: 0.5, animations: {self.loader?.alpha = 1})
+    
+  }
+ 
+  ////
+  
+  
+  
+  func searchComplete() {
+    UIView.animate(withDuration: 0.2, animations: {
+      self.loader?.alpha = 0
+    }, completion: {
+      (value: Bool) in
+      self.loader?.removeFromSuperview()
+      self.loader = nil
+      let nav = self.navigationController as! ExtendedNavController
+      if let _ = nav.visibleViewController as? MapViewController {
+        nav.setStatusMessage(message: "touch pin or cluster for info")
+      }
+    })
+  }
+
+
+
+
+  
+      /*
+       if tooMany > 0 {
+       let alert = UIAlertController(title: "Too many results", message: "Some categories returned too many results, try narrowing search area.", preferredStyle: UIAlertControllerStyle.alert)
+       alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+       
+       alert.view.tintColor = UIColor.flatMint
+       self.present(alert, animated: true, completion: nil)
+       
+       } else if unknown > 0 {
+       let alert = UIAlertController(title: "Error", message: "There were errors retreiving data for some categories.", preferredStyle: UIAlertControllerStyle.alert)
+       alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+       alert.view.tintColor = UIColor.flatMint
+       self.present(alert, animated: true, completion: nil)
+       }
+       })
+       }
+       }
+       */
+      
+
+  
+  
+  
+  
   func generateFBAnnotations(results: [SearchResult]) {
     
     
-    fbpins += results
+    fbpins = results
     
     clusteringManager.removeAll()
     clusteringManager.add(annotations: fbpins)
@@ -230,9 +313,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
           let topLeft =  MKCoordinateForMapPoint(MKMapPoint(x: r.origin.x, y: r.origin.y + r.size.height))
           let topRight = MKCoordinateForMapPoint(MKMapPoint(x: r.origin.x + r.size.width, y: r.origin.y + r.size.height))
           
-          let m = MKPolygon(coordinates: [lowerLeft,lowerRight,topRight,topLeft], count: 4)
+        //  let m = MKPolygon(coordinates: [lowerLeft,lowerRight,topRight,topLeft], count: 4)
           self.mapView?.add(polygon)
-          self.mapView?.add(m)
+        //  self.mapView?.add(m)
           self.neighbourhoodSquare  = [lowerLeft,lowerRight,topRight,topLeft]
           let region = MKCoordinateRegionForMapRect(r)
           self.mapView.setRegion(region, animated: true)
@@ -288,7 +371,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
     super.viewDidLoad()
    
     navigationController?.delegate = self
-    search.delegate = self
+  
     //appearance
     
     let barTintColor = UIColor.flatMintDark
@@ -332,7 +415,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
   override func viewWillAppear(_ animated: Bool) {
  
   
-  
+
   
   }
   
@@ -340,19 +423,16 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
    
     if overlay is MKPolygon {
-      let renderer = MKPolygonRenderer(overlay: overlay)
-      renderer.strokeColor = .flatOrange
-      renderer.lineWidth = 2
-      return renderer
+      renderer = MKPolygonRenderer(overlay: overlay)
+      renderer?.strokeColor = .flatOrange
+      renderer?.lineWidth = 2
+      return renderer!
     }
     
     return MKOverlayRenderer()
   }
  
-  
 
-  
-  
   func handleZoom( _ sender: UIPinchGestureRecognizer) {
     if (sender.state == UIGestureRecognizerState.began) {
       print("Zoom began")
@@ -581,48 +661,6 @@ extension MapViewController: FBAnnotationClusterViewDelegate {
     performSegue(withIdentifier: "showClusterInfo", sender: cluster)
   }
 }
-
-extension MapViewController: SearchDelegate {
-  func searchStarted() {
-    let nav = navigationController as! ExtendedNavController
-    if let _ = nav.visibleViewController as? MapViewController {
-      nav.setStatusMessage(message: "loading...")
-    }
-    if (loader == nil) {
-      loader = Loader(message: "loading crime data...")
-      loader?.alpha = 0
-      loader?.center = view.center
-      self.view.addSubview(loader!)
-    }
-    UIView.animate(withDuration: 0.5, animations: {self.loader?.alpha = 1})
-   
-  }
-  
-  func searchComplete(tooMany: Int, unknown: Int) {
-    UIView.animate(withDuration: 0.5, animations: {self.loader?.alpha = 0}, completion: { finished in
-      self.loader?.removeFromSuperview()
-      self.loader = nil
-      let nav = self.navigationController as! ExtendedNavController
-      if let _ = nav.visibleViewController as? MapViewController {
-        nav.setStatusMessage(message: "touch pin or cluster for info")
-      }
-      if tooMany > 0 {
-        let alert = UIAlertController(title: "Too many results", message: "Some categories returned too many results, try narrowing search area.", preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
-        
-        alert.view.tintColor = UIColor.flatMint
-        self.present(alert, animated: true, completion: nil)
-        
-      } else if unknown > 0 {
-        let alert = UIAlertController(title: "Error", message: "There were errors retreiving data for some categories.", preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
-        alert.view.tintColor = UIColor.flatMint
-        self.present(alert, animated: true, completion: nil)
-      }
-    })
-  }
-}
-
 
 extension MapViewController: UINavigationControllerDelegate {
   func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {

@@ -13,23 +13,16 @@ import Alamofire
 import PromiseKit
 
 
-protocol SearchDelegate {
-  
-  func searchStarted()
-  func searchComplete(tooMany: Int, unknown: Int)
-  
-}
+
 
 typealias SearchComplete = ([SearchResult]) -> Void
 
 class Search {
   
-  
-  var delegate: SearchDelegate?
+
   var sessionManager : SessionManager?
   var categoriesSearched: Int = 0
   let defaults = UserDefaults.standard
-  
   let config : URLSessionConfiguration  = {
     let configuration = URLSessionConfiguration.default
     //  configuration.httpAdditionalHeaders = SessionManager.defaultHTTPHeaders
@@ -53,8 +46,7 @@ class Search {
   func performSearch(coords: [CLLocationCoordinate2D],completion: @escaping SearchComplete) {
     
     cancelSearches()
- //   delegate?.searchStarted()
-    
+  
     sessionManager = Alamofire.SessionManager(configuration: config)
     
     //read in selected categories and sections from disk or set all to true if null
@@ -127,6 +119,7 @@ class Search {
       
       completion(flattenedResults)
       
+      
       }.catch { _ in
         
         print ("boo")
@@ -163,27 +156,7 @@ class Search {
     }
   }
   
-      
-      
-
-/*  func incrementSearchCount( error: Int, numCats: Int ) {
-    
-    categoriesSearched += 1
-    
-    if (error == 503) {
-      
-      tooManyResultsErrors += 1
-    } else if (error != 0 ) {
-      
-      unknownErrors += 1
-    }
-    if categoriesSearched == numCats {
-      print ("all searches completed")
-      self.delegate?.searchComplete(tooMany: tooManyResultsErrors, unknown: unknownErrors)
-    }
-  } */
-  
-  
+ 
   func getSearchURL (coords: [CLLocationCoordinate2D], date: MonthYear?, cat: CrimeCategory? ) -> URL {
     // format search string
     var searchString: String
