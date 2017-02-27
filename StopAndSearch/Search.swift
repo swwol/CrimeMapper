@@ -10,6 +10,7 @@ import Foundation
 import CoreLocation
 import Gloss
 import Alamofire
+import PromiseKit
 
 
 protocol SearchDelegate {
@@ -19,7 +20,7 @@ protocol SearchDelegate {
   
 }
 
-typealias SearchComplete = ((results:[SearchResult], cat: CrimeCategory)) -> Void
+typealias SearchComplete = ([SearchResult]) -> Void
 
 class Search {
   
@@ -27,9 +28,18 @@ class Search {
   var delegate: SearchDelegate?
   var sessionManager : SessionManager?
   var categoriesSearched: Int = 0
-  var unknownErrors: Int = 0
-  var tooManyResultsErrors: Int = 0
   let defaults = UserDefaults.standard
+  
+  let config : URLSessionConfiguration  = {
+    let configuration = URLSessionConfiguration.default
+    //  configuration.httpAdditionalHeaders = SessionManager.defaultHTTPHeaders
+    configuration.requestCachePolicy = .returnCacheDataElseLoad
+    //configuration.urlCache = urlCache
+    return configuration
+  }()
+
+  
+  //////
   
   func cancelSearches() {
     
@@ -37,17 +47,13 @@ class Search {
     sessionManager?.session.invalidateAndCancel()
   }
   
+  
+  /////////
+  
   func performSearch(coords: [CLLocationCoordinate2D],completion: @escaping SearchComplete) {
     
     cancelSearches()
-    delegate?.searchStarted()
-    let config : URLSessionConfiguration  = {
-      let configuration = URLSessionConfiguration.default
-      //  configuration.httpAdditionalHeaders = SessionManager.defaultHTTPHeaders
-      configuration.requestCachePolicy = .returnCacheDataElseLoad
-      //configuration.urlCache = urlCache
-      return configuration
-    }()
+ //   delegate?.searchStarted()
     
     sessionManager = Alamofire.SessionManager(configuration: config)
     
@@ -77,6 +83,7 @@ class Search {
     let monthLastUpdated = defaults.integer(forKey: "monthLastUpdated")
     let yearLastupdated  = defaults.integer(forKey: "yearLastUpdated")
     var startDate: MonthYear
+    
     if startMonth != 0 {
       startDate = MonthYear(month: startMonth, year: startYear)
     }
@@ -93,53 +100,73 @@ class Search {
     
     var searchDate: MonthYear  = startDate
     
+    /// this is the search loop
+    
+    var searches = [Promise<[SearchResult]>]()
+    
     repeat {
       
       for selectedCat in selectedCats {
-        categoriesSearched =  0
-        unknownErrors = 0
-        tooManyResultsErrors = 0
         
         let searchURL = getSearchURL(coords: coords, date: searchDate, cat: selectedCat)
         
-        sessionManager?.request(searchURL).responseJSON { response in
-          
-          if let status = response.response?.statusCode {
-            
-            switch(status){
-            case 200:
-              print("example success")
-            case 503:
-              print ("too many results")
-              self.incrementSearchCount(error: status, numCats: selectedCats.count)
-            default:
-              print("error with response status: \(status)")
-              self.incrementSearchCount(error: status, numCats: selectedCats.count)
+        let s = doSearch(searchURL: searchURL)
+        searches.append(s)
+        
+      }
+      searchDate = searchDate.increment()
+    } while ( searchDate <= endDate  )
+    
+    
+    // out of loop 
+    
+    when (fulfilled: searches).then  {
+      results -> Void in
+      
+      let flattenedResults  = results.flatMap { $0 }
+      
+      completion(flattenedResults)
+      
+      }.catch { _ in
+        
+        print ("boo")
+        
+    }
+    
+  }
+  
+  
+  func doSearch(searchURL: URL) -> Promise<[SearchResult]> {
+    
+    return Promise { fulfill, reject in
+     
+      sessionManager!.request(searchURL)
+      .validate()
+        .responseJSON() { response in
+          switch response.result {
+          case .success(let dict):
+            guard let jsonArray = dict as?  [NSDictionary] else {
+             return
             }
-          }
-          if let result = response.result.value {
-            let jsonArray = result as! [NSDictionary]
             var searchResults  = [SearchResult]()
             for result in jsonArray {
               if let r = SearchResult(json: result as! JSON){
                 searchResults.append(r)
               }
             }
-            DispatchQueue.main.async {
-              completion((results:searchResults, cat: selectedCat))
-              self.incrementSearchCount(error: 0, numCats: selectedCats.count)
-            }
-            
+
+            fulfill(searchResults)
+          case .failure(let error):
+            reject(error)
           }
-        }
-        
       }
-      searchDate = searchDate.increment()
-    } while ( searchDate <= endDate  )
-    
+    }
   }
   
-  func incrementSearchCount( error: Int, numCats: Int ) {
+      
+      
+
+/*  func incrementSearchCount( error: Int, numCats: Int ) {
     
     categoriesSearched += 1
     
@@ -154,7 +181,9 @@ class Search {
       print ("all searches completed")
       self.delegate?.searchComplete(tooMany: tooManyResultsErrors, unknown: unknownErrors)
     }
-  }
+  } */
+  
+  
   func getSearchURL (coords: [CLLocationCoordinate2D], date: MonthYear?, cat: CrimeCategory? ) -> URL {
     // format search string
     var searchString: String

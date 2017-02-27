@@ -135,8 +135,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
     
     fbpins = []
     
-  search.performSearch(coords: searchCoords ) {success in
-      self.generateFBAnnotations(results: success.0)
+  search.performSearch(coords: searchCoords ) { results in
+      self.generateFBAnnotations(results: results)
  
     }
   }
