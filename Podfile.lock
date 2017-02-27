@@ -1,15 +1,40 @@
 PODS:
-  - Alamofire (4.3.0)
-  - Gloss (1.2.0)
+  - Alamofire (4.4.0)
+  - ChameleonFramework/Default (2.1.0)
+  - ChameleonFramework/Swift (2.1.0):
+    - ChameleonFramework/Default
+  - Charts (3.0.1):
+    - Charts/Core (= 3.0.1)
+  - Charts/Core (3.0.1)
+  - Gloss (1.2.1)
+  - PromiseKit/Alamofire (4.1.7):
+    - Alamofire (~> 4.0)
+    - PromiseKit/CorePromise
+  - PromiseKit/CorePromise (4.1.7)
 
 DEPENDENCIES:
   - Alamofire (~> 4.3)
+  - ChameleonFramework/Swift (from `https://github.com/ViccAlexander/Chameleon.git`)
+  - Charts (~> 3.0.1)
   - Gloss
+  - PromiseKit/Alamofire (~> 4.0)
+
+EXTERNAL SOURCES:
+  ChameleonFramework:
+    :git: https://github.com/ViccAlexander/Chameleon.git
+
+CHECKOUT OPTIONS:
+  ChameleonFramework:
+    :commit: dcf98f9bf3a632a7f40679b7da46f09681e48526
+    :git: https://github.com/ViccAlexander/Chameleon.git
 
 SPEC CHECKSUMS:
-  Alamofire: 856a113053a7bc9cbe5d6367a555d773fc5cfef7
-  Gloss: ec49584b2e8144e39810b6db6285433316e0c1c7
+  Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
+  ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
+  Charts: 0e84f4418e87dad6a9edde221fba37ebb51d3ba7
+  Gloss: 9ab33b8ede01e4232571d43a6bf9259b85d1de69
+  PromiseKit: 779f2e41faf62d854e7593026ddbcb0bb5c5002d
 
-PODFILE CHECKSUM: 2c328559d43a075ea7a344a50458e19f84a027f0
+PODFILE CHECKSUM: a80e2833c284db76e882530451abe53450ab794d
 
 COCOAPODS: 1.2.0

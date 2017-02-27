@@ -1,10 +1,6 @@
 //
 //  MapViewController.swift
-//  StopAndSearch
-//
-//  Created by edit on 23/01/2017.
-//  Copyright © 2017 edit. All rights reserved.
-//
+
 
 import Foundation
 import UIKit
@@ -12,6 +8,8 @@ import MapKit
 import CoreLocation
 import Alamofire
 import Gloss
+import PromiseKit
+
 
 class MapViewController: UIViewController, CLLocationManagerDelegate, InitialisesExtendedNavBar {
   
@@ -47,7 +45,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
   var fbpins = [SearchResult]()
   let setDateMenuController = SetDateMenuController()
   
- 
   var monthYear: MonthYear? = nil
   var readyToSearch = false
   var loader: Loader?
@@ -104,11 +101,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
   }
   
   // find  and display datapoints within viewable region
+  
   func findAndDisplayDataPointsInVisibleRegion() {
+    
     guard readyToSearch else {
       return
     }
-    
     
     let region  = mapView.region
     let centre  =  region.center
@@ -156,13 +154,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
     
     fbpins += results
     
-    print ("got pins")
-    
-  //  print ("lattitude \( fbpins[0].latitude)")
-    
-   // self.mapView.addAnnotations(fbpins)
-    
-   
     clusteringManager.removeAll()
     clusteringManager.add(annotations: fbpins)
     DispatchQueue.global(qos: .userInitiated).async {
@@ -180,23 +171,103 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
     }
   }
   
-  func getDateLastUpdated() {
-    Alamofire.request("https://data.police.uk/api/crime-last-updated").responseJSON { response in
-      if let JSON = response.result.value {
-        print("JSON: \(JSON)")
-        let parsedToDict = JSON as! [String:String]
-        if let date  = parsedToDict["date"] {
-          let formattedDate = MonthYear(date: date)
-          // store this value on user defaults
-          self.defaults.set(formattedDate.month, forKey: "monthLastUpdated")
-          self.defaults.set(formattedDate.year, forKey: "yearLastUpdated")
-          self.updateDateExtendedNavBarInfo()
-        }
-      }
-      self.readyToSearch = true
-      self.findAndDisplayDataPointsInVisibleRegion()
+  
+  func  getNeighbourhoodBoundary(force: String, neighbourhood: String) -> Promise<[CLLocationCoordinate2D]> {
+    
+    let config : URLSessionConfiguration  = {
+      let configuration = URLSessionConfiguration.default
+      configuration.requestCachePolicy = .returnCacheDataElseLoad
+      return configuration
+    }()
+    
+    sessionManager = Alamofire.SessionManager(configuration: config)
+    let searchURL  = URL(string: "https://data.police.uk/api/\(force)/\(neighbourhood)/boundary")
+
+   return sessionManager!.request(searchURL!).responseJSON().then {
+      value in
+      self.parseBoundary(value)
     }
   }
+  
+  
+  func parseBoundary(_ value: Any) -> Promise<[CLLocationCoordinate2D]> {
+    
+    return Promise { fulfill, reject in
+      
+      guard let dictArray  = value as? [NSDictionary] else {
+        reject(error)
+        return
+      }
+      var coordResults: [NCoords]  = []
+      for result in dictArray {
+        if let r = NCoords(json: result as! JSON){
+          coordResults.append(r)
+        }
+      }
+      
+      let coordResAsCLCoords: [CLLocationCoordinate2D] = coordResults.map{CLLocationCoordinate2DMake($0.latitude,$0.longitude)}
+      
+      // lets try and get the map region for this neighbourhood
+      
+      var r : MKMapRect = MKMapRectNull
+      for coord in coordResAsCLCoords {
+        let p: MKMapPoint = MKMapPointForCoordinate(coord)
+        r = MKMapRectUnion(r, MKMapRectMake(p.x, p.y, 0, 0))
+      }
+      // draw polygon on map
+      
+      let polygon = MKPolygon(coordinates: coordResAsCLCoords, count: coordResAsCLCoords.count)
+      let lowerLeft = MKCoordinateForMapPoint(MKMapPoint(x: r.origin.x, y: r.origin.y))
+      
+      
+      let lowerRight =  MKCoordinateForMapPoint(MKMapPoint(x: r.origin.x + r.size.width, y: r.origin.y))
+      let topLeft =  MKCoordinateForMapPoint(MKMapPoint(x: r.origin.x, y: r.origin.y + r.size.height))
+      let topRight = MKCoordinateForMapPoint(MKMapPoint(x: r.origin.x + r.size.width, y: r.origin.y + r.size.height))
+      
+      let m = MKPolygon(coordinates: [lowerLeft,lowerRight,topRight,topLeft], count: 4)
+      self.mapView?.add(polygon)
+      self.mapView?.add(m)
+      
+      let region = MKCoordinateRegionForMapRect(r)
+      self.mapView.setRegion(region, animated: true)
+      
+      
+      fulfill(coordResAsCLCoords)
+    }
+    
+    
+  }
+  
+  /////////////
+  
+  func getDateLastUpdated() -> Promise<String> {
+    
+    return Alamofire.request("https://data.police.uk/api/crime-last-updated").responseJSON()
+      .then   { value in
+        self.parseDate(value)
+    }
+  }
+  
+  func parseDate( _ value: Any) -> Promise<String> {
+    
+    return Promise { fulfill, reject in
+      
+      guard let dictionary  = value as? [String:Any], let date = dictionary["date"] as? String else {
+        reject(error)
+        return
+      }
+      
+      let formattedDate = MonthYear(date: date)
+      self.defaults.set(formattedDate.month, forKey: "monthLastUpdated")
+      self.defaults.set(formattedDate.year, forKey: "yearLastUpdated")
+      self.updateDateExtendedNavBarInfo()
+      fulfill(date)
+    }
+  }
+  
+  
+  
+  ///////////////
   
   func updateDateExtendedNavBarInfo() {
     let nav = self.navigationController as! ExtendedNavController
@@ -210,9 +281,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
    
     navigationController?.delegate = self
     search.delegate = self
-    // go to users location on launch
-    getLocation()
     //appearance
+    
     let barTintColor = UIColor.flatMintDark
     toolbar.barTintColor=barTintColor
     //gesture recogniser to hide clusters/pins when zooming
@@ -221,31 +291,44 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
     mapView.addGestureRecognizer(zoom)
     mapView.isUserInteractionEnabled = true
     
-      //find date of latest data
-    getDateLastUpdated()
-  }
-  
-  override func viewWillAppear(_ animated: Bool) {
-     findAndDisplayDataPointsInVisibleRegion()
-    
-    /*
-    // set values of neighbour and force
+    // set values of neighbour and force from userDefaults
     getSearchNeighbourhoodID()
     
-    print (force ?? "force not set", neighbourhood ?? "neigbourhood not set")
+    //initiation routine
     
-    
-    updateDateExtendedNavBarInfo()
     
     if let n = neighbourhood, let f = force {
-      
-      findAndDisplayPointsInNeighbourhood(force: f, neighbourhood: n)
-      
+      let getDate =  getDateLastUpdated()
+      let getNeighbourhood =  getNeighbourhoodBoundary(force: f, neighbourhood: n)
+      when (fulfilled: getDate, getNeighbourhood).then {
+        date, coords in
+        self.readyToSearch = true
+        }.catch  { error in
+          print ("error", error )
+      }
     } else {
-    
-    findAndDisplayDataPointsInVisibleRegion()
       
-    }*/
+      getDateLastUpdated().then {
+       theDate ->Void in
+        print (theDate)
+         self.readyToSearch = true
+         self.getLocation()
+        }.catch {
+          error in
+          print (error)
+      }
+    }
+  }
+  
+  
+  
+  
+  
+  override func viewWillAppear(_ animated: Bool) {
+ 
+  
+  
+  
   }
   
 
@@ -261,85 +344,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
     return MKOverlayRenderer()
   }
  
-  
-  func  findAndDisplayPointsInNeighbourhood(force: String, neighbourhood: String) {
-    
-    guard readyToSearch else {
-      return
-    }
-
-  //  guard self.neighbourhood != nil else {
-  //    return
-  //  }
-    
-    if (loader == nil) {
-      loader = Loader(message: "loading data...")
-      loader?.alpha = 0
-      loader?.center = view.center
-      self.view.addSubview(loader!)
-    }
-    UIView.animate(withDuration: 0.5, animations: {self.loader?.alpha = 1})
-    
-    let config : URLSessionConfiguration  = {
-      let configuration = URLSessionConfiguration.default
-      configuration.requestCachePolicy = .returnCacheDataElseLoad
-      return configuration
-    }()
-    
-    sessionManager = Alamofire.SessionManager(configuration: config)
-    
-    let searchURL  = URL(string: "https://data.police.uk/api/\(force)/\(neighbourhood)/boundary")
-    sessionManager?.request(searchURL!).responseJSON { response in
-      
-      if let status = response.response?.statusCode {
-        switch(status){
-        case 200:
-          print("getting neighbourhoos boundary example success ooo")
-        default:
-          print("error getting boundary data")
-        }
-      }
-      if let result = response.result.value {
-        let jsonArray = result as! [NSDictionary]
-        var coordResults: [NCoords]  = []
-        for result in jsonArray {
-          if let r = NCoords(json: result as! JSON){
-            coordResults.append(r)
-          }
-        }
-        DispatchQueue.main.async {
-          // kill loader
-          self.loader?.activityIndicator.stopAnimating()
-          self.loader?.removeFromSuperview()
-          self.loader = nil
-         // map coordResult to CLLocatoinCoordinateArray
-          
-          let coordResAsCLCoords: [CLLocationCoordinate2D] = coordResults.map{CLLocationCoordinate2DMake($0.latitude,$0.longitude)}
-         
-          // lets try and get the map region for this neighbourhood
-          
-          var r : MKMapRect = MKMapRectNull
-          for coord in coordResAsCLCoords {
-            let p: MKMapPoint = MKMapPointForCoordinate(coord)
-            r = MKMapRectUnion(r, MKMapRectMake(p.x, p.y, 0, 0))
-          }
-          // draw polygon on map
-          
-          let polygon = MKPolygon(coordinates: coordResAsCLCoords, count: coordResAsCLCoords.count)
-          self.mapView?.add(polygon)
-          
-          
-          let region = MKCoordinateRegionForMapRect(r)
-          self.mapView.setRegion(region, animated: true)
-          
-     
-          
-        }
-      }
-    }
-  }
-  
-
   
 
   

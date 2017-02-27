@@ -5,4 +5,5 @@ target 'StopAndSearch' do
   pod 'Alamofire', '~> 4.3'
   pod 'ChameleonFramework/Swift', :git => 'https://github.com/ViccAlexander/Chameleon.git'
   pod 'Charts', '~> 3.0.1'
+  pod "PromiseKit/Alamofire", "~> 4.0"
 end
