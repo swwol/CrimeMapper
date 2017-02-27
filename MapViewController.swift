@@ -51,6 +51,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
   
   var force: String?
   var neighbourhood : String?
+  var neighbourhoodSquare: [CLLocationCoordinate2D]?
   var sessionManager : SessionManager?
   lazy var slideInTransitioningDelegate = SlideInPresentationManager()
   
@@ -111,18 +112,30 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
     let region  = mapView.region
     let centre  =  region.center
     let span = region.span
-    //get corners of region
-    let ne = CLLocationCoordinate2DMake(centre.latitude + span.latitudeDelta / 2.0, centre.longitude - span.longitudeDelta / 2.0)
-    let se = CLLocationCoordinate2DMake(centre.latitude - span.latitudeDelta / 2.0, centre.longitude - span.longitudeDelta / 2.0)
-    let nw = CLLocationCoordinate2DMake(centre.latitude + span.latitudeDelta / 2.0, centre.longitude + span.longitudeDelta / 2.0)
-    let sw = CLLocationCoordinate2DMake(centre.latitude - span.latitudeDelta / 2.0, centre.longitude + span.longitudeDelta / 2.0)
-    //now get data for region
     
-    // clear fbpins array
+    var searchCoords: [CLLocationCoordinate2D]
+    
+    
+    if let ns  = neighbourhoodSquare {
+      
+      searchCoords  = ns
+      
+    } else {
+      //get corners of region
+      let ne = CLLocationCoordinate2DMake(centre.latitude + span.latitudeDelta / 2.0, centre.longitude - span.longitudeDelta / 2.0)
+      let se = CLLocationCoordinate2DMake(centre.latitude - span.latitudeDelta / 2.0, centre.longitude - span.longitudeDelta / 2.0)
+      let nw = CLLocationCoordinate2DMake(centre.latitude + span.latitudeDelta / 2.0, centre.longitude + span.longitudeDelta / 2.0)
+      let sw = CLLocationCoordinate2DMake(centre.latitude - span.latitudeDelta / 2.0, centre.longitude + span.longitudeDelta / 2.0)
+      
+      searchCoords = [ne,nw,sw,se]
+      
+    }
+    
+    //now get data for region
     
     fbpins = []
     
-  search.performSearch(coords: [ne,nw,sw,se] ) {success in
+  search.performSearch(coords: searchCoords ) {success in
       self.generateFBAnnotations(results: success.0)
  
     }
@@ -227,7 +240,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
       let m = MKPolygon(coordinates: [lowerLeft,lowerRight,topRight,topLeft], count: 4)
       self.mapView?.add(polygon)
       self.mapView?.add(m)
-      
+      self.neighbourhoodSquare  = [lowerLeft,lowerRight,topRight,topLeft]
       let region = MKCoordinateRegionForMapRect(r)
       self.mapView.setRegion(region, animated: true)
       
@@ -320,10 +333,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
     }
   }
   
-  
-  
-  
-  
+
   override func viewWillAppear(_ animated: Bool) {
  
   
