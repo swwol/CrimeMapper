@@ -117,11 +117,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
     
     var searchCoords: [CLLocationCoordinate2D]
     
-    
     if let ns  = neighbourhoodSquare {
-      
       searchCoords  = ns
-      
     } else {
       //get corners of region
       let ne = CLLocationCoordinate2DMake(centre.latitude + span.latitudeDelta / 2.0, centre.longitude - span.longitudeDelta / 2.0)
@@ -130,7 +127,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
       let sw = CLLocationCoordinate2DMake(centre.latitude - span.latitudeDelta / 2.0, centre.longitude + span.longitudeDelta / 2.0)
       
       searchCoords = [ne,nw,sw,se]
-      
     }
     
     searchStarted()
@@ -138,21 +134,23 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
   search.performSearch(coords: searchCoords ) { results in
     
     
-    // can we cull any results that are not within my polygon
+    if let ren = self.renderer {
+    //renderer not nil if neighbourhood is set
+    //cull any results that are not within my polygon
     let resultsWithinPolygon = results.filter {
       
       let currentMapPoint =  MKMapPointForCoordinate($0.coordinate)
-      let polygonViewPoint: CGPoint  = self.renderer!.point(for: currentMapPoint)
-      if  (self.renderer!.path).contains(polygonViewPoint) {
+      let polygonViewPoint: CGPoint  = ren.point(for: currentMapPoint)
+      if  (ren.path).contains(polygonViewPoint) {
         return true
       }
       return false
      }
-    
-    
       self.generateFBAnnotations(results: resultsWithinPolygon)
+    } else {
+        self.generateFBAnnotations(results: results)
+    }
       self.searchComplete()
- 
     }
   }
   
@@ -167,10 +165,19 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
       } else {
         neighbourhood = nil
         force  = nil
-      }
+        renderer = nil
+        removeOverlays()
+          }
     }
   }
   
+  func removeOverlays() {
+    
+    for overlay in self.mapView!.overlays {
+      self.mapView!.remove(overlay)
+    }
+
+  }
   
   func removeAnnotations() {
     print("removing annotations")
@@ -277,8 +284,10 @@ func searchStarted() {
     }()
     
     sessionManager = Alamofire.SessionManager(configuration: config)
-    let searchURL  = URL(string: "https://data.police.uk/api/\(force)/\(neighbourhood)/boundary")
+    let searchURLString  =  "https://data.police.uk/api/\(force)/\(neighbourhood)/boundary"
     
+    let searchURLStringEncoded = searchURLString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+    let searchURL  = URL (string: searchURLStringEncoded!)
     return Promise { fulfill, reject in
     sessionManager!.request(searchURL!)
       .validate()
@@ -305,17 +314,15 @@ func searchStarted() {
           }
           // draw polygon on map
           
-          let polygon = MKPolygon(coordinates: coordResAsCLCoords, count: coordResAsCLCoords.count)
+          self.removeOverlays()
+          
+           let polygon = MKPolygon(coordinates: coordResAsCLCoords, count: coordResAsCLCoords.count)
+           self.mapView?.add(polygon)
+          
           let lowerLeft = MKCoordinateForMapPoint(MKMapPoint(x: r.origin.x, y: r.origin.y))
-          
-          
           let lowerRight =  MKCoordinateForMapPoint(MKMapPoint(x: r.origin.x + r.size.width, y: r.origin.y))
           let topLeft =  MKCoordinateForMapPoint(MKMapPoint(x: r.origin.x, y: r.origin.y + r.size.height))
           let topRight = MKCoordinateForMapPoint(MKMapPoint(x: r.origin.x + r.size.width, y: r.origin.y + r.size.height))
-          
-        //  let m = MKPolygon(coordinates: [lowerLeft,lowerRight,topRight,topLeft], count: 4)
-          self.mapView?.add(polygon)
-        //  self.mapView?.add(m)
           self.neighbourhoodSquare  = [lowerLeft,lowerRight,topRight,topLeft]
           let region = MKCoordinateRegionForMapRect(r)
           self.mapView.setRegion(region, animated: true)
@@ -369,11 +376,8 @@ func searchStarted() {
  
   override func viewDidLoad() {
     super.viewDidLoad()
-   
     navigationController?.delegate = self
-  
     //appearance
-    
     let barTintColor = UIColor.flatMintDark
     toolbar.barTintColor=barTintColor
     //gesture recogniser to hide clusters/pins when zooming
@@ -381,13 +385,15 @@ func searchStarted() {
     zoom.delegate = self
     mapView.addGestureRecognizer(zoom)
     mapView.isUserInteractionEnabled = true
-    
+   
+    startUp()
+ 
+  }
+  
+  func startUp() {
+    //initiation routine
     // set values of neighbour and force from userDefaults
     getSearchNeighbourhoodID()
-    
-    //initiation routine
-    
-    
     if let n = neighbourhood, let f = force {
       let getDate =  getDateLastUpdated()
       let getNeighbourhood =  getNeighbourhoodBoundary(force: f, neighbourhood: n)
@@ -398,12 +404,10 @@ func searchStarted() {
           print ("error", error )
       }
     } else {
-      
       getDateLastUpdated().then {
-       theDate ->Void in
-        print (theDate)
-         self.readyToSearch = true
-         self.getLocation()
+        theDate ->Void in
+        self.readyToSearch = true
+        self.getLocation()
         }.catch {
           error in
           print (error)
@@ -413,10 +417,7 @@ func searchStarted() {
   
 
   override func viewWillAppear(_ animated: Bool) {
- 
-  
-
-  
+  startUp()
   }
   
 
