@@ -166,6 +166,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
         neighbourhood = nil
         force  = nil
         renderer = nil
+        neighbourhoodSquare = nil
         removeOverlays()
           }
     }
