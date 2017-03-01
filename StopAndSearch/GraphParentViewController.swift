@@ -32,6 +32,8 @@ class GraphParentViewController: UIViewController, InitialisesExtendedNavBar {
   
   var currentViewController: UIViewController?
   var data: [SearchResult]?
+  var neighbourhood: String?
+  
   
   lazy var emptyVC: UIViewController? = {
     let emptyVC = self.storyboard?.instantiateViewController(withIdentifier: "emptyVC")
@@ -63,6 +65,42 @@ class GraphParentViewController: UIViewController, InitialisesExtendedNavBar {
     displayCurrentTab(TabIndex.barchart.rawValue)
   }
   
+  override func viewDidAppear(_ animated: Bool) {
+    // set text labels here
+    let defaults = UserDefaults.standard
+    let  startMonth  = defaults.integer(forKey: "startMonth")
+    let  startYear  = defaults.integer(forKey: "startYear")
+    let  endMonth  = defaults.integer(forKey: "endMonth")
+    let  endYear  = defaults.integer(forKey: "endYear")
+    var startDate: MonthYear? = nil
+    var endDate: MonthYear?  = nil
+    if( startMonth != 0 && startYear != 0){
+      startDate  = MonthYear(month: startMonth, year: startYear)
+    }
+    if( endMonth != 0 && endYear != 0){
+      endDate  = MonthYear(month: endMonth, year: startYear)
+    }
+    
+    if let sd = startDate {
+      if let ed = endDate {
+        if sd != ed {
+            dateLabel.text = "\(sd.getDateAsString())-\(ed.getDateAsString())"
+        } else {
+           dateLabel.text = sd.getDateAsString()
+        }
+      } else {
+        //end date is nil, just show start date
+         dateLabel.text = sd.getDateAsString()
+      }
+     
+    }
+    if let n = neighbourhood {
+      regoinLabel.text = "Area Id: \(n)"
+    } else {
+      regoinLabel.text = "visible region"
+    }
+  }
+
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
     if let currentViewController = currentViewController {

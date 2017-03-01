@@ -520,6 +520,8 @@ extension MapViewController: MKMapViewDelegate {
       
       let controller = segue.destination as! GraphParentViewController
       controller.data  = fbpins
+      controller.neighbourhood = self.neighbourhood
+      
     }
     
     if segue.identifier == "showDetail" {
