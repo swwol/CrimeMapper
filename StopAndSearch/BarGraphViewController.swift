@@ -50,9 +50,10 @@ class BarGraphViewController: UIViewController, ChartViewDelegate{
   let entryIndex = barChartView?.data?.dataSets[0].entryIndex(entry: entry)
   let barColor = barChartView?.data?.dataSets[0].colors[entryIndex!]
   let barText = graphlabels?[entryIndex!]
-  let compBarColor = UIColor.init(complementaryFlatColorOf: barColor!)
+  //let compBarColor = UIColor.init(complementaryFlatColorOf: barColor!)
+    let compBarColor = barColor?.lighten(byPercentage: 0.3)
   
-  let marker:BalloonMarker = BalloonMarker(title: barText, color: compBarColor , font: UIFont(name: "Helvetica", size: 12)!, textColor: UIColor.init(contrastingBlackOrWhiteColorOn: compBarColor, isFlat: true) , insets: UIEdgeInsets(top: 7.0, left: 7.0, bottom: 7.0, right: 7.0))
+  let marker:BalloonMarker = BalloonMarker(title: barText, color: compBarColor! , font: UIFont(name: "Helvetica", size: 12)!, textColor: UIColor.init(contrastingBlackOrWhiteColorOn: compBarColor!, isFlat: true) , insets: UIEdgeInsets(top: 7.0, left: 7.0, bottom: 7.0, right: 7.0))
   marker.minimumSize = CGSize(width: 75, height: 35)
   
   barChartView?.marker  = marker
@@ -72,7 +73,9 @@ class BarGraphViewController: UIViewController, ChartViewDelegate{
     
     let chartDataSet = BarChartDataSet(values: dataEntries, label: nil)
     chartDataSet.form = .none
+    chartDataSet.highlightAlpha = 0.1
     let chartData = BarChartData(dataSet: chartDataSet)
+    
     barChartView!.data = chartData
     
     if view.traitCollection.verticalSizeClass == .regular {
@@ -99,6 +102,7 @@ class BarGraphViewController: UIViewController, ChartViewDelegate{
     barChartView!.scaleYEnabled = true
     barChartView!.scaleXEnabled = true
    // barChartView!.highlighter = nil
+  //  barChartView!.highlightFullBarEnabled = false
     barChartView!.doubleTapToZoomEnabled = false
     barChartView!.chartDescription?.text = ""
     chartDataSet.colors =  graphArray.map{$0[0].color!}

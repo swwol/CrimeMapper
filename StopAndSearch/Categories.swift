@@ -34,7 +34,7 @@ struct Categories {
     
     CrimeCategory(category:   "Anti-social behaviour",url:"anti-social-behaviour", color: .flatOrangeDark, type: "public order"),
     CrimeCategory(category:   "Criminal damage and arson",url:"criminal-damage-arson", color: .flatYellowDark, type: "public order" ),
-    CrimeCategory(category:   "Public order",url:"public-order", color: .flatSand, type: "public order"),
+    CrimeCategory(category:   "Public order",url:"public-order", color: .flatSandDark, type: "public order"),
    
     CrimeCategory(category:   "Possession of weapons",url:"possession-of-weapons", color: .flatForestGreenDark, type: "possession" ),
     CrimeCategory(category:   "Drugs",url:"drugs", color:.flatLimeDark, type: "possession"),

@@ -18,6 +18,7 @@ var startMonth: Int = 0
 var startYear: Int = 0
 var endMonth: Int = 0
 var endYear: Int = 0
+var dates: [String]?
   
   
     override func viewDidLoad() {
@@ -52,8 +53,37 @@ var endYear: Int = 0
     readData()
   }
   
+  func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
+   
+    let set = highlight.dataSetIndex
+    let setColor  = lineChartView?.data?.dataSets[set].colors[0]
+    let title  = lineChartView?.data?.dataSets[set].label
+   //let entryIndex = lineChartView?.data?.dataSets[0].entryIndex(entry: entry)
+ //  let segColor = setColor!
+   let compSegColor = setColor!
+    
+    let marker:BalloonMarker = BalloonMarker(title: title, color: compSegColor , font: UIFont(name: "Helvetica", size: 12)!, textColor: UIColor.init(contrastingBlackOrWhiteColorOn: compSegColor, isFlat: true) , insets: UIEdgeInsets(top: 7.0, left: 7.0, bottom: 7.0, right: 7.0))
+    marker.minimumSize = CGSize(width: 75, height: 35)
+    
+    lineChartView?.marker  = marker
+    
+    
+    
+  }
+  
   
   func setChart() {
+    
+    // generate an array of dates for labelling x axis
+    
+    dates  = [String]()
+    var thisDate = MonthYear ( month: startMonth, year: startYear)
+    repeat {
+      dates?.append(thisDate.getDateAsString())
+     thisDate =  thisDate.increment()
+    } while (thisDate <= MonthYear(month: endMonth, year: endYear))
+  
+    
     
     print ("setting chart")
     
@@ -81,7 +111,7 @@ var endYear: Int = 0
         //if there is something in this category both arrays should be non empty int theory
          let set = LineChartDataSet(values: chartDataEntriesForCat, label: catResultArray[0].title!)
          set.axisDependency = .left
-         set.setColor(catResultArray[0].color!.withAlphaComponent(0.5))
+         set.setColor(catResultArray[0].color!)
          set.setCircleColor(catResultArray[0].color!)
          set.lineWidth = 2
          set.circleRadius = 6.0 // the radius of the node circle
@@ -96,6 +126,15 @@ var endYear: Int = 0
     let data = LineChartData(dataSets: lineChartDataSets)
     data.setValueTextColor(.white)
     self.lineChartView?.data = data
+ 
+   
+    lineChartView?.xAxis.valueFormatter = IndexAxisValueFormatter(values: dates!)
+    lineChartView!.xAxis.labelCount = dates!.count
+    lineChartView?.xAxis.labelPosition = .bottom
+    lineChartView?.extraBottomOffset = 40
+    lineChartView?.xAxis.labelRotationAngle = -90
+    lineChartView?.xAxis.granularityEnabled = true
+    lineChartView?.xAxis.granularity = 1
   }
 
   override func didReceiveMemoryWarning() {
