@@ -19,15 +19,12 @@ class PieViewController: UIViewController, ChartViewDelegate {
     override func viewDidLoad() {
       
       super.viewDidLoad()
-      
-   
-      
       pieChartInit()
-      
+  
       if let d = data {
         for cat in Categories.categories {
           //loop through all categories
-          let filteredByCat = d.filter {$0.title == cat.category    }
+          let filteredByCat = d.filter {$0.title == cat.category }
           if !filteredByCat.isEmpty {
             graphArray.append(filteredByCat)
           }
@@ -46,25 +43,28 @@ class PieViewController: UIViewController, ChartViewDelegate {
   func setChart() {
     pieChartView!.noDataText = "You need to provide data for the chart."
     var dataEntries: [ChartDataEntry] = []
-    for (i,catArray) in graphArray.enumerated() {
+    for catArray in graphArray {
   let dataEntry = PieChartDataEntry(value: Double(catArray.count), label: catArray[0].title)
-     let dataEntryWithSliceIndex =  dataEntry as ChartDataEntry
-       dataEntryWithSliceIndex.x  = Double(i)
-      // let dataEntry =     ChartDataEntry(x: Double(i), y:  Double(catArray.count), data:  catArray[0].title as AnyObject? )
-      dataEntries.append(dataEntryWithSliceIndex)
+      dataEntries.append(dataEntry)
     }
     let pieChartDataSet = PieChartDataSet(values: dataEntries, label: nil)
     pieChartDataSet.colors =  graphArray.map{$0[0].color!}
     pieChartView?.drawEntryLabelsEnabled = false
     let pieChartData = PieChartData(dataSet: pieChartDataSet)
+   pieChartView?.usePercentValuesEnabled = true
+  pieChartData.setValueFormatter(DigitValueFormatter())
+    
+    
+    
     pieChartView?.data = pieChartData
-  
-   // pieChartDataSet.form = .none
+   
+ 
     pieChartView!.chartDescription?.text = ""
     if view.traitCollection.verticalSizeClass == .compact {
     
     pieChartView!.legend.enabled = false
-    
+      
+      
     }
   }
 
@@ -82,7 +82,21 @@ class PieViewController: UIViewController, ChartViewDelegate {
     self.view.addSubview(pieChartView!)
   }
   
-   func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) { print (entry)}
+   func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
+    
+    // get color of selected segment
+    
+    let entryIndex = pieChartView?.data?.dataSets[0].entryIndex(entry: entry)
+    let segColor = pieChartView?.data?.dataSets[0].colors[entryIndex!]
+    let compSegColor = UIColor.init(complementaryFlatColorOf: segColor!)
+    
+    let marker:BalloonMarker = BalloonMarker(color: compSegColor , font: UIFont(name: "Helvetica", size: 12)!, textColor: UIColor.init(contrastingBlackOrWhiteColorOn: compSegColor, isFlat: true) , insets: UIEdgeInsets(top: 7.0, left: 7.0, bottom: 7.0, right: 7.0))
+    marker.minimumSize = CGSize(width: 75, height: 35)
+
+       pieChartView?.marker  = marker
+  
+  }
+  
   
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
     

@@ -16,7 +16,7 @@ class BarGraphViewController: UIViewController, ChartViewDelegate{
   var pieChartView: PieChartView?
   var currentView: UIView?
   var graphArray = [[SearchResult]]()
-
+  var graphlabels: [String]?
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -43,7 +43,23 @@ class BarGraphViewController: UIViewController, ChartViewDelegate{
     self.view.addSubview(barChartView!)
     }
   
- func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) { print (entry)}
+ func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) { 
+  
+  // get color of selected segment
+  
+  let entryIndex = barChartView?.data?.dataSets[0].entryIndex(entry: entry)
+  let barColor = barChartView?.data?.dataSets[0].colors[entryIndex!]
+  let barText = graphlabels?[entryIndex!]
+  let compBarColor = UIColor.init(complementaryFlatColorOf: barColor!)
+  
+  let marker:BalloonMarker = BalloonMarker(title: barText, color: compBarColor , font: UIFont(name: "Helvetica", size: 12)!, textColor: UIColor.init(contrastingBlackOrWhiteColorOn: compBarColor, isFlat: true) , insets: UIEdgeInsets(top: 7.0, left: 7.0, bottom: 7.0, right: 7.0))
+  marker.minimumSize = CGSize(width: 75, height: 35)
+  
+  barChartView?.marker  = marker
+
+  
+  
+  }
   
   func setChart() {
        //initialise dataEntries array
@@ -61,6 +77,7 @@ class BarGraphViewController: UIViewController, ChartViewDelegate{
     
     if view.traitCollection.verticalSizeClass == .regular {
       let labels  = graphArray.map { $0[0].title!}
+      graphlabels = labels
       barChartView!.xAxis.valueFormatter = IndexAxisValueFormatter(values: labels)
       barChartView!.xAxis.labelCount = graphArray.count
       barChartView!.xAxis.labelPosition = .bottom

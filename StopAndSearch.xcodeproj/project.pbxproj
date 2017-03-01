@@ -39,6 +39,8 @@
 		CD8A24D31E4CD91B00244A56 /* CategoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD8A24D21E4CD91B00244A56 /* CategoryCell.xib */; };
 		CD8A24D51E4CEC2B00244A56 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8A24D41E4CEC2B00244A56 /* CategoryCell.swift */; };
 		CD8CDA101E5A188800F8EAD2 /* GraphsTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8CDA0F1E5A188800F8EAD2 /* GraphsTabBarController.swift */; };
+		CD90E7E51E66DB0D0086CF98 /* BalloonMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD90E7E41E66DB0D0086CF98 /* BalloonMarker.swift */; };
+		CD90E7E71E66FA180086CF98 /* DigitValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD90E7E61E66FA180086CF98 /* DigitValueFormatter.swift */; };
 		CD95F9741E60D625003BB956 /* NCoords.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD95F9731E60D625003BB956 /* NCoords.swift */; };
 		CDA149751E60580C002F1003 /* ForceResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA149741E60580C002F1003 /* ForceResult.swift */; };
 		CDA149781E606861002F1003 /* NeighbourhoodTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA149771E606861002F1003 /* NeighbourhoodTableViewController.swift */; };
@@ -122,6 +124,8 @@
 		CD8A24D21E4CD91B00244A56 /* CategoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoryCell.xib; sourceTree = "<group>"; };
 		CD8A24D41E4CEC2B00244A56 /* CategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		CD8CDA0F1E5A188800F8EAD2 /* GraphsTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphsTabBarController.swift; sourceTree = "<group>"; };
+		CD90E7E41E66DB0D0086CF98 /* BalloonMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BalloonMarker.swift; path = ../BalloonMarker.swift; sourceTree = "<group>"; };
+		CD90E7E61E66FA180086CF98 /* DigitValueFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DigitValueFormatter.swift; sourceTree = "<group>"; };
 		CD95F9731E60D625003BB956 /* NCoords.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NCoords.swift; sourceTree = "<group>"; };
 		CDA149741E60580C002F1003 /* ForceResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForceResult.swift; sourceTree = "<group>"; };
 		CDA149771E606861002F1003 /* NeighbourhoodTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NeighbourhoodTableViewController.swift; sourceTree = "<group>"; };
@@ -191,6 +195,7 @@
 				CD21BB9B1E66325000696378 /* GraphParentViewController.swift */,
 				CD7007541E5F63D3000FFCFA /* LineGraphViewController.swift */,
 				CD6729531E5B552200EEC959 /* PieViewController.swift */,
+				CD90E7E61E66FA180086CF98 /* DigitValueFormatter.swift */,
 				CD8CDA0F1E5A188800F8EAD2 /* GraphsTabBarController.swift */,
 				CDA2A6421E58D15A0028F2D7 /* BarGraphViewController.swift */,
 				CDDCB2A91E53C51C00D86CE7 /* ExtendedNavController.swift */,
@@ -234,6 +239,7 @@
 		CD7FBCA41E32AE1500DA40F1 /* StopAndSearch */ = {
 			isa = PBXGroup;
 			children = (
+				CD90E7E41E66DB0D0086CF98 /* BalloonMarker.swift */,
 				CD04FEDC1E57306100832820 /* InitialisesExtendedNavBar.swift */,
 				CDDCB2A61E53BC9400D86CE7 /* Extensions */,
 				CD71A8571E549270004A4132 /* ViewControllers */,
@@ -534,6 +540,7 @@
 				CDDCB2AA1E53C51C00D86CE7 /* ExtendedNavController.swift in Sources */,
 				CDD5DE071E40ADBF000F382C /* FBBoundingBox+MapKit.swift in Sources */,
 				CD28AF9E1E449F1E00663A36 /* ClusterInfoTableViewController.swift in Sources */,
+				CD90E7E51E66DB0D0086CF98 /* BalloonMarker.swift in Sources */,
 				CDD5DE011E40ADBF000F382C /* FBAnnotation.swift in Sources */,
 				CD33D95D1E362C7100AB6E94 /* MapViewController.swift in Sources */,
 				CDA2A6431E58D15A0028F2D7 /* BarGraphViewController.swift in Sources */,
@@ -573,6 +580,7 @@
 				CDD5DE061E40ADBF000F382C /* FBBoundingBox.swift in Sources */,
 				CDD5DE081E40ADBF000F382C /* FBClusteringManager.swift in Sources */,
 				CDD5DE031E40ADBF000F382C /* FBAnnotationClusterTemplate.swift in Sources */,
+				CD90E7E71E66FA180086CF98 /* DigitValueFormatter.swift in Sources */,
 				CDD5DE091E40ADBF000F382C /* FBQuadTree.swift in Sources */,
 				CD251B041E3555F4004DACB7 /* Search.swift in Sources */,
 				CD7FC2CD1E5245E100B1B6C2 /* CoordCell.swift in Sources */,
