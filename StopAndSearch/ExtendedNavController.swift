@@ -1,7 +1,6 @@
 
 import UIKit
 
-
 class ExtendedNavController: UINavigationController {
   
   let topView = OverlayBar.instanceFromNib() as! OverlayBar
@@ -9,7 +8,10 @@ class ExtendedNavController: UINavigationController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    topView.dateLabel.textColor = UIColor.init(complementaryFlatColorOf: .flatMintDark)
+    topView.startDate.textColor = .flatGrayDark
+    topView.endDate.textColor = .flatGrayDark
+    topView.areaID.textColor = .flatGrayDark
+    topView.area.textColor = .flatGrayDark
     setTopViewFrame()
     self.view.addSubview(topView)
   }
@@ -38,33 +40,56 @@ class ExtendedNavController: UINavigationController {
     setTopViewFrame()
   }
   
-  func setDate(month: Int?, year: Int?) {
-    // set date from last data available API call
-    if let m = month, let y = year {
-      topView.dateLabel.text = "\(Months.months[m-1])-\(y)"
-    } else {
-     topView.dateLabel.text = "all dates"
-    }
-  }
+  
   func updateInfo(){
     let defaults = UserDefaults.standard
-    // read in and set startdate
-    let startMonth = defaults.integer(forKey: "startMonth")
-    let startYear = defaults.integer(forKey: "startYear")
-    if startMonth != 0 {
-      let startDateAsMonthYear = MonthYear(month: startMonth, year: startYear)
-      topView.dateLabel.text = startDateAsMonthYear.getDateAsString()
-      
+    let  startMonth  = defaults.integer(forKey: "startMonth")
+    let  startYear  = defaults.integer(forKey: "startYear")
+    let  endMonth  = defaults.integer(forKey: "endMonth")
+    let  endYear  = defaults.integer(forKey: "endYear")
+    var startDate: MonthYear? = nil
+    var endDate: MonthYear?  = nil
+    if( startMonth != 0 && startYear != 0){
+      startDate  = MonthYear(month: startMonth, year: startYear)
+    }
+    if( endMonth != 0 && endYear != 0){
+      endDate  = MonthYear(month: endMonth, year: endYear)
+    }
+    
+    if let sd = startDate {
+      if let ed = endDate {
+        if sd != ed {
+          topView.startDate.text = "\(sd.getDateAsString()) - "
+          topView.endDate.text = ed.getDateAsString()
+        } else {
+          topView.startDate.text = ""
+          topView.endDate.text = sd.getDateAsString()
+        }
+      } else {
+        //end date is nil, just show start date
+        topView.startDate.text = ""
+        topView.endDate.text = sd.getDateAsString()
+      }
+    }
+    
+    if let n = defaults.object(forKey: "neighbourhood") {
+      if let nUnwrapped = n as? String {
+        topView.areaID.text = "area Id:"
+        topView.area.text = nUnwrapped
+      } else {
+           topView.areaID.text = ""
+           topView.area.text = "visible region"
+      }
     }
   }
   
   func showDate(_ show: Bool) {
     if show {
-    topView.dataForLabel.isHidden = false
-    topView.dateLabel.isHidden = false
+    topView.startDate.isHidden = false
+    topView.endDate.isHidden = false
     } else {
-      topView.dataForLabel.isHidden = true
-      topView.dateLabel.isHidden = true
+      topView.startDate.isHidden = true
+      topView.endDate.isHidden = true
     }
   }
   func setStatusMessage(message: String, size: CGFloat = 12, color: UIColor = .flatBlack) {

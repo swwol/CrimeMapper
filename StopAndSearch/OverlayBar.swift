@@ -14,8 +14,11 @@ class OverlayBar: UIView {
 
   @IBOutlet weak var sLabel: UILabel!
   @IBOutlet weak var bgview: UIView!
-  @IBOutlet weak var dataForLabel: UILabel!
-  @IBOutlet weak var dateLabel: UILabel!
+  @IBOutlet weak var startDate: UILabel!
+  @IBOutlet weak var endDate: UILabel!
+  @IBOutlet weak var areaID: UILabel!
+  @IBOutlet weak var area: UILabel!
+  
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
     print ("this is my view")

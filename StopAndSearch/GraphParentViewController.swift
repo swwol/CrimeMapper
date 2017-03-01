@@ -78,7 +78,7 @@ class GraphParentViewController: UIViewController, InitialisesExtendedNavBar {
       startDate  = MonthYear(month: startMonth, year: startYear)
     }
     if( endMonth != 0 && endYear != 0){
-      endDate  = MonthYear(month: endMonth, year: startYear)
+      endDate  = MonthYear(month: endMonth, year: endYear)
     }
     
     if let sd = startDate {
