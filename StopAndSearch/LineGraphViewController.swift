@@ -60,7 +60,7 @@ var dates: [String]?
     let title  = lineChartView?.data?.dataSets[set].label
    //let entryIndex = lineChartView?.data?.dataSets[0].entryIndex(entry: entry)
  //  let segColor = setColor!
-   let compSegColor = setColor!
+   let compSegColor = setColor!.lighten(byPercentage: 0.3)!
     
     let marker:BalloonMarker = BalloonMarker(title: title, color: compSegColor , font: UIFont(name: "Helvetica", size: 12)!, textColor: UIColor.init(contrastingBlackOrWhiteColorOn: compSegColor, isFlat: true) , insets: UIEdgeInsets(top: 7.0, left: 7.0, bottom: 7.0, right: 7.0))
     marker.minimumSize = CGSize(width: 75, height: 35)

@@ -111,6 +111,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
       return
     }
     
+    fbpins = []
+    
     let region  = mapView.region
     let centre  =  region.center
     let span = region.span

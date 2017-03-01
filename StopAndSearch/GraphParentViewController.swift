@@ -27,17 +27,16 @@ class GraphParentViewController: UIViewController, InitialisesExtendedNavBar {
   
   @IBOutlet weak var dateLabel: UILabel!
   @IBOutlet weak var regoinLabel: UILabel!
-  
-
-  
   @IBOutlet weak var seg: UISegmentedControl!
-
   @IBOutlet weak var contentView: UIView!
   
   var currentViewController: UIViewController?
   var data: [SearchResult]?
   
-  
+  lazy var emptyVC: UIViewController? = {
+    let emptyVC = self.storyboard?.instantiateViewController(withIdentifier: "emptyVC")
+    return emptyVC
+  }()
   
   lazy var barVC: UIViewController? = {
     let barVC = self.storyboard?.instantiateViewController(withIdentifier: "barVC")
@@ -93,6 +92,13 @@ class GraphParentViewController: UIViewController, InitialisesExtendedNavBar {
   
   func viewControllerForSelectedSegmentIndex(_ index: Int) -> UIViewController? {
     var vc: UIViewController?
+    
+    guard (!data!.isEmpty) else {
+      print ("nothing here")
+      return emptyVC
+    }
+    
+    
     switch index {
     case TabIndex.barchart.rawValue :
       vc = barVC
