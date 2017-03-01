@@ -516,7 +516,7 @@ extension MapViewController: MKMapViewDelegate {
     
     if segue.identifier == "showGraphs" {
       
-      let controller = segue.destination as! GraphsTabBarController
+      let controller = segue.destination as! GraphParentViewController
       controller.data  = fbpins
     }
     

@@ -9,18 +9,22 @@
 import UIKit
 import Charts
 
-class BarGraphViewController: UIViewController, ChartViewDelegate {
-
+class BarGraphViewController: UIViewController, ChartViewDelegate{
+  
+  var data: [SearchResult]?
   var barChartView: BarChartView?
+  var pieChartView: PieChartView?
+  var currentView: UIView?
   var graphArray = [[SearchResult]]()
-  var tabBarHeight: CGFloat?
+
+
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.title = "Bar Chart"
-    tabBarHeight = tabBarController!.tabBar.frame.size.height
+
+    
     barChartInit()
 
-      if let d = (tabBarController as! GraphsTabBarController).data {
+      if let d = data {
         for cat in Categories.categories {
           //loop through all categories
           let filteredByCat = d.filter {$0.title == cat.category    }
@@ -33,11 +37,11 @@ class BarGraphViewController: UIViewController, ChartViewDelegate {
   }
   
   func barChartInit() {
-    barChartView = BarChartView(frame: CGRect(x: 0, y: 60, width: self.view.frame.size.width, height: self.view.frame.size.height - (60 + tabBarHeight!)))
+    barChartView = BarChartView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height))
     barChartView!.backgroundColor = .flatWhite
     barChartView!.isUserInteractionEnabled = true
     self.view.addSubview(barChartView!)
-  }
+    }
   
  func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) { print (entry)}
   
@@ -72,7 +76,7 @@ class BarGraphViewController: UIViewController, ChartViewDelegate {
     barChartView!.xAxis.granularityEnabled = true
     barChartView!.xAxis.granularity = 1
     barChartView!.xAxis.drawGridLinesEnabled = false
-    barChartView!.extraTopOffset = 60
+    barChartView!.extraTopOffset = 20
     barChartView!.leftAxis.enabled = true
     barChartView!.pinchZoomEnabled = true
     barChartView!.scaleYEnabled = true

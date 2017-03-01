@@ -299,10 +299,10 @@
             </objects>
             <point key="canvasLocation" x="1892.753623188406" y="326.9021739130435"/>
         </scene>
-        <!--BarGraph-->
+        <!--graphs-->
         <scene sceneID="D4W-jX-Wai">
             <objects>
-                <viewController title="BarGraph" id="oa5-jS-nA3" customClass="BarGraphViewController" customModule="StopAndSearch" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="graphs" id="oa5-jS-nA3" customClass="GraphParentViewController" customModule="StopAndSearch" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="dlR-c9-7dI"/>
                         <viewControllerLayoutGuide type="bottom" id="NCX-Fm-y7J"/>
@@ -310,52 +310,132 @@
                     <view key="view" contentMode="scaleToFill" id="rAa-m8-jNa">
                         <rect key="frame" x="0.0" y="64" width="414" height="672"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ogm-KU-MQz">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dec 2015 - Jan 2016" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i8I-l1-jiI">
+                                        <rect key="frame" x="45" y="58.666666666666657" width="324" height="13.333333333333343"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <color key="textColor" red="0.11181893199682236" green="0.1118365004658699" blue="0.1118125319480896" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="c0z-mI-QPD">
+                                        <rect key="frame" x="46" y="15" width="323" height="29"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="28" id="9XE-Xk-DTL"/>
+                                        </constraints>
+                                        <segments>
+                                            <segment title="bar graph"/>
+                                            <segment title="pie chart"/>
+                                            <segment title="line graph"/>
+                                        </segments>
+                                        <connections>
+                                            <action selector="switchTabs:" destination="oa5-jS-nA3" eventType="valueChanged" id="mrV-Bv-bDJ"/>
+                                        </connections>
+                                    </segmentedControl>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="within visible region" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ifk-7c-Hw7">
+                                        <rect key="frame" x="45" y="58.666666666666657" width="324" height="13.333333333333343"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <color key="textColor" red="0.11181893199682236" green="0.1118365004658699" blue="0.1118125319480896" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.90823972225189209" green="0.92638683319091797" blue="0.9317171573638916" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="i8I-l1-jiI" firstAttribute="leading" secondItem="ogm-KU-MQz" secondAttribute="leading" constant="45" id="0wA-8k-ev2"/>
+                                    <constraint firstAttribute="height" constant="80" id="EZV-Vg-kTC"/>
+                                    <constraint firstAttribute="trailing" secondItem="Ifk-7c-Hw7" secondAttribute="trailing" constant="45" id="FNy-r8-mkL"/>
+                                    <constraint firstAttribute="trailing" secondItem="i8I-l1-jiI" secondAttribute="trailing" constant="45" id="Qja-1e-FvY"/>
+                                    <constraint firstAttribute="bottom" secondItem="Ifk-7c-Hw7" secondAttribute="bottom" constant="8" id="TTC-0m-iqx"/>
+                                    <constraint firstItem="c0z-mI-QPD" firstAttribute="top" secondItem="ogm-KU-MQz" secondAttribute="top" constant="15" id="ZKJ-Qn-bzN"/>
+                                    <constraint firstItem="c0z-mI-QPD" firstAttribute="leading" secondItem="ogm-KU-MQz" secondAttribute="leading" constant="46" id="hjn-ac-jkD"/>
+                                    <constraint firstAttribute="bottom" secondItem="i8I-l1-jiI" secondAttribute="bottom" constant="8" id="oMR-0O-kBH"/>
+                                    <constraint firstItem="Ifk-7c-Hw7" firstAttribute="leading" secondItem="ogm-KU-MQz" secondAttribute="leading" constant="45" id="rZb-AH-07w"/>
+                                    <constraint firstAttribute="trailing" secondItem="c0z-mI-QPD" secondAttribute="trailing" constant="45" id="tKg-71-YFP"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bc6-3x-8tU" userLabel="contentView">
+                                <rect key="frame" x="0.0" y="80" width="414" height="592"/>
+                                <color key="backgroundColor" red="0.90823972230000005" green="0.92638683320000004" blue="0.93171715740000005" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Bc6-3x-8tU" firstAttribute="leading" secondItem="rAa-m8-jNa" secondAttribute="leading" id="0Fx-th-EXb"/>
+                            <constraint firstItem="ogm-KU-MQz" firstAttribute="top" secondItem="dlR-c9-7dI" secondAttribute="bottom" id="A4D-lq-FUO"/>
+                            <constraint firstAttribute="trailing" secondItem="ogm-KU-MQz" secondAttribute="trailing" id="EdA-qO-DpE"/>
+                            <constraint firstItem="Bc6-3x-8tU" firstAttribute="top" secondItem="ogm-KU-MQz" secondAttribute="bottom" id="JXV-7D-RJn"/>
+                            <constraint firstItem="ogm-KU-MQz" firstAttribute="leading" secondItem="rAa-m8-jNa" secondAttribute="leading" id="TJT-ZM-RSd"/>
+                            <constraint firstAttribute="trailing" secondItem="Bc6-3x-8tU" secondAttribute="trailing" id="mUQ-iY-jQK"/>
+                            <constraint firstItem="NCX-Fm-y7J" firstAttribute="top" secondItem="Bc6-3x-8tU" secondAttribute="bottom" id="x5U-UX-teQ"/>
+                        </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
-                    <tabBarItem key="tabBarItem" title="bar graph" image="line-chart" id="bE8-y5-aTf"/>
+                    <connections>
+                        <outlet property="contentView" destination="Bc6-3x-8tU" id="ihl-bp-yfL"/>
+                        <outlet property="dateLabel" destination="i8I-l1-jiI" id="VD3-Bv-2jV"/>
+                        <outlet property="regoinLabel" destination="Ifk-7c-Hw7" id="Ru0-8N-6IP"/>
+                        <outlet property="seg" destination="c0z-mI-QPD" id="qHq-Cm-fl8"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cKm-2b-WSq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4692.753623188406" y="-1023.0978260869566"/>
+            <point key="canvasLocation" x="3906" y="-922"/>
         </scene>
-        <!--Pie Chart-->
-        <scene sceneID="9Zp-6f-oD5">
+        <!--Bar Graph View Controller-->
+        <scene sceneID="e4Q-Kj-YoL">
             <objects>
-                <viewController title="Pie Chart" id="qEf-77-BAF" customClass="PieViewController" customModule="StopAndSearch" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="barVC" id="evg-80-RI9" customClass="BarGraphViewController" customModule="StopAndSearch" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="QFd-IQ-Bzz"/>
-                        <viewControllerLayoutGuide type="bottom" id="NHB-Mu-WkS"/>
+                        <viewControllerLayoutGuide type="top" id="ZhM-Re-eFi"/>
+                        <viewControllerLayoutGuide type="bottom" id="ak4-hl-Vnl"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="2Od-fZ-RIS">
+                    <view key="view" contentMode="scaleToFill" id="Xiy-TJ-Vaa">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.90823972230000005" green="0.92638683320000004" blue="0.93171715740000005" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="PieChart" image="line-chart" id="xEb-4R-Zth"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="55b-hR-3xm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8cp-rO-5xg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4692.753623188406" y="-358.69565217391306"/>
+            <point key="canvasLocation" x="4639" y="-922"/>
         </scene>
-        <!--line graph-->
-        <scene sceneID="zKs-Ny-mHK">
+        <!--Pie View Controller-->
+        <scene sceneID="USz-K7-cVP">
             <objects>
-                <viewController id="yZk-UR-rg9" customClass="LineGraphViewController" customModule="StopAndSearch" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="pieVC" id="nRZ-pc-V1h" customClass="PieViewController" customModule="StopAndSearch" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="tCe-d3-GVN"/>
-                        <viewControllerLayoutGuide type="bottom" id="y9w-PI-Pc9"/>
+                        <viewControllerLayoutGuide type="top" id="HN4-2H-QRx"/>
+                        <viewControllerLayoutGuide type="bottom" id="v0N-IS-M38"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="vb6-hh-psp">
+                    <view key="view" contentMode="scaleToFill" id="uT5-UP-Jmo">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.90823972230000005" green="0.92638683320000004" blue="0.93171715740000005" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="line graph" image="coord" id="RE3-E6-h4M"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="SfU-Kx-avN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="h1L-OY-4Ha" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5367" y="-667"/>
+            <point key="canvasLocation" x="5362" y="-922"/>
+        </scene>
+        <!--Line Graph View Controller-->
+        <scene sceneID="AsN-cC-Cla">
+            <objects>
+                <viewController storyboardIdentifier="lineVC" id="zPj-dQ-aNr" customClass="LineGraphViewController" customModule="StopAndSearch" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="cER-dw-blQ"/>
+                        <viewControllerLayoutGuide type="bottom" id="T21-SE-QLn"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="VZf-T3-S5b">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.90823972230000005" green="0.92638683320000004" blue="0.93171715740000005" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LLF-Mt-mWQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6057" y="-922"/>
         </scene>
         <!--Map-->
         <scene sceneID="u8g-gJ-qio">
@@ -392,7 +472,7 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="S0x-BM-zn3"/>
-                                    <barButtonItem image="line-chart" id="2d9-er-2ZC" userLabel="graph">
+                                    <barButtonItem image="bargraph" id="2d9-er-2ZC" userLabel="graph">
                                         <connections>
                                             <action selector="graphButtonPressed:" destination="ZAQ-5u-4bi" id="IEg-14-VSI"/>
                                         </connections>
@@ -415,13 +495,13 @@
                         <segue destination="Dbq-TE-K4Q" kind="presentation" identifier="setDate" id="kli-aa-Cs2"/>
                         <segue destination="60G-Rb-THp" kind="show" identifier="showClusterInfo" id="xzd-2F-KXt"/>
                         <segue destination="rcU-Sx-pRH" kind="show" identifier="showDetail" id="ddL-Ad-qcc"/>
-                        <segue destination="SAs-Rx-rXN" kind="show" identifier="showGraphs" id="MEJ-7R-Ye6"/>
                         <segue destination="0E4-pr-yDY" kind="show" identifier="settings" id="Mfi-JI-huB"/>
+                        <segue destination="oa5-jS-nA3" kind="show" identifier="showGraphs" id="Ae2-mg-TBs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yfl-uw-afA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2678" y="-805"/>
+            <point key="canvasLocation" x="3122" y="-922"/>
         </scene>
         <!--Extended Nav Controller-->
         <scene sceneID="9Vm-hr-bSG">
@@ -547,7 +627,7 @@
                                 <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0Pd-94-D71" id="3C7-jl-7T6">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -562,36 +642,16 @@
             </objects>
             <point key="canvasLocation" x="2068" y="1309"/>
         </scene>
-        <!--Graphs Tab Bar Controller-->
-        <scene sceneID="CzP-6d-LVI">
-            <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="SAs-Rx-rXN" customClass="GraphsTabBarController" customModule="StopAndSearch" customModuleProvider="target" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" id="5Is-2G-P0f">
-                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    </tabBar>
-                    <connections>
-                        <segue destination="oa5-jS-nA3" kind="relationship" relationship="viewControllers" id="LQT-eN-E1t"/>
-                        <segue destination="qEf-77-BAF" kind="relationship" relationship="viewControllers" id="fEM-Du-BOD"/>
-                        <segue destination="yZk-UR-rg9" kind="relationship" relationship="viewControllers" id="9eh-bY-uF1"/>
-                    </connections>
-                </tabBarController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="pvZ-Jj-qU4" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3599" y="-805"/>
-        </scene>
     </scenes>
     <resources>
         <image name="Location" width="20" height="20"/>
+        <image name="bargraph" width="20" height="20"/>
         <image name="controls" width="20" height="20"/>
         <image name="coord" width="20" height="20"/>
-        <image name="line-chart" width="20" height="20"/>
         <image name="linecal" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="ddL-Ad-qcc"/>
-        <segue reference="NlB-zl-Ho5"/>
+        <segue reference="kli-aa-Cs2"/>
     </inferredMetricsTieBreakers>
 </document>

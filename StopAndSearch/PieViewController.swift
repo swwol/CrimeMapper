@@ -13,19 +13,18 @@ import Charts
 class PieViewController: UIViewController, ChartViewDelegate {
   
   var pieChartView: PieChartView?
-  var tabBarHeight: CGFloat?
   var graphArray = [[SearchResult]]()
+  var data: [SearchResult]?
 
     override func viewDidLoad() {
       
-        super.viewDidLoad()
+      super.viewDidLoad()
       
-      self.title = "Pie Chart"
+   
       
-      tabBarHeight = tabBarController!.tabBar.frame.size.height
-        pieChartInit()
+      pieChartInit()
       
-      if let d = (tabBarController as! GraphsTabBarController).data {
+      if let d = data {
         for cat in Categories.categories {
           //loop through all categories
           let filteredByCat = d.filter {$0.title == cat.category    }
@@ -75,13 +74,8 @@ class PieViewController: UIViewController, ChartViewDelegate {
     }
   
   func pieChartInit() {
-    var yOffset: CGFloat
-    if view.traitCollection.verticalSizeClass == .compact {
-      yOffset = 100 } else {
-      yOffset = 60
-    }
-      
-    pieChartView = PieChartView(frame: CGRect(x: 0, y: yOffset, width: self.view.frame.size.width, height: self.view.frame.size.height - (yOffset + tabBarHeight!)))
+         
+    pieChartView = PieChartView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height ))
     pieChartView!.backgroundColor = .flatWhite
     pieChartView!.isUserInteractionEnabled = true
     pieChartView!.delegate = self

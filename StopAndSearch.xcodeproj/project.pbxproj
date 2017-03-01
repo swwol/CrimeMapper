@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		CD02F3931E34CF6200A5DD9C /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD02F3921E34CF6200A5DD9C /* SearchResult.swift */; };
 		CD04FEDD1E57306100832820 /* InitialisesExtendedNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD04FEDC1E57306100832820 /* InitialisesExtendedNavBar.swift */; };
+		CD21BB9C1E66325000696378 /* GraphParentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD21BB9B1E66325000696378 /* GraphParentViewController.swift */; };
 		CD251B041E3555F4004DACB7 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD251B031E3555F4004DACB7 /* Search.swift */; };
 		CD2743611E4CB81B00FC4C53 /* Loader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2743601E4CB81B00FC4C53 /* Loader.swift */; };
 		CD28AF9E1E449F1E00663A36 /* ClusterInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD28AF9D1E449F1E00663A36 /* ClusterInfoTableViewController.swift */; };
@@ -87,6 +88,7 @@
 		BE7D707924925F6F16864114 /* Pods_StopAndSearch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StopAndSearch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD02F3921E34CF6200A5DD9C /* SearchResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
 		CD04FEDC1E57306100832820 /* InitialisesExtendedNavBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialisesExtendedNavBar.swift; sourceTree = "<group>"; };
+		CD21BB9B1E66325000696378 /* GraphParentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphParentViewController.swift; sourceTree = "<group>"; };
 		CD251B031E3555F4004DACB7 /* Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		CD2743601E4CB81B00FC4C53 /* Loader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Loader.swift; sourceTree = "<group>"; };
 		CD28AF9D1E449F1E00663A36 /* ClusterInfoTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClusterInfoTableViewController.swift; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 		CD71A8571E549270004A4132 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				CD21BB9B1E66325000696378 /* GraphParentViewController.swift */,
 				CD7007541E5F63D3000FFCFA /* LineGraphViewController.swift */,
 				CD6729531E5B552200EEC959 /* PieViewController.swift */,
 				CD8CDA0F1E5A188800F8EAD2 /* GraphsTabBarController.swift */,
@@ -544,6 +547,7 @@
 				CDC7F6A51E5123CB002F337B /* CrimeDetail.swift in Sources */,
 				CD8CDA101E5A188800F8EAD2 /* GraphsTabBarController.swift in Sources */,
 				CDC7F6A11E50ED45002F337B /* CoordinateCell.swift in Sources */,
+				CD21BB9C1E66325000696378 /* GraphParentViewController.swift in Sources */,
 				CDE1416F1E4E881900D2528B /* CustomHeaderCell.swift in Sources */,
 				CD7007551E5F63D3000FFCFA /* LineGraphViewController.swift in Sources */,
 				CDD5DE021E40ADBF000F382C /* FBAnnotationCluster.swift in Sources */,

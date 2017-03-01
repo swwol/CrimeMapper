@@ -12,7 +12,7 @@ class LineGraphViewController: UIViewController, ChartViewDelegate {
   
 var lineChartView: LineChartView?
 var catResultArrays = [[SearchResult]]()
-var tabBarHeight: CGFloat?
+  var data : [SearchResult]?
 let defaults = UserDefaults.standard
 var startMonth: Int = 0
 var startYear: Int = 0
@@ -25,14 +25,10 @@ var endYear: Int = 0
       
       print ("loaded line graph view")
         readData()
-      
-      
-     
-        tabBarHeight = tabBarController!.tabBar.frame.size.height
         lineChartInit() // just makes and resizes charet object
-      
+  
       // put data into graph array
-      if let d = (tabBarController as! GraphsTabBarController).data {
+      if let d = data {
         for cat in Categories.categories {
           //loop through all categories
           let filteredByCat = d.filter {$0.title == cat.category    }
@@ -109,13 +105,9 @@ var endYear: Int = 0
     
 
   func lineChartInit() {
-    var yOffset: CGFloat
-    if view.traitCollection.verticalSizeClass == .compact {
-      yOffset = 100 } else {
-      yOffset = 60
-    }
     
-    lineChartView = LineChartView(frame: CGRect(x: 0, y: yOffset, width: self.view.frame.size.width, height: self.view.frame.size.height - (yOffset + tabBarHeight!)))
+    
+    lineChartView = LineChartView(frame: CGRect(x: 0, y: 0 , width: self.view.frame.size.width, height: self.view.frame.size.height))
     lineChartView!.backgroundColor = .flatWhite
     lineChartView!.isUserInteractionEnabled = true
     lineChartView!.delegate = self
