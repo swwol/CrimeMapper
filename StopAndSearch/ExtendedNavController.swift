@@ -87,9 +87,13 @@ class ExtendedNavController: UINavigationController {
     if show {
     topView.startDate.isHidden = false
     topView.endDate.isHidden = false
+    topView.area.isHidden = false
+    topView.areaID.isHidden = false
     } else {
       topView.startDate.isHidden = true
       topView.endDate.isHidden = true
+      topView.area.isHidden = true
+      topView.areaID.isHidden = true
     }
   }
   func setStatusMessage(message: String, size: CGFloat = 12, color: UIColor = .flatBlack) {

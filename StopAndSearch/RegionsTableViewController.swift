@@ -175,6 +175,9 @@ class RegionsTableViewController: UITableViewController {
           if let r = ForceResult(json: result as! JSON){
             self.forceResults.append(r)
           }
+          //sort alphabetically
+          self.forceResults = self.forceResults.sorted { $0.name?.localizedCaseInsensitiveCompare($1.name!) == ComparisonResult.orderedAscending}
+          
         }
         DispatchQueue.main.async {
          // kill loader

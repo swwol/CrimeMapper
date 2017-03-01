@@ -161,6 +161,8 @@ class NeighbourhoodTableViewController: UITableViewController {
           if let r = NeighbourhoodResult(json: result as! JSON){
             self.neighbourhoodResults.append(r)
           }
+          self.neighbourhoodResults = self.neighbourhoodResults.sorted { $0.name?.localizedCaseInsensitiveCompare($1.name!) == ComparisonResult.orderedAscending}
+
         }
         DispatchQueue.main.async {
           // kill loader
