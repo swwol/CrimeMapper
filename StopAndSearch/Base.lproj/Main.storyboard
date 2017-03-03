@@ -585,10 +585,10 @@
             </objects>
             <point key="canvasLocation" x="422" y="1184"/>
         </scene>
-        <!--View Controller-->
+        <!--Settings Table View Controller-->
         <scene sceneID="S1S-Lm-OIl">
             <objects>
-                <viewController id="VQH-ir-Fw2" sceneMemberID="viewController">
+                <viewController id="VQH-ir-Fw2" customClass="SettingsTableViewController" customModule="StopAndSearch" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="0Y1-2G-0Rm"/>
                         <viewControllerLayoutGuide type="bottom" id="5KN-Aq-ZYD"/>
@@ -600,6 +600,10 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="qFd-fr-YeB">
                                 <rect key="frame" x="0.0" y="100" width="414" height="636"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="VQH-ir-Fw2" id="Vhy-Gm-rmH"/>
+                                    <outlet property="delegate" destination="VQH-ir-Fw2" id="uS1-x8-VqF"/>
+                                </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AtW-a0-rsl">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
@@ -607,8 +611,8 @@
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="head60" translatesAutoresizingMaskIntoConstraints="NO" id="DLv-SS-nbK">
                                         <rect key="frame" x="21" y="30" width="60" height="60"/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="crimemaper" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="II7-9D-Dft">
-                                        <rect key="frame" x="102" y="45" width="111" height="24"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="crime mapper" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="II7-9D-Dft">
+                                        <rect key="frame" x="102" y="45" width="128" height="24"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
                                         <color key="textColor" red="0.90823972225189209" green="0.92638683319091797" blue="0.9317171573638916" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -635,6 +639,9 @@
                             <constraint firstAttribute="trailing" secondItem="qFd-fr-YeB" secondAttribute="trailing" id="z2O-po-Ibp"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="qFd-fr-YeB" id="1QK-Pw-q2a"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HGy-G5-k1h" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -665,7 +672,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BKP-xk-2Sk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="423" y="346"/>
+            <point key="canvasLocation" x="422" y="346"/>
         </scene>
         <!--regions-->
         <scene sceneID="evS-m7-GKt">

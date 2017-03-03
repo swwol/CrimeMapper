@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class SettingsTableViewController: UITableViewController,InitialisesExtendedNavBar {
+class SettingsTableViewController: UIViewController,UITableViewDelegate, UITableViewDataSource, InitialisesExtendedNavBar {
 
   
   //propertieas to initialise xnavbar with if vc is navigated to
@@ -31,10 +31,13 @@ class SettingsTableViewController: UITableViewController,InitialisesExtendedNavB
   var neighbourhoodID: String?
   let defaults = UserDefaults.standard
   
+  @IBOutlet weak var tableView: UITableView!
+  
+  
     override func viewDidLoad() {
         super.viewDidLoad()
 
-      tableView.contentInset = UIEdgeInsets(top: 60, left: 0 , bottom: 0 , right: 0)
+  //   tableView.contentInset = UIEdgeInsets(top: 60, left: 0 , bottom: 0 , right: 0)
       let headerCellNib = UINib(nibName: "CustomHeaderCell", bundle: nil)
       tableView.register(headerCellNib, forCellReuseIdentifier: "HeaderCell")
       
@@ -64,11 +67,11 @@ class SettingsTableViewController: UITableViewController,InitialisesExtendedNavB
 
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
+     func numberOfSections(in tableView: UITableView) -> Int {
         return 4
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
       if section == 1 {
         return 2
       } else {
@@ -76,15 +79,15 @@ class SettingsTableViewController: UITableViewController,InitialisesExtendedNavB
       }
     }
   
-  override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+  func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
     return 34
   }
   
-  override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
       return 60
   }
   
-  override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
    
     let cell: UITableViewCell = {
       guard let cell = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell") else {
@@ -157,7 +160,7 @@ class SettingsTableViewController: UITableViewController,InitialisesExtendedNavB
     
   }
   
- override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+  func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
     let cell = tableView.dequeueReusableCell(withIdentifier: "HeaderCell") as! CustomHeaderCell
   switch section {
    
@@ -179,7 +182,7 @@ class SettingsTableViewController: UITableViewController,InitialisesExtendedNavB
     return cell
   }
   
-  override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     
     if indexPath.section == 0 {
     performSegue(withIdentifier: "categories", sender: nil)
