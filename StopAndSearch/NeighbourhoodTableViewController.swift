@@ -22,7 +22,11 @@ class NeighbourhoodTableViewController: UITableViewController {
 
     override func viewDidLoad() {
     
-           super.viewDidLoad()
+      super.viewDidLoad()
+      
+      // add done button
+      navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneTapped))
+
       tableView.contentInset = UIEdgeInsets(top: 60, left: 0 , bottom: 0 , right: 0)
 
         getNeighbourhoodData()
@@ -36,6 +40,11 @@ class NeighbourhoodTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+  
+  func doneTapped(){
+    //pop back to root
+    let _ = navigationController?.popToRootViewController(animated: true)
+  }
 
     // MARK: - Table view data source
 

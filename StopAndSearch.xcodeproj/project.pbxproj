@@ -23,6 +23,7 @@
 		CD568C801E32D1F600DB0B9C /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD568C7F1E32D1F600DB0B9C /* Address.swift */; };
 		CD5AD2501E4F756900ED3226 /* ClusterInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5AD24E1E4F756900ED3226 /* ClusterInfoCell.swift */; };
 		CD5AD2551E4F775700ED3226 /* ClusterInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD5AD2541E4F775700ED3226 /* ClusterInfoCell.xib */; };
+		CD6436D91E69C75F00D9B9B6 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD6436D81E69C75F00D9B9B6 /* AboutViewController.swift */; };
 		CD6729541E5B552200EEC959 /* PieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD6729531E5B552200EEC959 /* PieViewController.swift */; };
 		CD7007551E5F63D3000FFCFA /* LineGraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7007541E5F63D3000FFCFA /* LineGraphViewController.swift */; };
 		CD7007571E5F95F0000FFCFA /* RegionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7007561E5F95F0000FFCFA /* RegionsTableViewController.swift */; };
@@ -106,6 +107,7 @@
 		CD568C7F1E32D1F600DB0B9C /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		CD5AD24E1E4F756900ED3226 /* ClusterInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClusterInfoCell.swift; sourceTree = "<group>"; };
 		CD5AD2541E4F775700ED3226 /* ClusterInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ClusterInfoCell.xib; sourceTree = "<group>"; };
+		CD6436D81E69C75F00D9B9B6 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		CD6729531E5B552200EEC959 /* PieViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PieViewController.swift; sourceTree = "<group>"; };
 		CD7007541E5F63D3000FFCFA /* LineGraphViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineGraphViewController.swift; sourceTree = "<group>"; };
 		CD7007561E5F95F0000FFCFA /* RegionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegionsTableViewController.swift; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 		CD71A8571E549270004A4132 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				CD6436D81E69C75F00D9B9B6 /* AboutViewController.swift */,
 				CD21BB9B1E66325000696378 /* GraphParentViewController.swift */,
 				CD7007541E5F63D3000FFCFA /* LineGraphViewController.swift */,
 				CD6729531E5B552200EEC959 /* PieViewController.swift */,
@@ -575,6 +578,7 @@
 				CD7FC2C91E5236CF00B1B6C2 /* ContentCell.swift in Sources */,
 				CDFC3E641E3396290065C9E2 /* DateController.swift in Sources */,
 				CD7FBCA61E32AE1500DA40F1 /* AppDelegate.swift in Sources */,
+				CD6436D91E69C75F00D9B9B6 /* AboutViewController.swift in Sources */,
 				CD6729541E5B552200EEC959 /* PieViewController.swift in Sources */,
 				CDD5DE0A1E40ADBF000F382C /* FBQuadTreeNode.swift in Sources */,
 				CDD5DE061E40ADBF000F382C /* FBBoundingBox.swift in Sources */,

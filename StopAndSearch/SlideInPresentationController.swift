@@ -65,7 +65,18 @@ class SlideInPresentationController: UIPresentationController {
                      withParentContainerSize parentSize: CGSize) -> CGSize {
     switch direction {
     case .left, .right:
+      if (parentSize.width < parentSize.height) {
+      
+      
       return CGSize(width: parentSize.width*(2.0/3.0), height: parentSize.height)
+        
+      } else {
+        
+          return CGSize(width: parentSize.width*(1.5/3.0), height: parentSize.height)
+        
+      }
+      
+        
     case .bottom, .top:
       return CGSize(width: parentSize.width, height: parentSize.height*(2.0/3.0))
     }

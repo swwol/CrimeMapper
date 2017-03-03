@@ -519,7 +519,7 @@ extension MapViewController: MKMapViewDelegate {
       print ("loading settings")
       let controller  = segue.destination as! SettingsTableViewController
       slideInTransitioningDelegate.direction = .left
-      slideInTransitioningDelegate.disableCompactHeight = true
+    //  slideInTransitioningDelegate.disableCompactHeight = true
       controller.transitioningDelegate = slideInTransitioningDelegate
       controller.modalPresentationStyle = .custom
       controller.delegate = self
