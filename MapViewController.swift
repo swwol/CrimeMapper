@@ -505,12 +505,10 @@ extension MapViewController: MKMapViewDelegate {
       controller.data = fbpins[sender as! Int]
     }
     if segue.identifier == "setDate" {
-      let controller  = segue.destination as! DateController
-      slideInTransitioningDelegate.direction = .bottom
-      slideInTransitioningDelegate.disableCompactHeight = true
-      controller.transitioningDelegate = slideInTransitioningDelegate
-      controller.modalPresentationStyle = .custom
-    }
+      if let controller  = segue.destination as? DateController {
+        controller.mode = sender as! String?
+      }
+      }
     if segue.identifier == "showClusterInfo" {
       let controller = segue.destination as! ClusterInfoTableViewController
       controller.cluster  = sender as? FBAnnotationCluster
@@ -519,13 +517,12 @@ extension MapViewController: MKMapViewDelegate {
     
     if segue.identifier == "settings" {
       print ("loading settings")
-      let controller  = segue.destination
+      let controller  = segue.destination as! SettingsTableViewController
       slideInTransitioningDelegate.direction = .left
       slideInTransitioningDelegate.disableCompactHeight = true
       controller.transitioningDelegate = slideInTransitioningDelegate
       controller.modalPresentationStyle = .custom
-      
-      
+      controller.delegate = self
     }
     
     if segue.identifier == "loadControls" {
@@ -664,6 +661,25 @@ extension MapViewController: UINavigationControllerDelegate {
       nav.shouldHideExtendedBar(controller.extendedNavBarIsHidden)
     }
   }
+}
+
+extension MapViewController: SettingsTableViewControllerDelegate {
+  
+
+  
+  func goTo(_ destination: String) {
+    
+    switch (destination) {
+    case "startDate":
+        self.performSegue(withIdentifier: "setDate" , sender: "start")
+      case "endDate":
+        self.performSegue(withIdentifier: "setDate" , sender: "end")
+    default:
+    self.performSegue(withIdentifier: destination, sender: nil)
+    }
+  }
+  
+  
 }
 
 

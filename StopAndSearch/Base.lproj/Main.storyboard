@@ -172,7 +172,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bnO-aS-FGa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-552" y="1101"/>
+            <point key="canvasLocation" x="6335" y="-57"/>
         </scene>
         <!--set date-->
         <scene sceneID="ri3-Xa-jpr">
@@ -538,11 +538,13 @@
                     <connections>
                         <outlet property="mapView" destination="SaS-t1-1hy" id="J3k-9a-jVs"/>
                         <outlet property="toolbar" destination="scH-yp-4Id" id="KdF-u2-30E"/>
-                        <segue destination="Dbq-TE-K4Q" kind="presentation" identifier="setDate" id="kli-aa-Cs2"/>
+                        <segue destination="Dbq-TE-K4Q" kind="show" identifier="setDate" id="kli-aa-Cs2"/>
                         <segue destination="60G-Rb-THp" kind="show" identifier="showClusterInfo" id="xzd-2F-KXt"/>
                         <segue destination="rcU-Sx-pRH" kind="show" identifier="showDetail" id="ddL-Ad-qcc"/>
                         <segue destination="oa5-jS-nA3" kind="show" identifier="showGraphs" id="Ae2-mg-TBs"/>
                         <segue destination="VQH-ir-Fw2" kind="presentation" identifier="settings" id="Gwb-IU-b5h"/>
+                        <segue destination="4kJ-pX-ea6" kind="show" identifier="categories" id="TNh-hc-aKJ"/>
+                        <segue destination="RHM-CR-flM" kind="show" identifier="regions" id="Reh-VW-32J"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yfl-uw-afA" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -565,7 +567,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0V9-Ct-OCf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1820" y="-805"/>
+            <point key="canvasLocation" x="3084" y="-1724"/>
         </scene>
         <!--about-->
         <scene sceneID="fa5-ql-mM0">
@@ -645,34 +647,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HGy-G5-k1h" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="942" y="-267"/>
-        </scene>
-        <!--settings-->
-        <scene sceneID="BL3-WD-858">
-            <objects>
-                <tableViewController title="settings" id="0E4-pr-yDY" customClass="SettingsTableViewController" customModule="StopAndSearch" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="44" sectionFooterHeight="28" id="iiV-nP-lxA">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.90823972230000005" green="0.92638683320000004" blue="0.93171715740000005" alpha="1" colorSpace="calibratedRGB"/>
-                        <inset key="scrollIndicatorInsets" minX="0.0" minY="60" maxX="0.0" maxY="0.0"/>
-                        <sections/>
-                        <connections>
-                            <outlet property="dataSource" destination="0E4-pr-yDY" id="Y1l-VG-SyV"/>
-                            <outlet property="delegate" destination="0E4-pr-yDY" id="UGJ-17-5Vx"/>
-                        </connections>
-                    </tableView>
-                    <tabBarItem key="tabBarItem" title="Item" id="poL-g2-hqC"/>
-                    <connections>
-                        <segue destination="4kJ-pX-ea6" kind="show" identifier="categories" id="eoP-XZ-DWl"/>
-                        <segue destination="Dbq-TE-K4Q" kind="show" identifier="setDate" id="NlB-zl-Ho5"/>
-                        <segue destination="RHM-CR-flM" kind="show" identifier="regions" id="hbf-WT-P6w"/>
-                        <segue destination="T3G-8e-rjG" kind="show" identifier="about" id="efj-da-ayL"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="BKP-xk-2Sk" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="422" y="346"/>
+            <point key="canvasLocation" x="1467" y="-792"/>
         </scene>
         <!--regions-->
         <scene sceneID="evS-m7-GKt">
@@ -720,7 +695,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bQy-0B-2Wp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1286" y="1184"/>
+            <point key="canvasLocation" x="4206" y="-41"/>
         </scene>
         <!--neighbourhoods-->
         <scene sceneID="54O-C3-xvQ">
@@ -748,7 +723,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TGU-cY-Tk9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2068" y="1309"/>
+            <point key="canvasLocation" x="4986" y="-40"/>
         </scene>
     </scenes>
     <resources>
@@ -762,6 +737,5 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="ddL-Ad-qcc"/>
-        <segue reference="kli-aa-Cs2"/>
     </inferredMetricsTieBreakers>
 </document>

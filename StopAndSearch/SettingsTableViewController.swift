@@ -7,20 +7,16 @@
 //
 
 import UIKit
-import CoreData
 
-class SettingsTableViewController: UIViewController,UITableViewDelegate, UITableViewDataSource, InitialisesExtendedNavBar {
+protocol SettingsTableViewControllerDelegate {
+  
+  func goTo(_ destination: String)
+  
+}
 
-  
-  //propertieas to initialise xnavbar with if vc is navigated to
-  var extendedNavBarColor = UIColor.flatMintDark.withAlphaComponent(0.33)
-  var extendedNavBarMessage =  "configure search settings"
-  var extendedNavBarShouldShowDate = false
-  var extendedNavBarFontSize: CGFloat  = 14
-  var extendedNavBarFontColor = UIColor.flatBlackDark
-  var extendedNavBarIsHidden = false
-  
-  //
+
+class SettingsTableViewController: UIViewController,UITableViewDelegate, UITableViewDataSource {
+
 
   var startMonth: Int = 0
   var startYear: Int = 0
@@ -30,9 +26,10 @@ class SettingsTableViewController: UIViewController,UITableViewDelegate, UITable
   var yearLastUpdated: Int = 0
   var neighbourhoodID: String?
   let defaults = UserDefaults.standard
+  var delegate: SettingsTableViewControllerDelegate?
+  var destination : String?
   
   @IBOutlet weak var tableView: UITableView!
-  
   
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,13 +37,12 @@ class SettingsTableViewController: UIViewController,UITableViewDelegate, UITable
   //   tableView.contentInset = UIEdgeInsets(top: 60, left: 0 , bottom: 0 , right: 0)
       let headerCellNib = UINib(nibName: "CustomHeaderCell", bundle: nil)
       tableView.register(headerCellNib, forCellReuseIdentifier: "HeaderCell")
-      
       }
   
   override func viewWillAppear(_ animated: Bool) {
     
     //try reading startDate and endDate
-    
+    destination = nil
     startMonth  = defaults.integer(forKey: "startMonth")
     startYear  = defaults.integer(forKey: "startYear")
     endMonth  = defaults.integer(forKey: "endMonth")
@@ -58,13 +54,9 @@ class SettingsTableViewController: UIViewController,UITableViewDelegate, UITable
     } else {
       neighbourhoodID = nil
     }
-    
-    
-    
     tableView.reloadData()
   }
   
-
     // MARK: - Table view data source
 
      func numberOfSections(in tableView: UITableView) -> Int {
@@ -106,7 +98,6 @@ class SettingsTableViewController: UIViewController,UITableViewDelegate, UITable
       cell.textLabel?.text = "edit categories"
       cell.detailTextLabel?.text = ""
       cell.imageView?.image = UIImage(named: "cats")
-      
     }
     
     if indexPath.section == 1 && indexPath.row == 0 {
@@ -145,19 +136,14 @@ class SettingsTableViewController: UIViewController,UITableViewDelegate, UITable
       }
       cell.imageView?.image = UIImage(named: "region")
     }
-    
     if indexPath.section == 3 {
       // about
       cell.textLabel?.text = "info about this app"
    
       cell.imageView?.image = UIImage(named: "navHead")
     }
- 
-  //  cell.textLabel?.text = "text"
-   // cell.detailTextLabel?.text = "detail"
     cell.accessoryType = .disclosureIndicator
     return cell
-    
   }
   
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -182,25 +168,36 @@ class SettingsTableViewController: UIViewController,UITableViewDelegate, UITable
     return cell
   }
   
+  // item selected
+  
    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     
     if indexPath.section == 0 {
-    performSegue(withIdentifier: "categories", sender: nil)
+      
+  destination = "categories"
+  
     }
     if indexPath.section == 1 && indexPath.row == 0 {
-      performSegue(withIdentifier: "setDate", sender: "start")
+      destination = "startDate"
     }
     if indexPath.section == 1 && indexPath.row == 1 {
-      performSegue(withIdentifier: "setDate", sender: "end")
+    destination = "endDate"
     }
     if indexPath.section == 2 {
-      performSegue(withIdentifier: "regions", sender: nil)
+      destination = "regions"
     }
     if indexPath.section == 3 {
-      performSegue(withIdentifier: "about", sender: nil)
+      destination = "about"
     }
+  self.dismiss(animated: true, completion: tellToGo)
   }
   
+  func tellToGo() {
+    if let d = destination {
+      delegate?.goTo(d)
+    }
+  }
+
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if segue.identifier == "setDate" {
       
@@ -208,15 +205,10 @@ class SettingsTableViewController: UIViewController,UITableViewDelegate, UITable
         
         controller.mode = sender as! String?
       }
-      
     }
   }
   
-
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
   }
-  
-  
- 
 }
