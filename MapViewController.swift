@@ -387,7 +387,7 @@ func searchStarted() {
       getDateLastUpdated().then {
         theDate ->Void in
         self.readyToSearch = true
-        self.getLocation()
+      //  self.getLocation()
         }.catch {
           error in
           print (error)
