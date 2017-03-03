@@ -35,7 +35,6 @@
 		CD7FBCAF1E32AE1500DA40F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD7FBCAE1E32AE1500DA40F1 /* Assets.xcassets */; };
 		CD7FBCB21E32AE1500DA40F1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD7FBCB01E32AE1500DA40F1 /* LaunchScreen.storyboard */; };
 		CD7FC2C91E5236CF00B1B6C2 /* ContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7FC2C81E5236CF00B1B6C2 /* ContentCell.swift */; };
-		CD7FC2CB1E523FA700B1B6C2 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7FC2CA1E523FA700B1B6C2 /* UIImage+Extensions.swift */; };
 		CD7FC2CD1E5245E100B1B6C2 /* CoordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7FC2CC1E5245E100B1B6C2 /* CoordCell.swift */; };
 		CD8A24D31E4CD91B00244A56 /* CategoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD8A24D21E4CD91B00244A56 /* CategoryCell.xib */; };
 		CD8A24D51E4CEC2B00244A56 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8A24D41E4CEC2B00244A56 /* CategoryCell.swift */; };
@@ -121,7 +120,6 @@
 		CD7FBCB11E32AE1500DA40F1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CD7FBCB31E32AE1500DA40F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CD7FC2C81E5236CF00B1B6C2 /* ContentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentCell.swift; sourceTree = "<group>"; };
-		CD7FC2CA1E523FA700B1B6C2 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		CD7FC2CC1E5245E100B1B6C2 /* CoordCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoordCell.swift; sourceTree = "<group>"; };
 		CD8A24D21E4CD91B00244A56 /* CategoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoryCell.xib; sourceTree = "<group>"; };
 		CD8A24D41E4CEC2B00244A56 /* CategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
@@ -244,7 +242,6 @@
 			children = (
 				CD90E7E41E66DB0D0086CF98 /* BalloonMarker.swift */,
 				CD04FEDC1E57306100832820 /* InitialisesExtendedNavBar.swift */,
-				CDDCB2A61E53BC9400D86CE7 /* Extensions */,
 				CD71A8571E549270004A4132 /* ViewControllers */,
 				CD2743601E4CB81B00FC4C53 /* Loader.swift */,
 				CDF6A0731E43979E00875B6E /* SetDateMenuController.swift */,
@@ -337,14 +334,6 @@
 				CD28AF9D1E449F1E00663A36 /* ClusterInfoTableViewController.swift */,
 			);
 			name = TableViewControllers;
-			sourceTree = "<group>";
-		};
-		CDDCB2A61E53BC9400D86CE7 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				CD7FC2CA1E523FA700B1B6C2 /* UIImage+Extensions.swift */,
-			);
-			name = Extensions;
 			sourceTree = "<group>";
 		};
 		DA2C11151DF7CF9B9AE59AA8 /* Pods */ = {
@@ -564,7 +553,6 @@
 				CD04FEDD1E57306100832820 /* InitialisesExtendedNavBar.swift in Sources */,
 				CD02F3931E34CF6200A5DD9C /* SearchResult.swift in Sources */,
 				CD33D9651E3668E000AB6E94 /* DetailViewController.swift in Sources */,
-				CD7FC2CB1E523FA700B1B6C2 /* UIImage+Extensions.swift in Sources */,
 				CD28AFA01E450A1600663A36 /* ControlsTableViewController.swift in Sources */,
 				CDD5DE051E40ADBF000F382C /* FBAnnotationClusterViewConfiguration.swift in Sources */,
 				CDFC3E661E33AD530065C9E2 /* MonthYear.swift in Sources */,

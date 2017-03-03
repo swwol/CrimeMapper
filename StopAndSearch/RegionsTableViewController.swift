@@ -10,7 +10,18 @@ import UIKit
 import Alamofire
 import Gloss
 
-class RegionsTableViewController: UITableViewController {
+class RegionsTableViewController: UITableViewController,InitialisesExtendedNavBar  {
+  
+  //propertieas to initialise xnavbar with if vc is navigated to
+  
+  var extendedNavBarColor = UIColor.flatMintDark.withAlphaComponent(0.33)
+  var extendedNavBarMessage =  "select region to display"
+  var extendedNavBarShouldShowDate = false
+  var extendedNavBarFontSize: CGFloat  = 14
+  var extendedNavBarFontColor = UIColor.flatBlackDark
+  var extendedNavBarIsHidden: Bool = false
+  //
+
 
    var sessionManager : SessionManager?
    var loader: Loader?
@@ -37,7 +48,12 @@ class RegionsTableViewController: UITableViewController {
   
   override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
     let cell = tableView.dequeueReusableCell(withIdentifier: "HeaderCell") as! CustomHeaderCell
+    
+    
     cell.categoryTitle.text = ""
+      
+   
+    
     cell.bg.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
     if cell.categorySwitch != nil {
       cell.categorySwitch.removeFromSuperview()

@@ -16,10 +16,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
     self.performSegue(withIdentifier: "showGraphs", sender: fbpins)
   }
   
-  @IBAction func menuButtonPressed(_ sender: UIBarButtonItem) {
-    performSegue(withIdentifier: "settings", sender: nil)
-  }
-  
   //propertieas to initialise xnavbar with if vc is navigated to
   
   var extendedNavBarColor = UIColor.flatGray.withAlphaComponent(0.33)
@@ -397,6 +393,8 @@ func searchStarted() {
 
   override func viewWillAppear(_ animated: Bool) {
   startUp()
+  findAndDisplayDataPointsInVisibleRegion()
+    
   }
   
 
