@@ -18,19 +18,38 @@ class NeighbourhoodTableViewController: UITableViewController {
   var sessionManager : SessionManager?
   var loader: Loader?
   var neighbourhoodResults  = [NeighbourhoodResult]()
+  var filteredResults = [NeighbourhoodResult]()
   let defaults = UserDefaults.standard
+  var searchController:UISearchController!
 
     override func viewDidLoad() {
     
       super.viewDidLoad()
       
-      // add done button
-      navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneTapped))
+      searchController = UISearchController(searchResultsController: nil)
+      searchController.hidesNavigationBarDuringPresentation = false
+      // this is to make cursor not white!
+      let textFieldInsideSearchBar = searchController.searchBar.value(forKey: "searchField") as? UITextField
+      textFieldInsideSearchBar?.tintColor = UIColor.lightGray
+      let textFieldInsideSearchBarLabel = textFieldInsideSearchBar!.value(forKey: "placeholderLabel") as? UILabel
+      textFieldInsideSearchBarLabel?.text = "search for police force..."
+      searchController.searchResultsUpdater = self
+      searchController.dimsBackgroundDuringPresentation = false
 
+      // add done button
+     let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneTapped))
+      //add search button to nav bar
+     let searchButton = UIBarButtonItem( barButtonSystemItem: .search, target: self, action: #selector(showSearch))
+      navigationItem.rightBarButtonItems = [doneButton, searchButton]
       tableView.contentInset = UIEdgeInsets(top: 60, left: 0 , bottom: 0 , right: 0)
 
         getNeighbourhoodData()
     }
+  
+  func showSearch() {
+    
+    present(searchController, animated: true, completion: nil)
+  }
   
   override func viewWillAppear(_ animated: Bool) {
     tableView.reloadData()
@@ -49,12 +68,14 @@ class NeighbourhoodTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
+      
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
+      if searchController.isActive && searchController.searchBar.text != "" {
+        return filteredResults.count
+      }
         return neighbourhoodResults.count
     }
   
@@ -78,39 +99,40 @@ class NeighbourhoodTableViewController: UITableViewController {
     myCustomSelectionColorView.backgroundColor = UIColor.flatMint.withAlphaComponent(0.3)
     cell.selectedBackgroundView = myCustomSelectionColorView
     
+    
+    var arrayToUse : [NeighbourhoodResult]
+      if searchController.isActive && searchController.searchBar.text != "" {
+        arrayToUse = filteredResults
+      } else {
+       arrayToUse = neighbourhoodResults
+    }
+    
     // set accesory to none unless this cell id = saved id
     
     if let neighbourhoodId = defaults.object(forKey: "neighbourhood") {
-      
-      if let thisId = neighbourhoodResults[indexPath.row].id {
-        
+      if let thisId = arrayToUse[indexPath.row].id {
         if thisId == (neighbourhoodId as? String){
-          
           cell.accessoryType = .checkmark
-          
         } else {
             cell.accessoryType = .none
         }
-        
       }
-      
     } else {
       cell.accessoryType = .none
-
-      
     }
-    
-    cell.textLabel?.text = neighbourhoodResults[indexPath.row].name
-    cell.detailTextLabel?.text = "Id: \(neighbourhoodResults[indexPath.row].id!)"
+    cell.textLabel?.text = arrayToUse[indexPath.row].name
+    cell.detailTextLabel?.text = "Id: \(arrayToUse[indexPath.row].id!)"
     return cell
   }
   
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
  
     
+    
+    
     //deselect all rows
     
-    for row in 0..<neighbourhoodResults.count {
+    for row in 0..<tableView.numberOfRows(inSection: 0) {
       
       tableView.cellForRow(at: IndexPath(row: row, section: 0))?.accessoryType = .none
     }
@@ -118,9 +140,12 @@ class NeighbourhoodTableViewController: UITableViewController {
      tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
     // save force and neighbourhood id to userDefaults
     
-    defaults.set(neighbourhoodResults[indexPath.row].id, forKey: "neighbourhood")
+      if searchController.isActive && searchController.searchBar.text != "" {
+        defaults.set(filteredResults[indexPath.row].id, forKey: "neighbourhood")
+      } else {
+         defaults.set(neighbourhoodResults[indexPath.row].id, forKey: "neighbourhood")
+    }
     defaults.set(force, forKey: "force")
-    
     tableView.deselectRow(at: indexPath, animated: true)
   }
   
@@ -184,6 +209,18 @@ class NeighbourhoodTableViewController: UITableViewController {
       }
     }
   }
-
-
+  
+  func filterContentForSearchText(searchText: String, scope: String = "All") {
+    print (searchText)
+    filteredResults = neighbourhoodResults.filter {
+      ($0.name?.lowercased().contains(searchText.lowercased()))!
+    }
+    tableView.reloadData()
   }
+  }
+
+extension NeighbourhoodTableViewController: UISearchResultsUpdating  {
+  func updateSearchResults(for searchController: UISearchController) {
+    filterContentForSearchText(searchText: searchController.searchBar.text!)
+  }
+}

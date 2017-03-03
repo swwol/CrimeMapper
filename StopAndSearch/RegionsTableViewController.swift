@@ -22,21 +22,40 @@ class RegionsTableViewController: UITableViewController,InitialisesExtendedNavBa
   var extendedNavBarIsHidden: Bool = false
   //
 
-
+ var searchController:UISearchController!
    var sessionManager : SessionManager?
    var loader: Loader?
    var forceResults  = [ForceResult]()
    let defaults = UserDefaults.standard
-
+   var filteredResults = [ForceResult]()
   override func viewDidLoad() {
     
     super.viewDidLoad()
+    searchController = UISearchController(searchResultsController: nil)
+    searchController.hidesNavigationBarDuringPresentation = false
+    // this is to make cursor not white!
+    let textFieldInsideSearchBar = searchController.searchBar.value(forKey: "searchField") as? UITextField
+    textFieldInsideSearchBar?.tintColor = UIColor.lightGray
+    let textFieldInsideSearchBarLabel = textFieldInsideSearchBar!.value(forKey: "placeholderLabel") as? UILabel
+    textFieldInsideSearchBarLabel?.text = "search for police force..."
+    searchController.searchResultsUpdater = self
+    searchController.dimsBackgroundDuringPresentation = false
+    // definesPresentationContext = true
+
+    //add search button to nav bar
+    navigationItem.rightBarButtonItem = UIBarButtonItem( barButtonSystemItem: .search, target: self, action: #selector(showSearch))
+    
     tableView.contentInset = UIEdgeInsets(top: 60, left: 0 , bottom: 0 , right: 0)
     let headerCellNib = UINib(nibName: "CustomHeaderCell", bundle: nil)
     tableView.register(headerCellNib, forCellReuseIdentifier: "HeaderCell")
     getForcesData()
     }
   
+  func showSearch() {
+    
+    present(searchController, animated: true, completion: nil)
+  }
+
   override func viewWillAppear(_ animated: Bool) {
     tableView.reloadData()
   }
@@ -48,20 +67,13 @@ class RegionsTableViewController: UITableViewController,InitialisesExtendedNavBa
   
   override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
     let cell = tableView.dequeueReusableCell(withIdentifier: "HeaderCell") as! CustomHeaderCell
-    
-    
     cell.categoryTitle.text = ""
-      
-   
-    
     cell.bg.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
     if cell.categorySwitch != nil {
       cell.categorySwitch.removeFromSuperview()
     }
     return cell
   }
-
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
          }
@@ -76,6 +88,9 @@ class RegionsTableViewController: UITableViewController,InitialisesExtendedNavBa
       if section == 0 {
         return 1
       } else {
+         if searchController.isActive && searchController.searchBar.text != "" {
+          return filteredResults.count
+        }
           return forceResults.count
       }
     }
@@ -105,8 +120,12 @@ class RegionsTableViewController: UITableViewController,InitialisesExtendedNavBa
     // set attributes
     if indexPath.section == 1 {
     cell.accessoryType = .disclosureIndicator
+        if searchController.isActive && searchController.searchBar.text != "" {
+            cell.textLabel?.text = filteredResults[indexPath.row].name
+        } else {
     cell.textLabel?.text = forceResults[indexPath.row].name
-    return cell
+      }
+      return cell
     }
     else {
       cell.textLabel?.text = "visible map region"
@@ -119,7 +138,6 @@ class RegionsTableViewController: UITableViewController,InitialisesExtendedNavBa
           cell.accessoryType = .checkmark
         }
       }
-      
       return cell
     }
   }
@@ -131,9 +149,14 @@ class RegionsTableViewController: UITableViewController,InitialisesExtendedNavBa
       tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
       tableView.deselectRow(at: indexPath, animated: true)
     } else {
-    
-    performSegue(withIdentifier: "neighbourhoods", sender: forceResults[indexPath.row].id)
-  }
+      
+      if searchController.isActive && searchController.searchBar.text != "" {
+        performSegue(withIdentifier: "neighbourhoods", sender: filteredResults[indexPath.row].id)
+      } else {
+        
+        performSegue(withIdentifier: "neighbourhoods", sender: forceResults[indexPath.row].id)
+      }
+    }
   }
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -146,7 +169,6 @@ class RegionsTableViewController: UITableViewController,InitialisesExtendedNavBa
       }
     }
   }
-  
   
   func getForcesData() {
     
@@ -206,7 +228,20 @@ class RegionsTableViewController: UITableViewController,InitialisesExtendedNavBa
       }
     }
   }
+  
+  func filterContentForSearchText(searchText: String, scope: String = "All") {
+    print (searchText)
+    filteredResults = forceResults.filter {
+      ($0.name?.lowercased().contains(searchText.lowercased()))!
+    }
+    
+    tableView.reloadData()
+  }
+  
 }
 
-
-
+extension RegionsTableViewController: UISearchResultsUpdating  {
+  func updateSearchResults(for searchController: UISearchController) {
+      filterContentForSearchText(searchText: searchController.searchBar.text!)
+  }
+}

@@ -825,6 +825,8 @@
                             <outlet property="delegate" destination="RHM-CR-flM" id="HzZ-o9-ZEW"/>
                         </connections>
                     </tableView>
+                    <toolbarItems/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <segue destination="sYv-vg-mqY" kind="show" identifier="neighbourhoods" id="z0B-RX-aiA"/>
                     </connections>

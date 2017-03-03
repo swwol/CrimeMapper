@@ -62,8 +62,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
     performSegue(withIdentifier: "settings", sender: nil)
   }
   
-
-  
   @IBOutlet weak var toolbar: UIToolbar!
   @IBAction func searchMap(_ sender: UIBarButtonItem) {
     searchController = UISearchController(searchResultsController: nil)
@@ -83,6 +81,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
   }
   
   func getLocation() {
+      defaults.set(nil, forKey: "neighbourhood")
+      neighbourhoodSquare = nil
+      renderer = nil
+    
+    if let nav = navigationController as? ExtendedNavController {
+      nav.updateInfo()
+    }
     // authorise
     let authStatus = CLLocationManager.authorizationStatus()
     if authStatus == .notDetermined {
@@ -648,10 +653,7 @@ extension MapViewController: FBAnnotationClusterViewDelegate {
 
 extension MapViewController: UINavigationControllerDelegate {
   func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
-    
-    
     let nav = navigationController as! ExtendedNavController
-    
     if let controller = viewController as? InitialisesExtendedNavBar {
       nav.setExtendedBarColor(controller.extendedNavBarColor)
       nav.setStatusMessage(message: controller.extendedNavBarMessage, size: controller.extendedNavBarFontSize, color: controller.extendedNavBarFontColor )
@@ -662,8 +664,6 @@ extension MapViewController: UINavigationControllerDelegate {
 }
 
 extension MapViewController: SettingsTableViewControllerDelegate {
-  
-
   
   func goTo(_ destination: String) {
     
@@ -676,8 +676,6 @@ extension MapViewController: SettingsTableViewControllerDelegate {
     self.performSegue(withIdentifier: destination, sender: nil)
     }
   }
-  
-  
 }
 
 
