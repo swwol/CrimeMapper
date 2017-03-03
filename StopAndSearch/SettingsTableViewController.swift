@@ -89,7 +89,7 @@ class SettingsTableViewController: UITableViewController,InitialisesExtendedNavB
     let cell: UITableViewCell = {
       guard let cell = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell") else {
         // Never fails:
-        return UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: "UITableViewCell")
+        return UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "UITableViewCell")
       }
       return cell
     }()
@@ -100,7 +100,7 @@ class SettingsTableViewController: UITableViewController,InitialisesExtendedNavB
 
     if indexPath.section == 0 {
       // for set crimes section
-      cell.textLabel?.text = "select categories to display"
+      cell.textLabel?.text = "edit categories"
       cell.detailTextLabel?.text = ""
       cell.imageView?.image = UIImage(named: "cats")
       
@@ -108,7 +108,7 @@ class SettingsTableViewController: UITableViewController,InitialisesExtendedNavB
     
     if indexPath.section == 1 && indexPath.row == 0 {
       // start date
-      cell.textLabel?.text = "set start date"
+      cell.textLabel?.text = "start date"
       if startMonth == 0 {
         // if no startDate set, use latest data available
         cell.detailTextLabel?.text = MonthYear(month: monthLastUpdated,year: yearLastUpdated).getDateAsString()
@@ -120,7 +120,7 @@ class SettingsTableViewController: UITableViewController,InitialisesExtendedNavB
     
     if indexPath.section == 1 && indexPath.row == 1 {
       // end date
-      cell.textLabel?.text = "set end date"
+      cell.textLabel?.text = "end date"
       if endMonth == 0 {
         // if no endDate
         cell.detailTextLabel?.text = "not set"
@@ -147,7 +147,7 @@ class SettingsTableViewController: UITableViewController,InitialisesExtendedNavB
       // about
       cell.textLabel?.text = "info about this app"
    
-      cell.imageView?.image = UIImage(named: "about")
+      cell.imageView?.image = UIImage(named: "navHead")
     }
  
   //  cell.textLabel?.text = "text"

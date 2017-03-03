@@ -56,7 +56,7 @@ class SlideInPresentationController: UIPresentationController {
   func applyPlainShadow(view: UIView) {
     let l = view.layer
     l.shadowColor = UIColor.black.cgColor
-    l.shadowOffset = CGSize(width: 2, height: -2)
+    l.shadowOffset = CGSize(width: 4, height: -2)
     l.shadowOpacity = 0.2
     l.shadowRadius = 5
   }
@@ -105,9 +105,8 @@ private extension SlideInPresentationController {
   
   dynamic func handleTap(recognizer: UITapGestureRecognizer) {
   
-    if (presentedViewController is DateController) {
-      let controller = presentedViewController as! DateController
-   //   controller.delegateAndDismiss()
+    presentedViewController.dismiss(animated: true, completion: nil)
+    
     }
   }
-}
+

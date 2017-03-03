@@ -1,7 +1,6 @@
 //
 //  MapViewController.swift
 
-
 import Foundation
 import UIKit
 import MapKit
@@ -11,12 +10,16 @@ import Gloss
 import PromiseKit
 import CoreGraphics
 
-
 class MapViewController: UIViewController, CLLocationManagerDelegate, InitialisesExtendedNavBar {
   
   @IBAction func graphButtonPressed(_ sender: UIBarButtonItem) {
     self.performSegue(withIdentifier: "showGraphs", sender: fbpins)
   }
+  
+  @IBAction func menuButtonPressed(_ sender: UIBarButtonItem) {
+    performSegue(withIdentifier: "settings", sender: nil)
+  }
+  
   //propertieas to initialise xnavbar with if vc is navigated to
   
   var extendedNavBarColor = UIColor.flatGray.withAlphaComponent(0.33)
@@ -189,9 +192,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
     clusteringManager.display(annotations: [], onMapView: self.mapView)
   }
   
-  
-  
-  
 func searchStarted() {
   
 
@@ -211,8 +211,6 @@ func searchStarted() {
  
   ////
   
-  
-  
   func searchComplete() {
     UIView.animate(withDuration: 0.2, animations: {
       self.loader?.alpha = 0
@@ -227,29 +225,7 @@ func searchStarted() {
     })
   }
 
-
-
-
   
-      /*
-       if tooMany > 0 {
-       let alert = UIAlertController(title: "Too many results", message: "Some categories returned too many results, try narrowing search area.", preferredStyle: UIAlertControllerStyle.alert)
-       alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
-       
-       alert.view.tintColor = UIColor.flatMint
-       self.present(alert, animated: true, completion: nil)
-       
-       } else if unknown > 0 {
-       let alert = UIAlertController(title: "Error", message: "There were errors retreiving data for some categories.", preferredStyle: UIAlertControllerStyle.alert)
-       alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
-       alert.view.tintColor = UIColor.flatMint
-       self.present(alert, animated: true, completion: nil)
-       }
-       })
-       }
-       }
-       */
-      
 
   
   
@@ -543,6 +519,13 @@ extension MapViewController: MKMapViewDelegate {
     
     if segue.identifier == "settings" {
       print ("loading settings")
+      let controller  = segue.destination
+      slideInTransitioningDelegate.direction = .left
+      slideInTransitioningDelegate.disableCompactHeight = true
+      controller.transitioningDelegate = slideInTransitioningDelegate
+      controller.modalPresentationStyle = .custom
+      
+      
     }
     
     if segue.identifier == "loadControls" {
