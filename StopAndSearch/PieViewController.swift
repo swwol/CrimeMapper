@@ -92,8 +92,8 @@ class PieViewController: UIViewController, ChartViewDelegate {
     
     let marker:BalloonMarker = BalloonMarker(color: compSegColor! , font: UIFont(name: "Helvetica", size: 12)!, textColor: UIColor.init(contrastingBlackOrWhiteColorOn: compSegColor!, isFlat: true) , insets: UIEdgeInsets(top: 7.0, left: 7.0, bottom: 7.0, right: 7.0))
     marker.minimumSize = CGSize(width: 75, height: 35)
-
-       pieChartView?.marker  = marker
+    marker.offset = CGPoint(x:0, y: -25)
+    pieChartView?.marker  = marker
   
   }
   
