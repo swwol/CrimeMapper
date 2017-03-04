@@ -43,7 +43,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
   
   let clusteringManager  = FBClusteringManager()
   var fbpins = [SearchResult]()
-  let setDateMenuController = SetDateMenuController()
+
   
   var monthYear: MonthYear? = nil
   var readyToSearch = false
@@ -84,11 +84,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
       defaults.set(nil, forKey: "neighbourhood")
       neighbourhoodSquare = nil
       renderer = nil
-    
-    if let nav = navigationController as? ExtendedNavController {
-      nav.updateInfo()
-    }
-    // authorise
+    self.updateDateExtendedNavBarInfo()    // authorise
     let authStatus = CLLocationManager.authorizationStatus()
     if authStatus == .notDetermined {
       locationManager.requestWhenInUseAuthorization()
@@ -313,11 +309,6 @@ func searchStarted() {
       }
     }
   }
-
-  
-
-  
-  /////////////
   
   func getDateLastUpdated() -> Promise<String> {
     
@@ -343,8 +334,6 @@ func searchStarted() {
     }
   }
   
-  
- 
   ///////////////
   
   func updateDateExtendedNavBarInfo() {
@@ -628,16 +617,13 @@ extension MapViewController: UISearchBarDelegate {
         self.present(alertController, animated: true, completion: nil)
         return
       }
+      ////
+      self.defaults.set(nil, forKey: "neighbourhood")
+      self.neighbourhoodSquare = nil
+      self.renderer = nil
+      self.updateDateExtendedNavBarInfo()
       self.mapView.setRegion(localSearchResponse!.boundingRegion, animated: true)
     }
-  }
-}
-
-extension MapViewController: TouchContainerDelegate {
-  func touchContainerTouched(_ sender: TouchContainer) {
-    print ("container was touched")
-    self.performSegue(withIdentifier: "setDate", sender: self.monthYear)
-    
   }
 }
 

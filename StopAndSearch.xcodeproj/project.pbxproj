@@ -66,8 +66,6 @@
 		CDE1416F1E4E881900D2528B /* CustomHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE1416D1E4E881900D2528B /* CustomHeaderCell.swift */; };
 		CDE141701E4E881900D2528B /* CustomHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDE1416E1E4E881900D2528B /* CustomHeaderCell.xib */; };
 		CDE1CCFC1E45D55900209A1B /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE1CCFB1E45D55900209A1B /* Categories.swift */; };
-		CDF6A0721E43636C00875B6E /* TouchContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF6A0711E43636C00875B6E /* TouchContainer.swift */; };
-		CDF6A0741E43979E00875B6E /* SetDateMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF6A0731E43979E00875B6E /* SetDateMenuController.swift */; };
 		CDF6A0761E43AC7200875B6E /* Months.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF6A0751E43AC7200875B6E /* Months.swift */; };
 		CDFAE6671E5C70100053B691 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFAE6661E5C70100053B691 /* SettingsTableViewController.swift */; };
 		CDFC3E641E3396290065C9E2 /* DateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFC3E631E3396290065C9E2 /* DateController.swift */; };
@@ -151,8 +149,6 @@
 		CDE1416D1E4E881900D2528B /* CustomHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomHeaderCell.swift; sourceTree = "<group>"; };
 		CDE1416E1E4E881900D2528B /* CustomHeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomHeaderCell.xib; sourceTree = "<group>"; };
 		CDE1CCFB1E45D55900209A1B /* Categories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
-		CDF6A0711E43636C00875B6E /* TouchContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchContainer.swift; sourceTree = "<group>"; };
-		CDF6A0731E43979E00875B6E /* SetDateMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetDateMenuController.swift; sourceTree = "<group>"; };
 		CDF6A0751E43AC7200875B6E /* Months.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Months.swift; sourceTree = "<group>"; };
 		CDFAE6661E5C70100053B691 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		CDFC3E631E3396290065C9E2 /* DateController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateController.swift; sourceTree = "<group>"; };
@@ -244,11 +240,9 @@
 				CD04FEDC1E57306100832820 /* InitialisesExtendedNavBar.swift */,
 				CD71A8571E549270004A4132 /* ViewControllers */,
 				CD2743601E4CB81B00FC4C53 /* Loader.swift */,
-				CDF6A0731E43979E00875B6E /* SetDateMenuController.swift */,
 				CDC7F69B1E50CFC1002F337B /* cells */,
 				CDE1CCFB1E45D55900209A1B /* Categories.swift */,
 				CDE1416B1E4E331B00D2528B /* CrimeCategory.swift */,
-				CDF6A0711E43636C00875B6E /* TouchContainer.swift */,
 				CD7F5A7A1E55A7CE0000A1DF /* Presentation */,
 				CDA149761E60582A002F1003 /* Search */,
 				CD7FBCA51E32AE1500DA40F1 /* AppDelegate.swift */,
@@ -540,9 +534,7 @@
 				CDE1CCFC1E45D55900209A1B /* Categories.swift in Sources */,
 				CD7F5A801E55A80B0000A1DF /* SlideInPresentationAnimator.swift in Sources */,
 				CDD5DE0B1E40ADBF000F382C /* FBZoomLevel.swift in Sources */,
-				CDF6A0721E43636C00875B6E /* TouchContainer.swift in Sources */,
 				CDBB86F11E5469CA00902267 /* OverlayBar.swift in Sources */,
-				CDF6A0741E43979E00875B6E /* SetDateMenuController.swift in Sources */,
 				CDC7F6A51E5123CB002F337B /* CrimeDetail.swift in Sources */,
 				CD8CDA101E5A188800F8EAD2 /* GraphsTabBarController.swift in Sources */,
 				CDC7F6A11E50ED45002F337B /* CoordinateCell.swift in Sources */,

@@ -29,11 +29,10 @@ class GraphParentViewController: UIViewController, InitialisesExtendedNavBar {
   @IBOutlet weak var regoinLabel: UILabel!
   @IBOutlet weak var seg: UISegmentedControl!
   @IBOutlet weak var contentView: UIView!
-  
+  let defaults = UserDefaults.standard
   var currentViewController: UIViewController?
   var data: [SearchResult]?
   var neighbourhood: String?
-  
   
   lazy var emptyVC: UIViewController? = {
     let emptyVC = self.storyboard?.instantiateViewController(withIdentifier: "emptyVC")
@@ -55,8 +54,17 @@ class GraphParentViewController: UIViewController, InitialisesExtendedNavBar {
     return lineVC
   }()
 
-  
-  
+  func getSearchNeighbourhoodID() {
+    
+    if let n = defaults.object(forKey: "neighbourhood") {
+      if let nUnwrapped = n as? String {
+        neighbourhood = nUnwrapped
+      } else {
+        neighbourhood = nil
+      }
+    }
+  }
+
   // MARK: - View Controller Lifecycle
   
   override func viewDidLoad() {
@@ -67,7 +75,7 @@ class GraphParentViewController: UIViewController, InitialisesExtendedNavBar {
   
   override func viewDidAppear(_ animated: Bool) {
     // set text labels here
-    let defaults = UserDefaults.standard
+
     let  startMonth  = defaults.integer(forKey: "startMonth")
     let  startYear  = defaults.integer(forKey: "startYear")
     let  endMonth  = defaults.integer(forKey: "endMonth")
@@ -94,6 +102,8 @@ class GraphParentViewController: UIViewController, InitialisesExtendedNavBar {
       }
      
     }
+    getSearchNeighbourhoodID()
+    
     if let n = neighbourhood {
       regoinLabel.text = "Area Id: \(n)"
     } else {
