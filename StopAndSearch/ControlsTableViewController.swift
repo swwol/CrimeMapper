@@ -9,6 +9,7 @@
 
 
 import UIKit
+import Foundation
 
 class ControlsTableViewController: UITableViewController,InitialisesExtendedNavBar {
   
@@ -114,6 +115,7 @@ class ControlsTableViewController: UITableViewController,InitialisesExtendedNavB
         checked = TwoDChecked.flatMap{$0}
         //save array to user defaults
         defaults.set(checked,forKey:"selectedCategories" )
+        defaults.set(true, forKey: "searchUpdated")
 
       } else {
         cell.accessoryType = .checkmark
@@ -121,6 +123,7 @@ class ControlsTableViewController: UITableViewController,InitialisesExtendedNavB
         checked = TwoDChecked.flatMap{$0}
         //save array to user defaults
         defaults.set(checked,forKey:"selectedCategories" )
+        defaults.set(true, forKey: "searchUpdated")
 
       }
     }
@@ -198,6 +201,7 @@ extension ControlsTableViewController: CustomHeaderCellDelegate {
   
     //save array to user defaults
     defaults.set(enabledSections,forKey:"enabledSections" )
+    defaults.set(true, forKey: "searchUpdated")
 
   }
 }

@@ -13,6 +13,7 @@ import CoreGraphics
 class MapViewController: UIViewController, CLLocationManagerDelegate, InitialisesExtendedNavBar {
   
   @IBAction func graphButtonPressed(_ sender: UIBarButtonItem) {
+    search.cancelSearches()
     self.performSegue(withIdentifier: "showGraphs", sender: fbpins)
   }
   
@@ -40,6 +41,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
   var localSearch:MKLocalSearch!
   var localSearchResponse:MKLocalSearchResponse!
   var error:NSError!
+  var searchCompleted: Bool = false
   
   let clusteringManager  = FBClusteringManager()
   var fbpins = [SearchResult]()
@@ -55,10 +57,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
   var renderer: MKPolygonRenderer?
   var sessionManager : SessionManager?
   lazy var slideInTransitioningDelegate = SlideInPresentationManager()
-  
+  var mapScale: Double?
   
   @IBAction func adjustSettings(_ sender: UIBarButtonItem) {
-    // load the settings screen with date
+ 
+    search.cancelSearches()
     performSegue(withIdentifier: "settings", sender: nil)
   }
   
@@ -77,11 +80,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
   
   // go to my location
   @IBAction func getMyLocation(_ sender: UIBarButtonItem) {
+    search.cancelSearches()
     getLocation()
   }
   
   func getLocation() {
       defaults.set(nil, forKey: "neighbourhood")
+     neighbourhood = nil
       neighbourhoodSquare = nil
       renderer = nil
     self.updateDateExtendedNavBarInfo()    // authorise
@@ -131,16 +136,14 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
       searchCoords = [ne,nw,sw,se]
     }
     
-    searchStarted()
+    //searchStarted()
     
   search.performSearch(coords: searchCoords ) { results in
-    
     
     if let ren = self.renderer {
     //renderer not nil if neighbourhood is set
     //cull any results that are not within my polygon
     let resultsWithinPolygon = results.filter {
-      
       let currentMapPoint =  MKMapPointForCoordinate($0.coordinate)
       let polygonViewPoint: CGPoint  = ren.point(for: currentMapPoint)
       if  (ren.path).contains(polygonViewPoint) {
@@ -152,7 +155,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
     } else {
         self.generateFBAnnotations(results: results)
     }
-      self.searchComplete()
+    //  self.searchComplete()
     }
   }
   
@@ -189,56 +192,24 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
     clusteringManager.display(annotations: [], onMapView: self.mapView)
   }
   
-func searchStarted() {
-  
-
-    let nav = navigationController as! ExtendedNavController
-    if let _ = nav.visibleViewController as? MapViewController {
-      nav.setStatusMessage(message: "loading...")
-    }
-    if (loader == nil) {
-      loader = Loader(message: "loading crime data...")
-      loader?.alpha = 0
-      loader?.center = view.center
-      self.view.addSubview(loader!)
-    }
-    UIView.animate(withDuration: 0.5, animations: {self.loader?.alpha = 1})
-    
+  func getScale () ->Double {
+    let mapBoundsWidth = Double(self.mapView.bounds.size.width)
+    let mapRectWidth = self.mapView.visibleMapRect.size.width
+    let scale = mapBoundsWidth / mapRectWidth
+    return scale
   }
- 
-  ////
-  
-  func searchComplete() {
-    UIView.animate(withDuration: 0.2, animations: {
-      self.loader?.alpha = 0
-    }, completion: {
-      (value: Bool) in
-      self.loader?.removeFromSuperview()
-      self.loader = nil
-      let nav = self.navigationController as! ExtendedNavController
-      if let _ = nav.visibleViewController as? MapViewController {
-        nav.setStatusMessage(message: "touch pin or cluster for info")
-      }
-    })
-  }
-
-  
-
-  
-  
-  
   
   func generateFBAnnotations(results: [SearchResult]) {
     
     
-    fbpins = results
+    fbpins += results
     
     clusteringManager.removeAll()
     clusteringManager.add(annotations: fbpins)
     DispatchQueue.global(qos: .userInitiated).async {
-      let mapBoundsWidth = Double(self.mapView.bounds.size.width)
-      let mapRectWidth = self.mapView.visibleMapRect.size.width
-      let scale = mapBoundsWidth / mapRectWidth
+    //  let mapBoundsWidth = Double(self.mapView.bounds.size.width)
+    // let mapRectWidth = self.mapView.visibleMapRect.size.width
+      let scale = self.getScale()
       
       print ("scale",scale)
       let annotationArray = self.clusteringManager.clusteredAnnotations(withinMapRect: self.mapView.visibleMapRect, zoomScale: scale)
@@ -252,6 +223,8 @@ func searchStarted() {
   
   
   func  getNeighbourhoodBoundary(force: String, neighbourhood: String) -> Promise<[CLLocationCoordinate2D]> {
+    
+    
     
     let config : URLSessionConfiguration  = {
       let configuration = URLSessionConfiguration.default
@@ -301,7 +274,7 @@ func searchStarted() {
           let topRight = MKCoordinateForMapPoint(MKMapPoint(x: r.origin.x + r.size.width, y: r.origin.y + r.size.height))
           self.neighbourhoodSquare  = [lowerLeft,lowerRight,topRight,topLeft]
           let region = MKCoordinateRegionForMapRect(r)
-          self.mapView.setRegion(region, animated: true)
+          self.mapView.setRegion(region, animated: false)
           fulfill(coordResAsCLCoords)
         case .failure (let err):
           reject(err)
@@ -346,6 +319,7 @@ func searchStarted() {
   override func viewDidLoad() {
     super.viewDidLoad()
     navigationController?.delegate = self
+    search.delegate = self
     //appearance
     let barTintColor = UIColor.flatMintDark
     toolbar.barTintColor=barTintColor
@@ -356,6 +330,11 @@ func searchStarted() {
     mapView.isUserInteractionEnabled = true
    
     startUp()
+    
+    if neighbourhood == nil {
+      //load users location on first load if no neighbourhood set, but not when going back to mapmevery time
+      getLocation()
+    }
  
   }
   
@@ -367,8 +346,9 @@ func searchStarted() {
       let getDate =  getDateLastUpdated()
       let getNeighbourhood =  getNeighbourhoodBoundary(force: f, neighbourhood: n)
       when (fulfilled: getDate, getNeighbourhood).then {
-        date, coords in
+        date, coords -> Void in
         self.readyToSearch = true
+        self.findAndDisplayDataPointsInVisibleRegion()
         }.catch  { error in
           print ("error", error )
       }
@@ -376,7 +356,7 @@ func searchStarted() {
       getDateLastUpdated().then {
         theDate ->Void in
         self.readyToSearch = true
-      //  self.getLocation()
+        self.getLocation()
         }.catch {
           error in
           print (error)
@@ -384,14 +364,24 @@ func searchStarted() {
     }
   }
   
-
   override func viewWillAppear(_ animated: Bool) {
-  startUp()
-  findAndDisplayDataPointsInVisibleRegion()
     
+    // check if cats, dates or neighbourhood changed, only do new search if they have
+    let updated = defaults.bool(forKey: "searchUpdated")
+    print (updated)
+    if (updated) {
+      getSearchNeighbourhoodID()
+      if let n = neighbourhood, let f = force {
+        let _ =   getNeighbourhoodBoundary(force: f, neighbourhood: n).then {_ in
+          self.findAndDisplayDataPointsInVisibleRegion()
+        }
+        
+      } else {
+        findAndDisplayDataPointsInVisibleRegion()
+      }
+    }
   }
   
-
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
    
     if overlay is MKPolygon {
@@ -406,11 +396,24 @@ func searchStarted() {
  
 
   func handleZoom( _ sender: UIPinchGestureRecognizer) {
-    if (sender.state == UIGestureRecognizerState.began) {
-      print("Zoom began")
-      fbpins = []
-      clusteringManager.removeAll()
-      clusteringManager.display(annotations: fbpins, onMapView: mapView)
+    
+      if (sender.state == UIGestureRecognizerState.began) {
+        mapScale  = getScale()
+        }
+    
+    if (sender.state == UIGestureRecognizerState.ended) {
+   
+        if let startScale = mapScale {
+          if getScale() < startScale {
+            //zoomed out
+            if neighbourhood == nil {
+            findAndDisplayDataPointsInVisibleRegion()
+            }
+            mapScale = nil
+          }
+      }
+    generateFBAnnotations(results: [])
+      
     }
   }
 }
@@ -418,8 +421,17 @@ func searchStarted() {
 extension MapViewController: MKMapViewDelegate {
   
   func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-    print ("region changed")
-    findAndDisplayDataPointsInVisibleRegion()
+    if neighbourhood == nil {
+      if let startScale = self.mapScale {
+        if getScale() < startScale {
+          //zoomed out
+          findAndDisplayDataPointsInVisibleRegion()
+        }
+      } else {
+        // didn't zoom so search
+        findAndDisplayDataPointsInVisibleRegion()
+      }
+    }
   }
   
   func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -660,6 +672,62 @@ extension MapViewController: SettingsTableViewControllerDelegate {
         self.performSegue(withIdentifier: "setDate" , sender: "end")
     default:
     self.performSegue(withIdentifier: destination, sender: nil)
+    }
+  }
+}
+
+extension MapViewController: SearchDelegate {
+ 
+  
+  func searchStarted() {
+    
+    searchCompleted = false
+    let nav = navigationController as! ExtendedNavController
+    if let _ = nav.visibleViewController as? MapViewController {
+      nav.setStatusMessage(message: "loading...")
+    }
+    if (loader == nil) {
+      loader = Loader(message: "loading crime data...")
+      loader?.center = view.center
+      self.view.addSubview(loader!)
+    }
+  }
+  
+  func searchCompleted(_ success: Bool) {
+    if (!success) {
+      showSomeFailedAlert()
+    } else {
+      searchCompleted = true
+      defaults.set(false,forKey:"searchUpdated")
+      self.loader?.removeFromSuperview()
+      self.loader = nil
+      let nav = self.navigationController as! ExtendedNavController
+      if let _ = nav.visibleViewController as? MapViewController {
+        nav.setStatusMessage(message: "touch pin or cluster for info")
+      }
+    }
+  }
+  
+  func showSomeFailedAlert() {
+    let alert = UIAlertController(title: "Data failed for some categories",message:"Try using a smaller search area.", preferredStyle: .alert)
+    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+    alert.addAction(okAction)
+    present(alert, animated: true, completion: {self.clearStatusMessage()})
+  }
+
+  func clearStatusMessage() {
+    if let nav = navigationController as? ExtendedNavController {
+        nav.setStatusMessage(message: "")
+    }
+  }
+  
+  func searchStatus(cat: String, success: Bool){
+        if (success) {
+            self.loader?.messageLabel.text = "\(cat) loaded"
+       // nav.setStatusMessage(message: "\(cat) loaded", color: .black)
+      } else  {
+        
+          self.loader?.messageLabel.text = "\(cat) failed"
     }
   }
 }

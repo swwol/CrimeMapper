@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 
 class DateController: UIViewController, InitialisesExtendedNavBar {
   
@@ -150,7 +151,7 @@ class DateController: UIViewController, InitialisesExtendedNavBar {
         guard startDateIsValid (m:month,y:year!)  else {
           return false
         }
-        
+        defaults.set(true, forKey: "searchUpdated")
         defaults.set(month, forKey:"startMonth")
         defaults.set(year, forKey:"startYear")
         readData()
@@ -159,6 +160,7 @@ class DateController: UIViewController, InitialisesExtendedNavBar {
         guard  endDateIsValid(m:month,y:year!) else {
           return false
         }
+        defaults.set(true, forKey: "searchUpdated")
         defaults.set(month, forKey:"endMonth")
         defaults.set(year, forKey:"endYear")
         readData()

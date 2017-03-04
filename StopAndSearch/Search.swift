@@ -13,31 +13,16 @@ import Alamofire
 import PromiseKit
 
 
-/*
- if tooMany > 0 {
- let alert = UIAlertController(title: "Too many results", message: "Some categories returned too many results, try narrowing search area.", preferredStyle: UIAlertControllerStyle.alert)
- alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
- 
- alert.view.tintColor = UIColor.flatMint
- self.present(alert, animated: true, completion: nil)
- 
- } else if unknown > 0 {
- let alert = UIAlertController(title: "Error", message: "There were errors retreiving data for some categories.", preferredStyle: UIAlertControllerStyle.alert)
- alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
- alert.view.tintColor = UIColor.flatMint
- self.present(alert, animated: true, completion: nil)
- }
- })
- }
- }
- */
-
+protocol SearchDelegate {
+  func searchStarted()
+  func searchCompleted(_ success: Bool)
+  func searchStatus(cat: String, success: Bool)
+}
 
 typealias SearchComplete = ([SearchResult]) -> Void
 
 class Search {
-  
-
+  var delegate: SearchDelegate?
   var sessionManager : SessionManager?
   var categoriesSearched: Int = 0
   let defaults = UserDefaults.standard
@@ -53,18 +38,14 @@ class Search {
   //////
   
   func cancelSearches() {
-    
+   // delegate?.searchCompleted(true)
     print ("cancelling all searches")
     sessionManager?.session.invalidateAndCancel()
   }
   
-  
-  /////////
-  
   func performSearch(coords: [CLLocationCoordinate2D],completion: @escaping SearchComplete) {
-    
+    delegate?.searchStarted()
     cancelSearches()
-  
     sessionManager = Alamofire.SessionManager(configuration: config)
     
     //read in selected categories and sections from disk or set all to true if null
@@ -120,7 +101,7 @@ class Search {
         
         let searchURL = getSearchURL(coords: coords, date: searchDate, cat: selectedCat)
         
-        let s = doSearch(searchURL: searchURL)
+        let s = doSearch( searchURL: searchURL)
         searches.append(s)
         
       }
@@ -130,30 +111,50 @@ class Search {
     
     // out of loop 
     
+    // set upo individual done actions for each search
+    
+    for (i,search) in searches.enumerated() {
+      
+      search.then {results -> Void in
+      // completion(results)
+        print (i)
+        print (selectedCats[i%selectedCats.count])
+        self.delegate?.searchStatus(cat: selectedCats[i%selectedCats.count].category, success: true)
+        print ("search done for \(selectedCats[i%selectedCats.count].category)", results)
+        }.catch { error in
+          print ("search failed for \(selectedCats[i%selectedCats.count].category)", error)
+           self.delegate?.searchStatus(cat: selectedCats[i%selectedCats.count].category, success: false)
+      }
+    }
+    
+   
+    
     when (fulfilled: searches).then  {
       results -> Void in
       
-      let flattenedResults  = results.flatMap { $0 }
-      
+    
+      print ("all done")
+     
+       let flattenedResults  = results.flatMap { $0 }
       completion(flattenedResults)
-      
+       self.delegate?.searchCompleted(true)
       
       }.catch { _ in
-        
-        print ("boo")
+         self.delegate?.searchCompleted(false)
+        print ("errors for some cats")
         
     }
     
   }
   
   
-  func doSearch(searchURL: URL) -> Promise<[SearchResult]> {
+  func doSearch( searchURL: URL) -> Promise<[SearchResult]> {
     
     return Promise { fulfill, reject in
-     
+      let queue = DispatchQueue(label: "com.test.api", qos: .background, attributes: .concurrent)
       sessionManager!.request(searchURL)
       .validate()
-        .responseJSON() { response in
+        .responseJSON(queue: queue) { response in
           switch response.result {
           case .success(let dict):
             guard let jsonArray = dict as?  [NSDictionary] else {

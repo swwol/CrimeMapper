@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import Gloss
+import Foundation
 
 class NeighbourhoodTableViewController: UITableViewController {
   
@@ -142,8 +143,10 @@ class NeighbourhoodTableViewController: UITableViewController {
     
       if searchController.isActive && searchController.searchBar.text != "" {
         defaults.set(filteredResults[indexPath.row].id, forKey: "neighbourhood")
+        defaults.set(true, forKey: "searchUpdated")
       } else {
          defaults.set(neighbourhoodResults[indexPath.row].id, forKey: "neighbourhood")
+        defaults.set(true, forKey: "searchUpdated")
     }
     defaults.set(force, forKey: "force")
     tableView.deselectRow(at: indexPath, animated: true)
@@ -157,7 +160,7 @@ class NeighbourhoodTableViewController: UITableViewController {
     //put loading box up
     
     if (loader == nil) {
-      loader = Loader(message: "loading data...")
+      loader = Loader(message: "loading data...", size: "small")
       loader?.alpha = 0
       loader?.center = view.center
       self.view.addSubview(loader!)

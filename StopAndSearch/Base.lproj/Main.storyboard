@@ -30,7 +30,7 @@
                                         <rect key="frame" x="0.0" y="28" width="320" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sDw-tp-5i9" id="IJP-bD-WTv">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="59"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="linecal" translatesAutoresizingMaskIntoConstraints="NO" id="QvP-3m-rAd">
@@ -59,7 +59,7 @@
                                         <rect key="frame" x="0.0" y="88" width="320" height="120"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HNv-wl-GO0" id="Rrx-58-qWJ">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="119"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coord" translatesAutoresizingMaskIntoConstraints="NO" id="2Nm-Iu-gPo">
@@ -321,36 +321,33 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="CI4-Y5-aPj"/>
+                                <exclude reference="FHS-xL-lIA"/>
                                 <exclude reference="FVx-Vz-hde"/>
                                 <exclude reference="SSn-8j-g6N"/>
                                 <exclude reference="dmH-jV-uN7"/>
                                 <exclude reference="pW8-te-o8e"/>
                                 <exclude reference="xiM-n8-EoP"/>
-                                <exclude reference="CI4-Y5-aPj"/>
-                                <exclude reference="FHS-xL-lIA"/>
-                                <exclude reference="3b2-ni-LPF"/>
                                 <exclude reference="kCB-Id-TGK"/>
                                 <exclude reference="xXp-Qr-Ybt"/>
                                 <exclude reference="K50-0H-wWa"/>
                                 <exclude reference="tcx-ev-tWo"/>
                                 <exclude reference="y2H-BA-iJa"/>
                                 <exclude reference="zNG-Dm-dod"/>
+                                <exclude reference="3b2-ni-LPF"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=compact">
                             <mask key="constraints">
+                                <exclude reference="7hn-a3-uzs"/>
+                                <include reference="FHS-xL-lIA"/>
+                                <exclude reference="wip-Xt-5Nl"/>
                                 <include reference="FVx-Vz-hde"/>
                                 <exclude reference="Kb1-Xd-dAY"/>
                                 <exclude reference="SSn-8j-g6N"/>
                                 <exclude reference="ZbP-Qf-nKR"/>
                                 <exclude reference="dmH-jV-uN7"/>
                                 <include reference="xiM-n8-EoP"/>
-                                <exclude reference="7hn-a3-uzs"/>
-                                <include reference="FHS-xL-lIA"/>
-                                <exclude reference="wip-Xt-5Nl"/>
-                                <include reference="3b2-ni-LPF"/>
-                                <exclude reference="913-eo-pd3"/>
-                                <exclude reference="xxh-ku-fCY"/>
                                 <exclude reference="Hgx-LJ-991"/>
                                 <include reference="kCB-Id-TGK"/>
                                 <exclude reference="xXp-Qr-Ybt"/>
@@ -360,6 +357,9 @@
                                 <include reference="tcx-ev-tWo"/>
                                 <include reference="y2H-BA-iJa"/>
                                 <include reference="zNG-Dm-dod"/>
+                                <include reference="3b2-ni-LPF"/>
+                                <exclude reference="913-eo-pd3"/>
+                                <exclude reference="xxh-ku-fCY"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -687,8 +687,14 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="icons made by MadebyOliver from www.flaticon.com " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bpH-ST-qT7">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Icons made by MadebyOliver from www.flaticon.com " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bpH-ST-qT7">
                                 <rect key="frame" x="16" y="275" width="288" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thanks to Zhe and Wanyi Wu for help with logo design" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wkz-AC-mlP">
+                                <rect key="frame" x="16" y="355.5" width="288" height="20"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -701,10 +707,13 @@
                             <constraint firstAttribute="trailingMargin" secondItem="QI2-Tx-C3s" secondAttribute="trailing" id="NOI-vh-xgi"/>
                             <constraint firstAttribute="leadingMargin" secondItem="bpH-ST-qT7" secondAttribute="leading" id="TEg-H1-YdL"/>
                             <constraint firstItem="mRS-j2-JEZ" firstAttribute="centerX" secondItem="Q66-iL-jxq" secondAttribute="centerX" id="Xpq-6p-z2f"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="Wkz-AC-mlP" secondAttribute="leading" id="Y8z-mv-F13"/>
+                            <constraint firstItem="Wkz-AC-mlP" firstAttribute="top" secondItem="QI2-Tx-C3s" secondAttribute="bottom" constant="20" id="ape-FI-rRy"/>
                             <constraint firstAttribute="leadingMargin" secondItem="Ng5-Lc-mus" secondAttribute="leading" id="g4d-s7-iRh"/>
                             <constraint firstItem="x0o-w2-pPw" firstAttribute="top" secondItem="Ng5-Lc-mus" secondAttribute="bottom" constant="20" id="ng7-Jz-Sqg"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Ng5-Lc-mus" secondAttribute="trailing" id="o2G-kf-HVo"/>
                             <constraint firstItem="mRS-j2-JEZ" firstAttribute="top" secondItem="XpT-kd-lB6" secondAttribute="bottom" constant="20" id="pGT-PG-GsJ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Wkz-AC-mlP" secondAttribute="trailing" id="qrY-d2-PUV"/>
                             <constraint firstAttribute="leadingMargin" secondItem="i73-W0-OV9" secondAttribute="leading" id="qtk-hC-BDL"/>
                             <constraint firstAttribute="leadingMargin" secondItem="QI2-Tx-C3s" secondAttribute="leading" id="rKC-0n-JBW"/>
                             <constraint firstAttribute="trailingMargin" secondItem="i73-W0-OV9" secondAttribute="trailing" id="v7t-qM-BE1"/>
@@ -740,8 +749,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AtW-a0-rsl">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="crime mapper" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="II7-9D-Dft">
-                                        <rect key="frame" x="102" y="45" width="128" height="24"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="crime mapper" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="II7-9D-Dft">
+                                        <rect key="frame" x="102" y="48" width="128" height="24"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
                                         <color key="textColor" red="0.90823972225189209" green="0.92638683319091797" blue="0.9317171573638916" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -793,32 +802,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="b5D-fS-LUZ">
-                                <rect key="frame" x="0.0" y="28" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="b5D-fS-LUZ" id="dQt-k3-pYa">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="eL7-kx-SRJ">
-                                <rect key="frame" x="0.0" y="72" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eL7-kx-SRJ" id="9eW-q5-0fN">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="6Br-Hn-RuE">
-                                <rect key="frame" x="0.0" y="116" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6Br-Hn-RuE" id="BJZ-Q0-lgY">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
                         <sections/>
                         <connections>
                             <outlet property="dataSource" destination="RHM-CR-flM" id="R6p-SP-cuB"/>
@@ -843,16 +826,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="0Pd-94-D71">
-                                <rect key="frame" x="0.0" y="28" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0Pd-94-D71" id="3C7-jl-7T6">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="sYv-vg-mqY" id="NEE-5o-A1z"/>
                             <outlet property="delegate" destination="sYv-vg-mqY" id="Dzz-Nx-cTG"/>
@@ -873,6 +846,6 @@
         <image name="linecal" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ddL-Ad-qcc"/>
+        <segue reference="f2I-No-gN2"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import Gloss
+import Foundation
 
 class RegionsTableViewController: UITableViewController,InitialisesExtendedNavBar  {
   
@@ -146,6 +147,7 @@ class RegionsTableViewController: UITableViewController,InitialisesExtendedNavBa
     
     if indexPath.section == 0 {
       defaults.set(nil, forKey: "neighbourhood")
+      defaults.set(true, forKey: "searchUpdated")
       tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
       tableView.deselectRow(at: indexPath, animated: true)
     } else {
@@ -175,7 +177,7 @@ class RegionsTableViewController: UITableViewController,InitialisesExtendedNavBa
     //put loading box up
     
     if (loader == nil) {
-      loader = Loader(message: "loading data...")
+      loader = Loader(message: "loading data...", size: "small")
       loader?.alpha = 0
       loader?.center = view.center
       self.view.addSubview(loader!)
