@@ -85,18 +85,18 @@ var dates: [String]?
   
     
     
-    print ("setting chart")
+ //   print ("setting chart")
     
     var lineChartDataSets = [LineChartDataSet]()
     
     // iterate for each category in graphArray
     for catResultArray in catResultArrays {
-      print ("iterating through catResultArray")
+   //  print ("iterating through catResultArray")
       var dateIndex: Double = 0
       var dateIncrement = MonthYear(month: startMonth, year: startYear)
       var chartDataEntriesForCat: [ChartDataEntry]  = [ChartDataEntry]()
       repeat {
-        print ("in repear loop")
+      //  print ("in repear loop")
         chartDataEntriesForCat.append(ChartDataEntry(x: dateIndex,
                                                      y: Double(catResultArray.filter{$0.month == dateIncrement.getDateFormattedForApiSearch()}.count)))
         
@@ -117,14 +117,14 @@ var dates: [String]?
          set.circleRadius = 6.0 // the radius of the node circle
          set.fillAlpha = 65 / 255.0
          set.fillColor = catResultArray[0].color!
-         set.highlightColor = UIColor.white
+         set.highlightColor = UIColor.flatYellow
          set.drawCircleHoleEnabled = true
          lineChartDataSets.append(set)
       }
     }
     
     let data = LineChartData(dataSets: lineChartDataSets)
-    data.setValueTextColor(.white)
+    data.setValueTextColor(.flatGray)
     self.lineChartView?.data = data
  
    
@@ -150,11 +150,9 @@ var dates: [String]?
     lineChartView!.backgroundColor = .flatWhite
     lineChartView!.isUserInteractionEnabled = true
     lineChartView!.delegate = self
-    lineChartView!.chartDescription?.text = "Tap node for details"
-    // 3
-    lineChartView!.chartDescription?.textColor = UIColor.white
     lineChartView!.gridBackgroundColor = UIColor.darkGray
-    // 4
+    
+    lineChartView!.chartDescription?.text = ""
     lineChartView!.noDataText = "No data provided"
     
     

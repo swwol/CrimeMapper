@@ -283,7 +283,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
     }
   }
   
-  func getDateLastUpdated() -> Promise<String> {
+  func getDateLastUpdated( _ setStart: Bool = false) -> Promise<String> {
     
     
     return Promise { fulfill, reject in
@@ -298,6 +298,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
             let formattedDate = MonthYear(date: date)
             self.defaults.set(formattedDate.month, forKey: "monthLastUpdated")
             self.defaults.set(formattedDate.year, forKey: "yearLastUpdated")
+            if (setStart) {
+              self.defaults.set(formattedDate.month, forKey: "startMonth")
+              self.defaults.set(formattedDate.year, forKey: "startYear")
+            }
             self.updateDateExtendedNavBarInfo()
             fulfill(date)
           case .failure(let err):
@@ -320,6 +324,15 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
     super.viewDidLoad()
     navigationController?.delegate = self
     search.delegate = self
+   
+  
+    
+    if defaults.object(forKey: "startMonth")  == nil {
+    let _ =  getDateLastUpdated(true).then { _ -> Void in
+       self.updateDateExtendedNavBarInfo()
+      }
+    }
+
     //appearance
     let barTintColor = UIColor.flatMintDark
     toolbar.barTintColor=barTintColor
@@ -366,6 +379,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
   
   override func viewWillAppear(_ animated: Bool) {
     
+    updateDateExtendedNavBarInfo()
     // check if cats, dates or neighbourhood changed, only do new search if they have
     let updated = defaults.bool(forKey: "searchUpdated")
     print (updated)
@@ -658,6 +672,9 @@ extension MapViewController: UINavigationControllerDelegate {
       nav.showDate(controller.extendedNavBarShouldShowDate)
       nav.shouldHideExtendedBar(controller.extendedNavBarIsHidden)
     }
+    
+    if let _ = viewController as? MapViewController {
+      nav.updateInfo()    }
   }
 }
 
