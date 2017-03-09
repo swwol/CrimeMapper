@@ -9,4 +9,4 @@
 import Foundation
 
 
-//func print(_ items: Any..., separator: String = "", terminator: String = "") {}
+func print(_ items: Any..., separator: String = "", terminator: String = "") {}

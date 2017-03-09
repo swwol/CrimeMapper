@@ -60,8 +60,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
   lazy var slideInTransitioningDelegate = SlideInPresentationManager()
   var mapScale: Double?
   var searchedArea: [CLLocationCoordinate2D]?
-  var neSearchCorner: CLLocationCoordinate2D?
-  var swSearchCorner: CLLocationCoordinate2D?
+  var searchCoords = [CLLocationCoordinate2D]()
   
   @IBAction func adjustSettings(_ sender: UIBarButtonItem) {
  
@@ -122,20 +121,60 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
     
   }
   
-  func doesPolyContainRect (poly: [CLLocationCoordinate2D], rect: MKMapRect) -> Bool {
+  
+  
+  func doesPolyAContainPolyB (a: [CLLocationCoordinate2D], b: [CLLocationCoordinate2D]) -> Bool {
     
-    let rectMKMapPoints = getCoordsFromRect(rect: rect)
-    let polygon = MKPolygon(coordinates: poly, count: poly.count)
-    let ren = MKPolygonRenderer(polygon: polygon)
-    let points: [CGPoint] = rectMKMapPoints.map { ren.point(for: $0)}
-    let pointsInsidePoly = points.filter { ren.path.contains($0) }
-    if pointsInsidePoly.count == 4 {
-      return true
+    
+    // just check if all points of PolygonB are inside A (should work for convex poly)
+    
+    let CGpolyA = convertCLPolyToCGPoints(poly: a)
+    let CGpolyB = convertCLPolyToCGPoints(poly: b)
+    
+    
+    for point in CGpolyB {
+    
+      if !Clipper.polygonContainsPoint(CGpolyA, point: point) {
+        return false
+       }
     }
-  return false
+    
+    return true
+    
+  }
+  
+  
+  
+  
+  
+  
+  func intersectionOfPolyAndRect (poly: [CLLocationCoordinate2D], rect: MKMapRect) -> [CGPoint] {
+    let rectAsMapPoints  = getCoordsFromRect(rect: rect)
+    let rectAsCGPoints = convertMKMapPointsToCGPoints(rectAsMapPoints)
+    let polyAsCGPoints = poly.map {self.mapView.convert($0, toPointTo: self.view) }
+    
+    let  intersection  =  Clipper.intersectPolygons([polyAsCGPoints], withPolygons: [rectAsCGPoints])
+    
+    if !intersection.isEmpty {
+      
+      return intersection[0]
+      
+    } else {
+      return []
+    }
+  
+   
   
   }
   
+  func convertCLPolyToCGPoints ( poly: [CLLocationCoordinate2D] ) -> [CGPoint] {
+    
+    return poly.map {self.mapView.convert($0, toPointTo: self.view) }
+    
+    
+  }
+  
+    
   func getCoordsFromRect (rect: MKMapRect) -> [MKMapPoint] {
     
     let left = MKMapRectGetMinX(rect)
@@ -147,25 +186,23 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
     let topRight =  MKMapPoint(x: right, y: top)
     let bottomRight = MKMapPoint(x: right, y: bottom)
     let coords = [bottomLeft, topLeft, topRight, bottomRight]
-    
     return coords
-    
-  
-  }
-  
-  func convertMKMapPointsToCGPoints( _ mapPoints : [MKMapPoint]) -> [CGPoint] {
-    
-    let coordsAsCL2d : [CLLocationCoordinate2D] = mapPoints.map { MKCoordinateForMapPoint($0)  }
-     return coordsAsCL2d.map {self.mapView.convert($0, toPointTo: self.view)}
 
   }
   
-  func getPolygonOfRectXMinusRectY( fullRect: MKMapRect, excludeArea: MKMapRect) -> [[CGPoint]] {
+  func convertMKMapPointsToCGPoints( _ mapPoints : [MKMapPoint]) -> [CGPoint] {
+   
+    let coordsAsCL2d : [CLLocationCoordinate2D] = mapPoints.map { MKCoordinateForMapPoint($0)  }
+    return coordsAsCL2d.map {self.mapView.convert($0, toPointTo: self.view)}
+
+  }
+  
+  func getPolygonOfRectXMinusPoly( fullRect: MKMapRect, excludeArea: [CLLocationCoordinate2D]) -> [[CGPoint]] {
     
   // get both rect coords as  CGPoints
     
     let fullRectCoords = convertMKMapPointsToCGPoints(getCoordsFromRect(rect: fullRect))
-    let excludeAreaCoords = convertMKMapPointsToCGPoints(getCoordsFromRect(rect: excludeArea))
+    let excludeAreaCoords = convertCLPolyToCGPoints(poly: excludeArea)
     
     //get polygon of difference
   
@@ -181,76 +218,125 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
   
   }
   
-  // find  and display datapoints within viewable region
+  func getUnionOfPolyAndPoly (poly1: [CLLocationCoordinate2D], poly2: [CLLocationCoordinate2D]) -> [CLLocationCoordinate2D] {
+    
+    let poly1AsCGPoints  = convertCLPolyToCGPoints (poly: poly1)
+    let poly2AsCGPoints  = convertCLPolyToCGPoints (poly: poly2)
+    let union = Clipper.unionPolygons([poly1AsCGPoints], withPolygons: [poly2AsCGPoints])[0]
+    return  convertCGPointsPolyToCL2D(union)
+  }
   
-  func findAndDisplayDataPointsInVisibleRegion() {
+  
+  
+  func setSearchCoords() -> Bool{
     
-    guard readyToSearch else {
-      return
-    }
-    
-  // fbpins = []
+    print ("SEARCHCOORD:setting search coords")
     
     let region  = mapView.region
     let centre  =  region.center
     let span = region.span
-    
-    var searchCoords: [CLLocationCoordinate2D]
-    
+    let ne = CLLocationCoordinate2DMake(centre.latitude + span.latitudeDelta / 2.0, centre.longitude - span.longitudeDelta / 2.0)
+    let sw = CLLocationCoordinate2DMake(centre.latitude - span.latitudeDelta / 2.0, centre.longitude + span.longitudeDelta / 2.0)
+    let mapRectOfCurrentSearch  = getMKMapRectFromCoords(ne: ne, sw: sw)
+
     if let ns  = neighbourhoodSquare {
+      print ("SEARCHCOORD:search coords = neighbouthoodsquare")
       searchCoords  = ns
+      return true
     } else {
-      //get corners of region
-      let ne = CLLocationCoordinate2DMake(centre.latitude + span.latitudeDelta / 2.0, centre.longitude - span.longitudeDelta / 2.0)
-      let se = CLLocationCoordinate2DMake(centre.latitude - span.latitudeDelta / 2.0, centre.longitude - span.longitudeDelta / 2.0)
-      let nw = CLLocationCoordinate2DMake(centre.latitude + span.latitudeDelta / 2.0, centre.longitude + span.longitudeDelta / 2.0)
-      let sw = CLLocationCoordinate2DMake(centre.latitude - span.latitudeDelta / 2.0, centre.longitude + span.longitudeDelta / 2.0)
-     
-      self.neSearchCorner  = ne
-      self.swSearchCorner = sw
-      searchCoords = [ne,nw,sw,se]
+
+      //get new search region, but don't search all again unless categories changes
       
       if let lastSearchPoly = searchedArea {
         
-        let currentSearch  = getMKMapRectFromCoords(ne: ne, sw: sw)
+        //we need currentmap rect as array of CLLocationCoordinate2d points
         
+        let mapRectAsPoly =  getCoordsFromRect(rect: mapRectOfCurrentSearch)
+        let mapRectAsCLLCoordinatePoly :  [CLLocationCoordinate2D] = mapRectAsPoly.map { MKCoordinateForMapPoint($0)  }
         
-        
-        
-        if MKMapRectContainsRect(lastSearchRect, currentSearch) {
-          
-         print ("current search contained inside last search")
-            let updated = defaults.bool(forKey: "searchUpdated")
-          if (!updated) {
-            //if search criteria didn;t change, don't do a new search, just send exisiting pins to clustering manager
-           self.generateFBAnnotations(results: [])
-          return
-          }
-        } else if MKMapRectIntersectsRect(lastSearchRect, currentSearch) && !MKMapRectContainsRect(currentSearch, lastSearchRect) {
-          
-          print ("just find the new bit")
-          
-          
-          // the new search polygon we want is currentSearch - intersection
-          
-let searchPoly =  getPolygonOfRectXMinusRectY(fullRect: currentSearch, excludeArea: lastSearchRect)[0]
-          // convert searchpoly to CLLocations
-          
-          let searchPolyAsCL2DCoords = convertCGPointsPolyToCL2D(searchPoly)
-          
-          searchCoords = searchPolyAsCL2DCoords
-          
+        // did any searchcriteria change? if so start a new search
+        let updated = defaults.bool(forKey: "searchUpdated")
+        if (updated) {
+          print ("SEARCHCOORD:new search because cat updated")
+          fbpins = []
+         searchedArea = nil
+          searchCoords = mapRectAsCLLCoordinatePoly
+          return true
         }
+        // check if last search contains mapRectofCurrentSearch
+        // it will if we zoomed in
+        
+        if doesPolyAContainPolyB ( a: lastSearchPoly, b: mapRectAsCLLCoordinatePoly) {
+          // if lastSearchPolygon contains current search rect
+          print ("SEARCHCOORD:current search contained inside last search - ie zoomed in")
+          
+          //if search criteria didn;t change, don't do a new search, just send exisiting pins to clustering manager
+          self.generateFBAnnotations(results: [])
+          return false
+        
+          
+        } else if doesPolyAContainPolyB( a: mapRectAsCLLCoordinatePoly, b: lastSearchPoly)  {
+          // if we zoomed out so last search area is contained within mapRect
+          // start search from scratch as poygon has a hole in the middle
+          print ("SEARCHCOORD:current rect contains poly- ie zoomed out")
+          fbpins = []
+          searchCoords =  getCoordsFromRect(rect: mapRectOfCurrentSearch).map { MKCoordinateForMapPoint($0)}
+          return true
+        } else {
+          let intersection = intersectionOfPolyAndRect(poly: lastSearchPoly, rect: mapRectOfCurrentSearch)
+          if !intersection.isEmpty {
+            print ("SEARCHCOORD:they intersect")
+            
+            // if they intersect
+            let searchPoly =  getPolygonOfRectXMinusPoly(fullRect: mapRectOfCurrentSearch, excludeArea: lastSearchPoly)[0]
+            // convert searchpoly to CLLocations
+            let searchPolyAsCL2DCoords = convertCGPointsPolyToCL2D(searchPoly)
+            searchCoords = searchPolyAsCL2DCoords
+            return true
+          } else {
+            print ("SEARCHCOORD:they dont intersect")
+            // they don't intersect
+            fbpins = []
+            searchedArea = nil
+            searchCoords =  getCoordsFromRect(rect: mapRectOfCurrentSearch).map { MKCoordinateForMapPoint($0)}
+            return true
+          }
+        }
+      } else {
+        
+        print ("SEARCHCOORD:no previous search")
+        // no previous search
+        searchCoords =  getCoordsFromRect(rect: mapRectOfCurrentSearch).map { MKCoordinateForMapPoint($0)  }
+        return true
       }
     }
-    
+  }
   
-   // fbpins = []
-    //searchStarted()
+  //////////////////////////////////////////////////
+  
+  // find  and display datapoints within viewable region
+  
+  func findAndDisplayDataPointsInVisibleRegion() {
+    
+    
+    guard readyToSearch else {
+      return
+    }
+
+    // if setSearchCoords returns false, we don't carry on search as this area has been searched already
+    guard setSearchCoords() else {
+    return
+    }
+    
+ //  print (searchCoords)
+  //  let polygon = MKPolygon(coordinates: searchCoords, count: searchCoords.count)
+  //  self.mapView?.add(polygon)
+    
+    
     
   search.performSearch(coords: searchCoords ) { results in
     
-    if let ren = self.renderer {
+    if let _ = self.neighbourhoodSquare, let ren = self.renderer {
     //renderer not nil if neighbourhood is set
     //cull any results that are not within my polygon
     let resultsWithinPolygon = results.filter {
@@ -259,12 +345,19 @@ let searchPoly =  getPolygonOfRectXMinusRectY(fullRect: currentSearch, excludeAr
       if  (ren.path).contains(polygonViewPoint) {
         return true
       }
-      return false
-     }
-      self.lastSearch = nil
+      return false  }
+      self.searchedArea = nil
       self.generateFBAnnotations(results: resultsWithinPolygon)
     } else {
-        self.lastSearch = self.getMKMapRectFromCoords(ne:self.neSearchCorner! , sw: self.swSearchCorner!  )
+      
+      print ("I'm here because renderer is nil")
+      
+      
+      if let wasSearched  = self.searchedArea {
+        self.searchedArea = self.getUnionOfPolyAndPoly(poly1: wasSearched, poly2: self.searchCoords)
+      } else {
+        self.searchedArea = self.searchCoords
+      }
         self.generateFBAnnotations(results: results)
     }
     //  self.searchComplete()

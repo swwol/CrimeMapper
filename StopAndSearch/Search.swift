@@ -39,7 +39,7 @@ class Search {
   
   func cancelSearches() {
    // delegate?.searchCompleted(true)
-    print ("cancelling all searches")
+  //  print ("cancelling all searches")
     sessionManager?.session.invalidateAndCancel()
   }
   
@@ -117,12 +117,12 @@ class Search {
       
       search.then {results -> Void in
       // completion(results)
-        print (i)
-        print (selectedCats[i%selectedCats.count])
+     //   print (i)
+     //  print (selectedCats[i%selectedCats.count])
         self.delegate?.searchStatus(cat: selectedCats[i%selectedCats.count].category, success: true)
-        print ("search done for \(selectedCats[i%selectedCats.count].category)", results)
+     //   print ("search done for \(selectedCats[i%selectedCats.count].category)", results)
         }.catch { error in
-          print ("search failed for \(selectedCats[i%selectedCats.count].category)", error)
+      //    print ("search failed for \(selectedCats[i%selectedCats.count].category)", error)
            self.delegate?.searchStatus(cat: selectedCats[i%selectedCats.count].category, success: false)
       }
     }
@@ -133,7 +133,7 @@ class Search {
       results -> Void in
       
     
-      print ("all done")
+  //    print ("all done")
      
        let flattenedResults  = results.flatMap { $0 }
       completion(flattenedResults)
@@ -141,7 +141,7 @@ class Search {
       
       }.catch { _ in
          self.delegate?.searchCompleted(false)
-        print ("errors for some cats")
+  //     print ("errors for some cats")
         
     }
     
