@@ -13,7 +13,7 @@
         <!--crime detail-->
         <scene sceneID="Xzu-Ro-kfL">
             <objects>
-                <viewController title="crime detail" automaticallyAdjustsScrollViewInsets="NO" id="rcU-Sx-pRH" customClass="DetailViewController" customModule="StopAndSearch" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="crime detail" automaticallyAdjustsScrollViewInsets="NO" id="rcU-Sx-pRH" customClass="DetailViewController" customModule="CrimeMapper" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4sa-vv-yij"/>
                         <viewControllerLayoutGuide type="bottom" id="DVt-6P-bbG"/>
@@ -26,7 +26,7 @@
                                 <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ContentCell" id="sDw-tp-5i9" customClass="ContentCell" customModule="StopAndSearch" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ContentCell" id="sDw-tp-5i9" customClass="ContentCell" customModule="CrimeMapper" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="320" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sDw-tp-5i9" id="IJP-bD-WTv">
@@ -55,7 +55,7 @@
                                             <outlet property="icon" destination="QvP-3m-rAd" id="WGU-KJ-vCs"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CoordCell" rowHeight="120" id="HNv-wl-GO0" customClass="CoordCell" customModule="StopAndSearch" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CoordCell" rowHeight="120" id="HNv-wl-GO0" customClass="CoordCell" customModule="CrimeMapper" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="88" width="320" height="120"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HNv-wl-GO0" id="Rrx-58-qWJ">
@@ -120,7 +120,7 @@
         <!--crimes-->
         <scene sceneID="jaI-HG-JDe">
             <objects>
-                <tableViewController title="crimes" id="60G-Rb-THp" customClass="ClusterInfoTableViewController" customModule="StopAndSearch" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="crimes" id="60G-Rb-THp" customClass="ClusterInfoTableViewController" customModule="CrimeMapper" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="7Of-40-P14">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -130,18 +130,18 @@
                                 <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pBC-wf-GdR" id="fEq-CP-QGt">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="vE2-ae-FR7">
-                                            <rect key="frame" x="15" y="4" width="34" height="21"/>
+                                            <rect key="frame" x="15" y="5" width="33.5" height="20.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Bf5-Xv-eKx">
-                                            <rect key="frame" x="15" y="25" width="44" height="15"/>
+                                            <rect key="frame" x="15" y="25.5" width="44" height="14.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <nil key="textColor"/>
@@ -167,7 +167,7 @@
         <!--Categories-->
         <scene sceneID="ae4-b9-gQI">
             <objects>
-                <tableViewController title="Categories" id="4kJ-pX-ea6" customClass="ControlsTableViewController" customModule="StopAndSearch" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Categories" id="4kJ-pX-ea6" customClass="ControlsTableViewController" customModule="CrimeMapper" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="QFs-OT-zNx"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bnO-aS-FGa" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -177,7 +177,7 @@
         <!--set date-->
         <scene sceneID="ri3-Xa-jpr">
             <objects>
-                <viewController title="set date" id="Dbq-TE-K4Q" customClass="DateController" customModule="StopAndSearch" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="set date" id="Dbq-TE-K4Q" customClass="DateController" customModule="CrimeMapper" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="SFs-8P-o1P"/>
                         <viewControllerLayoutGuide type="bottom" id="u4L-32-0lv"/>
@@ -392,7 +392,7 @@
         <!--graphs-->
         <scene sceneID="D4W-jX-Wai">
             <objects>
-                <viewController title="graphs" id="oa5-jS-nA3" customClass="GraphParentViewController" customModule="StopAndSearch" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="graphs" id="oa5-jS-nA3" customClass="GraphParentViewController" customModule="CrimeMapper" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="dlR-c9-7dI"/>
                         <viewControllerLayoutGuide type="bottom" id="NCX-Fm-y7J"/>
@@ -476,7 +476,7 @@
         <!--Bar Graph View Controller-->
         <scene sceneID="e4Q-Kj-YoL">
             <objects>
-                <viewController storyboardIdentifier="barVC" id="evg-80-RI9" customClass="BarGraphViewController" customModule="StopAndSearch" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="barVC" id="evg-80-RI9" customClass="BarGraphViewController" customModule="CrimeMapper" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ZhM-Re-eFi"/>
                         <viewControllerLayoutGuide type="bottom" id="ak4-hl-Vnl"/>
@@ -494,7 +494,7 @@
         <!--Pie View Controller-->
         <scene sceneID="USz-K7-cVP">
             <objects>
-                <viewController storyboardIdentifier="pieVC" id="nRZ-pc-V1h" customClass="PieViewController" customModule="StopAndSearch" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="pieVC" id="nRZ-pc-V1h" customClass="PieViewController" customModule="CrimeMapper" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="HN4-2H-QRx"/>
                         <viewControllerLayoutGuide type="bottom" id="v0N-IS-M38"/>
@@ -512,7 +512,7 @@
         <!--Line Graph View Controller-->
         <scene sceneID="AsN-cC-Cla">
             <objects>
-                <viewController storyboardIdentifier="lineVC" id="zPj-dQ-aNr" customClass="LineGraphViewController" customModule="StopAndSearch" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="lineVC" id="zPj-dQ-aNr" customClass="LineGraphViewController" customModule="CrimeMapper" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="cER-dw-blQ"/>
                         <viewControllerLayoutGuide type="bottom" id="T21-SE-QLn"/>
@@ -570,7 +570,7 @@
         <!--Map-->
         <scene sceneID="u8g-gJ-qio">
             <objects>
-                <viewController title="Map" id="ZAQ-5u-4bi" customClass="MapViewController" customModule="StopAndSearch" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Map" id="ZAQ-5u-4bi" customClass="MapViewController" customModule="CrimeMapper" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8Hr-hv-VFU"/>
                         <viewControllerLayoutGuide type="bottom" id="07k-qP-FXd"/>
@@ -639,7 +639,7 @@
         <!--Extended Nav Controller-->
         <scene sceneID="9Vm-hr-bSG">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7B5-1X-DRT" customClass="ExtendedNavController" customModule="StopAndSearch" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7B5-1X-DRT" customClass="ExtendedNavController" customModule="CrimeMapper" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="5JA-JZ-Hio">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -657,7 +657,7 @@
         <!--about-->
         <scene sceneID="fa5-ql-mM0">
             <objects>
-                <viewController title="about" id="T3G-8e-rjG" customClass="AboutViewController" customModule="StopAndSearch" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="about" id="T3G-8e-rjG" customClass="AboutViewController" customModule="CrimeMapper" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="XpT-kd-lB6"/>
                         <viewControllerLayoutGuide type="bottom" id="x0o-w2-pPw"/>
@@ -693,7 +693,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thanks to Zhe and Wanyi Wu for help with logo design" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wkz-AC-mlP">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thanks to Zhe and Wanyi Wu for help with logo design." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wkz-AC-mlP">
                                 <rect key="frame" x="16" y="355.5" width="288" height="20"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -729,7 +729,7 @@
         <!--Settings Table View Controller-->
         <scene sceneID="S1S-Lm-OIl">
             <objects>
-                <viewController id="VQH-ir-Fw2" customClass="SettingsTableViewController" customModule="StopAndSearch" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="VQH-ir-Fw2" customClass="SettingsTableViewController" customModule="CrimeMapper" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="0Y1-2G-0Rm"/>
                         <viewControllerLayoutGuide type="bottom" id="5KN-Aq-ZYD"/>
@@ -797,7 +797,7 @@
         <!--regions-->
         <scene sceneID="evS-m7-GKt">
             <objects>
-                <tableViewController title="regions" id="RHM-CR-flM" customClass="RegionsTableViewController" customModule="StopAndSearch" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="regions" id="RHM-CR-flM" customClass="RegionsTableViewController" customModule="CrimeMapper" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Wyv-2F-V7d">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -821,7 +821,7 @@
         <!--neighbourhoods-->
         <scene sceneID="54O-C3-xvQ">
             <objects>
-                <tableViewController title="neighbourhoods" id="sYv-vg-mqY" customClass="NeighbourhoodTableViewController" customModule="StopAndSearch" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="neighbourhoods" id="sYv-vg-mqY" customClass="NeighbourhoodTableViewController" customModule="CrimeMapper" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="M4m-v5-Epb">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -846,6 +846,6 @@
         <image name="linecal" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="f2I-No-gN2"/>
+        <segue reference="ddL-Ad-qcc"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -186,13 +186,25 @@ class Search {
     else {
       searchString = "https://data.police.uk/api/crimes-street/all-crime"
     }
-    
+    /*
     searchString.append( "?poly=\(coords[0].latitude),\(coords[0].longitude):\(coords[1].latitude),\(coords[1].longitude):\(coords[2].latitude),\(coords[2].longitude):\(coords[3].latitude),\(coords[3].longitude)")
+    */
+    
+    searchString.append("?poly=")
+    
+    for (i,coord) in coords.enumerated() {
+      
+      searchString.append ("\(coord.latitude),\(coord.longitude)")
+      if i < coords.count - 1 {
+        searchString.append(":")
+      }
+    }
     
     if let d = date {
       searchString.append("&date="+d.getDateFormattedForApiSearch())
     }
-    
+
+
     let url = URL(string: searchString)
     return url!
   }

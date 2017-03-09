@@ -18,6 +18,7 @@ class BarGraphViewController: UIViewController, ChartViewDelegate{
   var graphArray = [[SearchResult]]()
   var graphlabels: [String]?
 
+
   override func viewDidLoad() {
     super.viewDidLoad()
 
@@ -34,6 +35,7 @@ class BarGraphViewController: UIViewController, ChartViewDelegate{
         }
       }     
      setChart()
+   
   }
   
   func barChartInit() {
@@ -107,6 +109,7 @@ class BarGraphViewController: UIViewController, ChartViewDelegate{
     barChartView!.chartDescription?.text = ""
     chartDataSet.colors =  graphArray.map{$0[0].color!}
       barChartView!.delegate = self
+  
   }
   
   override func didReceiveMemoryWarning() {

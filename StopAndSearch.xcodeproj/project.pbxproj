@@ -45,6 +45,7 @@
 		CDA149751E60580C002F1003 /* ForceResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA149741E60580C002F1003 /* ForceResult.swift */; };
 		CDA149781E606861002F1003 /* NeighbourhoodTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA149771E606861002F1003 /* NeighbourhoodTableViewController.swift */; };
 		CDA2A6431E58D15A0028F2D7 /* BarGraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA2A6421E58D15A0028F2D7 /* BarGraphViewController.swift */; };
+		CDB6CA1C1E700F50009FB970 /* ReleasePrint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB6CA1B1E700F50009FB970 /* ReleasePrint.swift */; };
 		CDBB86EF1E54684800902267 /* OverlayBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDBB86EE1E54684800902267 /* OverlayBar.xib */; };
 		CDBB86F11E5469CA00902267 /* OverlayBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBB86F01E5469CA00902267 /* OverlayBar.swift */; };
 		CDC7F6A11E50ED45002F337B /* CoordinateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC7F6A01E50ED45002F337B /* CoordinateCell.swift */; };
@@ -111,7 +112,7 @@
 		CD7F5A7B1E55A7ED0000A1DF /* SlideInPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideInPresentationController.swift; sourceTree = "<group>"; };
 		CD7F5A7D1E55A7FC0000A1DF /* SlideInPresentationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideInPresentationManager.swift; sourceTree = "<group>"; };
 		CD7F5A7F1E55A80B0000A1DF /* SlideInPresentationAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideInPresentationAnimator.swift; sourceTree = "<group>"; };
-		CD7FBCA21E32AE1500DA40F1 /* StopAndSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StopAndSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD7FBCA21E32AE1500DA40F1 /* CrimeMapper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CrimeMapper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD7FBCA51E32AE1500DA40F1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CD7FBCAC1E32AE1500DA40F1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CD7FBCAE1E32AE1500DA40F1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -128,6 +129,7 @@
 		CDA149741E60580C002F1003 /* ForceResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForceResult.swift; sourceTree = "<group>"; };
 		CDA149771E606861002F1003 /* NeighbourhoodTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NeighbourhoodTableViewController.swift; sourceTree = "<group>"; };
 		CDA2A6421E58D15A0028F2D7 /* BarGraphViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarGraphViewController.swift; sourceTree = "<group>"; };
+		CDB6CA1B1E700F50009FB970 /* ReleasePrint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReleasePrint.swift; sourceTree = "<group>"; };
 		CDBB86EE1E54684800902267 /* OverlayBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OverlayBar.xib; sourceTree = "<group>"; };
 		CDBB86F01E5469CA00902267 /* OverlayBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayBar.swift; sourceTree = "<group>"; };
 		CDC7F6A01E50ED45002F337B /* CoordinateCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoordinateCell.swift; sourceTree = "<group>"; };
@@ -227,7 +229,7 @@
 		CD7FBCA31E32AE1500DA40F1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CD7FBCA21E32AE1500DA40F1 /* StopAndSearch.app */,
+				CD7FBCA21E32AE1500DA40F1 /* CrimeMapper.app */,
 				CD33D96A1E366BC100AB6E94 /* StopAndSearchTests.xctest */,
 			);
 			name = Products;
@@ -246,6 +248,7 @@
 				CD7F5A7A1E55A7CE0000A1DF /* Presentation */,
 				CDA149761E60582A002F1003 /* Search */,
 				CD7FBCA51E32AE1500DA40F1 /* AppDelegate.swift */,
+				CDB6CA1B1E700F50009FB970 /* ReleasePrint.swift */,
 				CD7FBCAB1E32AE1500DA40F1 /* Main.storyboard */,
 				CDC7F69A1E50CF9D002F337B /* xibs */,
 				CDF6A0751E43AC7200875B6E /* Months.swift */,
@@ -386,7 +389,7 @@
 			);
 			name = StopAndSearch;
 			productName = StopAndSearch;
-			productReference = CD7FBCA21E32AE1500DA40F1 /* StopAndSearch.app */;
+			productReference = CD7FBCA21E32AE1500DA40F1 /* CrimeMapper.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -408,8 +411,8 @@
 					};
 					CD7FBCA11E32AE1400DA40F1 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 9793MLEXL9;
-						ProvisioningStyle = Automatic;
+						DevelopmentTeam = 249RKHUZ9S;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.Maps.iOS = {
 								enabled = 1;
@@ -534,6 +537,7 @@
 				CDE1CCFC1E45D55900209A1B /* Categories.swift in Sources */,
 				CD7F5A801E55A80B0000A1DF /* SlideInPresentationAnimator.swift in Sources */,
 				CDD5DE0B1E40ADBF000F382C /* FBZoomLevel.swift in Sources */,
+				CDB6CA1C1E700F50009FB970 /* ReleasePrint.swift in Sources */,
 				CDBB86F11E5469CA00902267 /* OverlayBar.swift in Sources */,
 				CDC7F6A51E5123CB002F337B /* CrimeDetail.swift in Sources */,
 				CD8CDA101E5A188800F8EAD2 /* GraphsTabBarController.swift in Sources */,
@@ -738,12 +742,19 @@
 			baseConfigurationReference = 7356764FCF51E447F27ADD22 /* Pods-StopAndSearch.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 9793MLEXL9;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Sam Woolf (5QS3E27TR2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sam Woolf (5QS3E27TR2)";
+				CURRENT_PROJECT_VERSION = 3;
+				DEVELOPMENT_TEAM = 249RKHUZ9S;
 				INFOPLIST_FILE = StopAndSearch/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.samwoolf.StopAndSearch;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = net.samwoolf.CrimeMapper;
+				PRODUCT_NAME = CrimeMapper;
+				PROVISIONING_PROFILE = "9b321de1-4944-4da0-8c4b-d8073d0760c0";
+				PROVISIONING_PROFILE_SPECIFIER = CrimeMapperDevelopment;
 				SWIFT_VERSION = 3.0;
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
@@ -752,12 +763,19 @@
 			baseConfigurationReference = F9E2F30CB29004A374E4F4EF /* Pods-StopAndSearch.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 9793MLEXL9;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Sam Woolf (249RKHUZ9S)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Sam Woolf (249RKHUZ9S)";
+				CURRENT_PROJECT_VERSION = 3;
+				DEVELOPMENT_TEAM = 249RKHUZ9S;
 				INFOPLIST_FILE = StopAndSearch/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.samwoolf.StopAndSearch;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = net.samwoolf.CrimeMapper;
+				PRODUCT_NAME = CrimeMapper;
+				PROVISIONING_PROFILE = "01bd27d2-15ce-4d1d-a31b-1da637321869";
+				PROVISIONING_PROFILE_SPECIFIER = CrimeMapperDistribution;
 				SWIFT_VERSION = 3.0;
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
 		};

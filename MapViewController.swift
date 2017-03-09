@@ -9,6 +9,7 @@ import Alamofire
 import Gloss
 import PromiseKit
 import CoreGraphics
+import RSClipperWrapper
 
 class MapViewController: UIViewController, CLLocationManagerDelegate, InitialisesExtendedNavBar {
   
@@ -58,6 +59,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
   var sessionManager : SessionManager?
   lazy var slideInTransitioningDelegate = SlideInPresentationManager()
   var mapScale: Double?
+  var searchedArea: [CLLocationCoordinate2D]?
+  var neSearchCorner: CLLocationCoordinate2D?
+  var swSearchCorner: CLLocationCoordinate2D?
   
   @IBAction func adjustSettings(_ sender: UIBarButtonItem) {
  
@@ -108,6 +112,75 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
     findAndDisplayDataPointsInVisibleRegion()
   }
   
+  
+  func getMKMapRectFromCoords ( ne: CLLocationCoordinate2D, sw: CLLocationCoordinate2D) -> MKMapRect {
+    
+    let nemp  = MKMapPointForCoordinate(ne)
+    let swmp =  MKMapPointForCoordinate(sw)
+    
+    return MKMapRectMake(min(nemp.x, swmp.x), min(nemp.y, swmp.y), abs(nemp.x-swmp.x), abs(nemp.y-swmp.y))
+    
+  }
+  
+  func doesPolyContainRect (poly: [CLLocationCoordinate2D], rect: MKMapRect) -> Bool {
+    
+    let rectMKMapPoints = getCoordsFromRect(rect: rect)
+    let polygon = MKPolygon(coordinates: poly, count: poly.count)
+    let ren = MKPolygonRenderer(polygon: polygon)
+    let points: [CGPoint] = rectMKMapPoints.map { ren.point(for: $0)}
+    let pointsInsidePoly = points.filter { ren.path.contains($0) }
+    if pointsInsidePoly.count == 4 {
+      return true
+    }
+  return false
+  
+  }
+  
+  func getCoordsFromRect (rect: MKMapRect) -> [MKMapPoint] {
+    
+    let left = MKMapRectGetMinX(rect)
+    let bottom = MKMapRectGetMinY(rect)
+    let right = MKMapRectGetMaxX(rect)
+    let top = MKMapRectGetMaxY(rect)
+    let bottomLeft = MKMapPoint(x: left, y: bottom)
+    let topLeft =  MKMapPoint(x: left, y: top)
+    let topRight =  MKMapPoint(x: right, y: top)
+    let bottomRight = MKMapPoint(x: right, y: bottom)
+    let coords = [bottomLeft, topLeft, topRight, bottomRight]
+    
+    return coords
+    
+  
+  }
+  
+  func convertMKMapPointsToCGPoints( _ mapPoints : [MKMapPoint]) -> [CGPoint] {
+    
+    let coordsAsCL2d : [CLLocationCoordinate2D] = mapPoints.map { MKCoordinateForMapPoint($0)  }
+     return coordsAsCL2d.map {self.mapView.convert($0, toPointTo: self.view)}
+
+  }
+  
+  func getPolygonOfRectXMinusRectY( fullRect: MKMapRect, excludeArea: MKMapRect) -> [[CGPoint]] {
+    
+  // get both rect coords as  CGPoints
+    
+    let fullRectCoords = convertMKMapPointsToCGPoints(getCoordsFromRect(rect: fullRect))
+    let excludeAreaCoords = convertMKMapPointsToCGPoints(getCoordsFromRect(rect: excludeArea))
+    
+    //get polygon of difference
+  
+    let searchPoly = Clipper.differencePolygons([fullRectCoords], fromPolygons: [excludeAreaCoords])
+    return searchPoly
+    
+  }
+  
+  
+  func convertCGPointsPolyToCL2D(_ poly: [CGPoint]) -> [CLLocationCoordinate2D] {
+ let polyAsCLL2d : [CLLocationCoordinate2D] = poly.map{self.mapView.convert($0, toCoordinateFrom: self.view)}
+ return polyAsCLL2d
+  
+  }
+  
   // find  and display datapoints within viewable region
   
   func findAndDisplayDataPointsInVisibleRegion() {
@@ -116,7 +189,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
       return
     }
     
-    fbpins = []
+  // fbpins = []
     
     let region  = mapView.region
     let centre  =  region.center
@@ -132,10 +205,47 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
       let se = CLLocationCoordinate2DMake(centre.latitude - span.latitudeDelta / 2.0, centre.longitude - span.longitudeDelta / 2.0)
       let nw = CLLocationCoordinate2DMake(centre.latitude + span.latitudeDelta / 2.0, centre.longitude + span.longitudeDelta / 2.0)
       let sw = CLLocationCoordinate2DMake(centre.latitude - span.latitudeDelta / 2.0, centre.longitude + span.longitudeDelta / 2.0)
-      
+     
+      self.neSearchCorner  = ne
+      self.swSearchCorner = sw
       searchCoords = [ne,nw,sw,se]
+      
+      if let lastSearchPoly = searchedArea {
+        
+        let currentSearch  = getMKMapRectFromCoords(ne: ne, sw: sw)
+        
+        
+        
+        
+        if MKMapRectContainsRect(lastSearchRect, currentSearch) {
+          
+         print ("current search contained inside last search")
+            let updated = defaults.bool(forKey: "searchUpdated")
+          if (!updated) {
+            //if search criteria didn;t change, don't do a new search, just send exisiting pins to clustering manager
+           self.generateFBAnnotations(results: [])
+          return
+          }
+        } else if MKMapRectIntersectsRect(lastSearchRect, currentSearch) && !MKMapRectContainsRect(currentSearch, lastSearchRect) {
+          
+          print ("just find the new bit")
+          
+          
+          // the new search polygon we want is currentSearch - intersection
+          
+let searchPoly =  getPolygonOfRectXMinusRectY(fullRect: currentSearch, excludeArea: lastSearchRect)[0]
+          // convert searchpoly to CLLocations
+          
+          let searchPolyAsCL2DCoords = convertCGPointsPolyToCL2D(searchPoly)
+          
+          searchCoords = searchPolyAsCL2DCoords
+          
+        }
+      }
     }
     
+  
+   // fbpins = []
     //searchStarted()
     
   search.performSearch(coords: searchCoords ) { results in
@@ -151,8 +261,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
       }
       return false
      }
+      self.lastSearch = nil
       self.generateFBAnnotations(results: resultsWithinPolygon)
     } else {
+        self.lastSearch = self.getMKMapRectFromCoords(ne:self.neSearchCorner! , sw: self.swSearchCorner!  )
         self.generateFBAnnotations(results: results)
     }
     //  self.searchComplete()
@@ -223,9 +335,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
   
   
   func  getNeighbourhoodBoundary(force: String, neighbourhood: String) -> Promise<[CLLocationCoordinate2D]> {
-    
-    
-    
+      self.removeOverlays()
+  
     let config : URLSessionConfiguration  = {
       let configuration = URLSessionConfiguration.default
       configuration.requestCachePolicy = .returnCacheDataElseLoad
@@ -238,6 +349,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
     let searchURLStringEncoded = searchURLString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
     let searchURL  = URL (string: searchURLStringEncoded!)
     return Promise { fulfill, reject in
+      if (self.loader == nil) {
+        self.loader = Loader(message: "loading region...", size: "small")
+        self.loader?.center = view.center
+        self.view.addSubview(self.loader!)
+      }
+      
     sessionManager!.request(searchURL!)
       .validate()
       .responseJSON() { response in
@@ -263,8 +380,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
           }
           // draw polygon on map
           
-          self.removeOverlays()
-          
+      
            let polygon = MKPolygon(coordinates: coordResAsCLCoords, count: coordResAsCLCoords.count)
            self.mapView?.add(polygon)
           
@@ -275,8 +391,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
           self.neighbourhoodSquare  = [lowerLeft,lowerRight,topRight,topLeft]
           let region = MKCoordinateRegionForMapRect(r)
           self.mapView.setRegion(region, animated: false)
+          self.loader?.removeFromSuperview()
+          self.loader = nil
           fulfill(coordResAsCLCoords)
         case .failure (let err):
+          self.loader?.removeFromSuperview()
+          self.loader = nil
           reject(err)
         }
       }
@@ -423,8 +543,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
             if neighbourhood == nil {
             findAndDisplayDataPointsInVisibleRegion()
             }
-            mapScale = nil
           }
+          mapScale = nil
       }
     generateFBAnnotations(results: [])
       

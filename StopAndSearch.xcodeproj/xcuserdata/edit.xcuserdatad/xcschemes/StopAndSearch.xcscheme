@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "CD7FBCA11E32AE1400DA40F1"
-               BuildableName = "StopAndSearch.app"
+               BuildableName = "CrimeMapper.app"
                BlueprintName = "StopAndSearch"
                ReferencedContainer = "container:StopAndSearch.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CD7FBCA11E32AE1400DA40F1"
-            BuildableName = "StopAndSearch.app"
+            BuildableName = "CrimeMapper.app"
             BlueprintName = "StopAndSearch"
             ReferencedContainer = "container:StopAndSearch.xcodeproj">
          </BuildableReference>
@@ -66,7 +66,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CD7FBCA11E32AE1400DA40F1"
-            BuildableName = "StopAndSearch.app"
+            BuildableName = "CrimeMapper.app"
             BlueprintName = "StopAndSearch"
             ReferencedContainer = "container:StopAndSearch.xcodeproj">
          </BuildableReference>
@@ -85,7 +85,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CD7FBCA11E32AE1400DA40F1"
-            BuildableName = "StopAndSearch.app"
+            BuildableName = "CrimeMapper.app"
             BlueprintName = "StopAndSearch"
             ReferencedContainer = "container:StopAndSearch.xcodeproj">
          </BuildableReference>

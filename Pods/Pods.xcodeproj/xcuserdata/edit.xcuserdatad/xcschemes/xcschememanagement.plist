@@ -34,10 +34,20 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>RSClipperWrapper.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>3395209D4AC5E101A609FAF2890366FA</key>
+		<key>039E7A195DD97AE8E88FBD476A92A710</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1AAE4EC6E3D35848114E27F194BCE12C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -47,7 +57,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>47335B648A49A3BB6A3891608F516380</key>
+		<key>64063922D70D50B34E211EF93BE8B56C</key>
 		<dict>
 			<key>primary</key>
 			<true/>

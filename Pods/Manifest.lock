@@ -11,6 +11,7 @@ PODS:
     - Alamofire (~> 4.0)
     - PromiseKit/CorePromise
   - PromiseKit/CorePromise (4.1.7)
+  - RSClipperWrapper (1.3)
 
 DEPENDENCIES:
   - Alamofire (~> 4.3)
@@ -18,15 +19,21 @@ DEPENDENCIES:
   - Charts (~> 3.0.1)
   - Gloss
   - PromiseKit/Alamofire (~> 4.0)
+  - RSClipperWrapper (from `https://github.com/rusty1s/RSClipperWrapper.git`)
 
 EXTERNAL SOURCES:
   ChameleonFramework:
     :git: https://github.com/ViccAlexander/Chameleon.git
+  RSClipperWrapper:
+    :git: https://github.com/rusty1s/RSClipperWrapper.git
 
 CHECKOUT OPTIONS:
   ChameleonFramework:
-    :commit: dcf98f9bf3a632a7f40679b7da46f09681e48526
+    :commit: acc480fbe023c6e5fe40f68593f4a70a8c4c7ad5
     :git: https://github.com/ViccAlexander/Chameleon.git
+  RSClipperWrapper:
+    :commit: 304dc7168bbc98015c6fd7b043b6ed788856884e
+    :git: https://github.com/rusty1s/RSClipperWrapper.git
 
 SPEC CHECKSUMS:
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
@@ -34,7 +41,8 @@ SPEC CHECKSUMS:
   Charts: 0e84f4418e87dad6a9edde221fba37ebb51d3ba7
   Gloss: 9ab33b8ede01e4232571d43a6bf9259b85d1de69
   PromiseKit: 779f2e41faf62d854e7593026ddbcb0bb5c5002d
+  RSClipperWrapper: e8105534f0db6b1e03d8b92a100ea438a67a6679
 
-PODFILE CHECKSUM: a80e2833c284db76e882530451abe53450ab794d
+PODFILE CHECKSUM: 7c5058ae1a80cd1f2afcfcc8873c9e5ecebb2a2b
 
 COCOAPODS: 1.2.0

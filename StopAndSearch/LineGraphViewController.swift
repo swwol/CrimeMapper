@@ -8,6 +8,9 @@
 
 import UIKit
 import Charts
+
+
+
 class LineGraphViewController: UIViewController, ChartViewDelegate {
   
 var lineChartView: LineChartView?
@@ -19,16 +22,14 @@ var startYear: Int = 0
 var endMonth: Int = 0
 var endYear: Int = 0
 var dates: [String]?
-  
-  
-    override func viewDidLoad() {
-        super.viewDidLoad()
-      
-      print ("loaded line graph view")
-        readData()
-        lineChartInit() // just makes and resizes charet object
-  
-      // put data into graph array
+
+
+override func viewDidLoad() {
+  print ("loaded")
+    super.viewDidLoad()
+    readData()
+    lineChartInit() // just makes and resizes charet object
+       // put data into graph array
       if let d = data {
         for cat in Categories.categories {
           //loop through all categories
@@ -38,19 +39,13 @@ var dates: [String]?
           }
         }
       }
-      // so we should now have 2D array of SearchResults
-      
-      // [Categoery1 results],
-      // [Category2 results].
-      // [Category3 results],
-      // ... 
-      
-      setChart()
   
-  }
+      setChart()
+     }
   
   override func viewWillAppear(_ animated: Bool) {
     readData()
+    
   }
   
   func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
@@ -75,7 +70,6 @@ var dates: [String]?
   func setChart() {
     
     // generate an array of dates for labelling x axis
-    
     dates  = [String]()
     var thisDate = MonthYear ( month: startMonth, year: startYear)
     repeat {
@@ -83,25 +77,19 @@ var dates: [String]?
      thisDate =  thisDate.increment()
     } while (thisDate <= MonthYear(month: endMonth, year: endYear))
   
-    
-    
- //   print ("setting chart")
-    
+
     var lineChartDataSets = [LineChartDataSet]()
-    
-    // iterate for each category in graphArray
     for catResultArray in catResultArrays {
-   //  print ("iterating through catResultArray")
+
       var dateIndex: Double = 0
       var dateIncrement = MonthYear(month: startMonth, year: startYear)
       var chartDataEntriesForCat: [ChartDataEntry]  = [ChartDataEntry]()
       repeat {
-      //  print ("in repear loop")
         chartDataEntriesForCat.append(ChartDataEntry(x: dateIndex,
                                                      y: Double(catResultArray.filter{$0.month == dateIncrement.getDateFormattedForApiSearch()}.count)))
         
         dateIndex += 1.0
-        print(dateIndex)
+        print("dat",dateIndex)
         dateIncrement = dateIncrement.increment()
       } while (dateIncrement <= MonthYear(month: endMonth, year: endYear))
       
@@ -121,13 +109,14 @@ var dates: [String]?
          set.drawCircleHoleEnabled = true
          lineChartDataSets.append(set)
       }
+      
+
+
     }
     
     let data = LineChartData(dataSets: lineChartDataSets)
     data.setValueTextColor(.flatGray)
     self.lineChartView?.data = data
- 
-   
     lineChartView?.xAxis.valueFormatter = IndexAxisValueFormatter(values: dates!)
     lineChartView!.xAxis.labelCount = dates!.count
     lineChartView?.xAxis.labelPosition = .bottom
@@ -135,6 +124,7 @@ var dates: [String]?
     lineChartView?.xAxis.labelRotationAngle = -90
     lineChartView?.xAxis.granularityEnabled = true
     lineChartView?.xAxis.granularity = 1
+    
   }
 
   override func didReceiveMemoryWarning() {
@@ -145,13 +135,11 @@ var dates: [String]?
 
   func lineChartInit() {
     
-    
     lineChartView = LineChartView(frame: CGRect(x: 0, y: 0 , width: self.view.frame.size.width, height: self.view.frame.size.height))
     lineChartView!.backgroundColor = .flatWhite
     lineChartView!.isUserInteractionEnabled = true
     lineChartView!.delegate = self
     lineChartView!.gridBackgroundColor = UIColor.darkGray
-    
     lineChartView!.chartDescription?.text = ""
     lineChartView!.noDataText = "No data provided"
     
@@ -159,7 +147,6 @@ var dates: [String]?
     self.view.addSubview(lineChartView!)
   }
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-    
     print ("orientation change")
     lineChartView?.removeFromSuperview()
     lineChartInit()
@@ -173,6 +160,4 @@ var dates: [String]?
     endMonth  = defaults.integer(forKey: "endMonth")
     endYear  = defaults.integer(forKey: "endYear")
   }
-  
-  
 }

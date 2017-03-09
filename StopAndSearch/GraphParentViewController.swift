@@ -8,6 +8,8 @@
 
 import UIKit
 
+
+
 class GraphParentViewController: UIViewController, InitialisesExtendedNavBar {
   
   var extendedNavBarColor = UIColor.flatGray.withAlphaComponent(0.33)
@@ -16,7 +18,7 @@ class GraphParentViewController: UIViewController, InitialisesExtendedNavBar {
   var extendedNavBarFontSize: CGFloat  = 12
   var extendedNavBarFontColor = UIColor.flatBlack
   var extendedNavBarIsHidden = true
-  //
+
 
   
   enum TabIndex : Int {
@@ -100,7 +102,6 @@ class GraphParentViewController: UIViewController, InitialisesExtendedNavBar {
         //end date is nil, just show start date
          dateLabel.text = sd.getDateAsString()
       }
-     
     }
     getSearchNeighbourhoodID()
     
@@ -120,21 +121,21 @@ class GraphParentViewController: UIViewController, InitialisesExtendedNavBar {
  
   // MARK: - Switching Tabs Functions
   @IBAction func switchTabs(_ sender: UISegmentedControl) {
+    
     self.currentViewController!.view.removeFromSuperview()
     self.currentViewController!.removeFromParentViewController()
-    
     displayCurrentTab(sender.selectedSegmentIndex)
   }
   
   func displayCurrentTab(_ tabIndex: Int){
+     
     if let vc = viewControllerForSelectedSegmentIndex(tabIndex) {
-      
       self.addChildViewController(vc)
       vc.didMove(toParentViewController: self)
-      
       vc.view.frame = self.contentView.bounds
       self.contentView.addSubview(vc.view)
       self.currentViewController = vc
+      
     }
   }
   
@@ -151,12 +152,15 @@ class GraphParentViewController: UIViewController, InitialisesExtendedNavBar {
     case TabIndex.barchart.rawValue :
       vc = barVC
      (vc as! BarGraphViewController).data = self.data
+  
     case TabIndex.piechart.rawValue :
       vc = pieVC
       (vc as! PieViewController).data = self.data
+ 
     case TabIndex.linegraph.rawValue :
       vc = lineVC
       (vc as! LineGraphViewController).data = self.data
+
     default:
       return nil
     }

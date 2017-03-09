@@ -16,6 +16,7 @@ class PieViewController: UIViewController, ChartViewDelegate {
   var graphArray = [[SearchResult]]()
   var data: [SearchResult]?
 
+
     override func viewDidLoad() {
       
       super.viewDidLoad()
@@ -32,6 +33,7 @@ class PieViewController: UIViewController, ChartViewDelegate {
       }
 
       setChart()
+
      
     }
   
