@@ -12,10 +12,15 @@ class ExtendedNavController: UINavigationController {
     topView.endDate.textColor = .flatGrayDark
     topView.areaID.textColor = .flatGrayDark
     topView.area.textColor = .flatGrayDark
-    setTopViewFrame()
+   // setTopViewFrame()
     self.view.addSubview(topView)
+  
   }
   
+  override func viewWillLayoutSubviews() {
+    setTopViewFrame()
+    
+  }
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
   }
@@ -30,17 +35,22 @@ class ExtendedNavController: UINavigationController {
   
   
   func setTopViewFrame() {
+    print ("setting top frame")
     let nbh  = self.navigationBar.frame.size.height
     let nby  = self.navigationBar.frame.origin.y
+    print ("nbh is \(nbh)")
     topView.frame = CGRect ( x: 0 , y: nbh + nby, width: self.view.frame.size.width, height: 60)
+    print ("topView frame is \(topView.frame)")
+  }
+  
+ override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    // this only works on iphone, on ipad traits same in portrait and landscape
     
-  }
-  
-  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
     setTopViewFrame()
+  
   }
   
-  
+   
   func updateInfo(){
     let defaults = UserDefaults.standard
     let  startMonth  = defaults.integer(forKey: "startMonth")

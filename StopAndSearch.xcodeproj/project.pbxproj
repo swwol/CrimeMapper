@@ -754,6 +754,7 @@
 				PROVISIONING_PROFILE = "9b321de1-4944-4da0-8c4b-d8073d0760c0";
 				PROVISIONING_PROFILE_SPECIFIER = CrimeMapperDevelopment;
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -775,6 +776,7 @@
 				PROVISIONING_PROFILE = "01bd27d2-15ce-4d1d-a31b-1da637321869";
 				PROVISIONING_PROFILE_SPECIFIER = CrimeMapperDistribution;
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
