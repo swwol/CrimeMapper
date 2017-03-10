@@ -30,7 +30,7 @@
                                         <rect key="frame" x="0.0" y="28" width="320" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sDw-tp-5i9" id="IJP-bD-WTv">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="59"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="linecal" translatesAutoresizingMaskIntoConstraints="NO" id="QvP-3m-rAd">
@@ -59,7 +59,7 @@
                                         <rect key="frame" x="0.0" y="88" width="320" height="120"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HNv-wl-GO0" id="Rrx-58-qWJ">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="119"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coord" translatesAutoresizingMaskIntoConstraints="NO" id="2Nm-Iu-gPo">
@@ -130,18 +130,18 @@
                                 <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pBC-wf-GdR" id="fEq-CP-QGt">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="vE2-ae-FR7">
-                                            <rect key="frame" x="15" y="5" width="33.5" height="20.5"/>
+                                            <rect key="frame" x="15" y="4" width="34" height="21"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Bf5-Xv-eKx">
-                                            <rect key="frame" x="15" y="25.5" width="44" height="14.5"/>
+                                            <rect key="frame" x="15" y="25" width="44" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <nil key="textColor"/>
@@ -612,7 +612,7 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.18763355800000001" blue="0.74058915930000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" title="crime mapper" id="68A-AW-2kJ">
+                    <navigationItem key="navigationItem" title="CrimeMapper" id="68A-AW-2kJ">
                         <barButtonItem key="rightBarButtonItem" systemItem="search" id="UJ4-SS-qey">
                             <connections>
                                 <action selector="searchMap:" destination="ZAQ-5u-4bi" id="MIn-OW-jRR"/>
@@ -749,14 +749,14 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AtW-a0-rsl">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="crime mapper" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="II7-9D-Dft">
-                                        <rect key="frame" x="102" y="48" width="128" height="24"/>
-                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CrimeMapper" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="II7-9D-Dft">
+                                        <rect key="frame" x="80" y="43.5" width="230" height="33.5"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="28"/>
                                         <color key="textColor" red="0.90823972225189209" green="0.92638683319091797" blue="0.9317171573638916" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="head60" translatesAutoresizingMaskIntoConstraints="NO" id="DLv-SS-nbK">
-                                        <rect key="frame" x="21" y="30" width="60" height="60"/>
+                                        <rect key="frame" x="10" y="30" width="60" height="60"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="60" id="6VF-mi-USj"/>
                                             <constraint firstAttribute="height" constant="60" id="gH3-Xu-PfA"/>
@@ -767,9 +767,9 @@
                                 <constraints>
                                     <constraint firstAttribute="bottom" relation="lessThanOrEqual" secondItem="II7-9D-Dft" secondAttribute="bottom" constant="31" id="3yx-s4-8AF"/>
                                     <constraint firstItem="II7-9D-Dft" firstAttribute="centerY" secondItem="DLv-SS-nbK" secondAttribute="centerY" id="8vc-AE-A6T"/>
-                                    <constraint firstItem="DLv-SS-nbK" firstAttribute="leading" secondItem="AtW-a0-rsl" secondAttribute="leading" constant="21" id="MH0-XL-pfj"/>
-                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="II7-9D-Dft" secondAttribute="trailing" constant="10" id="erT-d4-VcO"/>
-                                    <constraint firstItem="II7-9D-Dft" firstAttribute="leading" secondItem="DLv-SS-nbK" secondAttribute="trailing" constant="21" id="gy9-EG-S6L"/>
+                                    <constraint firstItem="DLv-SS-nbK" firstAttribute="leading" secondItem="AtW-a0-rsl" secondAttribute="leading" constant="10" id="MH0-XL-pfj"/>
+                                    <constraint firstAttribute="trailing" secondItem="II7-9D-Dft" secondAttribute="trailing" constant="10" id="erT-d4-VcO"/>
+                                    <constraint firstItem="II7-9D-Dft" firstAttribute="leading" secondItem="DLv-SS-nbK" secondAttribute="trailing" constant="10" id="gy9-EG-S6L"/>
                                     <constraint firstAttribute="bottom" secondItem="DLv-SS-nbK" secondAttribute="bottom" constant="10" id="wg0-GK-frw"/>
                                 </constraints>
                             </view>
@@ -788,6 +788,7 @@
                     </view>
                     <connections>
                         <outlet property="tableView" destination="qFd-fr-YeB" id="1QK-Pw-q2a"/>
+                        <outlet property="titleLabel" destination="II7-9D-Dft" id="qUG-pR-huP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HGy-G5-k1h" userLabel="First Responder" sceneMemberID="firstResponder"/>

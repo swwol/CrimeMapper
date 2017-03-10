@@ -29,10 +29,14 @@ class SettingsTableViewController: UIViewController,UITableViewDelegate, UITable
   var delegate: SettingsTableViewControllerDelegate?
   var destination : String?
   
+  @IBOutlet weak var titleLabel: UILabel!
   @IBOutlet weak var tableView: UITableView!
   
     override func viewDidLoad() {
         super.viewDidLoad()
+      
+      titleLabel.adjustsFontSizeToFitWidth = true
+      titleLabel.minimumScaleFactor = 0.5
 
   //   tableView.contentInset = UIEdgeInsets(top: 60, left: 0 , bottom: 0 , right: 0)
       let headerCellNib = UINib(nibName: "CustomHeaderCell", bundle: nil)
