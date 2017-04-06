@@ -67,7 +67,6 @@ class ControlsTableViewController: UITableViewController,InitialisesExtendedNavB
     
   }
   
-  
   override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
     let cell = tableView.dequeueReusableCell(withIdentifier: "HeaderCell") as! CustomHeaderCell
     cell.categoryTitle.text = Categories.types[section]
@@ -205,16 +204,3 @@ extension ControlsTableViewController: CustomHeaderCellDelegate {
 
   }
 }
-/*
-extension ControlsTableViewController: UINavigationControllerDelegate {
-  
-  func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
-    if let controller = viewController as? MapViewController {
-      controller.extendedNavSetup()
-      checked = TwoDChecked.flatMap{$0}
-      controller.selectedCategories  = checked
-      controller.enabledSections = self.enabledSections
-   
-    }
-  }
-}*/

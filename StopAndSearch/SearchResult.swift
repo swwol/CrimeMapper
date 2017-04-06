@@ -68,5 +68,4 @@ class SearchResult: NSObject,Decodable,MKAnnotation {
   }
 }
   
- // if im a crime - i have category (title), coodinate, street,date, context. outcome, outcomedate
 

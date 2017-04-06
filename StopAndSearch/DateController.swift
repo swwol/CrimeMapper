@@ -182,18 +182,13 @@ class DateController: UIViewController, InitialisesExtendedNavBar {
   func endDateIsValid(m:Int, y: Int) -> Bool {
     // end date is valid if it is after end date, and start date is set
     
-    //guard startMonth != 0 else {
-    //  showNoStartDateSetAlert()
-   //   return false
-  //  }
-    if  MonthYear(month: m, year: y) >= MonthYear(month:startMonth, year: startYear) {
+     if  MonthYear(month: m, year: y) >= MonthYear(month:startMonth, year: startYear) {
       return true
     } else {
       showStartDateIsLaterThanEndDateAlert()
       return false
     }
   }
-  
   
   func goBack() {
     if let nav = navigationController {

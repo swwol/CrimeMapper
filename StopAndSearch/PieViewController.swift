@@ -11,14 +11,11 @@ import Charts
 
 
 class PieViewController: UIViewController, ChartViewDelegate {
-  
   var pieChartView: PieChartView?
   var graphArray = [[SearchResult]]()
   var data: [SearchResult]?
 
-
     override func viewDidLoad() {
-      
       super.viewDidLoad()
       pieChartInit()
   
@@ -31,15 +28,11 @@ class PieViewController: UIViewController, ChartViewDelegate {
           }
         }
       }
-
       setChart()
-
-     
     }
   
 
   override func viewWillAppear(_ animated: Bool) {
-  
   }
   
   func setChart() {
@@ -53,20 +46,12 @@ class PieViewController: UIViewController, ChartViewDelegate {
     pieChartDataSet.colors =  graphArray.map{$0[0].color!}
     pieChartView?.drawEntryLabelsEnabled = false
     let pieChartData = PieChartData(dataSet: pieChartDataSet)
-   pieChartView?.usePercentValuesEnabled = true
-  pieChartData.setValueFormatter(DigitValueFormatter())
-    
-    
-    
+    pieChartView?.usePercentValuesEnabled = true
+    pieChartData.setValueFormatter(DigitValueFormatter())
     pieChartView?.data = pieChartData
-   
- 
     pieChartView!.chartDescription?.text = ""
     if view.traitCollection.verticalSizeClass == .compact {
-    
     pieChartView!.legend.enabled = false
-      
-      
     }
   }
 

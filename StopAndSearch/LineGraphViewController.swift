@@ -10,7 +10,6 @@ import UIKit
 import Charts
 
 
-
 class LineGraphViewController: UIViewController, ChartViewDelegate {
   
 var lineChartView: LineChartView?
@@ -22,7 +21,6 @@ var startYear: Int = 0
 var endMonth: Int = 0
 var endYear: Int = 0
 var dates: [String]?
-
 
 override func viewDidLoad() {
   print ("loaded")
@@ -39,13 +37,11 @@ override func viewDidLoad() {
           }
         }
       }
-  
       setChart()
      }
   
   override func viewWillAppear(_ animated: Bool) {
     readData()
-    
   }
   
   func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
@@ -61,11 +57,7 @@ override func viewDidLoad() {
     marker.minimumSize = CGSize(width: 75, height: 35)
     
     lineChartView?.marker  = marker
-    
-    
-    
   }
-  
   
   func setChart() {
     
@@ -109,9 +101,6 @@ override func viewDidLoad() {
          set.drawCircleHoleEnabled = true
          lineChartDataSets.append(set)
       }
-      
-
-
     }
     
     let data = LineChartData(dataSets: lineChartDataSets)
@@ -124,7 +113,6 @@ override func viewDidLoad() {
     lineChartView?.xAxis.labelRotationAngle = -90
     lineChartView?.xAxis.granularityEnabled = true
     lineChartView?.xAxis.granularity = 1
-    
   }
 
   override func didReceiveMemoryWarning() {

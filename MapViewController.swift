@@ -144,10 +144,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
   }
   
   
-  
-  
-  
-  
   func intersectionOfPolyAndRect (poly: [CLLocationCoordinate2D], rect: MKMapRect) -> [CGPoint] {
     let rectAsMapPoints  = getCoordsFromRect(rect: rect)
     let rectAsCGPoints = convertMKMapPointsToCGPoints(rectAsMapPoints)
@@ -162,21 +158,14 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
     } else {
       return []
     }
-  
-   
-  
   }
   
   func convertCLPolyToCGPoints ( poly: [CLLocationCoordinate2D] ) -> [CGPoint] {
-    
     return poly.map {self.mapView.convert($0, toPointTo: self.view) }
-    
-    
   }
   
     
   func getCoordsFromRect (rect: MKMapRect) -> [MKMapPoint] {
-    
     let left = MKMapRectGetMinX(rect)
     let bottom = MKMapRectGetMinY(rect)
     let right = MKMapRectGetMaxX(rect)
@@ -187,7 +176,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
     let bottomRight = MKMapPoint(x: right, y: bottom)
     let coords = [bottomLeft, topLeft, topRight, bottomRight]
     return coords
-
   }
   
   func convertMKMapPointsToCGPoints( _ mapPoints : [MKMapPoint]) -> [CGPoint] {
@@ -213,8 +201,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
   
   
   func convertCGPointsPolyToCL2D(_ poly: [CGPoint]) -> [CLLocationCoordinate2D] {
- let polyAsCLL2d : [CLLocationCoordinate2D] = poly.map{self.mapView.convert($0, toCoordinateFrom: self.view)}
- return polyAsCLL2d
+    let polyAsCLL2d : [CLLocationCoordinate2D] = poly.map{self.mapView.convert($0, toCoordinateFrom: self.view)}
+    return polyAsCLL2d
   
   }
   
@@ -226,11 +214,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
     return  convertCGPointsPolyToCL2D(union)
   }
   
-  
-  
   func setSearchCoords() -> Bool{
-    
-    print ("SEARCHCOORD:setting search coords")
     
     let region  = mapView.region
     let centre  =  region.center
@@ -240,7 +224,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
     let mapRectOfCurrentSearch  = getMKMapRectFromCoords(ne: ne, sw: sw)
 
     if let ns  = neighbourhoodSquare {
-      print ("SEARCHCOORD:search coords = neighbouthoodsquare")
       searchCoords  = ns
       return true
     } else {
@@ -328,11 +311,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
     return
     }
     
- //  print (searchCoords)
-  //  let polygon = MKPolygon(coordinates: searchCoords, count: searchCoords.count)
-  //  self.mapView?.add(polygon)
-    
-    
     
   search.performSearch(coords: searchCoords ) { results in
     
@@ -351,8 +329,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Initialise
     } else {
       
       print ("I'm here because renderer is nil")
-      
-      
+
       if let wasSearched  = self.searchedArea {
         self.searchedArea = self.getUnionOfPolyAndPoly(poly1: wasSearched, poly2: self.searchCoords)
       } else {

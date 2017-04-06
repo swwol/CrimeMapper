@@ -28,9 +28,7 @@ class Search {
   let defaults = UserDefaults.standard
   let config : URLSessionConfiguration  = {
     let configuration = URLSessionConfiguration.default
-    //  configuration.httpAdditionalHeaders = SessionManager.defaultHTTPHeaders
     configuration.requestCachePolicy = .returnCacheDataElseLoad
-    //configuration.urlCache = urlCache
     return configuration
   }()
 
@@ -38,8 +36,6 @@ class Search {
   //////
   
   func cancelSearches() {
-   // delegate?.searchCompleted(true)
-  //  print ("cancelling all searches")
     sessionManager?.session.invalidateAndCancel()
   }
   
@@ -116,33 +112,20 @@ class Search {
     for (i,search) in searches.enumerated() {
       
       search.then {results -> Void in
-      // completion(results)
-     //   print (i)
-     //  print (selectedCats[i%selectedCats.count])
         self.delegate?.searchStatus(cat: selectedCats[i%selectedCats.count].category, success: true)
-     //   print ("search done for \(selectedCats[i%selectedCats.count].category)", results)
         }.catch { error in
-      //    print ("search failed for \(selectedCats[i%selectedCats.count].category)", error)
            self.delegate?.searchStatus(cat: selectedCats[i%selectedCats.count].category, success: false)
       }
     }
     
-   
-    
     when (fulfilled: searches).then  {
       results -> Void in
-      
-    
-  //    print ("all done")
-     
        let flattenedResults  = results.flatMap { $0 }
       completion(flattenedResults)
        self.delegate?.searchCompleted(true)
       
       }.catch { _ in
          self.delegate?.searchCompleted(false)
-  //     print ("errors for some cats")
-        
     }
     
   }
@@ -186,14 +169,9 @@ class Search {
     else {
       searchString = "https://data.police.uk/api/crimes-street/all-crime"
     }
-    /*
-    searchString.append( "?poly=\(coords[0].latitude),\(coords[0].longitude):\(coords[1].latitude),\(coords[1].longitude):\(coords[2].latitude),\(coords[2].longitude):\(coords[3].latitude),\(coords[3].longitude)")
-    */
-    
     searchString.append("?poly=")
     
     for (i,coord) in coords.enumerated() {
-      
       searchString.append ("\(coord.latitude),\(coord.longitude)")
       if i < coords.count - 1 {
         searchString.append(":")

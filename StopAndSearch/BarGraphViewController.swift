@@ -21,10 +21,7 @@ class BarGraphViewController: UIViewController, ChartViewDelegate{
 
   override func viewDidLoad() {
     super.viewDidLoad()
-
-    
     barChartInit()
-
       if let d = data {
         for cat in Categories.categories {
           //loop through all categories
