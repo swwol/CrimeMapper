@@ -166,7 +166,7 @@ public class FBAnnotationClusterView : MKAnnotationView {
     let totalValues:CGFloat = slices.reduce(0, {$0 + $1.value})
     
     // starting at noon (-90deg)
-    var angle:CGFloat = -CGFloat(M_PI)/2
+    var angle:CGFloat = -CGFloat(Double.pi)/2
     
     // draw each slice going counter clockwise
     for (value,color) in slices
@@ -174,7 +174,7 @@ public class FBAnnotationClusterView : MKAnnotationView {
       let path = UIBezierPath()
       
       // slice's angle is proportional to circumference 2π
-      let sliceAngle = CGFloat(M_PI)*2*value/totalValues
+      let sliceAngle = CGFloat(Double.pi)*2*value/totalValues
       // select fill color from tuple
       color.setFill()
       

@@ -412,7 +412,7 @@
 					CD7FBCA11E32AE1400DA40F1 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 249RKHUZ9S;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Maps.iOS = {
 								enabled = 1;
@@ -743,16 +743,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Sam Woolf (5QS3E27TR2)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sam Woolf (5QS3E27TR2)";
-				CURRENT_PROJECT_VERSION = 5;
-				DEVELOPMENT_TEAM = 249RKHUZ9S;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 6;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = StopAndSearch/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = net.samwoolf.CrimeMapper;
 				PRODUCT_NAME = CrimeMapper;
-				PROVISIONING_PROFILE = "9b321de1-4944-4da0-8c4b-d8073d0760c0";
-				PROVISIONING_PROFILE_SPECIFIER = CrimeMapperDevelopment;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -765,16 +765,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Sam Woolf (249RKHUZ9S)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Sam Woolf (249RKHUZ9S)";
-				CURRENT_PROJECT_VERSION = 5;
-				DEVELOPMENT_TEAM = 249RKHUZ9S;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 6;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = StopAndSearch/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = net.samwoolf.CrimeMapper;
 				PRODUCT_NAME = CrimeMapper;
-				PROVISIONING_PROFILE = "01bd27d2-15ce-4d1d-a31b-1da637321869";
-				PROVISIONING_PROFILE_SPECIFIER = CrimeMapperDistribution;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";

@@ -567,9 +567,8 @@ Check out Gloss in these cool places!
 #### SDKs/Products
 
 * [AniList](http://anilist.co) ([Unofficial iOS SDK](https://github.com/CodeEagle/AniList))
-* [Drift](http://www.drift.com) ([iOS SDK](https://github.com/Driftt/drift-sdk-ios))
 * [Phillips Hue](http://www2.meethue.com/en-US) ([Unofficial iOS SDK](https://github.com/Spriter/SwiftyHue))
-* [Skiplagged](http://skiplagged.com) ([Unofficial iOS SDK] (https://github.com/bulusoy/Skiplagged))
+* [Skiplagged](http://skiplagged.com) ([Unofficial iOS SDK](https://github.com/bulusoy/Skiplagged))
 
 #### Apps
 
@@ -585,7 +584,7 @@ Check out Gloss in these cool places!
 * [Swift Sandbox](http://swiftsandbox.io/issues/3#b1RJwo2)
 * [iOS Goodies](http://ios-goodies.com/post/127166753231/week-93)
 
-Using Gloss in your app? [Let me know.](mailto:hello@harlankellaway.com?subject=Using Gloss in my project)
+Using Gloss in your app? Let me know: hello@harlankellaway.com
 
 ## License
 

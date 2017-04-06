@@ -3,10 +3,10 @@ PODS:
   - ChameleonFramework/Default (2.1.0)
   - ChameleonFramework/Swift (2.1.0):
     - ChameleonFramework/Default
-  - Charts (3.0.1):
-    - Charts/Core (= 3.0.1)
-  - Charts/Core (3.0.1)
-  - Gloss (1.2.1)
+  - Charts (3.0.2):
+    - Charts/Core (= 3.0.2)
+  - Charts/Core (3.0.2)
+  - Gloss (1.2.4)
   - PromiseKit/Alamofire (4.1.7):
     - Alamofire (~> 4.0)
     - PromiseKit/CorePromise
@@ -38,8 +38,8 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
-  Charts: 0e84f4418e87dad6a9edde221fba37ebb51d3ba7
-  Gloss: 9ab33b8ede01e4232571d43a6bf9259b85d1de69
+  Charts: 236d6ccdd0ce6feae151d89e829a7397381a21fd
+  Gloss: 4e036074610fdb993abcb958ebcd7332588e2333
   PromiseKit: 779f2e41faf62d854e7593026ddbcb0bb5c5002d
   RSClipperWrapper: e8105534f0db6b1e03d8b92a100ea438a67a6679
 
